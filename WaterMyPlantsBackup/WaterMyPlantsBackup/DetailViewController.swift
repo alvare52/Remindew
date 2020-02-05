@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     
     
     @IBAction func plantButtonTapped(_ sender: UIButton) {
+        
         navigationController?.popViewController(animated: true)
     }
     

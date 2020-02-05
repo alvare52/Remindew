@@ -24,6 +24,12 @@ class PlantsTableViewController: UITableViewController {
         super.viewDidLoad()
         addPlantIcon.tintColor = .systemGreen
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // show login screen when view did appear
+        //performSegue(withIdentifier: "LoginModalSegue", sender: self)
+    }
 
     // MARK: - Table view data source
 

@@ -121,8 +121,8 @@
 		1B0987F023EA61DF000033FA /* WaterMyPlantsBackup */ = {
 			isa = PBXGroup;
 			children = (
-				1B09882523EA625F000033FA /* Model Controllers */,
 				1B09882423EA6259000033FA /* Model */,
+				1B09882523EA625F000033FA /* Model Controllers */,
 				1B09882323EA6251000033FA /* View Controllers */,
 				1B09882223EA624B000033FA /* Views */,
 				1B09882123EA6237000033FA /* Resources */,
