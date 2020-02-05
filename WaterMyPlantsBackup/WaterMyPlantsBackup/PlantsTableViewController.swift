@@ -13,7 +13,7 @@ import UIKit
 // LoginSegue ?
 class PlantsTableViewController: UITableViewController {
     
-    var dummyArray: [String] = ["Plant 1", "Plant 2", "Plant 3"]
+    var dummyArray: [String] = ["\"Lucky\" - Daisy", "\"Spot\" - Rose", "\"Grace\" - Lily"]
 
     @IBOutlet weak var userIcon: UIBarButtonItem!
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
@@ -44,6 +44,10 @@ class PlantsTableViewController: UITableViewController {
         // Configure the cell...
         let testCell = dummyArray[indexPath.row]
         cell.textLabel?.text = testCell
+        //cell.textLabel?.textColor = .systemGreen // change to custom green
+        cell.accessoryType = .disclosureIndicator
+        cell.detailTextLabel?.text = "Every 3 Days - 6:00PM"
+        //cell.detailTextLabel?.textColor = .systemBlue
         
         return cell
     }

@@ -29,7 +29,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         plantButton.layer.cornerRadius = 5.0
-        backButton.backBarButtonItem?.tintColor = .red
         // Do any additional setup after loading the view.
     }
     
