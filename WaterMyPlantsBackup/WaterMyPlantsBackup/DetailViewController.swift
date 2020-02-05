@@ -30,7 +30,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        datePicker.minimumDate = Date()
         plantButton.layer.cornerRadius = 5.0
-        // Do any additional setup after loading the view.
     }
 }

@@ -8,13 +8,8 @@
 
 import UIKit
 import CoreData
-// PlantCell
-// AddPlantSegue
-// DetailPlantSegue
-// LoginSegue ?
-// EditUserSegue
 
-// TEST
+// TEST, switch to fetchresultscontroller later
 var testPlants: [FakePlant] = [FakePlant(nickname: "Jackie",
       species: "Tulip",
       water_schedule: Date(timeIntervalSinceNow: 3),
@@ -62,8 +57,9 @@ class PlantsTableViewController: UITableViewController {
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
+        //formatter.dateStyle = .short
+        formatter.dateFormat = "EEEE MMM d, h:mm a"
+        //formatter.timeStyle = .short
         return formatter
     }
     
@@ -77,31 +73,33 @@ class PlantsTableViewController: UITableViewController {
         addPlantIcon.tintColor = .systemGreen
         startTimer()
         
+        // CHANGE BACK TO VIEWDIDAPPEAR LATER
         performSegue(withIdentifier: "LoginModalSegue", sender: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // show login screen when view did appear
+        // THIS IS WHERE PERFORMSEGUE SHOULD BE LATER
         //performSegue(withIdentifier: "LoginModalSegue", sender: self)
         tableView.reloadData()
     }
     
-    /// Main timer that is used to check all events being tracked
+    /// Main timer that is used to check all plants being tracked
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(timer:))
         RunLoop.current.add(timer!, forMode: .common)
         timer?.tolerance = 0.1
     }
     
-    /// Updates all events, removes them when finished and displays alert (or notification)
+    /// Updates all plants and displays alert
     func updateTimer(timer: Timer) {
         
         for fakePlant in testPlants {
             if fakePlant.water_schedule <= Date() {
                 print("WATER YOUR PLANT")
-                localAlert(fakePlant: fakePlant)
                 fakePlant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * fakePlant.frequency))
+                localAlert(fakePlant: fakePlant)
                 //testPlants.remove(at: testPlants.firstIndex(of: fakePlant)!)
                 tableView.reloadData()
             }
@@ -109,7 +107,8 @@ class PlantsTableViewController: UITableViewController {
     }
     
     func localAlert(fakePlant: FakePlant) {
-        let alert = UIAlertController(title: "Water your plant!", message: "Start watering \(fakePlant.nickname)!", preferredStyle: .alert)
+        let nextDate: String = dateFormatter.string(from: fakePlant.water_schedule)
+        let alert = UIAlertController(title: "Water your plant!", message: "Start watering \(fakePlant.nickname)! \n Next watering date: \(nextDate)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
@@ -131,10 +130,13 @@ class PlantsTableViewController: UITableViewController {
     
         // TEST
         let testCell = testPlants[indexPath.row]
-        cell.textLabel?.text = "\(testCell.nickname) - \(testCell.species)"
+        cell.textLabel?.text = "\"\(testCell.nickname)\" - \(testCell.species)"
         cell.textLabel?.textColor = .systemGreen
         cell.accessoryType = .disclosureIndicator
-        cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule))"
+        if testCell.frequency == 1 {
+            cell.detailTextLabel?.text = "Every day - \(dateFormatter.string(from: testCell.water_schedule))"
+        } else {
+            cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule))" }
         // TEST
         
         return cell
