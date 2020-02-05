@@ -11,15 +11,10 @@ import UIKit
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var signInSegment: UISegmentedControl!
-    
     @IBOutlet weak var usernameTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var phoneTextField: UITextField!
-    
     @IBOutlet weak var signInButton: UIButton!
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
@@ -28,12 +23,16 @@ class LoginViewController: UIViewController {
             signInButton.setTitle("Sign Up", for: .normal)
             signInButton.backgroundColor = .systemGreen
             signInButton.performFlare()
+            emailTextField.isHidden.toggle()
+            phoneTextField.isHidden.toggle()
         }
         else {
             print("Log In")
             signInButton.setTitle("Log In", for: .normal)
             signInButton.backgroundColor = .systemBlue
             signInButton.performFlare()
+            emailTextField.isHidden.toggle()
+            phoneTextField.isHidden.toggle()
         }
     }
     
@@ -60,6 +59,7 @@ class LoginViewController: UIViewController {
 
 }
 
+// Animation
 extension UIView {
   func performFlare() {
     func flare()   { transform = CGAffineTransform(scaleX: 1.1, y: 1.1) }
