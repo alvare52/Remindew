@@ -17,6 +17,14 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var plantButton: UIButton!
     @IBOutlet weak var backButton: UINavigationItem!
     
+    // TEST
+    var fakePlant: FakePlant? {
+        didSet {
+            updateViews()
+        }
+    }
+    // TEST
+    
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
         // TEST
@@ -32,5 +40,27 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         datePicker.minimumDate = Date()
         plantButton.layer.cornerRadius = 5.0
+        updateViews()
+    }
+    
+    func updateViews() {
+        print("update views")
+        guard isViewLoaded else {return}
+        
+        title = fakePlant?.nickname ?? "Add New Plant"
+        nicknameTextField.text = fakePlant?.nickname ?? ""
+        speciesTextField.text = fakePlant?.species ?? ""
+        frequencySegment.selectedSegmentIndex = (fakePlant?.frequency ?? 1) - 1
+        datePicker.date = fakePlant?.water_schedule ?? Date()
+        if fakePlant != nil {
+            plantButton.setTitle("Edit Plant", for: .normal)
+            plantButton.backgroundColor = .systemBlue
+            plantButton.performFlare()
+        }
+        else {
+            plantButton.setTitle("Add Plant", for: .normal)
+            plantButton.backgroundColor = .systemGreen
+            plantButton.performFlare()
+        }
     }
 }

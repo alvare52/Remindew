@@ -160,13 +160,18 @@ class PlantsTableViewController: UITableViewController {
         // DetailViewController (to ADD plant)
         if segue.identifier == "AddPlantSegue" {
             print("AddPlantSegue")
-            //guard let detailVC = segue.destination as? DetailViewController else {return}
+            //if let detailVC = segue.destination as? DetailViewController else {return}
             
         }
         
         // DetailViewController (to EDIT plant)
         if segue.identifier == "DetailPlantSegue" {
             print("DetailPlantSegue")
+            if let detailVC = segue.destination as? DetailViewController, let indexPath = tableView.indexPathForSelectedRow {
+                detailVC.fakePlant = testPlants[indexPath.row]
+                // detailVC.plant = fetchedResultController.object(at: indexPath) // and the controller too
+            }
+            
         }
         
         // UserViewController (to EDIT user)
