@@ -100,7 +100,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Water My Plants" id="EK6-Ws-JkZ">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="person" catalog="system" id="q4J-ym-dyu">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="person.fill" catalog="system" id="q4J-ym-dyu">
                             <connections>
                                 <segue destination="Kcj-oa-ai6" kind="show" identifier="EditUserSegue" id="7gp-np-wlF"/>
                             </connections>
@@ -111,6 +111,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addPlantIcon" destination="kmi-s3-Tfa" id="S3J-CK-81G"/>
+                        <outlet property="userIcon" destination="q4J-ym-dyu" id="Pzs-eH-zlL"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cf7-ir-5Mj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -199,6 +203,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw"/>
                     <connections>
+                        <outlet property="backButton" destination="LEP-xb-JEw" id="awJ-Hw-Mgm"/>
                         <outlet property="datePicker" destination="L3N-yZ-8K4" id="gSd-29-F9h"/>
                         <outlet property="frequencySegment" destination="5b8-XG-hQX" id="ymn-Ug-4V1"/>
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
@@ -230,7 +235,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="person" catalog="system" width="64" height="58"/>
+        <image name="person.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Jqh-rC-9Yu"/>

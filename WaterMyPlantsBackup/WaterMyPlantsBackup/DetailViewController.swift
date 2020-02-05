@@ -19,6 +19,9 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var plantButton: UIButton!
     
+    @IBOutlet weak var backButton: UINavigationItem!
+    
+    
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
@@ -26,6 +29,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         plantButton.layer.cornerRadius = 5.0
+        backButton.backBarButtonItem?.tintColor = .red
         // Do any additional setup after loading the view.
     }
     

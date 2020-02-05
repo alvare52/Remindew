@@ -15,9 +15,12 @@ class PlantsTableViewController: UITableViewController {
     
     var dummyArray: [String] = ["Plant 1", "Plant 2", "Plant 3"]
 
+    @IBOutlet weak var userIcon: UIBarButtonItem!
+    @IBOutlet weak var addPlantIcon: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addPlantIcon.tintColor = .systemGreen
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
