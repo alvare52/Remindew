@@ -16,21 +16,21 @@ import UIKit
 // TEST
 var testPlants: [FakePlant] = [FakePlant(nickname: "Jackie",
       species: "Tulip",
-      water_schedule: Date(timeIntervalSinceNow: 60),
+      water_schedule: Date(timeIntervalSinceNow: 3),
       last_watered: nil,
       frequency: 3,
       image_url: nil,
       id: 1),
 FakePlant(nickname: "Tanya",
       species: "Dandelion",
-      water_schedule: Date(timeIntervalSinceNow: 190),
+      water_schedule: Date(timeIntervalSinceNow: 9),
       last_watered: nil,
       frequency: 2,
       image_url: nil,
       id: 2),
 FakePlant(nickname: "Paula",
       species: "Rose",
-      water_schedule: Date(timeIntervalSinceNow: 340),
+      water_schedule: Date(timeIntervalSinceNow: 15),
       last_watered: nil,
       frequency: 1,
       image_url: nil,
@@ -43,9 +43,12 @@ class PlantsTableViewController: UITableViewController {
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
+        formatter.dateStyle = .short
         formatter.timeStyle = .short
         return formatter
     }
+    
+    var timer: Timer?
 
     @IBOutlet weak var userIcon: UIBarButtonItem!
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
@@ -53,6 +56,7 @@ class PlantsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addPlantIcon.tintColor = .systemGreen
+        startTimer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,10 +66,33 @@ class PlantsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    /// Main timer that is used to check all events being tracked
     func startTimer() {
-        
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(timer:))
+        RunLoop.current.add(timer!, forMode: .common)
+        timer?.tolerance = 0.1
     }
-
+    
+    /// Updates all events, removes them when finished and displays alert (or notification)
+    func updateTimer(timer: Timer) {
+        
+        for fakePlant in testPlants {
+            if fakePlant.water_schedule <= Date() {
+                print("WATER YOUR PLANT")
+                localAlert(fakePlant: fakePlant)
+                fakePlant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * fakePlant.frequency))
+                //testPlants.remove(at: testPlants.firstIndex(of: fakePlant)!)
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    func localAlert(fakePlant: FakePlant) {
+        let alert = UIAlertController(title: "Water your plant!", message: "Start watering \(fakePlant.nickname)!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -127,7 +154,12 @@ class PlantsTableViewController: UITableViewController {
 }
 
 // TEST
-class FakePlant {
+class FakePlant: Equatable {
+    
+    static func == (lhs: FakePlant, rhs: FakePlant) -> Bool {
+        return lhs.nickname == rhs.nickname && lhs.species == rhs.species
+    }
+    
     var nickname: String
     var species: String
     var water_schedule: Date
