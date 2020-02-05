@@ -36,6 +36,9 @@
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Save Changes"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="Kcj-oa-ai6" eventType="touchUpInside" id="dVo-Zr-4X6"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -59,6 +62,12 @@
                         <viewLayoutGuide key="safeArea" id="ewd-iW-dpa"/>
                     </view>
                     <navigationItem key="navigationItem" title="Jorge" id="2d9-LA-Deg"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="5iu-dL-jR0" id="eRB-XT-iEv"/>
+                        <outlet property="passwordTextField" destination="Lwq-dK-HfB" id="aa3-Qy-Xgz"/>
+                        <outlet property="phoneTextField" destination="bc6-yI-cQD" id="hLe-pT-k2Z"/>
+                        <outlet property="saveButton" destination="nHp-rd-hHD" id="t0r-Ke-csq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ik1-uP-iJj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -162,6 +171,9 @@
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Add Plant"/>
+                                <connections>
+                                    <action selector="plantButtonTapped:" destination="egV-2b-yvb" eventType="touchUpInside" id="djg-oV-9hh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -186,6 +198,13 @@
                         <viewLayoutGuide key="safeArea" id="UYe-ih-km5"/>
                     </view>
                     <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw"/>
+                    <connections>
+                        <outlet property="datePicker" destination="L3N-yZ-8K4" id="gSd-29-F9h"/>
+                        <outlet property="frequencySegment" destination="5b8-XG-hQX" id="ymn-Ug-4V1"/>
+                        <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
+                        <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
+                        <outlet property="speciesTextField" destination="ucM-Fj-27g" id="p73-rD-hQY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjs-sh-Ez5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

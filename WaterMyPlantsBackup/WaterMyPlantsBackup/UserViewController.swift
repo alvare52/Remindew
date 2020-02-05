@@ -9,10 +9,18 @@
 import UIKit
 
 class UserViewController: UIViewController {
-
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var phoneTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var saveButton: UIButton!
+    
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        saveButton.layer.cornerRadius = 5.0
         // Do any additional setup after loading the view.
     }
     

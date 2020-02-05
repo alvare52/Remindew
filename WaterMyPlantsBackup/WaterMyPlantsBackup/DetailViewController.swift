@@ -10,9 +10,22 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var nicknameTextField: UITextField!
+    
+    @IBOutlet weak var speciesTextField: UITextField!
+    
+    @IBOutlet weak var frequencySegment: UISegmentedControl!
+    
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var plantButton: UIButton!
+    
+    @IBAction func plantButtonTapped(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        plantButton.layer.cornerRadius = 5.0
         // Do any additional setup after loading the view.
     }
     
