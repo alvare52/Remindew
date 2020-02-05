@@ -14,11 +14,16 @@
 		1B0987FE23EA61E5000033FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0987FC23EA61E5000033FA /* LaunchScreen.storyboard */; };
 		1B09880923EA61E5000033FA /* WaterMyPlantsBackupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09880823EA61E5000033FA /* WaterMyPlantsBackupTests.swift */; };
 		1B09881423EA61E5000033FA /* WaterMyPlantsBackupUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09881323EA61E5000033FA /* WaterMyPlantsBackupUITests.swift */; };
-		1B09882723EA63F5000033FA /* PlantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882623EA63F5000033FA /* PlantTableViewCell.swift */; };
 		1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882823EA640E000033FA /* PlantsTableViewController.swift */; };
 		1B09882B23EA643E000033FA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882A23EA643E000033FA /* DetailViewController.swift */; };
 		1B09882D23EA6451000033FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882C23EA6451000033FA /* LoginViewController.swift */; };
 		1B09882F23EA6478000033FA /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882E23EA6478000033FA /* UserViewController.swift */; };
+		1B09883223EA928D000033FA /* Plants.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883023EA928D000033FA /* Plants.xcdatamodeld */; };
+		1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883323EA9415000033FA /* CoreDataStack.swift */; };
+		1B09883623EA9444000033FA /* User+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883523EA9444000033FA /* User+Convenience.swift */; };
+		1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883723EA9451000033FA /* Plant+Convenience.swift */; };
+		1B09883A23EA9461000033FA /* UserRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883923EA9461000033FA /* UserRepresentation.swift */; };
+		1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883B23EA9475000033FA /* PlantRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,11 +57,16 @@
 		1B09880F23EA61E5000033FA /* WaterMyPlantsBackupUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaterMyPlantsBackupUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B09881323EA61E5000033FA /* WaterMyPlantsBackupUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMyPlantsBackupUITests.swift; sourceTree = "<group>"; };
 		1B09881523EA61E5000033FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1B09882623EA63F5000033FA /* PlantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantTableViewCell.swift; sourceTree = "<group>"; };
 		1B09882823EA640E000033FA /* PlantsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTableViewController.swift; sourceTree = "<group>"; };
 		1B09882A23EA643E000033FA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		1B09882C23EA6451000033FA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1B09882E23EA6478000033FA /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		1B09883123EA928D000033FA /* Plants.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Plants.xcdatamodel; sourceTree = "<group>"; };
+		1B09883323EA9415000033FA /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		1B09883523EA9444000033FA /* User+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Convenience.swift"; sourceTree = "<group>"; };
+		1B09883723EA9451000033FA /* Plant+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plant+Convenience.swift"; sourceTree = "<group>"; };
+		1B09883923EA9461000033FA /* UserRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepresentation.swift; sourceTree = "<group>"; };
+		1B09883B23EA9475000033FA /* PlantRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRepresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,11 +167,10 @@
 		1B09882323EA6251000033FA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1B09882623EA63F5000033FA /* PlantTableViewCell.swift */,
 				1B09882823EA640E000033FA /* PlantsTableViewController.swift */,
 				1B09882A23EA643E000033FA /* DetailViewController.swift */,
-				1B09882C23EA6451000033FA /* LoginViewController.swift */,
 				1B09882E23EA6478000033FA /* UserViewController.swift */,
+				1B09882C23EA6451000033FA /* LoginViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -169,6 +178,12 @@
 		1B09882423EA6259000033FA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1B09883023EA928D000033FA /* Plants.xcdatamodeld */,
+				1B09883323EA9415000033FA /* CoreDataStack.swift */,
+				1B09883523EA9444000033FA /* User+Convenience.swift */,
+				1B09883723EA9451000033FA /* Plant+Convenience.swift */,
+				1B09883923EA9461000033FA /* UserRepresentation.swift */,
+				1B09883B23EA9475000033FA /* PlantRepresentation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,13 +326,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B09883223EA928D000033FA /* Plants.xcdatamodeld in Sources */,
 				1B09882F23EA6478000033FA /* UserViewController.swift in Sources */,
 				1B09882D23EA6451000033FA /* LoginViewController.swift in Sources */,
 				1B0987F223EA61DF000033FA /* AppDelegate.swift in Sources */,
-				1B09882723EA63F5000033FA /* PlantTableViewCell.swift in Sources */,
 				1B09882B23EA643E000033FA /* DetailViewController.swift in Sources */,
+				1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */,
 				1B0987F423EA61DF000033FA /* SceneDelegate.swift in Sources */,
 				1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */,
+				1B09883A23EA9461000033FA /* UserRepresentation.swift in Sources */,
+				1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */,
+				1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */,
+				1B09883623EA9444000033FA /* User+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +666,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1B09883023EA928D000033FA /* Plants.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1B09883123EA928D000033FA /* Plants.xcdatamodel */,
+			);
+			currentVersion = 1B09883123EA928D000033FA /* Plants.xcdatamodel */;
+			path = Plants.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1B0987E623EA61DE000033FA /* Project object */;
 }

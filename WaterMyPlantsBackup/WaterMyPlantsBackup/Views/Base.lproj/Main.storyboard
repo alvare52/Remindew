@@ -82,7 +82,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlantCell" textLabel="gsa-qQ-voJ" detailTextLabel="lbl-Ed-Vjp" rowHeight="149" style="IBUITableViewCellStyleSubtitle" id="vys-Ep-rzi" customClass="PlantTableViewCell" customModule="WaterMyPlantsBackup" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlantCell" textLabel="gsa-qQ-voJ" detailTextLabel="lbl-Ed-Vjp" rowHeight="149" style="IBUITableViewCellStyleSubtitle" id="vys-Ep-rzi">
                                 <rect key="frame" x="0.0" y="28" width="414" height="149"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vys-Ep-rzi" id="Vgl-60-7BC">
