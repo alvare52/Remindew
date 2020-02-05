@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--User View Controller-->
+        <!--Jorge-->
         <scene sceneID="aih-2M-aXG">
             <objects>
                 <viewController id="Kcj-oa-ai6" customClass="UserViewController" customModule="WaterMyPlantsBackup" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,6 +17,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ewd-iW-dpa"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Jorge" id="2d9-LA-Deg"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ik1-uP-iJj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -31,13 +32,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vys-Ep-rzi" customClass="PlantTableViewCell" customModule="WaterMyPlantsBackup" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlantCell" rowHeight="149" id="vys-Ep-rzi" customClass="PlantTableViewCell" customModule="WaterMyPlantsBackup" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="149"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vys-Ep-rzi" id="Vgl-60-7BC">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="egV-2b-yvb" kind="show" identifier="DetailPlantSegue" id="Jqh-rC-9Yu"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -46,12 +50,21 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Water My Plants" id="EK6-Ws-JkZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kmi-s3-Tfa"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="person" catalog="system" id="q4J-ym-dyu">
+                            <connections>
+                                <segue destination="Kcj-oa-ai6" kind="show" identifier="EditUserSegue" id="7gp-np-wlF"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kmi-s3-Tfa">
+                            <connections>
+                                <segue destination="egV-2b-yvb" kind="show" identifier="AddPlantSegue" id="2xQ-mZ-YBa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cf7-ir-5Mj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="841" y="76"/>
+            <point key="canvasLocation" x="840.57971014492762" y="75.669642857142847"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="33c-rd-MqP">
@@ -68,20 +81,74 @@
             </objects>
             <point key="canvasLocation" x="841" y="749"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Plant-->
         <scene sceneID="ZYc-Ey-tPq">
             <objects>
                 <viewController id="egV-2b-yvb" customClass="DetailViewController" customModule="WaterMyPlantsBackup" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="afK-Kd-SPE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nickname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yRG-nk-QcH">
+                                <rect key="frame" x="20" y="140" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Species" textAlignment="natural" minimumFontSize="17" id="ucM-Fj-27g">
+                                <rect key="frame" x="20" y="182" width="374" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="L3N-yZ-8K4">
+                                <rect key="frame" x="0.0" y="263" width="414" height="216"/>
+                            </datePicker>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5b8-XG-hQX">
+                                <rect key="frame" x="20" y="224" width="374" height="32"/>
+                                <segments>
+                                    <segment title="1"/>
+                                    <segment title="2"/>
+                                    <segment title="3"/>
+                                    <segment title="4"/>
+                                    <segment title="5"/>
+                                    <segment title="6"/>
+                                    <segment title="7"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-md-hGl">
+                                <rect key="frame" x="20" y="487" width="374" height="42"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Add Plant"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="5b8-XG-hQX" firstAttribute="top" secondItem="ucM-Fj-27g" secondAttribute="bottom" constant="8" id="2Jp-dU-PuB"/>
+                            <constraint firstItem="ucM-Fj-27g" firstAttribute="top" secondItem="yRG-nk-QcH" secondAttribute="bottom" constant="8" id="3wC-RF-iNl"/>
+                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="5b8-XG-hQX" secondAttribute="bottom" constant="8" id="9AG-AI-Ifd"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="5b8-XG-hQX" secondAttribute="trailing" constant="20" id="Bh0-aL-Pr8"/>
+                            <constraint firstItem="yRG-nk-QcH" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="CgN-kx-yZS"/>
+                            <constraint firstItem="ucM-Fj-27g" firstAttribute="top" secondItem="yRG-nk-QcH" secondAttribute="bottom" constant="8" id="LZf-GE-MJ7"/>
+                            <constraint firstItem="5b8-XG-hQX" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="Orq-Lj-RIR"/>
+                            <constraint firstItem="yRG-nk-QcH" firstAttribute="top" secondItem="UYe-ih-km5" secondAttribute="top" id="T2w-EX-cLS"/>
+                            <constraint firstItem="Jc8-md-hGl" firstAttribute="top" secondItem="L3N-yZ-8K4" secondAttribute="bottom" constant="8" id="VYg-w2-S9y"/>
+                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="trailing" secondItem="UYe-ih-km5" secondAttribute="trailing" id="YmD-Qo-HK0"/>
+                            <constraint firstItem="Jc8-md-hGl" firstAttribute="top" secondItem="L3N-yZ-8K4" secondAttribute="bottom" constant="8" id="aXf-1j-7xQ"/>
+                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" id="fSw-AC-oC8"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="Jc8-md-hGl" secondAttribute="trailing" constant="20" id="grM-AG-o1A"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="yRG-nk-QcH" secondAttribute="trailing" constant="20" id="gtG-72-bud"/>
+                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="5b8-XG-hQX" secondAttribute="bottom" constant="8" id="pMC-2L-4aK"/>
+                            <constraint firstItem="Jc8-md-hGl" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="txq-14-LHF"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="UYe-ih-km5"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjs-sh-Ez5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1648" y="79"/>
+            <point key="canvasLocation" x="1647.826086956522" y="78.348214285714278"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z4s-Od-tVP">
@@ -102,4 +169,10 @@
             <point key="canvasLocation" x="76.811594202898561" y="75.669642857142847"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="person" catalog="system" width="64" height="58"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Jqh-rC-9Yu"/>
+    </inferredMetricsTieBreakers>
 </document>
