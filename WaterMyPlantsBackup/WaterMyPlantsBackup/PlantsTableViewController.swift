@@ -12,10 +12,40 @@ import UIKit
 // DetailPlantSegue
 // LoginSegue ?
 // EditUserSegue
+
+// TEST
+var testPlants: [FakePlant] = [FakePlant(nickname: "Jackie",
+      species: "Tulip",
+      water_schedule: Date(timeIntervalSinceNow: 60),
+      last_watered: nil,
+      frequency: 3,
+      image_url: nil,
+      id: 1),
+FakePlant(nickname: "Tanya",
+      species: "Dandelion",
+      water_schedule: Date(timeIntervalSinceNow: 190),
+      last_watered: nil,
+      frequency: 2,
+      image_url: nil,
+      id: 2),
+FakePlant(nickname: "Paula",
+      species: "Rose",
+      water_schedule: Date(timeIntervalSinceNow: 340),
+      last_watered: nil,
+      frequency: 1,
+      image_url: nil,
+      id: 3)]
+// TEST
+
 class PlantsTableViewController: UITableViewController {
     
     // MARK: - Properties
-    var dummyArray: [String] = ["\"Lucky\" - Daisy", "\"Spot\" - Rose", "\"Grace\" - Lily"]
+    
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter
+    }
 
     @IBOutlet weak var userIcon: UIBarButtonItem!
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
@@ -29,6 +59,11 @@ class PlantsTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         // show login screen when view did appear
         //performSegue(withIdentifier: "LoginModalSegue", sender: self)
+        tableView.reloadData()
+    }
+    
+    func startTimer() {
+        
     }
 
     // MARK: - Table view data source
@@ -38,19 +73,21 @@ class PlantsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyArray.count
+        return testPlants.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath)
 
         // Configure the cell...
-        let testCell = dummyArray[indexPath.row]
-        cell.textLabel?.text = testCell
+    
+        // TEST
+        let testCell = testPlants[indexPath.row]
+        cell.textLabel?.text = "\(testCell.nickname) - \(testCell.species)"
         cell.textLabel?.textColor = .systemGreen
         cell.accessoryType = .disclosureIndicator
-        cell.detailTextLabel?.text = "Every 3 Days - 6:00PM"
-        //cell.detailTextLabel?.textColor = .systemBlue
+        cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule))"
+        // TEST
         
         return cell
     }
@@ -73,6 +110,8 @@ class PlantsTableViewController: UITableViewController {
         // DetailViewController (to ADD plant)
         if segue.identifier == "AddPlantSegue" {
             print("AddPlantSegue")
+            //guard let detailVC = segue.destination as? DetailViewController else {return}
+            
         }
         
         // DetailViewController (to EDIT plant)
@@ -86,3 +125,25 @@ class PlantsTableViewController: UITableViewController {
         }
     }
 }
+
+// TEST
+class FakePlant {
+    var nickname: String
+    var species: String
+    var water_schedule: Date
+    var last_watered: Date?
+    var frequency: Int
+    var image_url: String?
+    var id: Int
+    
+    init(nickname: String, species: String, water_schedule: Date, last_watered: Date?, frequency: Int = 0, image_url: String?, id: Int) {
+        self.nickname = nickname
+        self.species = species
+        self.water_schedule = water_schedule
+        self.last_watered = last_watered
+        self.frequency = frequency
+        self.image_url = image_url
+        self.id = id
+    }
+}
+// TEST
