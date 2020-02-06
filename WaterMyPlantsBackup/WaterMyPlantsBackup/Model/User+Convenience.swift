@@ -54,6 +54,4 @@ extension User {
                   user_id: userRepresentation.user_id,
                   context: context)
     }
-    
-    
 }

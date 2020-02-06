@@ -64,6 +64,7 @@ class PlantsTableViewController: UITableViewController {
     }
     
     var timer: Timer?
+    let userController = UserController()
 
     @IBOutlet weak var userIcon: UIBarButtonItem!
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
@@ -96,6 +97,7 @@ class PlantsTableViewController: UITableViewController {
     func updateTimer(timer: Timer) {
         
         for fakePlant in testPlants {
+            // convert?
             if fakePlant.water_schedule <= Date() {
                 print("WATER YOUR PLANT")
                 fakePlant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * fakePlant.frequency))
@@ -156,6 +158,11 @@ class PlantsTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "LoginModalSegue" {
+            guard let destination = segue.destination as? LoginViewController else {return}
+            destination.userController = self.userController
+        }
         
         // DetailViewController (to ADD plant)
         if segue.identifier == "AddPlantSegue" {

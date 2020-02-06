@@ -8,7 +8,15 @@
 
 import UIKit
 
+enum LoginType {
+    case signUp
+    case logIn
+}
+
 class LoginViewController: UIViewController {
+    
+    var loginType = LoginType.signUp
+    var userController: UserController?
 
     @IBOutlet weak var signInSegment: UISegmentedControl!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -19,25 +27,74 @@ class LoginViewController: UIViewController {
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            print("Sign Up")
-            signInButton.setTitle("Sign Up", for: .normal)
-            signInButton.backgroundColor = .systemGreen
-            signInButton.performFlare()
-            emailTextField.isHidden.toggle()
-            phoneTextField.isHidden.toggle()
+            changeToSignUp()
         }
         else {
-            print("Log In")
-            signInButton.setTitle("Log In", for: .normal)
-            signInButton.backgroundColor = .systemBlue
-            signInButton.performFlare()
-            emailTextField.isHidden.toggle()
-            phoneTextField.isHidden.toggle()
+            changeToLogIn()
         }
+    }
+    
+    func changeToSignUp() {
+        signInSegment.selectedSegmentIndex = 0
+        loginType = .signUp
+        print("Sign Up")
+        signInButton.setTitle("Sign Up", for: .normal)
+        signInButton.backgroundColor = .systemGreen
+        signInButton.performFlare()
+        emailTextField.isHidden = false
+        phoneTextField.isHidden = false
+    }
+    
+    func changeToLogIn() {
+        signInSegment.selectedSegmentIndex = 1
+        loginType = .logIn
+        print("Log In")
+        signInButton.setTitle("Log In", for: .normal)
+        signInButton.backgroundColor = .systemBlue
+        signInButton.performFlare()
+        emailTextField.isHidden = false // change later to true
+        phoneTextField.isHidden = false // change later to true
     }
     
     @IBAction func signInButtonTapped(_ sender: UIButton) {
         print("signInButtonTapped")
+        
+        guard let userController = userController else {return}
+        
+        if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text, let phoneString = phoneTextField.text, !username.isEmpty, !password.isEmpty, !email.isEmpty, !phoneString.isEmpty {
+            
+            let phone = Int(phoneString) ?? 69
+            let user = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
+            
+            // Sign Up
+            if loginType == .signUp {
+                userController.signUp(userRep: user) { (error) in
+                    if let error = error {
+                        print("Error occured during sign up in signInButtonTapped() : \(error)")
+                    } else {
+                        DispatchQueue.main.async {
+                            print("SIGN UP SUCCESS")
+                            self.changeToLogIn()
+                        }
+                    }
+                }
+            }
+            
+            // Log In
+            else {
+                print("TRYING TO LOG IN")
+                userController.logIn(userRep: user) { (error) in
+                    if let error = error {
+                        print("Error occured during log in in signInButtonTapped(): \(error)")
+                    } else {
+                        DispatchQueue.main.async {
+                            print("LOG IN SUCCESS")
+                        }
+                    }
+                }
+            }
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     
