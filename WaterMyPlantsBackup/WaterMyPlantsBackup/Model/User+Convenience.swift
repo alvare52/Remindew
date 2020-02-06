@@ -33,14 +33,14 @@ extension User {
                                         password: String,
                                         email: String,
                                         phone_number: Int,
-                                        user_id: Int,
+                                        user_id: Int?,
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.username = username
         self.password = password
         self.email = email
         self.phone_number = Int16(phone_number)
-        self.user_id = Int16(user_id)
+        //self.user_id = Int16(user_id) //?
     }
     
     // Converting UserRepresentation (coming from JSON) into a managed object for Core Data

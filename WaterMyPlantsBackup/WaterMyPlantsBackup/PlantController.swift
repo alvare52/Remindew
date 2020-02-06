@@ -8,9 +8,7 @@
 
 import Foundation
 import CoreData
-
-let baseURL = URL(string: "")! // enter backend url or firebase url here
-
+// Do I need this?
 class PlantController {
     
     typealias CompletionHandler = (Error?) -> Void

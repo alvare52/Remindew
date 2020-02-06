@@ -14,7 +14,7 @@
         <attribute name="email" attributeType="String" minValueString="1"/>
         <attribute name="password" attributeType="String" minValueString="1"/>
         <attribute name="phone_number" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="user_id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="username" attributeType="String" minValueString="1"/>
         <relationship name="plants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Plant" inverseName="user" inverseEntity="Plant"/>
     </entity>

@@ -13,5 +13,5 @@ struct UserRepresentation: Codable {
     var password: String
     var email: String
     var phone_number: Int
-    var user_id: Int
+    var user_id: Int?
 }
