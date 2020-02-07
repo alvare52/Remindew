@@ -54,6 +54,7 @@ class UserController {
             }
             let jsonDecoder = JSONDecoder()
             jsonDecoder.dateDecodingStrategy = .iso8601
+            
             do {
                 let plantRepresentations = Array(try jsonDecoder.decode([String: PlantRepresentation].self, from: data).values)
                 try self.updatePlants(with: plantRepresentations)
@@ -245,7 +246,10 @@ class UserController {
             representation.identifier = uuid
             plant.identifier = uuid
             try CoreDataStack.shared.save()
-            request.httpBody = try JSONEncoder().encode(representation)
+            let jsonEncoder = JSONEncoder()
+            jsonEncoder.dateEncodingStrategy = .iso8601
+            
+            request.httpBody = try jsonEncoder.encode(representation)
         } catch {
             print("Error encoding plant \(plant): \(error)")
             DispatchQueue.main.async {
@@ -275,6 +279,15 @@ class UserController {
         } catch {
             NSLog("Error saving managed object context: \(error)")
         }
+    }
+    
+    func update(nickname: String, species: String, water_schedule: Date, frequency: Int16, plant: Plant) {
+        plant.nickname = nickname
+        plant.species = species
+        plant.water_schedule = water_schedule
+        plant.frequency = frequency
+        sendPlantToServer(plant: plant)
+        savePlant()
     }
     
     /// Delete a user from the server

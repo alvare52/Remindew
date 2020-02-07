@@ -33,19 +33,21 @@ class DetailViewController: UIViewController {
         
         // If there is a plant, update (detail)
         if let existingPlant = plant {
-            
+            userController?.update(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1), plant: existingPlant)
         }
         // If there is NO plant (add)
-        
-        let newPlant = Plant(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
-        userController?.sendPlantToServer(plant: newPlant)
-        
-        
-        do {
-            try CoreDataStack.shared.mainContext.save()
-        } catch {
-            NSLog("Error saving managed object context: \(error)")
+        else {
+            let newPlant = Plant(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
+            userController?.sendPlantToServer(plant: newPlant)
+            
+            
+            do {
+                try CoreDataStack.shared.mainContext.save()
+            } catch {
+                NSLog("Error saving managed object context: \(error)")
+            }
         }
+        
         
         navigationController?.popViewController(animated: true)
     }
@@ -56,6 +58,26 @@ class DetailViewController: UIViewController {
         plantButton.layer.cornerRadius = 5.0
         updateViews()
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        // detail seg
+//        if let plant = plant {
+//            guard let nickname = nicknameTextField.text, !nickname.isEmpty, let species = speciesTextField.text, !species.isEmpty, let userController = userController else {return}
+//
+//            plant.nickname = nicknameTextField.text
+//            plant.species = speciesTextField.text
+//            plant.water_schedule = datePicker.date
+//            plant.frequency = Int16(frequencySegment.selectedSegmentIndex + 1)
+//            userController.sendPlantToServer(plant: plant)
+//
+//            do {
+//                try CoreDataStack.shared.mainContext.save()
+//            } catch {
+//                NSLog("Error saving object context: \(error)")
+//            }
+//        }
+//    }
     
     func updateViews() {
         print("update views")

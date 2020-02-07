@@ -54,7 +54,7 @@ class PlantsTableViewController: UITableViewController {
         // show login screen when view did appear
         // THIS IS WHERE PERFORMSEGUE SHOULD BE LATER
         //performSegue(withIdentifier: "LoginModalSegue", sender: self)
-        tableView.reloadData()
+        //tableView.reloadData()
     }
     
     /// Main timer that is used to check all plants being tracked
@@ -174,33 +174,6 @@ class PlantsTableViewController: UITableViewController {
         }
     }
 }
-
-// TEST
-class FakePlant: Equatable {
-    
-    static func == (lhs: FakePlant, rhs: FakePlant) -> Bool {
-        return lhs.nickname == rhs.nickname && lhs.species == rhs.species
-    }
-    
-    var nickname: String
-    var species: String
-    var water_schedule: Date
-    var last_watered: Date?
-    var frequency: Int
-    var image_url: String?
-    var id: Int
-    
-    init(nickname: String, species: String, water_schedule: Date, last_watered: Date?, frequency: Int = 0, image_url: String?, id: Int) {
-        self.nickname = nickname
-        self.species = species
-        self.water_schedule = water_schedule
-        self.last_watered = last_watered
-        self.frequency = frequency
-        self.image_url = image_url
-        self.id = id
-    }
-}
-// TEST
 
 
 extension PlantsTableViewController: NSFetchedResultsControllerDelegate {
