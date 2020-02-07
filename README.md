@@ -1,6 +1,5 @@
 # WaterMyPlantsBackup
-Firebase link
-https://console.firebase.google.com/project/waterplantsfirebase/database/waterplantsfirebase/data
+
 
 -This app lets the user sign up to our custom server. 
 -Also lets them log in to said server.
@@ -14,3 +13,15 @@ https://console.firebase.google.com/project/waterplantsfirebase/database/waterpl
 -Unforunately the user is not allowed to update their credentials or view other user's data (for safety).
 -Also, each plant's cell updates with the next date it will need to be watered. They can also be deleted from here
 -I hope you all enjoy being reminded of when your beloved plants require enslaved hydration. Ok bye
+
+Backend (signup or login only)
+https://water-my-plants-2.herokuapp.com/ 
+
+Backend Documentation
+https://github.com/Build-Week-Water-My-Plants-2/Backend
+
+Firebase link (where plants go to be stored and loved)
+https://console.firebase.google.com/project/waterplantsfirebase/database/waterplantsfirebase/data
+
+Here's the Firebase link again in case you missed it CC
+https://console.firebase.google.com/project/waterplantsfirebase/database/waterplantsfirebase/data
