@@ -19,10 +19,18 @@ class UserViewController: UIViewController {
         
         navigationController?.popViewController(animated: true)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        saveButton.layer.cornerRadius = 5.0
+        saveButton.isHidden = true
+        //saveButton.layer.cornerRadius = 5.0
         // Do any additional setup after loading the view.
+        emailTextField.text = globalUser?.email
+        phoneTextField.text = "\(globalUser?.phone_number ?? 911)"
+        title = globalUser?.username
+        passwordTextField.text = globalUser?.password
+        
+        
     }
     
 

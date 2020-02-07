@@ -70,7 +70,7 @@ class PlantsTableViewController: UITableViewController {
     func sendNotification() {
         let note = UNMutableNotificationContent()
         note.title = "WATER YOUR PLANT!"
-        note.body = "IT'S DYING!"
+        note.body = "DO IT! DO IT NOW!"
         note.sound = UNNotificationSound.default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
         let request = UNNotificationRequest(identifier: "done", content: note, trigger: trigger)

@@ -13,6 +13,9 @@ enum LoginType {
     case logIn
 }
 
+// bad
+var globalUser: UserRepresentation?
+
 class LoginViewController: UIViewController {
     
     var loginType = LoginType.signUp
@@ -65,6 +68,8 @@ class LoginViewController: UIViewController {
             
             let phone = Int(phoneString) ?? 69
             let user = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
+            
+            globalUser = user
             
             // Sign Up
             if loginType == .signUp {
