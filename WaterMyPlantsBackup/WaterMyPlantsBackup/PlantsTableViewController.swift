@@ -132,7 +132,7 @@ class PlantsTableViewController: UITableViewController {
         } else {
             cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule ?? shit))" }
         // TEST
-        
+        cell.imageView?.image = UIImage(named: "leaficon1")
         return cell
     }
     
