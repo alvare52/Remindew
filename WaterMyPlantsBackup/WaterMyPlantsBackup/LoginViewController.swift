@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
         loginType = .signUp
         print("Sign Up")
         signInButton.setTitle("Sign Up", for: .normal)
-        signInButton.backgroundColor = .systemGreen
+        //signInButton.backgroundColor = .systemGreen
         signInButton.performFlare()
         emailTextField.isHidden = false
         phoneTextField.isHidden = false
@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
         loginType = .logIn
         print("Log In")
         signInButton.setTitle("Log In", for: .normal)
-        signInButton.backgroundColor = .systemBlue
+        //signInButton.backgroundColor = .systemBlue
         signInButton.performFlare()
         emailTextField.isHidden = false // change later to true
         phoneTextField.isHidden = false // change later to true

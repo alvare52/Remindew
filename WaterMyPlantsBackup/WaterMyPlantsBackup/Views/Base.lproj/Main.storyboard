@@ -32,7 +32,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHp-rd-hHD">
                                 <rect key="frame" x="20" y="266" width="374" height="42"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.24567490819999999" green="0.3081548214" blue="0.14416453239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Save Changes"/>
@@ -130,7 +130,7 @@
                     <connections>
                         <outlet property="addPlantIcon" destination="kmi-s3-Tfa" id="S3J-CK-81G"/>
                         <outlet property="userIcon" destination="q4J-ym-dyu" id="Pzs-eH-zlL"/>
-                        <segue destination="zCE-eV-1gH" kind="presentation" identifier="LoginModalSegue" modalPresentationStyle="fullScreen" id="idq-gf-e7N"/>
+                        <segue destination="zCE-eV-1gH" kind="presentation" identifier="LoginModalSegue" id="idq-gf-e7N"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cf7-ir-5Mj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -142,11 +142,11 @@
             <objects>
                 <viewController id="zCE-eV-1gH" customClass="LoginViewController" customModule="WaterMyPlantsBackup" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C50-1l-QAU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ufd-tK-0sJ">
-                                <rect key="frame" x="20" y="168" width="374" height="32"/>
+                                <rect key="frame" x="20" y="124" width="374" height="76"/>
                                 <segments>
                                     <segment title="Sign Up"/>
                                     <segment title="Log In"/>
@@ -174,7 +174,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GiC-zb-dvM">
                                 <rect key="frame" x="20" y="375" width="374" height="42"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.24567490819999999" green="0.3081548214" blue="0.14416453239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Sign Up"/>
@@ -259,7 +259,7 @@
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-md-hGl">
                                 <rect key="frame" x="20" y="487" width="374" height="42"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.24313725490196078" green="0.30949664119999998" blue="0.14281499389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Add Plant"/>
@@ -311,6 +311,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="cXh-IU-pwY">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.24371936920000001" green="0.30949664119999998" blue="0.14281499389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         </textAttributes>

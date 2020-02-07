@@ -90,12 +90,12 @@ class DetailViewController: UIViewController {
         datePicker.date = plant?.water_schedule ?? Date()
         if plant != nil {
             plantButton.setTitle("Edit Plant", for: .normal)
-            plantButton.backgroundColor = .systemBlue
+            //plantButton.backgroundColor = .systemBlue
             plantButton.performFlare()
         }
         else {
             plantButton.setTitle("Add Plant", for: .normal)
-            plantButton.backgroundColor = .systemGreen
+            //plantButton.backgroundColor = .systemGreen
             plantButton.performFlare()
         }
     }

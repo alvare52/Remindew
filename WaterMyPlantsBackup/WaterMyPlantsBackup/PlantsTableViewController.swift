@@ -12,7 +12,8 @@ import CoreData
 class PlantsTableViewController: UITableViewController {
     
     // MARK: - Properties
-         
+    
+    
     lazy var fetchedResultsController: NSFetchedResultsController<Plant> = {
         let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nickname", ascending: true)]
@@ -43,7 +44,7 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addPlantIcon.tintColor = .systemGreen
+        //addPlantIcon.tintColor = .systemGreen
         startTimer()
         // CHANGE BACK TO VIEWDIDAPPEAR LATER
         performSegue(withIdentifier: "LoginModalSegue", sender: self)
@@ -109,7 +110,8 @@ class PlantsTableViewController: UITableViewController {
         guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
         
         cell.textLabel?.text = "\"\(nickname)\" - \(species)"
-        cell.textLabel?.textColor = .systemGreen
+        //cell.textLabel?.textColor = .systemGreen
+        //cell.textLabel?.textColor = UIColor(red: 62, green: 79, blue: 36, alpha: 1)
         cell.accessoryType = .disclosureIndicator
         let shit = Date(timeIntervalSinceNow: 69)
         if testCell.frequency == 1 {
