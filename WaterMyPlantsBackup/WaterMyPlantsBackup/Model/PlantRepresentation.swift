@@ -13,7 +13,7 @@ struct PlantRepresentation: Codable {
     var species: String
     var water_schedule: Date
     var last_watered: Date?
-    var frequency: Int // Integer 32 in core data model
+    var frequency: Int? // Integer 32 in core data model
     var image_url: String?
-    var id: Int // Integer 32 in core data model
+    var id: Int? // Integer 32 in core data model
 }

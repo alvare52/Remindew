@@ -12,13 +12,13 @@ import CoreData
 extension User {
     
     // User in backend has "id" property but there's a naming conflict with the plant id
-    enum CodingKeys: String, CodingKey {
-        case user_id = "id"
-        case username = "username"
-        case password = "password"
-        case email = "email"
-        case phone_number = "phone_number"
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case user_id = "id"
+//        case username = "username"
+//        case password = "password"
+//        case email = "email"
+//        case phone_number = "phone_number"
+//    }
     
     // Turns Core Data Managed Task Object into a UserRepresentation for changing to JSON and sending to server
     var userRepresentation: UserRepresentation? {

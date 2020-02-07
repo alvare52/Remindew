@@ -74,6 +74,7 @@ class LoginViewController: UIViewController {
                     } else {
                         DispatchQueue.main.async {
                             print("SIGN UP SUCCESS")
+                            // Should try loging in still here
                             self.changeToLogIn()
                         }
                     }
@@ -89,6 +90,12 @@ class LoginViewController: UIViewController {
                     } else {
                         DispatchQueue.main.async {
                             print("LOG IN SUCCESS")
+                            //let plant = Plant(plantRepresentation: plantRep)
+                            
+                            self.userController?.addPlantToServer(completion: { (error) in
+                                print("plant added")
+                                
+                            })
                         }
                     }
                 }
@@ -122,7 +129,7 @@ extension UIView {
     func flare()   { transform = CGAffineTransform(scaleX: 1.1, y: 1.1) }
     func unflare() { transform = .identity }
     
-    UIView.animate(withDuration: 0.2,
+    UIView.animate(withDuration: 0.3,
                    animations: { flare() },
                    completion: { _ in UIView.animate(withDuration: 0.2) { unflare() }})
   }

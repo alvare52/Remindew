@@ -127,8 +127,6 @@ class PlantsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath)
-
-        // Configure the cell...
     
         // TEST
         let testCell = testPlants[indexPath.row]
