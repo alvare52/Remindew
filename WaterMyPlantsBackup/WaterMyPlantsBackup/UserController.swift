@@ -52,9 +52,10 @@ class UserController {
                 }
                 return
             }
-            
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.dateDecodingStrategy = .iso8601
             do {
-                let plantRepresentations = Array(try JSONDecoder().decode([String: PlantRepresentation].self, from: data).values)
+                let plantRepresentations = Array(try jsonDecoder.decode([String: PlantRepresentation].self, from: data).values)
                 try self.updatePlants(with: plantRepresentations)
                 DispatchQueue.main.async {
                     completion(nil)
@@ -266,6 +267,14 @@ class UserController {
                 completion(nil)
             }
         }.resume()
+    }
+    
+    func savePlant() {
+        do {
+            try CoreDataStack.shared.mainContext.save()
+        } catch {
+            NSLog("Error saving managed object context: \(error)")
+        }
     }
     
     /// Delete a user from the server

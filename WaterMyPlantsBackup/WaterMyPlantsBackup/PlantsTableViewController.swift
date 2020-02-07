@@ -9,51 +9,23 @@
 import UIKit
 import CoreData
 
-// TEST, switch to fetchresultscontroller later
-var testPlants: [FakePlant] = [FakePlant(nickname: "Jackie",
-      species: "Tulip",
-      water_schedule: Date(timeIntervalSinceNow: 3),
-      last_watered: nil,
-      frequency: 3,
-      image_url: nil,
-      id: 1),
-FakePlant(nickname: "Tanya",
-      species: "Dandelion",
-      water_schedule: Date(timeIntervalSinceNow: 9),
-      last_watered: nil,
-      frequency: 2,
-      image_url: nil,
-      id: 2),
-FakePlant(nickname: "Paula",
-      species: "Rose",
-      water_schedule: Date(timeIntervalSinceNow: 15),
-      last_watered: nil,
-      frequency: 1,
-      image_url: nil,
-      id: 3)]
-// TEST
-
 class PlantsTableViewController: UITableViewController {
     
     // MARK: - Properties
-    // Add later
-    //private let plantController = PlantController()
-        
-    // use User instead???
-//    lazy var fetchedResultsController: NSFetchedResultsController<Plant> = {
-//        let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
-//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "priority", ascending: true),
-//                                        NSSortDescriptor(key: "name", ascending: true)]
-//
-//        let context = CoreDataStack.shared.mainContext
-//        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
-//                                             managedObjectContext: context,
-//                                             sectionNameKeyPath: "priority",
-//                                             cacheName: nil)
-//        frc.delegate = self
-//        try! frc.performFetch() // do it and crash if you have to
-//        return frc
-//    }()
+         
+    lazy var fetchedResultsController: NSFetchedResultsController<Plant> = {
+        let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nickname", ascending: true)]
+
+        let context = CoreDataStack.shared.mainContext
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                             managedObjectContext: context,
+                                             sectionNameKeyPath: "nickname",
+                                             cacheName: nil)
+        frc.delegate = self
+        try! frc.performFetch() // do it and crash if you have to
+        return frc
+    }()
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -73,7 +45,6 @@ class PlantsTableViewController: UITableViewController {
         super.viewDidLoad()
         addPlantIcon.tintColor = .systemGreen
         startTimer()
-        
         // CHANGE BACK TO VIEWDIDAPPEAR LATER
         performSegue(withIdentifier: "LoginModalSegue", sender: self)
     }
@@ -96,21 +67,24 @@ class PlantsTableViewController: UITableViewController {
     /// Updates all plants and displays alert
     func updateTimer(timer: Timer) {
         
-        for fakePlant in testPlants {
+        for plant in fetchedResultsController.fetchedObjects! {
             // convert?
-            if fakePlant.water_schedule <= Date() {
+            guard let schedule = plant.water_schedule else {return}
+            if schedule <= Date() {
                 print("WATER YOUR PLANT")
-                fakePlant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * fakePlant.frequency))
-                localAlert(fakePlant: fakePlant)
+                plant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * Double(plant.frequency)))
+                localAlert(plant: plant)
                 //testPlants.remove(at: testPlants.firstIndex(of: fakePlant)!)
                 tableView.reloadData()
             }
         }
     }
     
-    func localAlert(fakePlant: FakePlant) {
-        let nextDate: String = dateFormatter.string(from: fakePlant.water_schedule)
-        let alert = UIAlertController(title: "Water your plant!", message: "Start watering \(fakePlant.nickname)! \n Next watering date: \(nextDate)", preferredStyle: .alert)
+    func localAlert(plant: Plant) {
+        guard let schedule = plant.water_schedule, let nickname = plant.nickname else {return}
+        
+        let nextDate: String = dateFormatter.string(from: schedule)
+        let alert = UIAlertController(title: "Water your plant!", message: "Start watering \(nickname)! \n Next watering date: \(nextDate)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
@@ -118,25 +92,30 @@ class PlantsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return fetchedResultsController.sections?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testPlants.count
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath)
     
         // TEST
-        let testCell = testPlants[indexPath.row]
-        cell.textLabel?.text = "\"\(testCell.nickname)\" - \(testCell.species)"
+        //let testCell = testPlants[indexPath.row]
+        let testCell = fetchedResultsController.object(at: indexPath)
+        
+        guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
+        
+        cell.textLabel?.text = "\"\(nickname)\" - \(species)"
         cell.textLabel?.textColor = .systemGreen
         cell.accessoryType = .disclosureIndicator
+        let shit = Date(timeIntervalSinceNow: 69)
         if testCell.frequency == 1 {
-            cell.detailTextLabel?.text = "Every day - \(dateFormatter.string(from: testCell.water_schedule))"
+            cell.detailTextLabel?.text = "Every day - \(dateFormatter.string(from: testCell.water_schedule ?? shit ))"
         } else {
-            cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule))" }
+            cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule ?? shit))" }
         // TEST
         
         return cell
@@ -145,11 +124,23 @@ class PlantsTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let plant = fetchedResultsController.object(at: indexPath)
+            // delete from server first before we do local delete
+            userController.deletePlantFromServer(plant: plant) { error in
+                if let error = error {
+                    print("Error deleting plant from server: \(error)")
+                    return
+                }
+                
+                CoreDataStack.shared.mainContext.delete(plant)
+                do {
+                    try CoreDataStack.shared.mainContext.save()
+                } catch {
+                    CoreDataStack.shared.mainContext.reset() // UN-deletes
+                    NSLog("Error saving managed object context: \(error)")
+                }
+            }
+        }
     }
 
     // MARK: - Navigation
@@ -165,20 +156,18 @@ class PlantsTableViewController: UITableViewController {
         // DetailViewController (to ADD plant)
         if segue.identifier == "AddPlantSegue" {
             print("AddPlantSegue")
-            //if let detailVC = segue.destination as? DetailViewController else {return}
-            
-        }
-        
+            if let detailVC = segue.destination as? DetailViewController {
+                    detailVC.userController = self.userController
+                }
+            }
         // DetailViewController (to EDIT plant)
         if segue.identifier == "DetailPlantSegue" {
             print("DetailPlantSegue")
             if let detailVC = segue.destination as? DetailViewController, let indexPath = tableView.indexPathForSelectedRow {
-                detailVC.fakePlant = testPlants[indexPath.row]
-                // detailVC.plant = fetchedResultController.object(at: indexPath) // and the controller too
+                detailVC.userController = self.userController
+                detailVC.plant = fetchedResultsController.object(at: indexPath)
             }
-            
         }
-        
         // UserViewController (to EDIT user)
         if segue.identifier == "EditUserSegue" {
             print("EditUserSegue")

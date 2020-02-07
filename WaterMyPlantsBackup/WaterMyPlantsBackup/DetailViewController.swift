@@ -17,8 +17,10 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var plantButton: UIButton!
     @IBOutlet weak var backButton: UINavigationItem!
     
+    var userController: UserController?
+    
     // TEST
-    var fakePlant: FakePlant? {
+    var plant: Plant? {
         didSet {
             updateViews()
         }
@@ -27,11 +29,23 @@ class DetailViewController: UIViewController {
     
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
-        // TEST
         guard let nickname = nicknameTextField.text, let species = speciesTextField.text else {return}
-        let createdPlant = FakePlant(nickname: nickname, species: species, water_schedule: datePicker.date, last_watered: nil, frequency: frequencySegment.selectedSegmentIndex + 1, image_url: nil, id: 8)
-        testPlants.append(createdPlant)
-        // TEST
+        
+        // If there is a plant, update (detail)
+        if let existingPlant = plant {
+            
+        }
+        // If there is NO plant (add)
+        
+        let newPlant = Plant(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
+        userController?.sendPlantToServer(plant: newPlant)
+        
+        
+        do {
+            try CoreDataStack.shared.mainContext.save()
+        } catch {
+            NSLog("Error saving managed object context: \(error)")
+        }
         
         navigationController?.popViewController(animated: true)
     }
@@ -47,12 +61,12 @@ class DetailViewController: UIViewController {
         print("update views")
         guard isViewLoaded else {return}
         
-        title = fakePlant?.nickname ?? "Add New Plant"
-        nicknameTextField.text = fakePlant?.nickname ?? ""
-        speciesTextField.text = fakePlant?.species ?? ""
-        frequencySegment.selectedSegmentIndex = (fakePlant?.frequency ?? 1) - 1
-        datePicker.date = fakePlant?.water_schedule ?? Date()
-        if fakePlant != nil {
+        title = plant?.nickname ?? "Add New Plant"
+        nicknameTextField.text = plant?.nickname ?? ""
+        speciesTextField.text = plant?.species ?? ""
+        frequencySegment.selectedSegmentIndex = Int((plant?.frequency ?? 1) - 1)
+        datePicker.date = plant?.water_schedule ?? Date()
+        if plant != nil {
             plantButton.setTitle("Edit Plant", for: .normal)
             plantButton.backgroundColor = .systemBlue
             plantButton.performFlare()
