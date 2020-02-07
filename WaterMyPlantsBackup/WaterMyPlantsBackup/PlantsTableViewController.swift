@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 class PlantsTableViewController: UITableViewController {
     
@@ -65,6 +66,17 @@ class PlantsTableViewController: UITableViewController {
         timer?.tolerance = 0.1
     }
     
+    /// Will only run when app is not in the foreground
+    func sendNotification() {
+        let note = UNMutableNotificationContent()
+        note.title = "WATER YOUR PLANT!"
+        note.body = "IT'S DYING!"
+        note.sound = UNNotificationSound.default
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
+        let request = UNNotificationRequest(identifier: "done", content: note, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
     /// Updates all plants and displays alert
     func updateTimer(timer: Timer) {
         
@@ -73,6 +85,7 @@ class PlantsTableViewController: UITableViewController {
             guard let schedule = plant.water_schedule else {return}
             if schedule <= Date() {
                 print("WATER YOUR PLANT")
+                sendNotification()
                 plant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * Double(plant.frequency)))
                 localAlert(plant: plant)
                 //testPlants.remove(at: testPlants.firstIndex(of: fakePlant)!)
