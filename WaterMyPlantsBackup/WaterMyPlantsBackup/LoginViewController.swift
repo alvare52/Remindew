@@ -90,12 +90,6 @@ class LoginViewController: UIViewController {
                     } else {
                         DispatchQueue.main.async {
                             print("LOG IN SUCCESS")
-                            //let plant = Plant(plantRepresentation: plantRep)
-                            
-                            self.userController?.addPlantToServer(completion: { (error) in
-                                print("plant added")
-                                
-                            })
                         }
                     }
                 }

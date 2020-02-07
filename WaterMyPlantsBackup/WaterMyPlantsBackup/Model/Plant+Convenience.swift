@@ -11,53 +11,27 @@ import CoreData
 
 extension Plant {
     
-    /*
-     // Turns Core Data Managed Task Object into a UserRepresentation for changing to JSON and sending to server
-        var userRepresentation: UserRepresentation? {
-            
-            guard let username = username, let password = password, let email = email else {return nil}
-            
-            return UserRepresentation(username: username, password: password, email: email, phone_number: Int(phone_number), user_id: Int(user_id))
-        }
-     */
-    
-    // Turns Core Data Managed Task Object into a PlantRepresentation for changing to JSON and sending to server
+    // Turns Core Data Managed Plant Object into a PlantRepresentation for changing to JSON and sending to server
     var plantRepresentation: PlantRepresentation? {
         
         guard let nickname = nickname, let species = species, let water_schedule = water_schedule else {return nil}
         
-        return PlantRepresentation(nickname: nickname, species: species, water_schedule: water_schedule, last_watered: last_watered, frequency: Int(frequency), image_url: image_url, id: Int(id))
+        return PlantRepresentation(frequency: Int(frequency), identifier: identifier, nickname: nickname, species: species, water_schedule: water_schedule)
     }
-    
-    /*
-     struct PlantRepresentation: Codable {
-         var nickname: String
-         var species: String
-         var water_schedule: Date
-         var last_watered: Date?
-         var frequency: Int? // Integer 32 in core data model
-         var image_url: String?
-         var id: Int? // Integer 32 in core data model
-     }
-     */
     
     /// Creating a new managed object in Core Data
     @discardableResult convenience init(nickname: String,
                                         species: String,
                                         water_schedule: Date,
-                                        last_watered: Date?,
-                                        frequency: Int = 0,
-                                        image_url: String?,
-                                        id: Int,
+                                        frequency: Int16,
+                                        identifier: UUID = UUID(),
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.nickname = nickname
         self.species = species
         self.water_schedule = water_schedule
-        self.last_watered = last_watered
         self.frequency = Int16(frequency)
-        self.image_url = image_url
-        self.id = Int16(id)
+        self.identifier = identifier
     }
     
     /// Failable - Converting PlantRepresentation (coming from JSON) into a managed object for Core Data
@@ -65,15 +39,13 @@ extension Plant {
                                          context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         
         
+        guard let identifier = plantRepresentation.identifier else {return nil}
         
-        // Maybe add guard lets later???
         self.init(nickname: plantRepresentation.nickname,
                   species: plantRepresentation.species,
                   water_schedule: plantRepresentation.water_schedule,
-                  last_watered: plantRepresentation.last_watered,
-                  frequency: plantRepresentation.frequency ?? 0,
-                  image_url: plantRepresentation.image_url,
-                  id: plantRepresentation.id ?? 0,
+                  frequency: Int16(plantRepresentation.frequency),
+                  identifier: identifier,
                   context: context)
     }
 }
