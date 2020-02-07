@@ -1,4 +1,6 @@
 # WaterMyPlantsBackup
+Firebase link
+https://console.firebase.google.com/project/waterplantsfirebase/database/waterplantsfirebase/data
 
 -This app lets the user sign up to our custom server. 
 -Also lets them log in to said server.
