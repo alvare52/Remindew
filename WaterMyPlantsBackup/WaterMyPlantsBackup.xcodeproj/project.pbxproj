@@ -24,7 +24,6 @@
 		1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883723EA9451000033FA /* Plant+Convenience.swift */; };
 		1B09883A23EA9461000033FA /* UserRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883923EA9461000033FA /* UserRepresentation.swift */; };
 		1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883B23EA9475000033FA /* PlantRepresentation.swift */; };
-		1B09883E23EA957B000033FA /* PlantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883D23EA957A000033FA /* PlantController.swift */; };
 		1B09884023EA97BD000033FA /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883F23EA97BD000033FA /* UserController.swift */; };
 		1B09884223EC6167000033FA /* Bearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09884123EC6167000033FA /* Bearer.swift */; };
 /* End PBXBuildFile section */
@@ -70,7 +69,6 @@
 		1B09883723EA9451000033FA /* Plant+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plant+Convenience.swift"; sourceTree = "<group>"; };
 		1B09883923EA9461000033FA /* UserRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepresentation.swift; sourceTree = "<group>"; };
 		1B09883B23EA9475000033FA /* PlantRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRepresentation.swift; sourceTree = "<group>"; };
-		1B09883D23EA957A000033FA /* PlantController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantController.swift; sourceTree = "<group>"; };
 		1B09883F23EA97BD000033FA /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		1B09884123EC6167000033FA /* Bearer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bearer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,7 +196,6 @@
 		1B09882523EA625F000033FA /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1B09883D23EA957A000033FA /* PlantController.swift */,
 				1B09883F23EA97BD000033FA /* UserController.swift */,
 			);
 			name = "Model Controllers";
@@ -349,7 +346,6 @@
 				1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */,
 				1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */,
 				1B09883623EA9444000033FA /* User+Convenience.swift in Sources */,
-				1B09883E23EA957B000033FA /* PlantController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
