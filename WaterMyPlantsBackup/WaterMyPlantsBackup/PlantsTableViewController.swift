@@ -67,10 +67,10 @@ class PlantsTableViewController: UITableViewController {
     }
     
     /// Will only run when app is not in the foreground
-    func sendNotification() {
+    func sendNotification(plant: String) {
         let note = UNMutableNotificationContent()
         note.title = "WATER YOUR PLANT!"
-        note.body = "DO IT! DO IT NOW!"
+        note.body = "\(plant) is dying! Water it now!"
         note.sound = UNNotificationSound.default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
         let request = UNNotificationRequest(identifier: "done", content: note, trigger: trigger)
@@ -85,7 +85,7 @@ class PlantsTableViewController: UITableViewController {
             guard let schedule = plant.water_schedule else {return}
             if schedule <= Date() {
                 print("WATER YOUR PLANT")
-                sendNotification()
+                sendNotification(plant: plant.nickname ?? "YOUR PLANT")
                 plant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * Double(plant.frequency)))
                 localAlert(plant: plant)
                 //testPlants.remove(at: testPlants.firstIndex(of: fakePlant)!)

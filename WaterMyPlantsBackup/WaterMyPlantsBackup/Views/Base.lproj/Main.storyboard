@@ -16,22 +16,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5iu-dL-jR0">
-                                <rect key="frame" x="20" y="140" width="374" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bc6-yI-cQD">
-                                <rect key="frame" x="20" y="182" width="374" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lwq-dK-HfB">
                                 <rect key="frame" x="20" y="224" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bc6-yI-cQD">
+                                <rect key="frame" x="20" y="266" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lwq-dK-HfB">
+                                <rect key="frame" x="20" y="182" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YCg-kZ-UFw">
+                                <rect key="frame" x="20" y="140" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHp-rd-hHD">
-                                <rect key="frame" x="20" y="266" width="374" height="42"/>
+                                <rect key="frame" x="20" y="308" width="374" height="42"/>
                                 <color key="backgroundColor" red="0.24567490819999999" green="0.3081548214" blue="0.14416453239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -43,21 +48,25 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="bc6-yI-cQD" secondAttribute="trailing" constant="20" id="3oT-Kz-xlm"/>
-                            <constraint firstItem="Lwq-dK-HfB" firstAttribute="top" secondItem="bc6-yI-cQD" secondAttribute="bottom" constant="8" id="6AS-7j-RXJ"/>
-                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="5iu-dL-jR0" secondAttribute="trailing" constant="20" id="JVZ-k7-JI4"/>
-                            <constraint firstItem="bc6-yI-cQD" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="SzY-Yy-apZ"/>
-                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="Lwq-dK-HfB" secondAttribute="trailing" constant="20" id="XaU-rO-J0V"/>
-                            <constraint firstItem="nHp-rd-hHD" firstAttribute="top" secondItem="Lwq-dK-HfB" secondAttribute="bottom" constant="8" id="eGr-r6-hKl"/>
-                            <constraint firstItem="5iu-dL-jR0" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="g0h-Te-26q"/>
-                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="nHp-rd-hHD" secondAttribute="trailing" constant="20" id="ld4-w0-nZ7"/>
-                            <constraint firstItem="bc6-yI-cQD" firstAttribute="top" secondItem="5iu-dL-jR0" secondAttribute="bottom" constant="8" id="nZx-74-Rf0"/>
-                            <constraint firstItem="bc6-yI-cQD" firstAttribute="top" secondItem="5iu-dL-jR0" secondAttribute="bottom" constant="8" id="no7-lg-d6K"/>
-                            <constraint firstItem="Lwq-dK-HfB" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="p6P-VH-Pde"/>
-                            <constraint firstItem="Lwq-dK-HfB" firstAttribute="top" secondItem="bc6-yI-cQD" secondAttribute="bottom" constant="8" id="qBS-my-lwi"/>
-                            <constraint firstItem="nHp-rd-hHD" firstAttribute="top" secondItem="Lwq-dK-HfB" secondAttribute="bottom" constant="8" id="ufl-Pd-PJh"/>
-                            <constraint firstItem="5iu-dL-jR0" firstAttribute="top" secondItem="ewd-iW-dpa" secondAttribute="top" id="unF-Jk-5TL"/>
-                            <constraint firstItem="nHp-rd-hHD" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="yAH-E9-GyR"/>
+                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="bc6-yI-cQD" secondAttribute="trailing" constant="20" id="43T-g7-5ys"/>
+                            <constraint firstItem="YCg-kZ-UFw" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="6xw-n0-HRq"/>
+                            <constraint firstItem="5iu-dL-jR0" firstAttribute="top" secondItem="Lwq-dK-HfB" secondAttribute="bottom" constant="8" id="9Kc-OH-b1a"/>
+                            <constraint firstItem="nHp-rd-hHD" firstAttribute="top" secondItem="bc6-yI-cQD" secondAttribute="bottom" constant="8" id="B1G-PC-R0o"/>
+                            <constraint firstItem="Lwq-dK-HfB" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="BCB-sR-Jmu"/>
+                            <constraint firstItem="bc6-yI-cQD" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="Dyg-qm-BTK"/>
+                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="YCg-kZ-UFw" secondAttribute="trailing" constant="20" id="OUO-cq-wvm"/>
+                            <constraint firstItem="bc6-yI-cQD" firstAttribute="top" secondItem="5iu-dL-jR0" secondAttribute="bottom" constant="8" id="Qhm-Lt-6LY"/>
+                            <constraint firstItem="5iu-dL-jR0" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="Rm2-0Q-jLM"/>
+                            <constraint firstItem="nHp-rd-hHD" firstAttribute="top" secondItem="bc6-yI-cQD" secondAttribute="bottom" constant="8" id="VwU-1V-QCI"/>
+                            <constraint firstItem="Lwq-dK-HfB" firstAttribute="top" secondItem="YCg-kZ-UFw" secondAttribute="bottom" constant="8" id="WSX-vX-nyn"/>
+                            <constraint firstItem="5iu-dL-jR0" firstAttribute="top" secondItem="Lwq-dK-HfB" secondAttribute="bottom" constant="8" id="WvJ-gR-mR8"/>
+                            <constraint firstItem="bc6-yI-cQD" firstAttribute="top" secondItem="5iu-dL-jR0" secondAttribute="bottom" constant="8" id="ce7-xs-aWb"/>
+                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="Lwq-dK-HfB" secondAttribute="trailing" constant="20" id="ekI-Ex-BP3"/>
+                            <constraint firstItem="YCg-kZ-UFw" firstAttribute="top" secondItem="ewd-iW-dpa" secondAttribute="top" id="fQM-ys-Jfy"/>
+                            <constraint firstItem="Lwq-dK-HfB" firstAttribute="top" secondItem="YCg-kZ-UFw" secondAttribute="bottom" constant="8" id="h8g-Zd-QVj"/>
+                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="5iu-dL-jR0" secondAttribute="trailing" constant="20" id="heg-Jd-jWD"/>
+                            <constraint firstItem="nHp-rd-hHD" firstAttribute="leading" secondItem="ewd-iW-dpa" secondAttribute="leading" constant="20" id="nZW-Re-mBN"/>
+                            <constraint firstItem="ewd-iW-dpa" firstAttribute="trailing" secondItem="nHp-rd-hHD" secondAttribute="trailing" constant="20" id="rhC-MP-l5S"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ewd-iW-dpa"/>
                     </view>

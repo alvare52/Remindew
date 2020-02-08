@@ -15,6 +15,17 @@ struct LoginResponse: Codable {
     let token: String
 }
 
+struct TestUser: Codable {
+    let username, password, email, phoneNumber: String
+    let id: String
+
+    enum CodingKeys: String, CodingKey {
+        case username, password, email
+        case phoneNumber = "phone_number"
+        case id
+    }
+}
+
 let baseURL = URL(string: "https://water-my-plants-2.herokuapp.com/api")!
 let fireBaseUrl = URL(string: "https://waterplantsfirebase.firebaseio.com/")!
 
@@ -30,88 +41,6 @@ class UserController {
     init() {
         print("INIT")
         fetchPlantsFromServer()
-    }
-    
-    /// Connect to Firebase
-    func fetchPlantsFromServer(completion: @escaping CompletionHandler = { _ in }) {
-        let requestURL = fireBaseUrl.appendingPathExtension("json")
-        
-        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
-            if let error = error {
-                print("Error fetching plants: \(error)")
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-                return
-            }
-            
-            guard let data = data else {
-                print("No data returned by data task")
-                DispatchQueue.main.async {
-                    completion(NSError())
-                }
-                return
-            }
-            let jsonDecoder = JSONDecoder()
-            jsonDecoder.dateDecodingStrategy = .iso8601
-            
-            do {
-                let plantRepresentations = Array(try jsonDecoder.decode([String: PlantRepresentation].self, from: data).values)
-                try self.updatePlants(with: plantRepresentations)
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            } catch {
-                print("Error decoding or storing plant representations: \(error)")
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-            }
-            
-        }.resume()
-    }
-    
-    /// Turns FireBase objects to Core Data objects
-    private func updatePlants(with representations: [PlantRepresentation]) throws {
-        // filter out the no ID ones
-        let plantsWithID = representations.filter { $0.identifier != nil }
-        
-        // creates a new UUID based on the identifier of the task we're looking at (and it exists)
-        // compactMap returns an array after it transforms
-        let identifiersToFetch = plantsWithID.compactMap { $0.identifier! }
-        
-        // zip interweaves elements
-        let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, plantsWithID))
-        
-        var plantsToCreate = representationsByID
-        
-        let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
-        // in order to be a part of the results (will only pull tasks that have a duplicate from fire base)
-        fetchRequest.predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
-        
-        // create private queue context
-        let context = CoreDataStack.shared.container.newBackgroundContext()
-        
-        context.perform {
-            do {
-                let existingPlants = try context.fetch(fetchRequest)
-                
-                // updates local tasks with firebase tasks
-                for plant in existingPlants {
-                    // continue skips next iteration of for loop
-                    guard let id = plant.identifier, let representation = representationsByID[id] else {continue}
-                    self.update(plant: plant, with: representation)
-                    plantsToCreate.removeValue(forKey: id)
-                }
-                
-                for representation in plantsToCreate.values {
-                    Plant(plantRepresentation: representation, context: context)
-                }
-            } catch {
-                print("Error fetching plants for UUIDs: \(error)")
-            }
-        }
-        try CoreDataStack.shared.save(context: context)
     }
     
     /// Pass in a UserRepresentation object, posts it and receives a bearer token
@@ -218,6 +147,149 @@ class UserController {
             }
             completion(nil)
         }.resume()
+    }
+    
+    func updateUser(with userRep: UserRepresentation, completion: @escaping (Error?) -> Void) {
+        
+        // AUTHORIZATION
+        guard let bearer = bearer else {
+            print("Error with bearer in logIn()")
+            completion(NSError())
+            return
+        }
+        
+        // ENDPOINT + HEADERS
+        let updateUrl = baseURL.appendingPathComponent("user/\(loginResponse?.user_id)")
+        print(updateUrl)
+        var request = URLRequest(url: updateUrl)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("token \(bearer.token)", forHTTPHeaderField: "Authorization")
+        
+        // ENCODE USER REP (4 props)
+        let jsonEncoder = JSONEncoder()
+        do {
+            let jsonData = try jsonEncoder.encode(userRep)
+            request.httpBody = jsonData
+        } catch {
+            print("Error encoding user rep object in update(): \(error)")
+            completion(error)
+            return
+        }
+        
+        // OPEN BROWSER
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+          
+            // 200 means success
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+                return
+            }
+            
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            guard let data = data else {
+                print("no data in updateUser()")
+                completion(NSError())
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let testUser = try decoder.decode(TestUser.self, from: data)
+                print("Updated user now: \(testUser)")
+            } catch {
+                print("Error decoding bearer object in updateUser(): \(error)")
+                completion(error)
+                return
+            }
+            completion(nil)
+        }.resume()
+    }
+    
+    /// Connect to Firebase
+    func fetchPlantsFromServer(completion: @escaping CompletionHandler = { _ in }) {
+        let requestURL = fireBaseUrl.appendingPathExtension("json")
+        
+        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+            if let error = error {
+                print("Error fetching plants: \(error)")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+                return
+            }
+            
+            guard let data = data else {
+                print("No data returned by data task")
+                DispatchQueue.main.async {
+                    completion(NSError())
+                }
+                return
+            }
+            let jsonDecoder = JSONDecoder()
+            jsonDecoder.dateDecodingStrategy = .iso8601
+            
+            do {
+                let plantRepresentations = Array(try jsonDecoder.decode([String: PlantRepresentation].self, from: data).values)
+                try self.updatePlants(with: plantRepresentations)
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            } catch {
+                print("Error decoding or storing plant representations: \(error)")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+            }
+            
+        }.resume()
+    }
+    
+    /// Turns FireBase objects to Core Data objects
+    private func updatePlants(with representations: [PlantRepresentation]) throws {
+        // filter out the no ID ones
+        let plantsWithID = representations.filter { $0.identifier != nil }
+        
+        // creates a new UUID based on the identifier of the task we're looking at (and it exists)
+        // compactMap returns an array after it transforms
+        let identifiersToFetch = plantsWithID.compactMap { $0.identifier! }
+        
+        // zip interweaves elements
+        let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, plantsWithID))
+        
+        var plantsToCreate = representationsByID
+        
+        let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
+        // in order to be a part of the results (will only pull tasks that have a duplicate from fire base)
+        fetchRequest.predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
+        
+        // create private queue context
+        let context = CoreDataStack.shared.container.newBackgroundContext()
+        
+        context.perform {
+            do {
+                let existingPlants = try context.fetch(fetchRequest)
+                
+                // updates local tasks with firebase tasks
+                for plant in existingPlants {
+                    // continue skips next iteration of for loop
+                    guard let id = plant.identifier, let representation = representationsByID[id] else {continue}
+                    self.update(plant: plant, with: representation)
+                    plantsToCreate.removeValue(forKey: id)
+                }
+                
+                for representation in plantsToCreate.values {
+                    Plant(plantRepresentation: representation, context: context)
+                }
+            } catch {
+                print("Error fetching plants for UUIDs: \(error)")
+            }
+        }
+        try CoreDataStack.shared.save(context: context)
     }
     
     /// Updates local user with data from the remote version (representation)
