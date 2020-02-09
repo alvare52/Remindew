@@ -9,6 +9,23 @@
 import Foundation
 import CoreData
 
+struct AllUsers: Codable {
+    var users: [AllUser]
+}
+
+struct AllUser: Codable {
+    let username: String
+    let password: String
+    let email: String
+    let id: Int
+    let phoneNumber: Int
+
+    enum CodingKeys: String, CodingKey {
+        case username, password, email
+        case phoneNumber = "phone_number"
+        case id
+    }
+}
 
 struct LoginResponse: Codable {
     let message: String
@@ -23,6 +40,7 @@ struct nameAndPassword: Codable {
 
 // universal user credentials (I know this is bad)
 var universal = LoginResponse(message: "test", user_id: 0, token: "")
+var universalAllUsers: [AllUser] = []
 
 struct TestUser: Codable {
     let username: String
@@ -242,6 +260,55 @@ class UserController {
             do {
                 let updatedUser = try decoder.decode(TestUser.self, from: data)
                 print("Updated user now: \(updatedUser)")
+            } catch {
+                print("Error decoding updating user object in updateUser(): \(error)")
+                completion(error)
+                return
+            }
+            completion(nil)
+        }.resume()
+    }
+    
+    func viewAllUsers(userRep: UserRepresentation, creds: LoginResponse, completion: @escaping (Error?) -> Void) {
+        print("called viewAllUsers")
+        let toke = creds.token
+        
+        // ENDPOINT + HEADERS
+        let viewAllUrl = baseURL.appendingPathComponent("users")
+        
+        var request = URLRequest(url: viewAllUrl)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("\(toke)", forHTTPHeaderField: "Authorization")
+        
+        // OPEN BROWSER
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+          
+            // 200 means success
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+                return
+            }
+            
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            guard let data = data else {
+                print("no data in updateUser()")
+                completion(NSError())
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let allUsers = try decoder.decode([AllUser].self, from: data)
+                for user in allUsers {
+                    print(user.username)
+                }
+                universalAllUsers = allUsers
+                print("universalAllUsers after = allUsers in decode: \(universalAllUsers)")
             } catch {
                 print("Error decoding updating user object in updateUser(): \(error)")
                 completion(error)

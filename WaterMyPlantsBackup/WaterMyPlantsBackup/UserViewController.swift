@@ -25,20 +25,35 @@ class UserViewController: UIViewController {
             
            let phone = Int(phoneString) ?? 69
            let updatedUser = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
-           
-           userViewController.updateUser(userRep: updatedUser, creds: universal) { (error) in
-               if let error = error {
-                   print("Error updating user in saveButtonTapped; \(error)")
-               }
-               else {
-                   DispatchQueue.main.async {
-                       print("UPDATE SUCCESS")
-                       globalUser = updatedUser
-                       print("Global user: \(updatedUser)")
-                       self.updateViews()
-                   }
-               }
-           }
+            
+            userViewController.viewAllUsers(userRep: updatedUser, creds: universal) { (error) in
+                if let error = error {
+                    print("Error updating user in saveButtonTapped; \(error)")
+                }
+                else {
+                    DispatchQueue.main.async {
+                        print("VIEW ALL SUCCESS")
+                        globalUser = updatedUser
+                        print("Global user: \(updatedUser)")
+                        //self.updateViews()
+                    }
+                }
+            }
+            
+//           userViewController.updateUser(userRep: updatedUser, creds: universal) { (error) in
+//               if let error = error {
+//                   print("Error updating user in saveButtonTapped; \(error)")
+//               }
+//               else {
+//                   DispatchQueue.main.async {
+//                       print("UPDATE SUCCESS")
+//                       globalUser = updatedUser
+//                       print("Global user: \(updatedUser)")
+//                       self.updateViews()
+//                   }
+//               }
+//           }
+            
         }
         navigationController?.popViewController(animated: true)
     }
