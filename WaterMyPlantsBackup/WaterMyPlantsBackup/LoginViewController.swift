@@ -42,10 +42,7 @@ class LoginViewController: UIViewController {
         loginType = .signUp
         print("Sign Up")
         signInButton.setTitle("Sign Up", for: .normal)
-        //signInButton.backgroundColor = .systemGreen
         signInButton.performFlare()
-        emailTextField.isHidden = false
-        phoneTextField.isHidden = false
     }
     
     func changeToLogIn() {
@@ -53,10 +50,7 @@ class LoginViewController: UIViewController {
         loginType = .logIn
         print("Log In")
         signInButton.setTitle("Log In", for: .normal)
-        //signInButton.backgroundColor = .systemBlue
         signInButton.performFlare()
-        emailTextField.isHidden = false // change later to true
-        phoneTextField.isHidden = false // change later to true
     }
     
     @IBAction func signInButtonTapped(_ sender: UIButton) {
@@ -68,52 +62,14 @@ class LoginViewController: UIViewController {
         else {
             logIn()
         }
-        
-//        guard let userController = userController else {return}
-//
-//        if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text, let phoneString = phoneTextField.text, !username.isEmpty, !password.isEmpty, !email.isEmpty, !phoneString.isEmpty {
-//
-//            let phone = Int(phoneString) ?? 69
-//            let user = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
-//
-//            globalUser = user
-//
-//            // Sign Up
-//            if loginType == .signUp {
-//                userController.signUp(userRep: user) { (error) in
-//                    if let error = error {
-//                        print("Error occured during sign up in signInButtonTapped() : \(error)")
-//                    } else {
-//                        DispatchQueue.main.async {
-//                            print("SIGN UP SUCCESS")
-//                            // Should try loging in still here
-//                            self.changeToLogIn()
-//                        }
-//                    }
-//                }
-//            }
-//
-//            // Log In
-//            else {
-//                print("TRYING TO LOG IN")
-//                userController.logIn(userRep: user) { (error) in
-//                    if let error = error {
-//                        print("Error occured during log in in signInButtonTapped(): \(error)")
-//                    } else {
-//                        DispatchQueue.main.async {
-//                            print("LOG IN SUCCESS")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        
-        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         signInButton.layer.cornerRadius = 5.0
+        usernameTextField.autocorrectionType = .no
+        passwordTextField.autocorrectionType = .no
+        emailTextField.autocorrectionType = .no
         // Do any additional setup after loading the view.
     }
     
@@ -137,11 +93,22 @@ class LoginViewController: UIViewController {
                         DispatchQueue.main.async {
                             print("SIGN UP SUCCESS")
                             // Should try loging in still here
-                            //self.changeToLogIn()
+                            let alertController = UIAlertController(title: "Sign Up Successful!", message: "Please log in, \(user.username).", preferredStyle: .alert)
+                            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alertController.addAction(alertAction)
+                            self.present(alertController, animated: true, completion: nil)
+                            self.changeToLogIn()
                         }
                     }
                 }
             }
+        }
+        
+        else {
+            let alertController = UIAlertController(title: "Invalid Field", message: "Please fill in all fields", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -155,31 +122,35 @@ class LoginViewController: UIViewController {
             let phone = Int(phoneString) ?? 69
             let user = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
             
-            globalUser = user
-            print("Global user: \(globalUser!)")
-            
             userController.logIn(userRep: user) { (error) in
                 if let error = error {
-                    print("Error occured during log in in signInButtonTapped(): \(error)")
+                    
+                    DispatchQueue.main.async {
+                        print("Error occured during log in in signInButtonTapped() LogInVC: \(error)")
+                        let alertController = UIAlertController(title: "Log In Failed", message: "That user does not exist", preferredStyle: .alert)
+                        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alertController.addAction(alertAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    }
                 } else {
                     DispatchQueue.main.async {
                         print("LOG IN SUCCESS")
+                        globalUser = user
+                        if let globalUser = globalUser {
+                            print("Global user: \(globalUser)")
+                        }
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }
             }
         }
+        else {
+            let alertController = UIAlertController(title: "Invalid Field", message: "Please fill in all fields", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 // Animation

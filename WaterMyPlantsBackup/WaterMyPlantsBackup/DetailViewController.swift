@@ -29,56 +29,44 @@ class DetailViewController: UIViewController {
     
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
-        guard let nickname = nicknameTextField.text, let species = speciesTextField.text else {return}
-        
-        // If there is a plant, update (detail)
-        if let existingPlant = plant {
-            userController?.update(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1), plant: existingPlant)
-        }
-        // If there is NO plant (add)
-        else {
-            let newPlant = Plant(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
-            userController?.sendPlantToServer(plant: newPlant)
-            
-            
-            do {
-                try CoreDataStack.shared.mainContext.save()
-            } catch {
-                NSLog("Error saving managed object context: \(error)")
+        if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty {
+            // If there is a plant, update (detail)
+            if let existingPlant = plant {
+                userController?.update(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1), plant: existingPlant)
             }
+            // If there is NO plant (add)
+            else {
+                let newPlant = Plant(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
+                userController?.sendPlantToServer(plant: newPlant)
+                
+                
+                do {
+                    try CoreDataStack.shared.mainContext.save()
+                } catch {
+                    NSLog("Error saving managed object context: \(error)")
+                }
+            }
+            navigationController?.popViewController(animated: true)
         }
         
+        else {
+            let alertController = UIAlertController(title: "Invalid Field", message: "Please fill in all fields", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
         
-        navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        nicknameTextField.autocorrectionType = .no
+        speciesTextField.autocorrectionType = .no
         datePicker.minimumDate = Date()
         plantButton.layer.cornerRadius = 5.0
         updateViews()
     }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        // detail seg
-//        if let plant = plant {
-//            guard let nickname = nicknameTextField.text, !nickname.isEmpty, let species = speciesTextField.text, !species.isEmpty, let userController = userController else {return}
-//
-//            plant.nickname = nicknameTextField.text
-//            plant.species = speciesTextField.text
-//            plant.water_schedule = datePicker.date
-//            plant.frequency = Int16(frequencySegment.selectedSegmentIndex + 1)
-//            userController.sendPlantToServer(plant: plant)
-//
-//            do {
-//                try CoreDataStack.shared.mainContext.save()
-//            } catch {
-//                NSLog("Error saving object context: \(error)")
-//            }
-//        }
-//    }
-    
+        
     func updateViews() {
         print("update views")
         guard isViewLoaded else {return}
@@ -90,12 +78,10 @@ class DetailViewController: UIViewController {
         datePicker.date = plant?.water_schedule ?? Date()
         if plant != nil {
             plantButton.setTitle("Edit Plant", for: .normal)
-            //plantButton.backgroundColor = .systemBlue
             plantButton.performFlare()
         }
         else {
             plantButton.setTitle("Add Plant", for: .normal)
-            //plantButton.backgroundColor = .systemGreen
             plantButton.performFlare()
         }
     }

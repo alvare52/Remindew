@@ -137,7 +137,11 @@ class PlantsTableViewController: UITableViewController {
         let shit = Date(timeIntervalSinceNow: 69)
         if testCell.frequency == 1 {
             cell.detailTextLabel?.text = "Every day - \(dateFormatter.string(from: testCell.water_schedule ?? shit ))"
-        } else {
+        }
+        else if testCell.frequency == 7 {
+            cell.detailTextLabel?.text = "Every week - \(dateFormatter.string(from: testCell.water_schedule ?? shit ))"
+        }
+        else {
             cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule ?? shit))" }
         // TEST
         cell.imageView?.image = UIImage(named: "leaficon1")

@@ -123,14 +123,7 @@ class UserController {
             do {
                 self.bearer = try decoder.decode(Bearer.self, from: data)
                 print("UserController.bearer = \(self.bearer?.token ?? "no token with sign in")")
-                self.loginResponse = try decoder.decode(LoginResponse.self, from: data)
                 
-                print("LoginResponse.token: \(self.loginResponse?.token ?? "NO TOKEN")")
-                print("LoginResponse.message: \(self.loginResponse?.message ?? "NO MESSAGE")")
-                print("LoginResponse.user_id: \(self.loginResponse?.user_id ?? 666)")
-                print("Should be logged in, token received: \(self.bearer?.token ?? "no token with log in")")
-                universal = self.loginResponse!
-                print("UNIVERSAL -> \(universal)")
             } catch {
                 print("Error decoding bearer object in SignUp() : \(error)")
                 completion(error)
@@ -165,7 +158,7 @@ class UserController {
                 completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
                 return
             }
-            
+            print("MADE IT PASSED THE RESPONSE IN LOG IN() usercontroller")
             if let error = error {
                 completion(error)
                 return
@@ -269,6 +262,7 @@ class UserController {
         }.resume()
     }
     
+    /// View all users to check if updating user worked in real time
     func viewAllUsers(userRep: UserRepresentation, creds: LoginResponse, completion: @escaping (Error?) -> Void) {
         print("called viewAllUsers")
         let toke = creds.token

@@ -48,6 +48,9 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         saveButton.layer.cornerRadius = 5.0
+        usernameTextField.autocorrectionType = .no
+        passwordTextField.autocorrectionType = .no
+        emailTextField.autocorrectionType = .no
         updateViews()
     }
     
