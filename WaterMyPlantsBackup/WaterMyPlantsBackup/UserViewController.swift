@@ -10,29 +10,36 @@ import UIKit
 
 class UserViewController: UIViewController {
     
+    @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     
-    var userController: UserController?
+    var userViewController = UserController()
+    var loginResponse: LoginResponse?
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        guard let enteredUser = globalUser else {return}
         
-        let userRep = UserRepresentation(username: enteredUser.username, password: enteredUser.password, email: enteredUser.email, phone_number: enteredUser.phone_number)
-        
-        userController?.updateUser(with: userRep, completion: { (error) in
-            if let error = error {
-                print("Error updating user in saveButtonTapped; \(error)")
-            }
-            else {
-                DispatchQueue.main.async {
-                    print("UPDATE SUCCESS")
-                    self.updateViews()
-                }
-            }
-        })
+        if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text, let phoneString = phoneTextField.text, !username.isEmpty, !password.isEmpty, !email.isEmpty, !phoneString.isEmpty {
+            
+           let phone = Int(phoneString) ?? 69
+           let updatedUser = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
+           
+           userViewController.updateUser(userRep: updatedUser, creds: universal) { (error) in
+               if let error = error {
+                   print("Error updating user in saveButtonTapped; \(error)")
+               }
+               else {
+                   DispatchQueue.main.async {
+                       print("UPDATE SUCCESS")
+                       globalUser = updatedUser
+                       print("Global user: \(updatedUser)")
+                       self.updateViews()
+                   }
+               }
+           }
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -41,17 +48,16 @@ class UserViewController: UIViewController {
         //saveButton.isHidden = true
         saveButton.layer.cornerRadius = 5.0
         // Do any additional setup after loading the view.
-        emailTextField.text = globalUser?.email
-        phoneTextField.text = "\(globalUser?.phone_number ?? 911)"
-        title = globalUser?.username
-        passwordTextField.text = globalUser?.password
-        
-        
+        updateViews()
     }
     
     func updateViews() {
         print("updateviews")
-        
+        usernameTextField.text = globalUser?.username
+        emailTextField.text = globalUser?.email
+        phoneTextField.text = "\(globalUser?.phone_number ?? 911)"
+        title = "\(globalUser?.username ?? "User")'s Profile"
+        passwordTextField.text = globalUser?.password
     }
     
 
@@ -66,5 +72,6 @@ class UserViewController: UIViewController {
     */
 
 }
+
 
 

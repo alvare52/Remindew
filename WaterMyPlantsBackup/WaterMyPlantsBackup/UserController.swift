@@ -9,15 +9,27 @@
 import Foundation
 import CoreData
 
+
 struct LoginResponse: Codable {
     let message: String
     let user_id: Int
     let token: String
 }
 
+struct nameAndPassword: Codable {
+    let username: String
+    let password: String
+}
+
+// universal user credentials (I know this is bad)
+var universal = LoginResponse(message: "test", user_id: 0, token: "")
+
 struct TestUser: Codable {
-    let username, password, email, phoneNumber: String
+    let username: String
+    let password: String
+    let email: String
     let id: String
+    let phoneNumber: Int
 
     enum CodingKeys: String, CodingKey {
         case username, password, email
@@ -33,17 +45,26 @@ class UserController {
     
     typealias CompletionHandler = (Error?) -> Void
     
+    // MARK: - Properties
+    
+    // Stores bearer token only (not needed anymore)
     var bearer: Bearer?
-    var userRep: UserRepresentation?
+    
+    //var userRep: UserRepresentation
     var fetchedUser: UserRepresentation?
+    
+    // Stores token and user id when signing in or logging in
     var loginResponse: LoginResponse?
     
+    // Fetches plants from firebase when it's initialized
     init() {
         print("INIT")
         fetchPlantsFromServer()
     }
+
+    // MARK: - Register, Log in, and Update User (Heroku API)
     
-    /// Pass in a UserRepresentation object, posts it and receives a bearer token
+    /// Pass in a UserRepresentation object, posts it and receives a bearer token and user id
     func signUp(userRep: UserRepresentation, completion: @escaping (Error?) -> Void ) {
         
         let signUpUrl = baseURL.appendingPathComponent("auth/register")
@@ -84,6 +105,14 @@ class UserController {
             do {
                 self.bearer = try decoder.decode(Bearer.self, from: data)
                 print("UserController.bearer = \(self.bearer?.token ?? "no token with sign in")")
+                self.loginResponse = try decoder.decode(LoginResponse.self, from: data)
+                
+                print("LoginResponse.token: \(self.loginResponse?.token ?? "NO TOKEN")")
+                print("LoginResponse.message: \(self.loginResponse?.message ?? "NO MESSAGE")")
+                print("LoginResponse.user_id: \(self.loginResponse?.user_id ?? 666)")
+                print("Should be logged in, token received: \(self.bearer?.token ?? "no token with log in")")
+                universal = self.loginResponse!
+                print("UNIVERSAL -> \(universal)")
             } catch {
                 print("Error decoding bearer object in SignUp() : \(error)")
                 completion(error)
@@ -93,7 +122,7 @@ class UserController {
         }.resume()
     }
     
-    /// Log in a user
+    /// Log in a user and receives token with user id)
     func logIn(userRep: UserRepresentation, completion: @escaping (Error?) -> Void ) {
         
         let loginUrl = baseURL.appendingPathComponent("auth/login")
@@ -136,10 +165,14 @@ class UserController {
             do {
                 self.bearer = try decoder.decode(Bearer.self, from: data)
                 self.loginResponse = try decoder.decode(LoginResponse.self, from: data)
-                print("LoginResponse: \(self.loginResponse?.token ?? "NO TOKEN")")
-                print("LoginResponse: \(self.loginResponse?.message ?? "NO MESSAGE")")
-                print("LoginResponse: \(self.loginResponse?.user_id ?? 666)")
+                
+                print("LoginResponse.token: \(self.loginResponse?.token ?? "NO TOKEN")")
+                print("LoginResponse.message: \(self.loginResponse?.message ?? "NO MESSAGE")")
+                print("LoginResponse.user_id: \(self.loginResponse?.user_id ?? 666)")
                 print("Should be logged in, token received: \(self.bearer?.token ?? "no token with log in")")
+                // i know this is bad to do
+                universal = self.loginResponse!
+                print("UNIVERSAL -> \(universal)")
             } catch {
                 print("Error decoding bearer object in logIn() : \(error)")
                 completion(error)
@@ -147,24 +180,32 @@ class UserController {
             }
             completion(nil)
         }.resume()
+        
     }
     
-    func updateUser(with userRep: UserRepresentation, completion: @escaping (Error?) -> Void) {
-        
+    /// Update a user (requires token and user id)
+    func updateUser(userRep: UserRepresentation, creds: LoginResponse, completion: @escaping (Error?) -> Void) {
+        print("called updateUser")
         // AUTHORIZATION
-        guard let bearer = bearer else {
-            print("Error with bearer in logIn()")
-            completion(NSError())
-            return
-        }
+//        print(loginResponse?.token)
+//        guard let loginResponse = self.loginResponse else {
+//            print("Error with bearer in updateUser()")
+//            completion(NSError())
+//            return
+//        }
+        let toke = creds.token
+        let userId = creds.user_id
+        //let toke = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJuYW1lIjoiam9yZ2UiLCJpYXQiOjE1ODEyMTAxMjAsImV4cCI6MTU4MTI5NjUyMH0.XTQuva07-NJVbgj1i150Ph9usilO_zt83T4MNPEDqAM"
+        //let userId = 6
+        //let testRep = UserRepresentation(username: "jorge7", password: "alvarez7", email: "email7", phone_number: 8888888)
         
         // ENDPOINT + HEADERS
-        let updateUrl = baseURL.appendingPathComponent("user/\(loginResponse?.user_id)")
+        let updateUrl = baseURL.appendingPathComponent("users/\(userId)")
         print(updateUrl)
         var request = URLRequest(url: updateUrl)
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("token \(bearer.token)", forHTTPHeaderField: "Authorization")
+        request.addValue("\(toke)", forHTTPHeaderField: "Authorization")
         
         // ENCODE USER REP (4 props)
         let jsonEncoder = JSONEncoder()
@@ -199,16 +240,18 @@ class UserController {
             
             let decoder = JSONDecoder()
             do {
-                let testUser = try decoder.decode(TestUser.self, from: data)
-                print("Updated user now: \(testUser)")
+                let updatedUser = try decoder.decode(TestUser.self, from: data)
+                print("Updated user now: \(updatedUser)")
             } catch {
-                print("Error decoding bearer object in updateUser(): \(error)")
+                print("Error decoding updating user object in updateUser(): \(error)")
                 completion(error)
                 return
             }
             completion(nil)
         }.resume()
     }
+    
+    // MARK: - Create, Read, Update, Delete Plants (Firebase API)
     
     /// Connect to Firebase
     func fetchPlantsFromServer(completion: @escaping CompletionHandler = { _ in }) {
@@ -345,6 +388,7 @@ class UserController {
         }.resume()
     }
     
+    /// Saves to Core Data
     func savePlant() {
         do {
             try CoreDataStack.shared.mainContext.save()
@@ -353,6 +397,7 @@ class UserController {
         }
     }
     
+    /// Update a plant that already exists
     func update(nickname: String, species: String, water_schedule: Date, frequency: Int16, plant: Plant) {
         plant.nickname = nickname
         plant.species = species

@@ -49,6 +49,7 @@ class PlantsTableViewController: UITableViewController {
         startTimer()
         // CHANGE BACK TO VIEWDIDAPPEAR LATER
         performSegue(withIdentifier: "LoginModalSegue", sender: self)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,11 +85,18 @@ class PlantsTableViewController: UITableViewController {
             // convert?
             guard let schedule = plant.water_schedule else {return}
             if schedule <= Date() {
-                print("WATER YOUR PLANT")
+                print("Plant: \(plant.nickname ?? "plant") Schedule: \(dateFormatter.string(from: schedule))")
+                print("WATER YOUR PLANT: \(plant.nickname ?? "!")")
                 sendNotification(plant: plant.nickname ?? "YOUR PLANT")
+                // update the plants schedule after it goes off, and then add frequency days to make its new schedule
                 plant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * Double(plant.frequency)))
+                // then update plant to have its new schedule
+                // UDPATE SCHEDULE - CHANGE BACK MAYBE
+                guard let nickname = plant.nickname, let species = plant.species, let water_schedule = plant.water_schedule else {return}
+                userController.update(nickname: nickname, species: species, water_schedule: water_schedule, frequency: plant.frequency, plant: plant)
+                // UPDATE SCHEDULE - CHANGE BACK MAYBE
+                
                 localAlert(plant: plant)
-                //testPlants.remove(at: testPlants.firstIndex(of: fakePlant)!)
                 tableView.reloadData()
             }
         }

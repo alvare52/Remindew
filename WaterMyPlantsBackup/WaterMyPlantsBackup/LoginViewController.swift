@@ -62,14 +62,71 @@ class LoginViewController: UIViewController {
     @IBAction func signInButtonTapped(_ sender: UIButton) {
         print("signInButtonTapped")
         
-        guard let userController = userController else {return}
+        if loginType == .signUp {
+            signUp()
+        }
+        else {
+            logIn()
+        }
         
-        if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text, let phoneString = phoneTextField.text, !username.isEmpty, !password.isEmpty, !email.isEmpty, !phoneString.isEmpty {
-            
+//        guard let userController = userController else {return}
+//
+//        if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text, let phoneString = phoneTextField.text, !username.isEmpty, !password.isEmpty, !email.isEmpty, !phoneString.isEmpty {
+//
+//            let phone = Int(phoneString) ?? 69
+//            let user = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
+//
+//            globalUser = user
+//
+//            // Sign Up
+//            if loginType == .signUp {
+//                userController.signUp(userRep: user) { (error) in
+//                    if let error = error {
+//                        print("Error occured during sign up in signInButtonTapped() : \(error)")
+//                    } else {
+//                        DispatchQueue.main.async {
+//                            print("SIGN UP SUCCESS")
+//                            // Should try loging in still here
+//                            self.changeToLogIn()
+//                        }
+//                    }
+//                }
+//            }
+//
+//            // Log In
+//            else {
+//                print("TRYING TO LOG IN")
+//                userController.logIn(userRep: user) { (error) in
+//                    if let error = error {
+//                        print("Error occured during log in in signInButtonTapped(): \(error)")
+//                    } else {
+//                        DispatchQueue.main.async {
+//                            print("LOG IN SUCCESS")
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        signInButton.layer.cornerRadius = 5.0
+        // Do any additional setup after loading the view.
+    }
+    
+    private func signUp() {
+        print("signUp() called")
+         guard let userController = userController else {return}
+         
+         if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text, let phoneString = phoneTextField.text, !username.isEmpty, !password.isEmpty, !email.isEmpty, !phoneString.isEmpty {
             let phone = Int(phoneString) ?? 69
             let user = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
             
             globalUser = user
+            print("Global user: \(globalUser!)")
             
             // Sign Up
             if loginType == .signUp {
@@ -80,34 +137,37 @@ class LoginViewController: UIViewController {
                         DispatchQueue.main.async {
                             print("SIGN UP SUCCESS")
                             // Should try loging in still here
-                            self.changeToLogIn()
-                        }
-                    }
-                }
-            }
-            
-            // Log In
-            else {
-                print("TRYING TO LOG IN")
-                userController.logIn(userRep: user) { (error) in
-                    if let error = error {
-                        print("Error occured during log in in signInButtonTapped(): \(error)")
-                    } else {
-                        DispatchQueue.main.async {
-                            print("LOG IN SUCCESS")
+                            //self.changeToLogIn()
                         }
                     }
                 }
             }
         }
-        
-        dismiss(animated: true, completion: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        signInButton.layer.cornerRadius = 5.0
-        // Do any additional setup after loading the view.
+    private func logIn() {
+        print("logIn() called")
+        guard let userController = userController else {return}
+        
+        // just check username and password since email and password aren't required and those fields aren't visible
+        if let username = usernameTextField.text, let password = passwordTextField.text, let email = emailTextField.text, let phoneString = phoneTextField.text, !username.isEmpty, !password.isEmpty, !email.isEmpty, !phoneString.isEmpty {
+            
+            let phone = Int(phoneString) ?? 69
+            let user = UserRepresentation(username: username, password: password, email: email, phone_number: phone, user_id: nil)
+            
+            globalUser = user
+            print("Global user: \(globalUser!)")
+            
+            userController.logIn(userRep: user) { (error) in
+                if let error = error {
+                    print("Error occured during log in in signInButtonTapped(): \(error)")
+                } else {
+                    DispatchQueue.main.async {
+                        print("LOG IN SUCCESS")
+                    }
+                }
+            }
+        }
     }
     
     /*

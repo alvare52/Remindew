@@ -76,6 +76,7 @@
                         <outlet property="passwordTextField" destination="Lwq-dK-HfB" id="aa3-Qy-Xgz"/>
                         <outlet property="phoneTextField" destination="bc6-yI-cQD" id="hLe-pT-k2Z"/>
                         <outlet property="saveButton" destination="nHp-rd-hHD" id="t0r-Ke-csq"/>
+                        <outlet property="usernameTextField" destination="YCg-kZ-UFw" id="S7J-gf-FCe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ik1-uP-iJj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
