@@ -10,11 +10,11 @@
 -There's a tab that lets the user view their log in credential in case they forget
 -Each plant can be given a nickname, species name, time of day to remind of watering, and frequency for watering
 -An alert or local notification is sent when its time to water the plant, with a message displaying which plant needs watering.
--Unforunately the user is not allowed to update their credentials(currently) or view other user's data (for safety).
+-The user can update their profile and see other users that exist, but users and plants are separate since the app is using Heroku just for users and Firebase just for plants (The Heroku server resets all users every 24 hours).
 -Also, each plant's cell updates with the next date it will need to be watered. They can also be deleted from here
 -I hope you all enjoy being reminded of when your beloved plants require enslaved hydration. Ok bye
 
-Backend (signup or login only)
+Backend (Sign Up, Log In, and Update User)
 https://water-my-plants-2.herokuapp.com/ 
 
 Backend Documentation
