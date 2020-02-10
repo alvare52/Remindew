@@ -74,7 +74,7 @@ class UserController {
     // Stores token and user id when signing in or logging in
     var loginResponse: LoginResponse?
     
-    // Fetches plants from firebase when it's initialized
+    // British colloquialism
     init() {
         print("INIT")
         fetchPlantsFromServer()

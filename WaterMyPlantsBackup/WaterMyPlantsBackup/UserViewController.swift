@@ -29,7 +29,13 @@ class UserViewController: UIViewController {
             
            userViewController.updateUser(userRep: updatedUser, creds: universal) { (error) in
                if let error = error {
-                   print("Error updating user in saveButtonTapped; \(error)")
+                   DispatchQueue.main.async {
+                       print("Error occured during sign up in updateUser() : \(error)")
+                       let alertController = UIAlertController(title: "Already taken by other user", message: "That field is already taken. Please try again", preferredStyle: .alert)
+                       let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                       alertController.addAction(alertAction)
+                       self.present(alertController, animated: true, completion: nil)
+                   }
                }
                else {
                    DispatchQueue.main.async {

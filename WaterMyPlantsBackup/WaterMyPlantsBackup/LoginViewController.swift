@@ -15,6 +15,7 @@ enum LoginType {
 
 // bad
 var globalUser: UserRepresentation?
+var skippedSignUp: Bool = false
 
 class LoginViewController: UIViewController {
     
@@ -36,6 +37,11 @@ class LoginViewController: UIViewController {
             changeToLogIn()
         }
     }
+    @IBAction func skipButton(_ sender: UIButton) {
+        print("Skipped sign up")
+        skippedSignUp = true
+        dismiss(animated: true, completion: nil)
+    }
     
     func changeToSignUp() {
         signInSegment.selectedSegmentIndex = 0
@@ -55,7 +61,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func signInButtonTapped(_ sender: UIButton) {
         print("signInButtonTapped")
-        
+        signInButton.performFlare()
         if loginType == .signUp {
             signUp()
         }
@@ -88,12 +94,19 @@ class LoginViewController: UIViewController {
             if loginType == .signUp {
                 userController.signUp(userRep: user) { (error) in
                     if let error = error {
-                        print("Error occured during sign up in signInButtonTapped() : \(error)")
+                        DispatchQueue.main.async {
+                            print("Error occured during sign up in signInButtonTapped() : \(error)")
+                            let alertController = UIAlertController(title: "Sign Up Failed", message: "That user is already taken. Please try again", preferredStyle: .alert)
+                            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alertController.addAction(alertAction)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+
                     } else {
                         DispatchQueue.main.async {
                             print("SIGN UP SUCCESS")
                             // Should try loging in still here
-                            let alertController = UIAlertController(title: "Sign Up Successful!", message: "Please log in, \(user.username).", preferredStyle: .alert)
+                            let alertController = UIAlertController(title: "Sign Up Successful!", message: "Please log in, \(user.username). \n Tip: Take the time to write down your login info", preferredStyle: .alert)
                             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alertController.addAction(alertAction)
                             self.present(alertController, animated: true, completion: nil)
@@ -139,6 +152,7 @@ class LoginViewController: UIViewController {
                         if let globalUser = globalUser {
                             print("Global user: \(globalUser)")
                         }
+                        skippedSignUp = false
                         self.dismiss(animated: true, completion: nil)
                     }
                 }

@@ -54,6 +54,17 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if let user = globalUser?.username {
+            title = "\(user)'s Plants"
+        } else {
+            title = "Water My Plants"
+        }
+        if skippedSignUp {
+            userIcon.isEnabled = false
+            userIcon.tintColor = .clear
+        } else {
+            userIcon.isEnabled = true
+        }
         // show login screen when view did appear
         // THIS IS WHERE PERFORMSEGUE SHOULD BE LATER
         //performSegue(withIdentifier: "LoginModalSegue", sender: self)
