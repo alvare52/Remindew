@@ -38,7 +38,6 @@ struct nameAndPassword: Codable {
     let password: String
 }
 
-// universal user credentials (I know this is bad)
 var universal = LoginResponse(message: "test", user_id: 0, token: "")
 var universalAllUsers: [AllUser] = []
 
@@ -196,23 +195,13 @@ class UserController {
     
     /// Update a user (requires token and user id)
     func updateUser(userRep: UserRepresentation, creds: LoginResponse, completion: @escaping (Error?) -> Void) {
-        print("called updateUser")
+        
         // AUTHORIZATION
-//        print(loginResponse?.token)
-//        guard let loginResponse = self.loginResponse else {
-//            print("Error with bearer in updateUser()")
-//            completion(NSError())
-//            return
-//        }
         let toke = creds.token
         let userId = creds.user_id
-        //let toke = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsInVzZXJuYW1lIjoiam9yZ2UiLCJpYXQiOjE1ODEyMTAxMjAsImV4cCI6MTU4MTI5NjUyMH0.XTQuva07-NJVbgj1i150Ph9usilO_zt83T4MNPEDqAM"
-        //let userId = 6
-        //let testRep = UserRepresentation(username: "jorge7", password: "alvarez7", email: "email7", phone_number: 8888888)
         
         // ENDPOINT + HEADERS
         let updateUrl = baseURL.appendingPathComponent("users/\(userId)")
-        print(updateUrl)
         var request = URLRequest(url: updateUrl)
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
