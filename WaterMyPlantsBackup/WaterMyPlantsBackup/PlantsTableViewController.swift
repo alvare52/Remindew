@@ -48,7 +48,7 @@ class PlantsTableViewController: UITableViewController {
         //addPlantIcon.tintColor = .systemGreen
         startTimer()
         // CHANGE BACK TO VIEWDIDAPPEAR LATER
-        performSegue(withIdentifier: "LoginModalSegue", sender: self)
+//        performSegue(withIdentifier: "LoginModalSegue", sender: self)
         
     }
     
@@ -59,6 +59,10 @@ class PlantsTableViewController: UITableViewController {
         } else {
             title = "Water My Plants"
         }
+        
+        userIcon.isEnabled = false
+        userIcon.tintColor = .clear
+        
         if skippedSignUp {
             userIcon.isEnabled = false
             userIcon.tintColor = .clear
