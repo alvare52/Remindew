@@ -72,12 +72,13 @@ class PlantsTableViewController: UITableViewController {
         userIcon.isEnabled = false
         userIcon.tintColor = .clear
         
-        if skippedSignUp {
-            userIcon.isEnabled = false
-            userIcon.tintColor = .clear
-        } else {
-            userIcon.isEnabled = true
-        }
+//        if skippedSignUp {
+//            userIcon.isEnabled = false
+//            userIcon.tintColor = .clear
+//        } else {
+//            userIcon.isEnabled = true
+//        }
+        
         // show login screen when view did appear
         // THIS IS WHERE PERFORMSEGUE SHOULD BE LATER
         //performSegue(withIdentifier: "LoginModalSegue", sender: self)
@@ -199,10 +200,10 @@ class PlantsTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "LoginModalSegue" {
-            guard let destination = segue.destination as? LoginViewController else {return}
-            destination.userController = self.userController
-        }
+//        if segue.identifier == "LoginModalSegue" {
+//            guard let destination = segue.destination as? LoginViewController else {return}
+//            destination.userController = self.userController
+//        }
         
         // DetailViewController (to ADD plant)
         if segue.identifier == "AddPlantSegue" {
