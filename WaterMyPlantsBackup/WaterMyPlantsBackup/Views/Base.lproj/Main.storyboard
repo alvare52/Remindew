@@ -95,7 +95,7 @@
             </objects>
             <point key="canvasLocation" x="857.97101449275374" y="-625.44642857142856"/>
         </scene>
-        <!--Water My Plants-->
+        <!--Dew-->
         <scene sceneID="ZGE-a2-4t6">
             <objects>
                 <tableViewController id="h6g-pM-PCw" customClass="PlantsTableViewController" customModule="WaterMyPlantsBackup" customModuleProvider="target" sceneMemberID="viewController">
@@ -137,7 +137,7 @@
                             <outlet property="delegate" destination="h6g-pM-PCw" id="dht-Zh-2ns"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Water My Plants" id="EK6-Ws-JkZ">
+                    <navigationItem key="navigationItem" title="Dew" id="EK6-Ws-JkZ">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="person.fill" catalog="system" id="q4J-ym-dyu">
                             <connections>
                                 <segue destination="Kcj-oa-ai6" kind="show" identifier="EditUserSegue" id="7gp-np-wlF"/>
@@ -360,7 +360,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>

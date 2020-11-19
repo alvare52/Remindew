@@ -57,7 +57,7 @@ class PlantsTableViewController: UITableViewController {
         if let user = globalUser?.username {
             title = "\(user)'s Plants"
         } else {
-            title = "Water My Plants"
+            title = "Remindew"
         }
         
         userIcon.isEnabled = false
@@ -149,17 +149,17 @@ class PlantsTableViewController: UITableViewController {
         //cell.textLabel?.textColor = .systemGreen
         //cell.textLabel?.textColor = UIColor(red: 62, green: 79, blue: 36, alpha: 1)
         cell.accessoryType = .disclosureIndicator
-        let shit = Date(timeIntervalSinceNow: 69)
+        let temp = Date(timeIntervalSinceNow: 69)
         if testCell.frequency == 1 {
-            cell.detailTextLabel?.text = "Every day - \(dateFormatter.string(from: testCell.water_schedule ?? shit ))"
+            cell.detailTextLabel?.text = "Every day - \(dateFormatter.string(from: testCell.water_schedule ?? temp ))"
         }
         else if testCell.frequency == 7 {
-            cell.detailTextLabel?.text = "Every week - \(dateFormatter.string(from: testCell.water_schedule ?? shit ))"
+            cell.detailTextLabel?.text = "Every week - \(dateFormatter.string(from: testCell.water_schedule ?? temp ))"
         }
         else {
-            cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule ?? shit))" }
+            cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule ?? temp))" }
         // TEST
-        cell.imageView?.image = UIImage(named: "leaficon1")
+        cell.imageView?.image = UIImage(named: "planticonwater")
         return cell
     }
     
