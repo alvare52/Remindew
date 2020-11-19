@@ -12,8 +12,6 @@
 		1B0987F923EA61DF000033FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0987F723EA61DF000033FA /* Main.storyboard */; };
 		1B0987FB23EA61E5000033FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B0987FA23EA61E5000033FA /* Assets.xcassets */; };
 		1B0987FE23EA61E5000033FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0987FC23EA61E5000033FA /* LaunchScreen.storyboard */; };
-		1B09880923EA61E5000033FA /* WaterMyPlantsBackupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09880823EA61E5000033FA /* WaterMyPlantsBackupTests.swift */; };
-		1B09881423EA61E5000033FA /* WaterMyPlantsBackupUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09881323EA61E5000033FA /* WaterMyPlantsBackupUITests.swift */; };
 		1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882823EA640E000033FA /* PlantsTableViewController.swift */; };
 		1B09882B23EA643E000033FA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882A23EA643E000033FA /* DetailViewController.swift */; };
 		1B09882D23EA6451000033FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882C23EA6451000033FA /* LoginViewController.swift */; };
@@ -28,23 +26,6 @@
 		1B09884223EC6167000033FA /* Bearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09884123EC6167000033FA /* Bearer.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1B09880523EA61E5000033FA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1B0987E623EA61DE000033FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1B0987ED23EA61DE000033FA;
-			remoteInfo = WaterMyPlantsBackup;
-		};
-		1B09881023EA61E5000033FA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1B0987E623EA61DE000033FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1B0987ED23EA61DE000033FA;
-			remoteInfo = WaterMyPlantsBackup;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		1B0987EE23EA61DF000033FA /* Remindew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remindew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B0987F123EA61DF000033FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -53,12 +34,6 @@
 		1B0987FA23EA61E5000033FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B0987FD23EA61E5000033FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B0987FF23EA61E5000033FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1B09880423EA61E5000033FA /* RemindewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B09880823EA61E5000033FA /* WaterMyPlantsBackupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMyPlantsBackupTests.swift; sourceTree = "<group>"; };
-		1B09880A23EA61E5000033FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1B09880F23EA61E5000033FA /* RemindewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B09881323EA61E5000033FA /* WaterMyPlantsBackupUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterMyPlantsBackupUITests.swift; sourceTree = "<group>"; };
-		1B09881523EA61E5000033FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B09882823EA640E000033FA /* PlantsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTableViewController.swift; sourceTree = "<group>"; };
 		1B09882A23EA643E000033FA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		1B09882C23EA6451000033FA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -81,20 +56,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1B09880123EA61E5000033FA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B09880C23EA61E5000033FA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -102,8 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				1B0987F023EA61DF000033FA /* Remindew */,
-				1B09880723EA61E5000033FA /* WaterMyPlantsBackupTests */,
-				1B09881223EA61E5000033FA /* WaterMyPlantsBackupUITests */,
 				1B0987EF23EA61DF000033FA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,8 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				1B0987EE23EA61DF000033FA /* Remindew.app */,
-				1B09880423EA61E5000033FA /* RemindewTests.xctest */,
-				1B09880F23EA61E5000033FA /* RemindewUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,24 +85,6 @@
 				1B09882123EA6237000033FA /* Resources */,
 			);
 			path = Remindew;
-			sourceTree = "<group>";
-		};
-		1B09880723EA61E5000033FA /* WaterMyPlantsBackupTests */ = {
-			isa = PBXGroup;
-			children = (
-				1B09880823EA61E5000033FA /* WaterMyPlantsBackupTests.swift */,
-				1B09880A23EA61E5000033FA /* Info.plist */,
-			);
-			path = WaterMyPlantsBackupTests;
-			sourceTree = "<group>";
-		};
-		1B09881223EA61E5000033FA /* WaterMyPlantsBackupUITests */ = {
-			isa = PBXGroup;
-			children = (
-				1B09881323EA61E5000033FA /* WaterMyPlantsBackupUITests.swift */,
-				1B09881523EA61E5000033FA /* Info.plist */,
-			);
-			path = WaterMyPlantsBackupUITests;
 			sourceTree = "<group>";
 		};
 		1B09882123EA6237000033FA /* Resources */ = {
@@ -221,42 +160,6 @@
 			productReference = 1B0987EE23EA61DF000033FA /* Remindew.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1B09880323EA61E5000033FA /* RemindewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1B09881B23EA61E5000033FA /* Build configuration list for PBXNativeTarget "RemindewTests" */;
-			buildPhases = (
-				1B09880023EA61E5000033FA /* Sources */,
-				1B09880123EA61E5000033FA /* Frameworks */,
-				1B09880223EA61E5000033FA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1B09880623EA61E5000033FA /* PBXTargetDependency */,
-			);
-			name = RemindewTests;
-			productName = WaterMyPlantsBackupTests;
-			productReference = 1B09880423EA61E5000033FA /* RemindewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		1B09880E23EA61E5000033FA /* RemindewUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1B09881E23EA61E5000033FA /* Build configuration list for PBXNativeTarget "RemindewUITests" */;
-			buildPhases = (
-				1B09880B23EA61E5000033FA /* Sources */,
-				1B09880C23EA61E5000033FA /* Frameworks */,
-				1B09880D23EA61E5000033FA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1B09881123EA61E5000033FA /* PBXTargetDependency */,
-			);
-			name = RemindewUITests;
-			productName = WaterMyPlantsBackupUITests;
-			productReference = 1B09880F23EA61E5000033FA /* RemindewUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -269,14 +172,6 @@
 				TargetAttributes = {
 					1B0987ED23EA61DE000033FA = {
 						CreatedOnToolsVersion = 11.3.1;
-					};
-					1B09880323EA61E5000033FA = {
-						CreatedOnToolsVersion = 11.3.1;
-						TestTargetID = 1B0987ED23EA61DE000033FA;
-					};
-					1B09880E23EA61E5000033FA = {
-						CreatedOnToolsVersion = 11.3.1;
-						TestTargetID = 1B0987ED23EA61DE000033FA;
 					};
 				};
 			};
@@ -294,8 +189,6 @@
 			projectRoot = "";
 			targets = (
 				1B0987ED23EA61DE000033FA /* Remindew */,
-				1B09880323EA61E5000033FA /* RemindewTests */,
-				1B09880E23EA61E5000033FA /* RemindewUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -308,20 +201,6 @@
 				1B0987FE23EA61E5000033FA /* LaunchScreen.storyboard in Resources */,
 				1B0987FB23EA61E5000033FA /* Assets.xcassets in Resources */,
 				1B0987F923EA61DF000033FA /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B09880223EA61E5000033FA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B09880D23EA61E5000033FA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,36 +228,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1B09880023EA61E5000033FA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B09880923EA61E5000033FA /* WaterMyPlantsBackupTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1B09880B23EA61E5000033FA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B09881423EA61E5000033FA /* WaterMyPlantsBackupUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1B09880623EA61E5000033FA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1B0987ED23EA61DE000033FA /* Remindew */;
-			targetProxy = 1B09880523EA61E5000033FA /* PBXContainerItemProxy */;
-		};
-		1B09881123EA61E5000033FA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1B0987ED23EA61DE000033FA /* Remindew */;
-			targetProxy = 1B09881023EA61E5000033FA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1B0987F723EA61DF000033FA /* Main.storyboard */ = {
@@ -550,90 +400,6 @@
 			};
 			name = Release;
 		};
-		1B09881C23EA61E5000033FA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XFZ73X2DJQ;
-				INFOPLIST_FILE = WaterMyPlantsBackupTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jorgealvarez.WaterMyPlantsBackupTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Remindew.app/Remindew";
-			};
-			name = Debug;
-		};
-		1B09881D23EA61E5000033FA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XFZ73X2DJQ;
-				INFOPLIST_FILE = WaterMyPlantsBackupTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jorgealvarez.WaterMyPlantsBackupTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Remindew.app/Remindew";
-			};
-			name = Release;
-		};
-		1B09881F23EA61E5000033FA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XFZ73X2DJQ;
-				INFOPLIST_FILE = WaterMyPlantsBackupUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jorgealvarez.WaterMyPlantsBackupUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = WaterMyPlantsBackup;
-			};
-			name = Debug;
-		};
-		1B09882023EA61E5000033FA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XFZ73X2DJQ;
-				INFOPLIST_FILE = WaterMyPlantsBackupUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jorgealvarez.WaterMyPlantsBackupUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = WaterMyPlantsBackup;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -651,24 +417,6 @@
 			buildConfigurations = (
 				1B09881923EA61E5000033FA /* Debug */,
 				1B09881A23EA61E5000033FA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1B09881B23EA61E5000033FA /* Build configuration list for PBXNativeTarget "RemindewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1B09881C23EA61E5000033FA /* Debug */,
-				1B09881D23EA61E5000033FA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1B09881E23EA61E5000033FA /* Build configuration list for PBXNativeTarget "RemindewUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1B09881F23EA61E5000033FA /* Debug */,
-				1B09882023EA61E5000033FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
