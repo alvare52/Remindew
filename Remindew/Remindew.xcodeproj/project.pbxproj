@@ -24,7 +24,26 @@
 		1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883B23EA9475000033FA /* PlantRepresentation.swift */; };
 		1B09884023EA97BD000033FA /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883F23EA97BD000033FA /* UserController.swift */; };
 		1B09884223EC6167000033FA /* Bearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09884123EC6167000033FA /* Bearer.swift */; };
+		1BED79C025672D3E004241F4 /* RemindewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79BF25672D3E004241F4 /* RemindewTests.swift */; };
+		1BED79CE25672D84004241F4 /* RemindewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79CD25672D84004241F4 /* RemindewUITests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1BED79C225672D3E004241F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B0987E623EA61DE000033FA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B0987ED23EA61DE000033FA;
+			remoteInfo = Remindew;
+		};
+		1BED79D025672D84004241F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B0987E623EA61DE000033FA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B0987ED23EA61DE000033FA;
+			remoteInfo = Remindew;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1B0987EE23EA61DF000033FA /* Remindew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remindew.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,10 +65,30 @@
 		1B09883B23EA9475000033FA /* PlantRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRepresentation.swift; sourceTree = "<group>"; };
 		1B09883F23EA97BD000033FA /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		1B09884123EC6167000033FA /* Bearer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bearer.swift; sourceTree = "<group>"; };
+		1BED79BD25672D3E004241F4 /* RemindewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BED79BF25672D3E004241F4 /* RemindewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindewTests.swift; sourceTree = "<group>"; };
+		1BED79C125672D3E004241F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BED79CB25672D84004241F4 /* RemindewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BED79CD25672D84004241F4 /* RemindewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindewUITests.swift; sourceTree = "<group>"; };
+		1BED79CF25672D84004241F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		1B0987EB23EA61DE000033FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BED79BA25672D3E004241F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BED79C825672D84004241F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,6 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				1B0987F023EA61DF000033FA /* Remindew */,
+				1BED79BE25672D3E004241F4 /* RemindewTests */,
+				1BED79CC25672D84004241F4 /* RemindewUITests */,
 				1B0987EF23EA61DF000033FA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				1B0987EE23EA61DF000033FA /* Remindew.app */,
+				1BED79BD25672D3E004241F4 /* RemindewTests.xctest */,
+				1BED79CB25672D84004241F4 /* RemindewUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,6 +183,24 @@
 			name = "Model Controllers";
 			sourceTree = "<group>";
 		};
+		1BED79BE25672D3E004241F4 /* RemindewTests */ = {
+			isa = PBXGroup;
+			children = (
+				1BED79BF25672D3E004241F4 /* RemindewTests.swift */,
+				1BED79C125672D3E004241F4 /* Info.plist */,
+			);
+			path = RemindewTests;
+			sourceTree = "<group>";
+		};
+		1BED79CC25672D84004241F4 /* RemindewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1BED79CD25672D84004241F4 /* RemindewUITests.swift */,
+				1BED79CF25672D84004241F4 /* Info.plist */,
+			);
+			path = RemindewUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,18 +221,62 @@
 			productReference = 1B0987EE23EA61DF000033FA /* Remindew.app */;
 			productType = "com.apple.product-type.application";
 		};
+		1BED79BC25672D3E004241F4 /* RemindewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BED79C425672D3E004241F4 /* Build configuration list for PBXNativeTarget "RemindewTests" */;
+			buildPhases = (
+				1BED79B925672D3E004241F4 /* Sources */,
+				1BED79BA25672D3E004241F4 /* Frameworks */,
+				1BED79BB25672D3E004241F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1BED79C325672D3E004241F4 /* PBXTargetDependency */,
+			);
+			name = RemindewTests;
+			productName = RemindewTests;
+			productReference = 1BED79BD25672D3E004241F4 /* RemindewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1BED79CA25672D84004241F4 /* RemindewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1BED79D225672D84004241F4 /* Build configuration list for PBXNativeTarget "RemindewUITests" */;
+			buildPhases = (
+				1BED79C725672D84004241F4 /* Sources */,
+				1BED79C825672D84004241F4 /* Frameworks */,
+				1BED79C925672D84004241F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1BED79D125672D84004241F4 /* PBXTargetDependency */,
+			);
+			name = RemindewUITests;
+			productName = RemindewUITests;
+			productReference = 1BED79CB25672D84004241F4 /* RemindewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		1B0987E623EA61DE000033FA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1170;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Jorge Alvarez";
 				TargetAttributes = {
 					1B0987ED23EA61DE000033FA = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					1BED79BC25672D3E004241F4 = {
+						CreatedOnToolsVersion = 11.7;
+						TestTargetID = 1B0987ED23EA61DE000033FA;
+					};
+					1BED79CA25672D84004241F4 = {
+						CreatedOnToolsVersion = 11.7;
+						TestTargetID = 1B0987ED23EA61DE000033FA;
 					};
 				};
 			};
@@ -189,6 +294,8 @@
 			projectRoot = "";
 			targets = (
 				1B0987ED23EA61DE000033FA /* Remindew */,
+				1BED79BC25672D3E004241F4 /* RemindewTests */,
+				1BED79CA25672D84004241F4 /* RemindewUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,6 +308,20 @@
 				1B0987FE23EA61E5000033FA /* LaunchScreen.storyboard in Resources */,
 				1B0987FB23EA61E5000033FA /* Assets.xcassets in Resources */,
 				1B0987F923EA61DF000033FA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BED79BB25672D3E004241F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BED79C925672D84004241F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +349,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1BED79B925672D3E004241F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BED79C025672D3E004241F4 /* RemindewTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BED79C725672D84004241F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BED79CE25672D84004241F4 /* RemindewUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1BED79C325672D3E004241F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B0987ED23EA61DE000033FA /* Remindew */;
+			targetProxy = 1BED79C225672D3E004241F4 /* PBXContainerItemProxy */;
+		};
+		1BED79D125672D84004241F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B0987ED23EA61DE000033FA /* Remindew */;
+			targetProxy = 1BED79D025672D84004241F4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1B0987F723EA61DF000033FA /* Main.storyboard */ = {
@@ -400,6 +550,88 @@
 			};
 			name = Release;
 		};
+		1BED79C525672D3E004241F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XFZ73X2DJQ;
+				INFOPLIST_FILE = RemindewTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorgealvarez.RemindewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Remindew.app/Remindew";
+			};
+			name = Debug;
+		};
+		1BED79C625672D3E004241F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XFZ73X2DJQ;
+				INFOPLIST_FILE = RemindewTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorgealvarez.RemindewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Remindew.app/Remindew";
+			};
+			name = Release;
+		};
+		1BED79D325672D84004241F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XFZ73X2DJQ;
+				INFOPLIST_FILE = RemindewUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorgealvarez.RemindewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Remindew;
+			};
+			name = Debug;
+		};
+		1BED79D425672D84004241F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XFZ73X2DJQ;
+				INFOPLIST_FILE = RemindewUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jorgealvarez.RemindewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Remindew;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -417,6 +649,24 @@
 			buildConfigurations = (
 				1B09881923EA61E5000033FA /* Debug */,
 				1B09881A23EA61E5000033FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BED79C425672D3E004241F4 /* Build configuration list for PBXNativeTarget "RemindewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BED79C525672D3E004241F4 /* Debug */,
+				1BED79C625672D3E004241F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1BED79D225672D84004241F4 /* Build configuration list for PBXNativeTarget "RemindewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BED79D325672D84004241F4 /* Debug */,
+				1BED79D425672D84004241F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
