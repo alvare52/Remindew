@@ -63,7 +63,7 @@ class DetailViewController: UIViewController {
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
         datePicker.minimumDate = Date()
-        plantButton.layer.cornerRadius = 5.0
+        plantButton.layer.cornerRadius = 10.0
         updateViews()
     }
         
