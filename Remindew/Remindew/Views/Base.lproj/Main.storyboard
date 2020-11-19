@@ -10,7 +10,7 @@
         <!--Jorge-->
         <scene sceneID="aih-2M-aXG">
             <objects>
-                <viewController id="Kcj-oa-ai6" customClass="UserViewController" customModule="WaterMyPlantsBackup" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Kcj-oa-ai6" customClass="UserViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ygn-r1-b9X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -95,10 +95,10 @@
             </objects>
             <point key="canvasLocation" x="857.97101449275374" y="-625.44642857142856"/>
         </scene>
-        <!--Dew-->
+        <!--Remindew-->
         <scene sceneID="ZGE-a2-4t6">
             <objects>
-                <tableViewController id="h6g-pM-PCw" customClass="PlantsTableViewController" customModule="WaterMyPlantsBackup" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="h6g-pM-PCw" customClass="PlantsTableViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4at-pe-crc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,7 +137,7 @@
                             <outlet property="delegate" destination="h6g-pM-PCw" id="dht-Zh-2ns"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Dew" id="EK6-Ws-JkZ">
+                    <navigationItem key="navigationItem" title="Remindew" id="EK6-Ws-JkZ">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="person.fill" catalog="system" id="q4J-ym-dyu">
                             <connections>
                                 <segue destination="Kcj-oa-ai6" kind="show" identifier="EditUserSegue" id="7gp-np-wlF"/>
@@ -162,7 +162,7 @@
         <!--Login View Controller-->
         <scene sceneID="33c-rd-MqP">
             <objects>
-                <viewController id="zCE-eV-1gH" customClass="LoginViewController" customModule="WaterMyPlantsBackup" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zCE-eV-1gH" customClass="LoginViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C50-1l-QAU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -273,7 +273,7 @@
         <!--Plant-->
         <scene sceneID="ZYc-Ey-tPq">
             <objects>
-                <viewController id="egV-2b-yvb" customClass="DetailViewController" customModule="WaterMyPlantsBackup" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="egV-2b-yvb" customClass="DetailViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="afK-Kd-SPE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

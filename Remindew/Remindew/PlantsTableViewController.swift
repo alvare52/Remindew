@@ -63,11 +63,11 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let user = globalUser?.username {
-            title = "\(user)'s Plants"
-        } else {
-            title = "Remindew"
-        }
+//        if let user = globalUser?.username {
+//            title = "\(user)'s Plants"
+//        } else {
+//            title = "Remindew"
+//        }
         
         userIcon.isEnabled = false
         userIcon.tintColor = .clear
