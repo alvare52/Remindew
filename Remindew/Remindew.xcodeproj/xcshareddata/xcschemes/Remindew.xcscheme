@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1B0987ED23EA61DE000033FA"
-               BuildableName = "WaterMyPlantsBackup.app"
-               BlueprintName = "WaterMyPlantsBackup"
-               ReferencedContainer = "container:WaterMyPlantsBackup.xcodeproj">
+               BuildableName = "Remindew.app"
+               BlueprintName = "Remindew"
+               ReferencedContainer = "container:Remindew.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1B09880323EA61E5000033FA"
-               BuildableName = "WaterMyPlantsBackupTests.xctest"
-               BlueprintName = "WaterMyPlantsBackupTests"
-               ReferencedContainer = "container:WaterMyPlantsBackup.xcodeproj">
+               BuildableName = "RemindewTests.xctest"
+               BlueprintName = "RemindewTests"
+               ReferencedContainer = "container:Remindew.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1B09880E23EA61E5000033FA"
-               BuildableName = "WaterMyPlantsBackupUITests.xctest"
-               BlueprintName = "WaterMyPlantsBackupUITests"
-               ReferencedContainer = "container:WaterMyPlantsBackup.xcodeproj">
+               BuildableName = "RemindewUITests.xctest"
+               BlueprintName = "RemindewUITests"
+               ReferencedContainer = "container:Remindew.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B0987ED23EA61DE000033FA"
-            BuildableName = "WaterMyPlantsBackup.app"
-            BlueprintName = "WaterMyPlantsBackup"
-            ReferencedContainer = "container:WaterMyPlantsBackup.xcodeproj">
+            BuildableName = "Remindew.app"
+            BlueprintName = "Remindew"
+            ReferencedContainer = "container:Remindew.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -88,9 +88,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B0987ED23EA61DE000033FA"
-            BuildableName = "WaterMyPlantsBackup.app"
-            BlueprintName = "WaterMyPlantsBackup"
-            ReferencedContainer = "container:WaterMyPlantsBackup.xcodeproj">
+            BuildableName = "Remindew.app"
+            BlueprintName = "Remindew"
+            ReferencedContainer = "container:Remindew.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
