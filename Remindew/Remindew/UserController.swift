@@ -136,29 +136,19 @@ class UserController {
         plant.frequency = frequency
         savePlant()
     }
-
-    /// Delete a user from the server
-    func deletePlantFromServer(plant: Plant, completion: @escaping CompletionHandler = { _ in }) {
-        // NEEDS to have ID
-        guard let uuid = plant.identifier else {
-            completion(NSError())
-            return
+    
+    /// Deletes plant and then saves or resets if there's an error
+    func deletePlant(plant: Plant) {
+        CoreDataStack.shared.mainContext.delete(plant)
+        do {
+            try CoreDataStack.shared.mainContext.save()
+        } catch {
+            CoreDataStack.shared.mainContext.reset() // UN-deletes
+            NSLog("Error saving managed object context: \(error)")
         }
-
-        let requestURL = fireBaseUrl.appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
-        var request = URLRequest(url: requestURL)
-        request.httpMethod = "DELETE"
-
-        URLSession.shared.dataTask(with: request) { (_, response, error) in
-            print(response!)
-
-            DispatchQueue.main.async {
-                completion(error)
-            }
-        }.resume()
     }
     
-    /// Saves to Core Data
+    /// Saves to Core Data, gets called from other methods
     func savePlant() {
         do {
             try CoreDataStack.shared.mainContext.save()

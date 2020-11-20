@@ -160,21 +160,7 @@ class PlantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let plant = fetchedResultsController.object(at: indexPath)
-            // delete from server first before we do local delete
-            userController.deletePlantFromServer(plant: plant) { error in
-                if let error = error {
-                    print("Error deleting plant from server: \(error)")
-                    return
-                }
-                
-                CoreDataStack.shared.mainContext.delete(plant)
-                do {
-                    try CoreDataStack.shared.mainContext.save()
-                } catch {
-                    CoreDataStack.shared.mainContext.reset() // UN-deletes
-                    NSLog("Error saving managed object context: \(error)")
-                }
-            }
+            userController.deletePlant(plant: plant)
         }
     }
 
