@@ -37,9 +37,11 @@ class DetailViewController: UIViewController {
             }
                 
             // If there is NO plant (add)
-            else {
-                _ = Plant(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
-                userController?.savePlant()
+            else {                
+                userController?.createPlant(nickname: nickname,
+                                            species: species,
+                                            date: datePicker.date,
+                                            frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
             }
             navigationController?.popViewController(animated: true)
         }
