@@ -15,14 +15,13 @@ import UserNotifications
 // TODO: delete unneeded comments
 // TODO: screen size issues
 // TODO: improve README (Gif, About, tech ribbons)
-// TODO: rename project
 // TODO: notifications fixes (not allowed, access description)
 // TODO: add Unit/UI tests
+// TODO: add better comments/Marks
 
 class PlantsTableViewController: UITableViewController {
     
     // MARK: - Properties
-    
     
     lazy var fetchedResultsController: NSFetchedResultsController<Plant> = {
         let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()

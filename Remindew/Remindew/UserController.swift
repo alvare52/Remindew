@@ -76,7 +76,7 @@ class UserController {
     // British colloquialism
     init() {
         print("INIT")
-        fetchPlantsFromServer()
+//        fetchPlantsFromServer()
     }
 
     // MARK: - Register, Log in, and Update User (Heroku API)
@@ -304,43 +304,43 @@ class UserController {
     // MARK: - Create, Read, Update, Delete Plants (Firebase API)
 
     /// Connect to Firebase
-    func fetchPlantsFromServer(completion: @escaping CompletionHandler = { _ in }) {
-        let requestURL = fireBaseUrl.appendingPathExtension("json")
-
-        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
-            if let error = error {
-                print("Error fetching plants: \(error)")
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-                return
-            }
-
-            guard let data = data else {
-                print("No data returned by data task")
-                DispatchQueue.main.async {
-                    completion(NSError())
-                }
-                return
-            }
-            let jsonDecoder = JSONDecoder()
-            jsonDecoder.dateDecodingStrategy = .iso8601
-
-            do {
-                let plantRepresentations = Array(try jsonDecoder.decode([String: PlantRepresentation].self, from: data).values)
-                try self.updatePlants(with: plantRepresentations)
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            } catch {
-                print("Error decoding or storing plant representations: \(error)")
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-            }
-
-        }.resume()
-    }
+//    func fetchPlantsFromServer(completion: @escaping CompletionHandler = { _ in }) {
+//        let requestURL = fireBaseUrl.appendingPathExtension("json")
+//
+//        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+//            if let error = error {
+//                print("Error fetching plants: \(error)")
+//                DispatchQueue.main.async {
+//                    completion(error)
+//                }
+//                return
+//            }
+//
+//            guard let data = data else {
+//                print("No data returned by data task")
+//                DispatchQueue.main.async {
+//                    completion(NSError())
+//                }
+//                return
+//            }
+//            let jsonDecoder = JSONDecoder()
+//            jsonDecoder.dateDecodingStrategy = .iso8601
+//
+//            do {
+//                let plantRepresentations = Array(try jsonDecoder.decode([String: PlantRepresentation].self, from: data).values)
+//                try self.updatePlants(with: plantRepresentations)
+//                DispatchQueue.main.async {
+//                    completion(nil)
+//                }
+//            } catch {
+//                print("Error decoding or storing plant representations: \(error)")
+//                DispatchQueue.main.async {
+//                    completion(error)
+//                }
+//            }
+//
+//        }.resume()
+//    }
 
     /// Turns FireBase objects to Core Data objects
     private func updatePlants(with representations: [PlantRepresentation]) throws {
@@ -477,8 +477,4 @@ class UserController {
             }
         }.resume()
     }
-}
-
-struct Bearer: Codable {
-    let token: String
 }
