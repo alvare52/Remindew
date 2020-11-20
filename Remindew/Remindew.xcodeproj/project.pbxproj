@@ -18,7 +18,7 @@
 		1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883323EA9415000033FA /* CoreDataStack.swift */; };
 		1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883723EA9451000033FA /* Plant+Convenience.swift */; };
 		1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883B23EA9475000033FA /* PlantRepresentation.swift */; };
-		1B09884023EA97BD000033FA /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883F23EA97BD000033FA /* UserController.swift */; };
+		1B09884023EA97BD000033FA /* PlantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883F23EA97BD000033FA /* PlantController.swift */; };
 		1BED79C025672D3E004241F4 /* RemindewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79BF25672D3E004241F4 /* RemindewTests.swift */; };
 		1BED79CE25672D84004241F4 /* RemindewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79CD25672D84004241F4 /* RemindewUITests.swift */; };
 /* End PBXBuildFile section */
@@ -54,7 +54,7 @@
 		1B09883323EA9415000033FA /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		1B09883723EA9451000033FA /* Plant+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plant+Convenience.swift"; sourceTree = "<group>"; };
 		1B09883B23EA9475000033FA /* PlantRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRepresentation.swift; sourceTree = "<group>"; };
-		1B09883F23EA97BD000033FA /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		1B09883F23EA97BD000033FA /* PlantController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantController.swift; sourceTree = "<group>"; };
 		1BED79BD25672D3E004241F4 /* RemindewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BED79BF25672D3E004241F4 /* RemindewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindewTests.swift; sourceTree = "<group>"; };
 		1BED79C125672D3E004241F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 		1B09882523EA625F000033FA /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1B09883F23EA97BD000033FA /* UserController.swift */,
+				1B09883F23EA97BD000033FA /* PlantController.swift */,
 			);
 			name = "Model Controllers";
 			sourceTree = "<group>";
@@ -319,7 +319,7 @@
 			files = (
 				1B09883223EA928D000033FA /* Plants.xcdatamodeld in Sources */,
 				1B0987F223EA61DF000033FA /* AppDelegate.swift in Sources */,
-				1B09884023EA97BD000033FA /* UserController.swift in Sources */,
+				1B09884023EA97BD000033FA /* PlantController.swift in Sources */,
 				1B09882B23EA643E000033FA /* DetailViewController.swift in Sources */,
 				1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */,
 				1B0987F423EA61DF000033FA /* SceneDelegate.swift in Sources */,

@@ -17,7 +17,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var plantButton: UIButton!
     @IBOutlet weak var backButton: UINavigationItem!
     
-    var userController: UserController?
+    var userController: PlantController?
     
     // TEST
     var plant: Plant? {

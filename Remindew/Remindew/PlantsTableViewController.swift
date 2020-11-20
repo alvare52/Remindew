@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 import UserNotifications
 
-// TODO: delete Firebase code
 // TODO: add needsWatering property
 // TODO: delete unneeded comments
 // TODO: screen size issues
@@ -46,7 +45,7 @@ class PlantsTableViewController: UITableViewController {
     }
     
     var timer: Timer?
-    let userController = UserController()
+    let userController = PlantController()
 
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
     
