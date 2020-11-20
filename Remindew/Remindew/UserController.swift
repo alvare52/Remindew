@@ -395,47 +395,48 @@ class UserController {
 
     /// Send a created or updated plant to the server
     func sendPlantToServer(plant: Plant, completion: @escaping CompletionHandler = { _ in }) {
-        let uuid = plant.identifier ?? UUID()
-        let requestURL = fireBaseUrl.appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
-        print("requestURL = \(requestURL)")
-        var request = URLRequest(url: requestURL)
-        request.httpMethod = "PUT" // post ADDS to db (can add copies), "put" also finds recored and overrides it, or just adds
-
-        // Encode data
-        do {
-            guard var representation = plant.plantRepresentation else {
-                completion(NSError())
-                return
-            }
-            // Both have same uuid
-            representation.identifier = uuid
-            plant.identifier = uuid
-            try CoreDataStack.shared.save()
-            let jsonEncoder = JSONEncoder()
-            jsonEncoder.dateEncodingStrategy = .iso8601
-
-            request.httpBody = try jsonEncoder.encode(representation)
-        } catch {
-            print("Error encoding plant \(plant): \(error)")
-            DispatchQueue.main.async {
-                completion(error)
-            }
-            return
-        }
-        // Send to server
-        URLSession.shared.dataTask(with: request) { (_, _, error) in
-            if let error = error {
-                print("error putting plant to server: \(error)")
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-                return
-            }
-            // success
-            DispatchQueue.main.async {
-                completion(nil)
-            }
-        }.resume()
+        savePlant()
+//        let uuid = plant.identifier ?? UUID()
+//        let requestURL = fireBaseUrl.appendingPathComponent(uuid.uuidString).appendingPathExtension("json")
+//        print("requestURL = \(requestURL)")
+//        var request = URLRequest(url: requestURL)
+//        request.httpMethod = "PUT" // post ADDS to db (can add copies), "put" also finds recored and overrides it, or just adds
+//
+//        // Encode data
+//        do {
+//            guard var representation = plant.plantRepresentation else {
+//                completion(NSError())
+//                return
+//            }
+//            // Both have same uuid
+//            representation.identifier = uuid
+//            plant.identifier = uuid
+//            try CoreDataStack.shared.save()
+//            let jsonEncoder = JSONEncoder()
+//            jsonEncoder.dateEncodingStrategy = .iso8601
+//
+//            request.httpBody = try jsonEncoder.encode(representation)
+//        } catch {
+//            print("Error encoding plant \(plant): \(error)")
+//            DispatchQueue.main.async {
+//                completion(error)
+//            }
+//            return
+//        }
+//        // Send to server
+//        URLSession.shared.dataTask(with: request) { (_, _, error) in
+//            if let error = error {
+//                print("error putting plant to server: \(error)")
+//                DispatchQueue.main.async {
+//                    completion(error)
+//                }
+//                return
+//            }
+//            // success
+//            DispatchQueue.main.async {
+//                completion(nil)
+//            }
+//        }.resume()
     }
 
     /// Saves to Core Data
@@ -453,7 +454,7 @@ class UserController {
         plant.species = species
         plant.water_schedule = water_schedule
         plant.frequency = frequency
-        sendPlantToServer(plant: plant)
+//        sendPlantToServer(plant: plant)
         savePlant()
     }
 

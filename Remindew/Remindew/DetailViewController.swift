@@ -30,21 +30,16 @@ class DetailViewController: UIViewController {
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
         if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty {
+            
             // If there is a plant, update (detail)
             if let existingPlant = plant {
                 userController?.update(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1), plant: existingPlant)
             }
+                
             // If there is NO plant (add)
             else {
-                let newPlant = Plant(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
-                userController?.sendPlantToServer(plant: newPlant)
-                
-                
-                do {
-                    try CoreDataStack.shared.mainContext.save()
-                } catch {
-                    NSLog("Error saving managed object context: \(error)")
-                }
+                _ = Plant(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
+                userController?.savePlant()
             }
             navigationController?.popViewController(animated: true)
         }
