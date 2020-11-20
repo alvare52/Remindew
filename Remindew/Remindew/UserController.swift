@@ -65,10 +65,10 @@ class UserController {
     // MARK: - Properties
 
     // Stores bearer token only (not needed anymore)
-    var bearer: Bearer?
+//    var bearer: Bearer?
 
     //var userRep: UserRepresentation
-    var fetchedUser: UserRepresentation?
+//    var fetchedUser: UserRepresentation?
 
     // Stores token and user id when signing in or logging in
     var loginResponse: LoginResponse?

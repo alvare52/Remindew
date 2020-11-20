@@ -14,13 +14,9 @@
 		1B0987FE23EA61E5000033FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B0987FC23EA61E5000033FA /* LaunchScreen.storyboard */; };
 		1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882823EA640E000033FA /* PlantsTableViewController.swift */; };
 		1B09882B23EA643E000033FA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882A23EA643E000033FA /* DetailViewController.swift */; };
-		1B09882D23EA6451000033FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882C23EA6451000033FA /* LoginViewController.swift */; };
-		1B09882F23EA6478000033FA /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09882E23EA6478000033FA /* UserViewController.swift */; };
 		1B09883223EA928D000033FA /* Plants.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883023EA928D000033FA /* Plants.xcdatamodeld */; };
 		1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883323EA9415000033FA /* CoreDataStack.swift */; };
-		1B09883623EA9444000033FA /* User+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883523EA9444000033FA /* User+Convenience.swift */; };
 		1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883723EA9451000033FA /* Plant+Convenience.swift */; };
-		1B09883A23EA9461000033FA /* UserRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883923EA9461000033FA /* UserRepresentation.swift */; };
 		1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883B23EA9475000033FA /* PlantRepresentation.swift */; };
 		1B09884023EA97BD000033FA /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883F23EA97BD000033FA /* UserController.swift */; };
 		1BED79C025672D3E004241F4 /* RemindewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79BF25672D3E004241F4 /* RemindewTests.swift */; };
@@ -54,13 +50,9 @@
 		1B0987FF23EA61E5000033FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B09882823EA640E000033FA /* PlantsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTableViewController.swift; sourceTree = "<group>"; };
 		1B09882A23EA643E000033FA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		1B09882C23EA6451000033FA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		1B09882E23EA6478000033FA /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		1B09883123EA928D000033FA /* Plants.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Plants.xcdatamodel; sourceTree = "<group>"; };
 		1B09883323EA9415000033FA /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		1B09883523EA9444000033FA /* User+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Convenience.swift"; sourceTree = "<group>"; };
 		1B09883723EA9451000033FA /* Plant+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plant+Convenience.swift"; sourceTree = "<group>"; };
-		1B09883923EA9461000033FA /* UserRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepresentation.swift; sourceTree = "<group>"; };
 		1B09883B23EA9475000033FA /* PlantRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRepresentation.swift; sourceTree = "<group>"; };
 		1B09883F23EA97BD000033FA /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		1BED79BD25672D3E004241F4 /* RemindewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,8 +145,6 @@
 			children = (
 				1B09882823EA640E000033FA /* PlantsTableViewController.swift */,
 				1B09882A23EA643E000033FA /* DetailViewController.swift */,
-				1B09882E23EA6478000033FA /* UserViewController.swift */,
-				1B09882C23EA6451000033FA /* LoginViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -164,9 +154,7 @@
 			children = (
 				1B09883023EA928D000033FA /* Plants.xcdatamodeld */,
 				1B09883323EA9415000033FA /* CoreDataStack.swift */,
-				1B09883523EA9444000033FA /* User+Convenience.swift */,
 				1B09883723EA9451000033FA /* Plant+Convenience.swift */,
-				1B09883923EA9461000033FA /* UserRepresentation.swift */,
 				1B09883B23EA9475000033FA /* PlantRepresentation.swift */,
 			);
 			path = Model;
@@ -330,18 +318,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B09883223EA928D000033FA /* Plants.xcdatamodeld in Sources */,
-				1B09882F23EA6478000033FA /* UserViewController.swift in Sources */,
-				1B09882D23EA6451000033FA /* LoginViewController.swift in Sources */,
 				1B0987F223EA61DF000033FA /* AppDelegate.swift in Sources */,
 				1B09884023EA97BD000033FA /* UserController.swift in Sources */,
 				1B09882B23EA643E000033FA /* DetailViewController.swift in Sources */,
 				1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */,
 				1B0987F423EA61DF000033FA /* SceneDelegate.swift in Sources */,
 				1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */,
-				1B09883A23EA9461000033FA /* UserRepresentation.swift in Sources */,
 				1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */,
 				1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */,
-				1B09883623EA9444000033FA /* User+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

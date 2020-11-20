@@ -49,7 +49,6 @@ class PlantsTableViewController: UITableViewController {
     var timer: Timer?
     let userController = UserController()
 
-    @IBOutlet weak var userIcon: UIBarButtonItem!
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -63,22 +62,7 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        if let user = globalUser?.username {
-//            title = "\(user)'s Plants"
-//        } else {
-//            title = "Remindew"
-//        }
-        
-        userIcon.isEnabled = false
-        userIcon.tintColor = .clear
-        
-//        if skippedSignUp {
-//            userIcon.isEnabled = false
-//            userIcon.tintColor = .clear
-//        } else {
-//            userIcon.isEnabled = true
-//        }
-        
+            
         // show login screen when view did appear
         // THIS IS WHERE PERFORMSEGUE SHOULD BE LATER
         //performSegue(withIdentifier: "LoginModalSegue", sender: self)
