@@ -11,7 +11,7 @@ import CoreData
 
 class PlantController {
     
-    // MARK: - Create, Read, Update, Delete Plants (Firebase API)
+    // MARK: - Create, Read, Update, Delete, Save plants
 
     /// Turns FireBase objects to Core Data objects
     private func updatePlants(with representations: [PlantRepresentation]) throws {

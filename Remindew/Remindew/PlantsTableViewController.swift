@@ -11,12 +11,15 @@ import CoreData
 import UserNotifications
 
 // TODO: add needsWatering property
-// TODO: delete unneeded comments
+// TODO: delete all unneeded comments
 // TODO: screen size issues
 // TODO: improve README (Gif, About, tech ribbons)
 // TODO: notifications fixes (not allowed, access description)
 // TODO: add Unit/UI tests
 // TODO: add better comments/Marks
+// TODO: UI polish, sounds, gradients, font, transparency
+// TODO: add Protocols
+// TODO: remote notification even when app closed
 
 class PlantsTableViewController: UITableViewController {
     
@@ -51,20 +54,7 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //addPlantIcon.tintColor = .systemGreen
         startTimer()
-        // CHANGE BACK TO VIEWDIDAPPEAR LATER
-//        performSegue(withIdentifier: "LoginModalSegue", sender: self)
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-            
-        // show login screen when view did appear
-        // THIS IS WHERE PERFORMSEGUE SHOULD BE LATER
-        //performSegue(withIdentifier: "LoginModalSegue", sender: self)
-        //tableView.reloadData()
     }
     
     /// Main timer that is used to check all plants being tracked
@@ -77,8 +67,8 @@ class PlantsTableViewController: UITableViewController {
     /// Will only run when app is not in the foreground
     func sendNotification(plant: String) {
         let note = UNMutableNotificationContent()
-        note.title = "WATER YOUR PLANT!"
-        note.body = "\(plant) is dying! Water it now!"
+        note.title = "Water your plant!"
+        note.body = "\(plant) needs to be watered!"
         note.sound = UNNotificationSound.default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
         let request = UNNotificationRequest(identifier: "done", content: note, trigger: trigger)
