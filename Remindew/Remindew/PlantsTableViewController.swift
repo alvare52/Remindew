@@ -17,9 +17,11 @@ import UserNotifications
 // TODO: notifications fixes (not allowed, access description)
 // TODO: add Unit/UI tests
 // TODO: add better comments/Marks
-// TODO: UI polish, sounds, gradients, font, transparency
+// TODO: UI polish, sounds, font, transparency
 // TODO: add Protocols
 // TODO: remote notification even when app closed
+// TODO: app store preview screen shots (blue, blue green, green)
+// TODO: add helper file/folder
 
 class PlantsTableViewController: UITableViewController {
     
