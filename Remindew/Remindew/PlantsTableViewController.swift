@@ -21,7 +21,6 @@ import UserNotifications
 // TODO: add Protocols
 // TODO: remote notification even when app closed
 // TODO: app store preview screen shots (blue, blue green, green)
-// TODO: add helper file/folder
 
 class PlantsTableViewController: UITableViewController {
     

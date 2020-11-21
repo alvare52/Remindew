@@ -21,6 +21,7 @@
 		1B09884023EA97BD000033FA /* PlantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883F23EA97BD000033FA /* PlantController.swift */; };
 		1BED79C025672D3E004241F4 /* RemindewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79BF25672D3E004241F4 /* RemindewTests.swift */; };
 		1BED79CE25672D84004241F4 /* RemindewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79CD25672D84004241F4 /* RemindewUITests.swift */; };
+		1BED79D62568A3E9004241F4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79D52568A3E9004241F4 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		1BED79CB25672D84004241F4 /* RemindewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BED79CD25672D84004241F4 /* RemindewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindewUITests.swift; sourceTree = "<group>"; };
 		1BED79CF25672D84004241F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BED79D52568A3E9004241F4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				1B0987F323EA61DF000033FA /* SceneDelegate.swift */,
 				1B0987FA23EA61E5000033FA /* Assets.xcassets */,
 				1B0987FF23EA61E5000033FA /* Info.plist */,
+				1BED79D52568A3E9004241F4 /* Extensions.swift */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				1B09884023EA97BD000033FA /* PlantController.swift in Sources */,
 				1B09882B23EA643E000033FA /* DetailViewController.swift in Sources */,
 				1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */,
+				1BED79D62568A3E9004241F4 /* Extensions.swift in Sources */,
 				1B0987F423EA61DF000033FA /* SceneDelegate.swift in Sources */,
 				1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */,
 				1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */,
