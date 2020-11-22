@@ -130,9 +130,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UYe-ih-km5"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw"/>
+                    <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Zuh-eX-2UT">
+                            <connections>
+                                <action selector="cameraButtonTapped:" destination="egV-2b-yvb" id="8GQ-VQ-8kf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="LEP-xb-JEw" id="awJ-Hw-Mgm"/>
+                        <outlet property="cameraButtonLabel" destination="Zuh-eX-2UT" id="8uH-86-luf"/>
                         <outlet property="datePicker" destination="L3N-yZ-8K4" id="gSd-29-F9h"/>
                         <outlet property="frequencySegment" destination="5b8-XG-hQX" id="ymn-Ug-4V1"/>
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>

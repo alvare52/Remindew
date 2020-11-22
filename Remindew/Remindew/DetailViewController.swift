@@ -19,7 +19,13 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var plantButton: UIButton!
     @IBOutlet weak var backButton: UINavigationItem!
     
+    @IBOutlet var cameraButtonLabel: UIBarButtonItem!
+    
     // MARK: - Actions
+    
+    @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
+        print("CameraButton tapped")
+    }
     
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
