@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import UserNotifications
 
-// TODO: add needsWatering property
+// TODO: add needsWatering, plantImage property
 // TODO: delete all unneeded comments
 // TODO: screen size issues
 // TODO: improve README (Gif, About, tech ribbons)
@@ -21,11 +21,17 @@ import UserNotifications
 // TODO: add Protocols
 // TODO: remote notification even when app closed
 // TODO: app store preview screen shots (blue, blue green, green)
+// TODO: add ability to add photo for plant
 
 class PlantsTableViewController: UITableViewController {
     
+    // MARK: - Outlets
+    
+    @IBOutlet weak var addPlantIcon: UIBarButtonItem!
+    
     // MARK: - Properties
     
+    /// Fetches Plant objects from storage
     lazy var fetchedResultsController: NSFetchedResultsController<Plant> = {
         let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nickname", ascending: true)]
@@ -50,8 +56,8 @@ class PlantsTableViewController: UITableViewController {
     
     var timer: Timer?
     let userController = PlantController()
-
-    @IBOutlet weak var addPlantIcon: UIBarButtonItem!
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +106,7 @@ class PlantsTableViewController: UITableViewController {
         }
     }
     
+    /// Presents Alert View when reminder goes off while app is running
     func localAlert(plant: Plant) {
         guard let schedule = plant.water_schedule, let nickname = plant.nickname else {return}
         
@@ -122,8 +129,6 @@ class PlantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath)
     
-        // TEST
-        //let testCell = testPlants[indexPath.row]
         let testCell = fetchedResultsController.object(at: indexPath)
         
         guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
@@ -141,12 +146,12 @@ class PlantsTableViewController: UITableViewController {
         }
         else {
             cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule ?? temp))" }
-        // TEST
+        
         cell.imageView?.image = UIImage(named: "planticonwater")
         return cell
     }
     
-    // Override to support editing the table view.
+    /// Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let plant = fetchedResultsController.object(at: indexPath)
@@ -156,14 +161,8 @@ class PlantsTableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-//        if segue.identifier == "LoginModalSegue" {
-//            guard let destination = segue.destination as? LoginViewController else {return}
-//            destination.userController = self.userController
-//        }
-        
+    
         // DetailViewController (to ADD plant)
         if segue.identifier == "AddPlantSegue" {
             print("AddPlantSegue")
@@ -171,6 +170,7 @@ class PlantsTableViewController: UITableViewController {
                     detailVC.userController = self.userController
                 }
             }
+        
         // DetailViewController (to EDIT plant)
         if segue.identifier == "DetailPlantSegue" {
             print("DetailPlantSegue")
@@ -179,23 +179,20 @@ class PlantsTableViewController: UITableViewController {
                 detailVC.plant = fetchedResultsController.object(at: indexPath)
             }
         }
-        // UserViewController (to EDIT user)
-        if segue.identifier == "EditUserSegue" {
-            print("EditUserSegue")
-        }
     }
 }
 
-
+/// Core Data boiler plate code
 extension PlantsTableViewController: NSFetchedResultsControllerDelegate {
-    
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
+    
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
@@ -206,6 +203,7 @@ extension PlantsTableViewController: NSFetchedResultsControllerDelegate {
             break
         }
     }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
