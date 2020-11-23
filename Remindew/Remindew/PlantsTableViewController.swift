@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import UserNotifications
 
-// TODO: add needsWatering, plantImage property
+// TODO: add needsWatering, image, webImage, lastWateredDate, 
 // TODO: delete all unneeded comments
 // TODO: screen size issues
 // TODO: improve README (Gif, About, tech ribbons)
@@ -18,10 +18,11 @@ import UserNotifications
 // TODO: add Unit/UI tests
 // TODO: add better comments/Marks
 // TODO: UI polish, sounds, font, transparency
-// TODO: add Protocols
+// TODO: add Protocols?
 // TODO: remote notification even when app closed
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: add ability to add photo for plant
+// TODO: add settings button/page (auto water plants, shout out to Trefle API)
 
 class PlantsTableViewController: UITableViewController {
     
