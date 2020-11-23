@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var backButton: UINavigationItem!
     
     @IBOutlet var cameraButtonLabel: UIBarButtonItem!
-    
+        
     // MARK: - Actions
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
@@ -70,6 +70,12 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        // Hides Keyboard when tapping outside of it
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+        
+        nicknameTextField.delegate = self
+        speciesTextField.delegate = self
         plantButton.applyGradient(colors: [UIColor.darkBlueGreen.cgColor, UIColor.lightBlueGreen.cgColor])
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
@@ -94,5 +100,14 @@ class DetailViewController: UIViewController {
             plantButton.setTitle("Add Plant", for: .normal)
             plantButton.performFlare()
         }
+    }
+}
+
+extension DetailViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("Return")
+        textField.resignFirstResponder()
+        return true
     }
 }
