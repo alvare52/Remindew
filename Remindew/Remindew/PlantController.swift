@@ -13,56 +13,56 @@ class PlantController {
     
     // MARK: - Create, Read, Update, Delete, Save plants
 
-    /// Turns FireBase objects to Core Data objects
-    private func updatePlants(with representations: [PlantRepresentation]) throws {
-        // filter out the no ID ones
-        let plantsWithID = representations.filter { $0.identifier != nil }
-
-        // creates a new UUID based on the identifier of the task we're looking at (and it exists)
-        // compactMap returns an array after it transforms
-        let identifiersToFetch = plantsWithID.compactMap { $0.identifier! }
-
-        // zip interweaves elements
-        let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, plantsWithID))
-
-        var plantsToCreate = representationsByID
-
-        let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
-        // in order to be a part of the results (will only pull tasks that have a duplicate from fire base)
-        fetchRequest.predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
-
-        // create private queue context
-        let context = CoreDataStack.shared.container.newBackgroundContext()
-
-        context.perform {
-            do {
-                let existingPlants = try context.fetch(fetchRequest)
-
-                // updates local tasks with firebase tasks
-                for plant in existingPlants {
-                    // continue skips next iteration of for loop
-                    guard let id = plant.identifier, let representation = representationsByID[id] else {continue}
-                    self.update(plant: plant, with: representation)
-                    plantsToCreate.removeValue(forKey: id)
-                }
-
-                for representation in plantsToCreate.values {
-                    Plant(plantRepresentation: representation, context: context)
-                }
-            } catch {
-                print("Error fetching plants for UUIDs: \(error)")
-            }
-        }
-        try CoreDataStack.shared.save(context: context)
-    }
-
-    /// Updates local user with data from the remote version (representation)
-    private func update(plant: Plant, with representation: PlantRepresentation) {
-        plant.nickname = representation.nickname
-        plant.species = representation.species
-        plant.frequency = Int16(representation.frequency)
-        plant.water_schedule = representation.water_schedule
-    }
+//    /// Turns FireBase objects to Core Data objects
+//    private func updatePlants(with representations: [PlantRepresentation]) throws {
+//        // filter out the no ID ones
+//        let plantsWithID = representations.filter { $0.identifier != nil }
+//
+//        // creates a new UUID based on the identifier of the task we're looking at (and it exists)
+//        // compactMap returns an array after it transforms
+//        let identifiersToFetch = plantsWithID.compactMap { $0.identifier! }
+//
+//        // zip interweaves elements
+//        let representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, plantsWithID))
+//
+//        var plantsToCreate = representationsByID
+//
+//        let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
+//        // in order to be a part of the results (will only pull tasks that have a duplicate from fire base)
+//        fetchRequest.predicate = NSPredicate(format: "identifier IN %@", identifiersToFetch)
+//
+//        // create private queue context
+//        let context = CoreDataStack.shared.container.newBackgroundContext()
+//
+//        context.perform {
+//            do {
+//                let existingPlants = try context.fetch(fetchRequest)
+//
+//                // updates local tasks with firebase tasks
+//                for plant in existingPlants {
+//                    // continue skips next iteration of for loop
+//                    guard let id = plant.identifier, let representation = representationsByID[id] else {continue}
+//                    self.update(plant: plant, with: representation)
+//                    plantsToCreate.removeValue(forKey: id)
+//                }
+//
+//                for representation in plantsToCreate.values {
+//                    Plant(plantRepresentation: representation, context: context)
+//                }
+//            } catch {
+//                print("Error fetching plants for UUIDs: \(error)")
+//            }
+//        }
+//        try CoreDataStack.shared.save(context: context)
+//    }
+//
+//    /// Updates local user with data from the remote version (representation)
+//    private func update(plant: Plant, with representation: PlantRepresentation) {
+//        plant.nickname = representation.nickname
+//        plant.species = representation.species
+//        plant.frequency = Int16(representation.frequency)
+//        plant.water_schedule = representation.water_schedule
+//    }
     
     /// Create a plant and then save it
     func createPlant(nickname: String, species: String, date: Date, frequency: Int16) {

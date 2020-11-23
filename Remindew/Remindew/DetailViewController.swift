@@ -31,15 +31,19 @@ class DetailViewController: UIViewController {
         
         if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty {
             
-            // If there is a plant, update (detail)
+            // If there IS a plant, update (EDIT)
             if let existingPlant = plant {
-                userController?.update(nickname: nickname, species: species, water_schedule: datePicker.date, frequency: Int16(frequencySegment.selectedSegmentIndex + 1), plant: existingPlant)
+                userController?.update(nickname: nickname.capitalized,
+                                       species: species.capitalized,
+                                       water_schedule: datePicker.date,
+                                       frequency: Int16(frequencySegment.selectedSegmentIndex + 1),
+                                       plant: existingPlant)
             }
                 
-            // If there is NO plant (add)
+            // If there is NO plant (ADD)
             else {
-                userController?.createPlant(nickname: nickname,
-                                            species: species,
+                userController?.createPlant(nickname: nickname.capitalized,
+                                            species: species.capitalized,
                                             date: datePicker.date,
                                             frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
             }
