@@ -21,6 +21,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet var cameraButtonLabel: UIBarButtonItem!
         
+    @IBOutlet var daySelectorOutlet: DaySelectionView!
     // MARK: - Actions
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {

@@ -149,6 +149,7 @@
                         <outlet property="backButton" destination="LEP-xb-JEw" id="awJ-Hw-Mgm"/>
                         <outlet property="cameraButtonLabel" destination="Zuh-eX-2UT" id="8uH-86-luf"/>
                         <outlet property="datePicker" destination="L3N-yZ-8K4" id="gSd-29-F9h"/>
+                        <outlet property="daySelectorOutlet" destination="7d0-w9-DEb" id="adj-su-lsS"/>
                         <outlet property="frequencySegment" destination="5b8-XG-hQX" id="ymn-Ug-4V1"/>
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>

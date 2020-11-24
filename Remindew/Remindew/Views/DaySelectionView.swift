@@ -33,11 +33,11 @@ class DaySelectionView: UIStackView {
     @objc private func selectDay(_ button: UIButton) {
         print("tapped button \(button.tag)")
         if button.backgroundColor == .white {
-            button.backgroundColor = .mixedBlueGreen
+            button.backgroundColor = .waterBlue
             button.tintColor = .white
         } else {
             button.backgroundColor = .white
-            button.tintColor = .mixedBlueGreen
+            button.tintColor = .waterBlue
         }
     }
     
@@ -50,7 +50,7 @@ class DaySelectionView: UIStackView {
             day.translatesAutoresizingMaskIntoConstraints = false
             addArrangedSubview(day)
             buttonArray.append(day)
-            day.tag = integer
+            day.tag = integer + 1
             day.contentMode = .scaleToFill
 //            day.frame = CGRect(x: 0,
 //                                y: 0,
@@ -58,11 +58,31 @@ class DaySelectionView: UIStackView {
 //                                height: 50.0)
             day.setTitle("\(days[integer])", for: .normal)
             day.backgroundColor = .white
-            day.tintColor = .mixedBlueGreen
+            day.tintColor = .waterBlue
             day.addTarget(self, action: #selector(selectDay), for: .touchUpInside)
-            day.layer.cornerRadius = 7.0
+            day.layer.cornerRadius = 15.0
 //            day.layer.borderWidth = 2.0
 //            day.layer.borderColor = UIColor.mixedBlueGreen.cgColor
         }
     }
+    
+    /// Sets buttons to selected
+//    func selectDays(_ daysToSelect: Int16) {
+//        let index = Int(daysToSelect)
+//        selectDay(buttonArray[index])
+//    }
+    
+    /// Return an array of Dates that are currently selected (change to [Date] later)
+//    func returnDaysSelected() -> Int16 {
+//        
+////        for button in buttonArray {
+////            if button.backgroundColor == UIColor.mixedBlueGreen && true {
+////                print("Selected: \(button.titleLabel?.text ?? "no title")")
+////            }
+////        }
+//        // array of selected day buttons
+//        let result = buttonArray.filter { $0.backgroundColor == UIColor.waterBlue }
+//        // return first thing in this array (will crash right now if none are selected)
+//        return Int16(result[0].tag)
+//    }
 }

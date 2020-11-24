@@ -23,6 +23,7 @@ import UserNotifications
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: add ability to add photo for plant
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
+// TODO: AFTER: let user take picture from app? toggle every x days vs days of week
 
 class PlantsTableViewController: UITableViewController {
     
