@@ -26,7 +26,7 @@ class DetailViewController: UIViewController {
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
     }
-    
+        
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
         if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty {

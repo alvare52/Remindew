@@ -108,6 +108,10 @@
                                     <action selector="plantButtonTapped:" destination="egV-2b-yvb" eventType="touchUpInside" id="djg-oV-9hh"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7d0-w9-DEb" customClass="DaySelectionView" customModule="Remindew" customModuleProvider="target">
+                                <rect key="frame" x="20" y="537" width="374" height="31"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -116,22 +120,26 @@
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="5b8-XG-hQX" secondAttribute="bottom" constant="8" id="9AG-AI-Ifd"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="5b8-XG-hQX" secondAttribute="trailing" constant="20" id="Bh0-aL-Pr8"/>
                             <constraint firstItem="yRG-nk-QcH" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="CgN-kx-yZS"/>
+                            <constraint firstItem="7d0-w9-DEb" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="HQ0-dT-k2L"/>
                             <constraint firstItem="ucM-Fj-27g" firstAttribute="top" secondItem="yRG-nk-QcH" secondAttribute="bottom" constant="8" id="LZf-GE-MJ7"/>
                             <constraint firstItem="5b8-XG-hQX" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="Orq-Lj-RIR"/>
+                            <constraint firstItem="7d0-w9-DEb" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0345982" id="Pi4-82-0kM"/>
                             <constraint firstItem="yRG-nk-QcH" firstAttribute="top" secondItem="UYe-ih-km5" secondAttribute="top" id="T2w-EX-cLS"/>
                             <constraint firstItem="Jc8-md-hGl" firstAttribute="top" secondItem="L3N-yZ-8K4" secondAttribute="bottom" constant="8" id="VYg-w2-S9y"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="trailing" secondItem="UYe-ih-km5" secondAttribute="trailing" id="YmD-Qo-HK0"/>
                             <constraint firstItem="Jc8-md-hGl" firstAttribute="top" secondItem="L3N-yZ-8K4" secondAttribute="bottom" constant="8" id="aXf-1j-7xQ"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="7d0-w9-DEb" secondAttribute="trailing" constant="20" id="bJj-Y3-v7e"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" id="fSw-AC-oC8"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="Jc8-md-hGl" secondAttribute="trailing" constant="20" id="grM-AG-o1A"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="yRG-nk-QcH" secondAttribute="trailing" constant="20" id="gtG-72-bud"/>
+                            <constraint firstItem="7d0-w9-DEb" firstAttribute="top" secondItem="Jc8-md-hGl" secondAttribute="bottom" constant="8" id="iHd-YG-xLL"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="5b8-XG-hQX" secondAttribute="bottom" constant="8" id="pMC-2L-4aK"/>
                             <constraint firstItem="Jc8-md-hGl" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="txq-14-LHF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UYe-ih-km5"/>
                     </view>
                     <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw">
-                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Zuh-eX-2UT">
+                        <barButtonItem key="rightBarButtonItem" image="photo" catalog="system" id="Zuh-eX-2UT">
                             <connections>
                                 <action selector="cameraButtonTapped:" destination="egV-2b-yvb" id="8GQ-VQ-8kf"/>
                             </connections>
@@ -180,4 +188,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Jqh-rC-9Yu"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="photo" catalog="system" width="128" height="93"/>
+    </resources>
 </document>

@@ -22,6 +22,7 @@
 		1BED79C025672D3E004241F4 /* RemindewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79BF25672D3E004241F4 /* RemindewTests.swift */; };
 		1BED79CE25672D84004241F4 /* RemindewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79CD25672D84004241F4 /* RemindewUITests.swift */; };
 		1BED79D62568A3E9004241F4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79D52568A3E9004241F4 /* Extensions.swift */; };
+		1BED79D8256D8970004241F4 /* DaySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79D7256D8970004241F4 /* DaySelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		1BED79CD25672D84004241F4 /* RemindewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindewUITests.swift; sourceTree = "<group>"; };
 		1BED79CF25672D84004241F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BED79D52568A3E9004241F4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1BED79D7256D8970004241F4 /* DaySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaySelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			children = (
 				1B0987F723EA61DF000033FA /* Main.storyboard */,
 				1B0987FC23EA61E5000033FA /* LaunchScreen.storyboard */,
+				1BED79D7256D8970004241F4 /* DaySelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				1B0987F423EA61DF000033FA /* SceneDelegate.swift in Sources */,
 				1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */,
 				1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */,
+				1BED79D8256D8970004241F4 /* DaySelectionView.swift in Sources */,
 				1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
