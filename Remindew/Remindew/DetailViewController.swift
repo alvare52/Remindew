@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class DetailViewController: UIViewController {
 
@@ -26,6 +27,7 @@ class DetailViewController: UIViewController {
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
+        AudioServicesPlaySystemSound(SystemSoundID(1105))
     }
         
     @IBAction func plantButtonTapped(_ sender: UIButton) {
@@ -48,6 +50,29 @@ class DetailViewController: UIViewController {
                                             date: datePicker.date,
                                             frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
             }
+            
+            // NEW
+            let selectedDate = datePicker.date // (enter schedule here)
+            print("selected date is \(selectedDate)")
+            let calendar = Calendar.current
+            let otherDate = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
+                                                    from: selectedDate)
+            print("selected date hour = \(otherDate.hour), minutes = \(otherDate.minute)")
+            
+            let currentDateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
+                                                           from: Date())
+            print("current date hour = \(currentDateComps.hour), minutes = \(currentDateComps.minute)")
+            
+            let dateComponents = DateComponents(calendar: calendar,
+                                                hour: otherDate.hour,
+                                                minute: otherDate.minute)
+            
+            let finalDate = calendar.date(from: dateComponents)
+            
+            print("custom date from just selected hour and minute = \(finalDate)")
+//            print("nextDate weekday = \(dateComponents.weekday)")
+//            print("nextDate hour = \(dateComponents.hour), minute = \(dateComponents.minute)")
+            
             navigationController?.popViewController(animated: true)
         }
         
@@ -84,7 +109,10 @@ class DetailViewController: UIViewController {
         plantButton.applyGradient(colors: [UIColor.darkBlueGreen.cgColor, UIColor.lightBlueGreen.cgColor])
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
-        datePicker.minimumDate = Date()
+        // NEW
+//        datePicker.minimumDate = Date()
+        // NEW
+        datePicker.datePickerMode = .time
         updateViews()
     }
         

@@ -9,17 +9,18 @@
 import UIKit
 import UserNotifications
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = self
+        
         /// Asks user for permission to send notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
         }
-        
+    
         return true
     }
 
@@ -37,6 +38,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    /// Lets app show Push Notifications when app is in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
 
+    }
+    
+//    /// Checks if app is in the foreground and if it's foreground then show Local PushNotification
+//    func application(_ application: UIApplication,didReceiveRemoteNotification userInfo: [AnyHashable: Any],fetchCompletionHandler completionHandler:@escaping (UIBackgroundFetchResult) -> Void) {
+//
+//        let state : UIApplication.State = application.applicationState
+//        if (state == .inactive || state == .background) {
+//            // go to screen relevant to Notification content
+//            print("background")
+//        } else {
+//            // App is in UIApplicationStateActive (running in foreground)
+//            print("foreground")
+////            showLocalNotification()
+//        }
+//    }
+    
+//    fileprivate func showLocalNotification() {
+//
+//        //creating the notification content
+//        let content = UNMutableNotificationContent()
+//
+//        //adding title, subtitle, body and badge
+//        content.title = "App Update"
+//        //content.subtitle = "local notification"
+//        content.body = "New version of app update is available."
+//        //content.badge = 1
+//        content.sound = UNNotificationSound.default
+//
+//        //getting the notification trigger
+//        //it will be called after 5 seconds
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+//
+//        //getting the notification request
+//        let request = UNNotificationRequest(identifier: "SimplifiedIOSNotification", content: content, trigger: trigger)
+//
+//        //adding the notification to notification center
+//        notificationCenter.add(request, withCompletionHandler: nil)
+//    }
 }
 

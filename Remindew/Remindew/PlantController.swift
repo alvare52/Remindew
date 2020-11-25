@@ -47,4 +47,26 @@ class PlantController {
             NSLog("Error saving managed object context: \(error)")
         }
     }
+    
+    /// Returns the Int that represents the next day for a reminder to go off
+    func getNextDay(days: [Int]) -> Int {
+        var result = 0
+        var dayIndex = 0 // add to Plant model
+        
+        // There MUST be at least one day, so just increment by 7 days
+        if days.count == 1 {
+            result = 7
+        }
+        // At least 2 days [2,4,5]
+        else {
+            // if last day was last in array
+            if dayIndex == days.count - 1 {
+                dayIndex = 0
+            }
+            dayIndex += 1
+            result = days[dayIndex]
+        }
+        
+        return result
+    }
 }
