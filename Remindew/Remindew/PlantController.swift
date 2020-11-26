@@ -187,13 +187,20 @@ class PlantController {
         return Int(val)
     }
     
+    // Returns a string of all days selected separated by a space
     func returnDaysString(plant: Plant) -> String {
         
-        var result = ""
+        var result = [String]()
+        
         for day in plant.frequency! {
             // [1,2,3,7]
-            result += "\(DaySelectionView.dayInitials[Int(day - 1)])"
+            result.append("\(DaySelectionView.dayInitials[Int(day - 1)])")
         }
-        return result
+        
+        // if everyday basically
+        if result.count == 7 {
+            return "Every day"
+        }
+        return result.joined(separator: " ")
     }
 }
