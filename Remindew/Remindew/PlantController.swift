@@ -111,8 +111,17 @@ class PlantController {
         // OR selected time is LESS than current time (next week)
         // date and time should be set using returnNextWateringSchedule
         result = returnWateringSchedule(plantDate: time, days: days)
+        var newComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
+                                               from: Date())
+        newComps.hour = plantTimeComps.hour!
+        newComps.minute = plantTimeComps.minute!
+        // add plantcomsp hour and minutes to this ^
+        guard let unwrappedDate = calendar.date(from: newComps) else {
+            NSLog("Error in createDateFromTimeAndDay, returnind Date 5 from now")
+            return Date(timeIntervalSinceNow: 5)
+        }
         
-        return result
+        return unwrappedDate
     }
     
     /// Takes in array of weekday Int16s and returns the amount of days until next watering

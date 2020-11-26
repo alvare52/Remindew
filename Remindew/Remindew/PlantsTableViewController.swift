@@ -26,6 +26,9 @@ import AVFoundation
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
 // TODO: AFTER: let user take picture from app? toggle every x days vs days of week
 // TODO: add parameter descriptions
+// TODO: tableview drawing warning
+// TODO: ValueTransformer warning Core Data
+// TODO: changing day to next week at earlier time still triggers notification
 
 class PlantsTableViewController: UITableViewController {
     
@@ -99,55 +102,46 @@ class PlantsTableViewController: UITableViewController {
             guard let schedule = plant.water_schedule else { return }
             
             // NEW
-            let selectedDate = schedule
+//            let selectedDate = schedule
 //            print("selected date is \(selectedDate)")
             
-            let otherDate = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
-                                                    from: selectedDate)
-//            print("selected hour = \(otherDate.hour), minutes = \(otherDate.minute), d = \(otherDate.weekday)")
-            
-            let currentDateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
-                                                           from: Date())
-//            print("curr hour = \(currentDateComps.hour), minutes = \(currentDateComps.minute), d = \(currentDateComps.weekday)")
-            
-            guard let scheduleHour = otherDate.hour,
-                let currHour = currentDateComps.hour,
-                let scheduleMinute = otherDate.minute,
-                let currMinute = currentDateComps.minute,
-                let scheduleDay = otherDate.weekday,
-                let currDay = currentDateComps.weekday else { return }
+//            let otherDate = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
+//                                                    from: selectedDate)
+////            print("selected hour = \(otherDate.hour), minutes = \(otherDate.minute), d = \(otherDate.weekday)")
+//
+//            let currentDateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
+//                                                           from: Date())
+////            print("curr hour = \(currentDateComps.hour), minutes = \(currentDateComps.minute), d = \(currentDateComps.weekday)")
+//
+//            guard let scheduleHour = otherDate.hour,
+//                let currHour = currentDateComps.hour,
+//                let scheduleMinute = otherDate.minute,
+//                let currMinute = currentDateComps.minute,
+//                let scheduleDay = otherDate.weekday,
+//                let currDay = currentDateComps.weekday else { return }
             
             if schedule <= Date() {
-                print("TIME MATCHES, \(plant.nickname)")
+                print("TIME MATCHES, \(plant.nickname ?? "Plant Name error")")
                 // update schedule so it doesn't keep going off
                                 
-                print(plant.water_schedule)
 //                let val = userController.calculateNextWateringValue(plant.frequency!)
 
                 plant.water_schedule = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
                                                                              days: plant.frequency!)
-                print(plant.water_schedule)
-                
-                // NEW
-                print("Plant: \(plant.nickname ?? "plant") Schedule: \(dateFormatter.string(from: schedule))")
-                print("WATER YOUR PLANT: \(plant.nickname ?? "!")")
+            
                 sendNotification(plant: plant.nickname ?? "YOUR PLANT")
-                
-                // update the plants schedule after it goes off, and then add frequency days to make its new schedule
-//                plant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * Double(plant.frequency)))
                 
                 // then update plant to have its new schedule
                 let newDate = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
                                                                     days: plant.frequency!)
                 
-                // UDPATE SCHEDULE - CHANGE BACK MAYBE
-                guard let nickname = plant.nickname, let species = plant.species, let water_schedule = plant.water_schedule else {return}
-                userController.update(nickname: nickname,
-                                      species: species,
-                                      water_schedule: water_schedule,
-                                      frequency: plant.frequency!,
-                                      plant: plant)
-                // UPDATE SCHEDULE - CHANGE BACK MAYBE
+//                guard let nickname = plant.nickname, let species = plant.species, let water_schedule = plant.water_schedule else {return}
+//                userController.update(nickname: nickname,
+//                                      species: species,
+//                                      water_schedule: water_schedule,
+//                                      frequency: plant.frequency!,
+//                                      plant: plant)
+                userController.updatePlantWithSchedule(plant: plant, schedule: newDate)
                 
                 localAlert(plant: plant)
                 tableView.reloadData()
