@@ -83,23 +83,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7d0-w9-DEb" customClass="DaySelectionView" customModule="Remindew" customModuleProvider="target">
+                                <rect key="frame" x="20" y="224" width="374" height="34"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="L3N-yZ-8K4">
-                                <rect key="frame" x="0.0" y="263" width="414" height="216"/>
+                                <rect key="frame" x="20" y="266" width="374" height="134"/>
                             </datePicker>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5b8-XG-hQX">
-                                <rect key="frame" x="20" y="224" width="374" height="32"/>
-                                <segments>
-                                    <segment title="1"/>
-                                    <segment title="2"/>
-                                    <segment title="3"/>
-                                    <segment title="4"/>
-                                    <segment title="5"/>
-                                    <segment title="6"/>
-                                    <segment title="7"/>
-                                </segments>
-                            </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-md-hGl">
-                                <rect key="frame" x="20" y="487" width="374" height="42"/>
+                                <rect key="frame" x="20" y="408" width="374" height="42"/>
                                 <color key="backgroundColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -108,33 +100,49 @@
                                     <action selector="plantButtonTapped:" destination="egV-2b-yvb" eventType="touchUpInside" id="djg-oV-9hh"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7d0-w9-DEb" customClass="DaySelectionView" customModule="Remindew" customModuleProvider="target">
-                                <rect key="frame" x="20" y="537" width="374" height="31"/>
-                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZL-BI-0Bw">
+                                <rect key="frame" x="20" y="458" width="374" height="42"/>
+                                <color key="backgroundColor" red="0.39488583799999999" green="0.54453420640000005" blue="0.60330891610000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Water Plant"/>
+                                <connections>
+                                    <action selector="plantButtonTapped:" destination="egV-2b-yvb" eventType="touchUpInside" id="oZm-x1-yhg"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plantslogoclear1024x1024" translatesAutoresizingMaskIntoConstraints="NO" id="aje-Zj-2LG">
+                                <rect key="frame" x="140" y="538" width="134" height="134.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="aje-Zj-2LG" secondAttribute="height" multiplier="1:1" id="v19-tc-Ssh"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="5b8-XG-hQX" firstAttribute="top" secondItem="ucM-Fj-27g" secondAttribute="bottom" constant="8" id="2Jp-dU-PuB"/>
-                            <constraint firstItem="ucM-Fj-27g" firstAttribute="top" secondItem="yRG-nk-QcH" secondAttribute="bottom" constant="8" id="3wC-RF-iNl"/>
-                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="5b8-XG-hQX" secondAttribute="bottom" constant="8" id="9AG-AI-Ifd"/>
-                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="5b8-XG-hQX" secondAttribute="trailing" constant="20" id="Bh0-aL-Pr8"/>
-                            <constraint firstItem="yRG-nk-QcH" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="CgN-kx-yZS"/>
-                            <constraint firstItem="7d0-w9-DEb" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="HQ0-dT-k2L"/>
-                            <constraint firstItem="ucM-Fj-27g" firstAttribute="top" secondItem="yRG-nk-QcH" secondAttribute="bottom" constant="8" id="LZf-GE-MJ7"/>
-                            <constraint firstItem="5b8-XG-hQX" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="Orq-Lj-RIR"/>
-                            <constraint firstItem="7d0-w9-DEb" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0345982" id="Pi4-82-0kM"/>
-                            <constraint firstItem="yRG-nk-QcH" firstAttribute="top" secondItem="UYe-ih-km5" secondAttribute="top" id="T2w-EX-cLS"/>
-                            <constraint firstItem="Jc8-md-hGl" firstAttribute="top" secondItem="L3N-yZ-8K4" secondAttribute="bottom" constant="8" id="VYg-w2-S9y"/>
-                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="trailing" secondItem="UYe-ih-km5" secondAttribute="trailing" id="YmD-Qo-HK0"/>
-                            <constraint firstItem="Jc8-md-hGl" firstAttribute="top" secondItem="L3N-yZ-8K4" secondAttribute="bottom" constant="8" id="aXf-1j-7xQ"/>
-                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="7d0-w9-DEb" secondAttribute="trailing" constant="20" id="bJj-Y3-v7e"/>
-                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" id="fSw-AC-oC8"/>
-                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="Jc8-md-hGl" secondAttribute="trailing" constant="20" id="grM-AG-o1A"/>
-                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="yRG-nk-QcH" secondAttribute="trailing" constant="20" id="gtG-72-bud"/>
-                            <constraint firstItem="7d0-w9-DEb" firstAttribute="top" secondItem="Jc8-md-hGl" secondAttribute="bottom" constant="8" id="iHd-YG-xLL"/>
-                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="5b8-XG-hQX" secondAttribute="bottom" constant="8" id="pMC-2L-4aK"/>
-                            <constraint firstItem="Jc8-md-hGl" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="txq-14-LHF"/>
+                            <constraint firstItem="PZL-BI-0Bw" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.046875" id="1W8-ut-67L"/>
+                            <constraint firstItem="aje-Zj-2LG" firstAttribute="centerX" secondItem="afK-Kd-SPE" secondAttribute="centerX" id="2pa-XU-2a4"/>
+                            <constraint firstItem="PZL-BI-0Bw" firstAttribute="top" secondItem="Jc8-md-hGl" secondAttribute="bottom" constant="8" id="3kg-he-AzW"/>
+                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="7d0-w9-DEb" secondAttribute="bottom" constant="8" id="6Nh-qg-Hha"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="PZL-BI-0Bw" secondAttribute="trailing" constant="20" id="9ip-zy-H5D"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="Jc8-md-hGl" secondAttribute="trailing" constant="20" id="Cbz-fm-Mm1"/>
+                            <constraint firstItem="ucM-Fj-27g" firstAttribute="top" secondItem="yRG-nk-QcH" secondAttribute="bottom" constant="8" id="FOL-Pw-g9n"/>
+                            <constraint firstItem="yRG-nk-QcH" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="Hbb-Ij-GoW"/>
+                            <constraint firstItem="7d0-w9-DEb" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="Ibl-bR-4JL"/>
+                            <constraint firstItem="7d0-w9-DEb" firstAttribute="top" secondItem="ucM-Fj-27g" secondAttribute="bottom" constant="8" id="JeZ-Va-AmC"/>
+                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="T6V-2T-Mw0"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="yRG-nk-QcH" secondAttribute="trailing" constant="20" id="UJW-6z-riN"/>
+                            <constraint firstItem="yRG-nk-QcH" firstAttribute="top" secondItem="UYe-ih-km5" secondAttribute="top" id="VTf-L8-dqw"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="7d0-w9-DEb" secondAttribute="trailing" constant="20" id="WXd-D3-dwf"/>
+                            <constraint firstItem="Jc8-md-hGl" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="YgS-f2-DES"/>
+                            <constraint firstItem="aje-Zj-2LG" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.15" id="eFC-q8-adt"/>
+                            <constraint firstItem="L3N-yZ-8K4" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.149554" id="g0P-YI-1Zz"/>
+                            <constraint firstItem="PZL-BI-0Bw" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="k0X-xe-iVG"/>
+                            <constraint firstItem="7d0-w9-DEb" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0379464" id="kK6-Hh-I7N"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="L3N-yZ-8K4" secondAttribute="trailing" constant="20" id="kbJ-PA-qgu"/>
+                            <constraint firstItem="Jc8-md-hGl" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.046875" id="n3l-0p-AM3"/>
+                            <constraint firstItem="yRG-nk-QcH" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0379464" id="o7o-Zr-KLO"/>
+                            <constraint firstItem="aje-Zj-2LG" firstAttribute="top" secondItem="PZL-BI-0Bw" secondAttribute="bottom" constant="38" id="seF-Cn-3Cx"/>
+                            <constraint firstItem="Jc8-md-hGl" firstAttribute="top" secondItem="L3N-yZ-8K4" secondAttribute="bottom" constant="8" id="zr2-EK-CQq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UYe-ih-km5"/>
                     </view>
@@ -150,7 +158,6 @@
                         <outlet property="cameraButtonLabel" destination="Zuh-eX-2UT" id="8uH-86-luf"/>
                         <outlet property="datePicker" destination="L3N-yZ-8K4" id="gSd-29-F9h"/>
                         <outlet property="daySelectorOutlet" destination="7d0-w9-DEb" id="adj-su-lsS"/>
-                        <outlet property="frequencySegment" destination="5b8-XG-hQX" id="ymn-Ug-4V1"/>
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
                         <outlet property="speciesTextField" destination="ucM-Fj-27g" id="p73-rD-hQY"/>
@@ -191,5 +198,6 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="photo" catalog="system" width="128" height="93"/>
+        <image name="plantslogoclear1024x1024" width="1024" height="1024"/>
     </resources>
 </document>

@@ -61,7 +61,9 @@ class DaySelectionView: UIStackView {
             day.addTarget(self, action: #selector(selectDay), for: .touchUpInside)
             
             print("SELF.FRAME.HEIGHT = \(self.frame.height) / 2 = \(self.frame.height / 2.5)")
-            day.layer.cornerRadius = self.frame.height / 2.5 // used to be 15.0
+//            day.layer.cornerRadius = self.frame.height / 2.5 // used to be 15.0
+            day.layer.cornerRadius = 13.0
+
 //            day.layer.borderWidth = 2.0
 //            day.layer.borderColor = UIColor.mixedBlueGreen.cgColor
         }

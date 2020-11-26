@@ -29,6 +29,7 @@ import AVFoundation
 // TODO: tableview drawing warning
 // TODO: ValueTransformer warning Core Data
 // TODO: changing day to next week at earlier time still triggers notification
+// TODO: add better error handling to detail screen
 
 class PlantsTableViewController: UITableViewController {
     

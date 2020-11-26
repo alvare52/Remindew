@@ -15,7 +15,6 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var speciesTextField: UITextField!
-    @IBOutlet weak var frequencySegment: UISegmentedControl!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var plantButton: UIButton!
     @IBOutlet weak var backButton: UINavigationItem!
@@ -110,10 +109,7 @@ class DetailViewController: UIViewController {
         
         title = plant?.nickname ?? "Add New Plant"
         nicknameTextField.text = plant?.nickname ?? ""
-        speciesTextField.text = plant?.species ?? ""
-//        frequencySegment.selectedSegmentIndex = Int((plant?.frequency ?? 1) - 1)
-        frequencySegment.selectedSegmentIndex = Int((plant?.frequency![0] ?? 1) - 1)
-        
+        speciesTextField.text = plant?.species ?? ""        
         datePicker.date = plant?.water_schedule ?? Date()
         if plant != nil {
             plantButton.setTitle("Edit Plant", for: .normal)
