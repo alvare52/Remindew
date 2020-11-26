@@ -10,10 +10,9 @@ import UIKit
 
 class DaySelectionView: UIStackView {
 
-    /// Array of Dates that hold which days of the week are currently selected
-//    var days = [Date]()
-    var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    
+    /// Array of Strings just for label purposes
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    static let dayInitials = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     var buttonArray = [UIButton]()
     
     // MARK: - View Life Cycle
@@ -56,7 +55,7 @@ class DaySelectionView: UIStackView {
 //                                y: 0,
 //                                width: 20.0,
 //                                height: 50.0)
-            day.setTitle("\(day.tag)", for: .normal)
+            day.setTitle("\(days[integer])", for: .normal)
             day.backgroundColor = .white
             day.tintColor = .waterBlue
             day.addTarget(self, action: #selector(selectDay), for: .touchUpInside)
@@ -74,6 +73,7 @@ class DaySelectionView: UIStackView {
             print("day = \(day) index = \(index)")
             selectDay(buttonArray[index])
         }
+//        selectDay(buttonArray[index])
     }
     
     /// Return an array of Int16s that are currently selected (Sunday = 1, etc)

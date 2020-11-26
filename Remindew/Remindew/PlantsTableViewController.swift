@@ -29,6 +29,7 @@ import AVFoundation
 // TODO: tableview drawing warning
 // TODO: ValueTransformer warning Core Data
 // TODO: changing day to next week at earlier time still triggers notification
+// TODO: crashes when current weekday isn't in list of days to water
 
 class PlantsTableViewController: UITableViewController {
     
@@ -100,52 +101,23 @@ class PlantsTableViewController: UITableViewController {
         for plant in fetchedResultsController.fetchedObjects! {
             // convert?
             guard let schedule = plant.water_schedule else { return }
-            
-            // NEW
-//            let selectedDate = schedule
-//            print("selected date is \(selectedDate)")
-            
-//            let otherDate = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
-//                                                    from: selectedDate)
-////            print("selected hour = \(otherDate.hour), minutes = \(otherDate.minute), d = \(otherDate.weekday)")
-//
-//            let currentDateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
-//                                                           from: Date())
-////            print("curr hour = \(currentDateComps.hour), minutes = \(currentDateComps.minute), d = \(currentDateComps.weekday)")
-//
-//            guard let scheduleHour = otherDate.hour,
-//                let currHour = currentDateComps.hour,
-//                let scheduleMinute = otherDate.minute,
-//                let currMinute = currentDateComps.minute,
-//                let scheduleDay = otherDate.weekday,
-//                let currDay = currentDateComps.weekday else { return }
-            
+                        
             if schedule <= Date() {
+                print("water_schedule = \(dateFormatter.string(from: schedule))")
                 print("TIME MATCHES, \(plant.nickname ?? "Plant Name error")")
-                // update schedule so it doesn't keep going off
                                 
-//                let val = userController.calculateNextWateringValue(plant.frequency!)
-
                 plant.water_schedule = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
                                                                              days: plant.frequency!)
-            
-                sendNotification(plant: plant.nickname ?? "YOUR PLANT")
-                
                 // then update plant to have its new schedule
                 let newDate = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
                                                                     days: plant.frequency!)
                 
-//                guard let nickname = plant.nickname, let species = plant.species, let water_schedule = plant.water_schedule else {return}
-//                userController.update(nickname: nickname,
-//                                      species: species,
-//                                      water_schedule: water_schedule,
-//                                      frequency: plant.frequency!,
-//                                      plant: plant)
+                print("newDate = \(dateFormatter.string(from: newDate))")
                 userController.updatePlantWithSchedule(plant: plant, schedule: newDate)
                 
+                sendNotification(plant: plant.nickname ?? "Your plants")
                 localAlert(plant: plant)
                 tableView.reloadData()
-                // NEW
             }
         }
     }
@@ -183,8 +155,8 @@ class PlantsTableViewController: UITableViewController {
         cell.accessoryType = .disclosureIndicator
         let temp = Date(timeIntervalSinceNow: 69)
         
-        
-        cell.detailTextLabel?.text = "MWF - \(dateFormatter.string(from: testCell.water_schedule ?? temp))"
+        let daysString = userController.returnDaysString(plant: testCell)
+        cell.detailTextLabel?.text = "\(daysString) - \(dateFormatter.string(from: testCell.water_schedule ?? temp))"
         
         cell.imageView?.image = UIImage(named: "planticonwater")
         return cell

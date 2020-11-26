@@ -22,8 +22,10 @@ class RemindewTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let testPlant = Plant(nickname: "bob", species: "palm", water_schedule: Date(), frequency: Int16(5))
-        XCTAssertEqual(testPlant.nickname, "bob", "Failed plant nickname test")
+        let plantController = PlantController()
+        let daysSelected = [Int16(3), Int16(6), Int16(7)]
+        let result = plantController.calculateNextWateringValue(daysSelected)
+        XCTAssertEqual(6, result, "result does not equal 6")
     }
 
     func testPerformanceExample() throws {

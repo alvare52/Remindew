@@ -110,9 +110,12 @@ class PlantController {
         // Today is NOT in array of selected days
         // OR selected time is LESS than current time (next week)
         // date and time should be set using returnNextWateringSchedule
+        
+        // get next day alarm will go off (calcNext doesn't work in this case)
         result = returnWateringSchedule(plantDate: time, days: days)
+        
         var newComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
-                                               from: Date())
+                                               from: result)
         newComps.hour = plantTimeComps.hour!
         newComps.minute = plantTimeComps.minute!
         // add plantcomsp hour and minutes to this ^
@@ -125,40 +128,72 @@ class PlantController {
     }
     
     /// Takes in array of weekday Int16s and returns the amount of days until next watering
+    /// daysSelected MUST contain the day that alarm went off
     func calculateNextWateringValue(_ daysSelected: [Int16]) -> Int {
         
         let cur = Int16(currentDayComps.weekday!) // 4 Wednesday
         let dayz = daysSelected //plant.frequency! // []
-        
-        let currIndex = dayz.firstIndex(of: cur)
         var nextDay = Int16(0)
-        
-        // if last or only element in array, go back
-        
-        if ((currIndex ?? 0) + 1) == dayz.count {
-            nextDay = dayz[0]
-        }
-        else {
-            nextDay = dayz[currIndex! + 1]
-        }
         var val = Int16(0)
-        // 5 > 3
-        if nextDay > cur {
-            val = nextDay - cur
-        }
-        // 2 < 3
-        else if nextDay < cur {
-            let temp = cur - nextDay
-            val = 7 - temp
+        
+        // returns nil if there's no number in that array
+        // [3,5] but we're on wed 4
+        // go through [1,3,5] etc and return index of todays int (return nil if not in array)
+        // cur IS in dayz
+        if let currIndex = dayz.firstIndex(of: cur) {
             
+            // if last or only element in array, go back
+            if (currIndex + 1) == dayz.count {
+                nextDay = dayz[0]
+            }
+            else {
+                nextDay = dayz[currIndex + 1]
+            }
+            
+            // 5 > 3
+            if nextDay > cur {
+                val = nextDay - cur
+            }
+            // 2 < 3
+            else if nextDay < cur {
+                let temp = cur - nextDay
+                val = 7 - temp
+                
+            }
+            // 3 == 3
+            else {
+                val = 7
+            }
         }
-        // 3 == 3
+        
+        // cur is NOT in dayz
         else {
-            val = 7
+            print("currIndex NOT in daysSelected -> \(dayz), cur day int is \(cur)")
+            if cur > dayz.max()! {
+                nextDay = cur - dayz.min()!
+                val = Int16(7) - nextDay
+            } else {
+                for day in dayz {
+                    if day > cur {
+                        val = day - cur
+                        break
+                    }
+                }
+            }
         }
         
         // current day = 3, next is plant.getNextDay()
         print("cur = \(cur) nextDay = \(nextDay) val = \(val)")
         return Int(val)
+    }
+    
+    func returnDaysString(plant: Plant) -> String {
+        
+        var result = ""
+        for day in plant.frequency! {
+            // [1,2,3,7]
+            result += "\(DaySelectionView.dayInitials[Int(day - 1)])"
+        }
+        return result
     }
 }
