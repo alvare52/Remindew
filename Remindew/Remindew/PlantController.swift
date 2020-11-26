@@ -78,7 +78,9 @@ class PlantController {
         return Date()
     }
     
-    /// start on current weekday,
+    /// Returns first date a plant reminder will go off. Made of a Weekday,  Hour and Minutes
+    /// - Parameter days: Array of selected days when the reminders should go off
+    /// - Parameter time: The "Date" that we will grab only the hours and minutes from
     func createDateFromTimeAndDay(days: [Int16], time: Date) -> Date {
         print("createDateFromTimeAndDay")
         var result = Date()
@@ -128,7 +130,7 @@ class PlantController {
     }
     
     /// Takes in array of weekday Int16s and returns the amount of days until next watering
-    /// daysSelected MUST contain the day that alarm went off
+    /// - Parameter daysSelected: Array of Int16, where each one corresponds to a day of the week
     func calculateNextWateringValue(_ daysSelected: [Int16]) -> Int {
         
         let cur = Int16(currentDayComps.weekday!) // 4 Wednesday
