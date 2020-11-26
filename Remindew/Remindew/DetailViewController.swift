@@ -32,14 +32,23 @@ class DetailViewController: UIViewController {
         
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
-        if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty {
+        
+        let daysAreSelected: Bool = daySelectorOutlet.returnDaysSelected().count > 0
+        
+        if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty, daysAreSelected {
             
+            // Doesn't really work here
+//            let waterDate = userController?.returnWateringSchedule(plantDate: datePicker.date,
+//                                                                   days: daySelectorOutlet.returnDaysSelected())
+            let waterDate = userController?.createDateFromTimeAndDay(days: daySelectorOutlet.returnDaysSelected(),
+                                                                     time: datePicker.date)
             // If there IS a plant, update (EDIT)
             if let existingPlant = plant {
+                // TODO: water_schedule needs to be set with days selected in mind
                 userController?.update(nickname: nickname.capitalized,
                                        species: species.capitalized,
-                                       water_schedule: datePicker.date,
-                                       frequency: Int16(frequencySegment.selectedSegmentIndex + 1),
+                                       water_schedule: waterDate ?? Date(),
+                                       frequency: daySelectorOutlet.returnDaysSelected(),
                                        plant: existingPlant)
             }
                 
@@ -47,31 +56,9 @@ class DetailViewController: UIViewController {
             else {
                 userController?.createPlant(nickname: nickname.capitalized,
                                             species: species.capitalized,
-                                            date: datePicker.date,
-                                            frequency: Int16(frequencySegment.selectedSegmentIndex + 1))
+                                            date: waterDate ?? Date(),
+                                            frequency: daySelectorOutlet.returnDaysSelected())
             }
-            
-            // NEW
-            let selectedDate = datePicker.date // (enter schedule here)
-            print("selected date is \(selectedDate)")
-            let calendar = Calendar.current
-            let otherDate = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
-                                                    from: selectedDate)
-            print("selected date hour = \(otherDate.hour), minutes = \(otherDate.minute)")
-            
-            let currentDateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
-                                                           from: Date())
-            print("current date hour = \(currentDateComps.hour), minutes = \(currentDateComps.minute)")
-            
-            let dateComponents = DateComponents(calendar: calendar,
-                                                hour: otherDate.hour,
-                                                minute: otherDate.minute)
-            
-            let finalDate = calendar.date(from: dateComponents)
-            
-            print("custom date from just selected hour and minute = \(finalDate)")
-//            print("nextDate weekday = \(dateComponents.weekday)")
-//            print("nextDate hour = \(dateComponents.hour), minute = \(dateComponents.minute)")
             
             navigationController?.popViewController(animated: true)
         }
@@ -112,6 +99,7 @@ class DetailViewController: UIViewController {
         // NEW
 //        datePicker.minimumDate = Date()
         // NEW
+        // Should maximumDate be untle the end of the current day?
         datePicker.datePickerMode = .time
         updateViews()
     }
@@ -123,11 +111,14 @@ class DetailViewController: UIViewController {
         title = plant?.nickname ?? "Add New Plant"
         nicknameTextField.text = plant?.nickname ?? ""
         speciesTextField.text = plant?.species ?? ""
-        frequencySegment.selectedSegmentIndex = Int((plant?.frequency ?? 1) - 1)
+//        frequencySegment.selectedSegmentIndex = Int((plant?.frequency ?? 1) - 1)
+        frequencySegment.selectedSegmentIndex = Int((plant?.frequency![0] ?? 1) - 1)
+        
         datePicker.date = plant?.water_schedule ?? Date()
         if plant != nil {
             plantButton.setTitle("Edit Plant", for: .normal)
             plantButton.performFlare()
+            daySelectorOutlet.selectDays((plant?.frequency)!)
         }
         else {
             plantButton.setTitle("Add Plant", for: .normal)

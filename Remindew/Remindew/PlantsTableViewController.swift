@@ -25,7 +25,7 @@ import AVFoundation
 // TODO: add ability to add photo for plant
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
 // TODO: AFTER: let user take picture from app? toggle every x days vs days of week
-// TODO: sound not working on 11 pro max sim
+// TODO: add parameter descriptions
 
 class PlantsTableViewController: UITableViewController {
     
@@ -87,6 +87,11 @@ class PlantsTableViewController: UITableViewController {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
+    /// Schedules the next notification so it goes off when app is in background
+    func setupNextNotification() {
+       print("setup next notification")
+    }
+    
     /// Updates all plants and displays alert
     func updateTimer(timer: Timer) {
         for plant in fetchedResultsController.fetchedObjects! {
@@ -112,47 +117,17 @@ class PlantsTableViewController: UITableViewController {
                 let scheduleDay = otherDate.weekday,
                 let currDay = currentDateComps.weekday else { return }
             
-            if scheduleHour <= currHour && scheduleMinute <= currMinute && scheduleDay == currDay {
+            if schedule <= Date() {
                 print("TIME MATCHES, \(plant.nickname)")
                 // update schedule so it doesn't keep going off
-                
-//                let nextDateComponents = DateComponents(calendar: calendar,
-//                                                        hour: scheduleHour,
-//                                                        minute: scheduleMinute,
-//                                                        weekday: 4)
-                var cur = currDay
-                cur = 3
-                let dayz = [1,3]
-                let currIndex = dayz.firstIndex(of: cur)
-                var nextDay = 0
-                // if last or only element in array, go back
-                if (currIndex! + 1) == dayz.count {
-                    nextDay = dayz[0]
-                }
-                else {
-                    nextDay = dayz[currIndex! + 1]
-                }
-                var val = 0
-                // 5 > 3
-                if nextDay > cur {
-                    val = nextDay - cur
-                }
-                // 2 < 3
-                else if nextDay < cur {
-                    let temp = cur - nextDay
-                    val = 7 - temp
-                    
-                }
-                // 3 == 3
-                else {
-                    val = 7
-                }
-                
-                // current day = 3, next is plant.getNextDay()
-                print("cur = \(cur) nextDay = \(nextDay) val = \(val)")
+                                
                 print(plant.water_schedule)
-                plant.water_schedule = calendar.date(byAdding: .day, value: val, to: schedule)
+//                let val = userController.calculateNextWateringValue(plant.frequency!)
+
+                plant.water_schedule = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
+                                                                             days: plant.frequency!)
                 print(plant.water_schedule)
+                
                 // NEW
                 print("Plant: \(plant.nickname ?? "plant") Schedule: \(dateFormatter.string(from: schedule))")
                 print("WATER YOUR PLANT: \(plant.nickname ?? "!")")
@@ -162,40 +137,21 @@ class PlantsTableViewController: UITableViewController {
 //                plant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * Double(plant.frequency)))
                 
                 // then update plant to have its new schedule
+                let newDate = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
+                                                                    days: plant.frequency!)
+                
                 // UDPATE SCHEDULE - CHANGE BACK MAYBE
                 guard let nickname = plant.nickname, let species = plant.species, let water_schedule = plant.water_schedule else {return}
                 userController.update(nickname: nickname,
                                       species: species,
                                       water_schedule: water_schedule,
-                                      frequency: plant.frequency,
+                                      frequency: plant.frequency!,
                                       plant: plant)
                 // UPDATE SCHEDULE - CHANGE BACK MAYBE
                 
                 localAlert(plant: plant)
                 tableView.reloadData()
                 // NEW
-            }
-            
-            if schedule <= Date() {
-//                print("Plant: \(plant.nickname ?? "plant") Schedule: \(dateFormatter.string(from: schedule))")
-//                print("WATER YOUR PLANT: \(plant.nickname ?? "!")")
-//                sendNotification(plant: plant.nickname ?? "YOUR PLANT")
-//
-//                // update the plants schedule after it goes off, and then add frequency days to make its new schedule
-//                plant.water_schedule = Date(timeIntervalSinceNow: TimeInterval(86400 * Double(plant.frequency)))
-//
-//                // then update plant to have its new schedule
-//                // UDPATE SCHEDULE - CHANGE BACK MAYBE
-//                guard let nickname = plant.nickname, let species = plant.species, let water_schedule = plant.water_schedule else {return}
-//                userController.update(nickname: nickname,
-//                                      species: species,
-//                                      water_schedule: water_schedule,
-//                                      frequency: plant.frequency,
-//                                      plant: plant)
-//                // UPDATE SCHEDULE - CHANGE BACK MAYBE
-//
-//                localAlert(plant: plant)
-//                tableView.reloadData()
             }
         }
     }
@@ -232,14 +188,9 @@ class PlantsTableViewController: UITableViewController {
         //cell.textLabel?.textColor = UIColor(red: 62, green: 79, blue: 36, alpha: 1)
         cell.accessoryType = .disclosureIndicator
         let temp = Date(timeIntervalSinceNow: 69)
-        if testCell.frequency == 1 {
-            cell.detailTextLabel?.text = "Every day - \(dateFormatter.string(from: testCell.water_schedule ?? temp ))"
-        }
-        else if testCell.frequency == 7 {
-            cell.detailTextLabel?.text = "Every week - \(dateFormatter.string(from: testCell.water_schedule ?? temp ))"
-        }
-        else {
-            cell.detailTextLabel?.text = "Every \(testCell.frequency) days - \(dateFormatter.string(from: testCell.water_schedule ?? temp))" }
+        
+        
+        cell.detailTextLabel?.text = "MWF - \(dateFormatter.string(from: testCell.water_schedule ?? temp))"
         
         cell.imageView?.image = UIImage(named: "planticonwater")
         return cell
