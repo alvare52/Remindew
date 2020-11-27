@@ -31,6 +31,7 @@ import AVFoundation
 // TODO: changing day to next week at earlier time still triggers notification
 // TODO: add better error handling to detail screen
 // TODO: make nickname not mandatory to make plant ("" default value?)
+// TODO: enable dateLabel BB items to toggle between format?
 
 class PlantsTableViewController: UITableViewController {
     
@@ -38,6 +39,7 @@ class PlantsTableViewController: UITableViewController {
     
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
     
+    @IBOutlet var dateLabel: UIBarButtonItem!
     // MARK: - Properties
     
     /// Fetches Plant objects from storage
@@ -57,10 +59,14 @@ class PlantsTableViewController: UITableViewController {
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        //formatter.dateStyle = .short
         formatter.dateFormat = "EEEE MMM d, h:mm a"
-        //formatter.timeStyle = .short
         return formatter
+    }
+    
+    var dateFormatter2: DateFormatter {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "EEEE MM/d"
+            return formatter
     }
     
     var timer: Timer?
@@ -71,6 +77,8 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateLabel.title = dateFormatter2.string(from: Date())
+        dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
         startTimer()
     }
     

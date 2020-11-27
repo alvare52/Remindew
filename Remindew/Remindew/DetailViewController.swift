@@ -22,6 +22,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var waterPlantButton: UIButton!
     @IBOutlet var cameraButtonLabel: UIBarButtonItem!
     @IBOutlet var daySelectorOutlet: DaySelectionView!
+    @IBOutlet var dateLabel: UIBarButtonItem!
     
     // MARK: - Actions
     
@@ -86,11 +87,20 @@ class DetailViewController: UIViewController {
         }
     }
     
+    var dateFormatter: DateFormatter {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "EEEE MM/d"
+            return formatter
+    }
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        dateLabel.title = dateFormatter.string(from: Date())
+        dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
         
         // Hides Keyboard when tapping outside of it
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
