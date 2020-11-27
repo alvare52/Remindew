@@ -98,6 +98,8 @@ class DetailViewController: UIViewController {
         
         nicknameTextField.borderStyle = .none
         speciesTextField.borderStyle = .none
+        nicknameTextField.textColor = .darkGray
+        speciesTextField.textColor = .darkGray
         
         nicknameTextField.delegate = self
         speciesTextField.delegate = self

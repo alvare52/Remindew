@@ -31,11 +31,11 @@ class DaySelectionView: UIStackView {
     
     @objc private func selectDay(_ button: UIButton) {
         print("tapped button \(button.tag)")
-        if button.backgroundColor == .white {
+        if button.backgroundColor == .clear {
             button.backgroundColor = .waterBlue
             button.tintColor = .white
         } else {
-            button.backgroundColor = .white
+            button.backgroundColor = .clear
             button.tintColor = .waterBlue
         }
     }
@@ -56,7 +56,7 @@ class DaySelectionView: UIStackView {
 //                                width: 20.0,
 //                                height: 50.0)
             day.setTitle("\(days[integer])", for: .normal)
-            day.backgroundColor = .white
+            day.backgroundColor = .clear
             day.tintColor = .waterBlue
             day.addTarget(self, action: #selector(selectDay), for: .touchUpInside)
             
