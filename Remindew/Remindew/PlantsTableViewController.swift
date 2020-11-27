@@ -32,6 +32,7 @@ import AVFoundation
 // TODO: add better error handling to detail screen
 // TODO: make nickname not mandatory to make plant ("" default value?)
 // TODO: enable dateLabel BB items to toggle between format?
+// TODO: BUG: when alarm goes off when app is closed, its new time is set to the current plus next day
 
 class PlantsTableViewController: UITableViewController {
     

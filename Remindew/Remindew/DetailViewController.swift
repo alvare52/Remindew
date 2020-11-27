@@ -100,6 +100,14 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
+        imageView.layer.borderWidth = 1.0
+        imageView.layer.masksToBounds = false
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.cornerRadius = imageView.frame.size.width / 2
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .white
+        imageView.contentMode = .scaleToFill
+        
         dateLabel.title = dateFormatter.string(from: Date())
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
         
