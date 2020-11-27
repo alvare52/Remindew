@@ -96,13 +96,15 @@ class DetailViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         
+        nicknameTextField.borderStyle = .none
+        speciesTextField.borderStyle = .none
+        
         nicknameTextField.delegate = self
         speciesTextField.delegate = self
+        
         // Dark -> Light?
         plantButton.applyGradient(colors: [UIColor.leafGreen.cgColor, UIColor.lightLeafGreen.cgColor])
         waterPlantButton.applyGradient(colors: [UIColor.waterBlue.cgColor, UIColor.lightWaterBlue.cgColor])
-//        plantButton.layer.cornerRadius = 10.0
-//        waterPlantButton.layer.cornerRadius = 10.0
         
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
@@ -118,17 +120,24 @@ class DetailViewController: UIViewController {
         
         guard isViewLoaded else {return}
         
-        title = plant?.nickname ?? "Add New Plant"
-        nicknameTextField.text = plant?.nickname ?? ""
-        speciesTextField.text = plant?.species ?? ""        
-        datePicker.date = plant?.water_schedule ?? Date()
-        if plant != nil {
+        if let plant = plant {
             plantButton.setTitle("Edit Plant", for: .normal)
-            daySelectorOutlet.selectDays((plant?.frequency)!)
+            let name = plant.nickname!
+            let xAWeek = "\(plant.frequency!.count)x a week"
+            title = "\(name) - \(xAWeek)"
+            nicknameTextField.text = plant.nickname
+            speciesTextField.text = plant.species
+            datePicker.date = plant.water_schedule!
+            daySelectorOutlet.selectDays((plant.frequency)!)
         }
         else {
             plantButton.setTitle("Add Plant", for: .normal)
+            title = "Add New Plant"
+            nicknameTextField.text = ""
+            speciesTextField.text = ""
+            datePicker.date = Date()
         }
+        
         plantButton.performFlare()
         // start 0.5 seconds later?
         waterPlantButton.performFlare()
