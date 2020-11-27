@@ -33,6 +33,7 @@ class DetailViewController: UIViewController {
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
         AudioServicesPlaySystemSound(SystemSoundID(1105))
+        presentImagePickerController()
     }
         
     @IBAction func plantButtonTapped(_ sender: UIButton) {
@@ -154,6 +155,18 @@ class DetailViewController: UIViewController {
         // start 0.5 seconds later?
         waterPlantButton.performFlare()
     }
+    
+    private func presentImagePickerController() {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+            print("Error: the photo library is unavailable")
+            return
+        }
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
+    }
 }
 
 extension DetailViewController: UITextFieldDelegate {
@@ -163,4 +176,23 @@ extension DetailViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+
+/// For accessing the photo library
+extension DetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("Picked Image")
+        
+        if let image = info[.originalImage] as? UIImage {
+            imageView.image = image
+        }
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("Cancel")
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }
