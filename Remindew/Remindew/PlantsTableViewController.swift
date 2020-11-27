@@ -30,6 +30,7 @@ import AVFoundation
 // TODO: ValueTransformer warning Core Data
 // TODO: changing day to next week at earlier time still triggers notification
 // TODO: add better error handling to detail screen
+// TODO: make nickname not mandatory to make plant ("" default value?)
 
 class PlantsTableViewController: UITableViewController {
     

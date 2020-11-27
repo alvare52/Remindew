@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Remindew-->
+        <!--REMINDEW-->
         <scene sceneID="ZGE-a2-4t6">
             <objects>
                 <tableViewController id="h6g-pM-PCw" customClass="PlantsTableViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
@@ -49,7 +49,7 @@
                             <outlet property="delegate" destination="h6g-pM-PCw" id="dht-Zh-2ns"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Remindew" id="EK6-Ws-JkZ">
+                    <navigationItem key="navigationItem" title="REMINDEW" id="EK6-Ws-JkZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kmi-s3-Tfa">
                             <connections>
                                 <segue destination="egV-2b-yvb" kind="show" identifier="AddPlantSegue" id="2xQ-mZ-YBa"/>
@@ -92,7 +92,7 @@
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-md-hGl">
                                 <rect key="frame" x="20" y="408" width="374" height="42"/>
-                                <color key="backgroundColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.40595585109999999" green="0.60359317059999995" blue="0.3919216096" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Add Plant"/>
@@ -107,7 +107,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Water Plant"/>
                                 <connections>
-                                    <action selector="plantButtonTapped:" destination="egV-2b-yvb" eventType="touchUpInside" id="oZm-x1-yhg"/>
+                                    <action selector="waterPlantButtonTapped:" destination="egV-2b-yvb" eventType="touchUpInside" id="Kq4-sp-FLU"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plantslogoclear1024x1024" translatesAutoresizingMaskIntoConstraints="NO" id="aje-Zj-2LG">
@@ -158,9 +158,11 @@
                         <outlet property="cameraButtonLabel" destination="Zuh-eX-2UT" id="8uH-86-luf"/>
                         <outlet property="datePicker" destination="L3N-yZ-8K4" id="gSd-29-F9h"/>
                         <outlet property="daySelectorOutlet" destination="7d0-w9-DEb" id="adj-su-lsS"/>
+                        <outlet property="imageView" destination="aje-Zj-2LG" id="Gpw-u5-yfU"/>
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
                         <outlet property="speciesTextField" destination="ucM-Fj-27g" id="p73-rD-hQY"/>
+                        <outlet property="waterPlantButton" destination="PZL-BI-0Bw" id="PWN-E2-9ML"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjs-sh-Ez5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -38,7 +38,7 @@ extension UIButton {
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0)
         gradientLayer.frame = self.bounds
-        gradientLayer.cornerRadius = 7.0 //self.frame.height / 2
+        gradientLayer.cornerRadius = self.frame.height / 2 // used to be 7.0
         
         // Shadow
         gradientLayer.shadowColor = UIColor.darkGray.cgColor
@@ -56,17 +56,29 @@ extension UIButton {
 
 extension UIColor {
     
+    ///
+    static let lightLeafGreen = UIColor(red: 104.0 / 255.0, green: 174.0 / 255.0, blue: 120.0 / 255.0, alpha: 1.0)
+    
     /// Leaf Green. R: 104, G: 154, B: 100
     static let leafGreen = UIColor(red: 104.0 / 255.0, green: 154.0 / 255.0, blue: 100.0 / 255.0, alpha: 1.0)
     
+    ///
+    static let darkLeafGreen = UIColor(red: 104.0 / 255.0, green: 144.0 / 255.0, blue: 90.0 / 255.0, alpha: 1.0)
+    
+    ///
+    static let darkWaterBlue = UIColor(red: 101.0 / 255.0, green: 129.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0)
+
     /// Water Blue. R: 101, G: 139, B: 154
     static let waterBlue = UIColor(red: 101.0 / 255.0, green: 139.0 / 255.0, blue: 154.0 / 255.0, alpha: 1.0)
     
-    /// Mixed Blue Green. R: 39, G: 98, B: 92
-    static let mixedBlueGreen = UIColor(red: 39.0 / 255.0, green: 98.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
+    ///
+    static let lightWaterBlue = UIColor(red: 101.0 / 255.0, green: 159.0 / 255.0, blue: 174.0 / 255.0, alpha: 1.0)
     
     /// Light Blue Green. R: 39, G: 118, B: 112
     static let lightBlueGreen = UIColor(red: 39.0 / 255.0, green: 118.0 / 255.0, blue: 112.0 / 255.0, alpha: 1.0)
+    
+    /// Mixed Blue Green. R: 39, G: 98, B: 92
+    static let mixedBlueGreen = UIColor(red: 39.0 / 255.0, green: 98.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
     
     /// Dark Blue Green. R: 39, G: 78, B: 72
     static let darkBlueGreen = UIColor(red: 39.0 / 255.0, green: 78.0 / 255.0, blue: 72.0 / 255.0, alpha: 1.0)
