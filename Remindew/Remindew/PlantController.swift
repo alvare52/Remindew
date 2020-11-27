@@ -27,7 +27,7 @@ class PlantController {
     /// Create a plant and then save it
     func createPlant(nickname: String, species: String, date: Date, frequency: [Int16]) {
         let plant = Plant(nickname: nickname, species: species, water_schedule: date, frequency: frequency)
-        print("plant schedule: \(plant.water_schedule)")
+        print("plant schedule: \(String(describing: plant.water_schedule))")
         savePlant()
     }
     

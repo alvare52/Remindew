@@ -53,7 +53,7 @@
                     <navigationItem key="navigationItem" title="Remindew" id="EK6-Ws-JkZ">
                         <leftBarButtonItems>
                             <barButtonItem title="Item" image="ellipsis.circle" catalog="system" id="9ch-Ko-LFh"/>
-                            <barButtonItem enabled="NO" title="Date" style="plain" id="tHs-1W-LYp"/>
+                            <barButtonItem enabled="NO" title="Date" id="tHs-1W-LYp"/>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kmi-s3-Tfa">
                             <connections>
