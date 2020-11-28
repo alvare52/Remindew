@@ -205,4 +205,26 @@ class PlantController {
         }
         return result.joined(separator: " ")
     }
+    
+    /// Returns String that is made up of a selected weekday Int16 and the plant's UUID
+    func makeNotificationIdentifier(plant: Plant) -> String {
+        return ""
+    }
+    
+    /// Returns array of Strings that are the plant's notification identifiers (weekday + UUID)
+    func returnPlantNotificationIdentifiers(plant: Plant) -> [String] {
+        print("returnPlantNotificationIdentifiers")
+        var result = [String]()
+        
+        for day in plant.frequency! {
+            result.append("\(day)\(plant.identifier!)")
+        }
+        print("plant note identifiers = \(result)")
+        return result
+    }
+    
+    /// Makes a notification request for each day in plant frequency array
+    func makeNotificationRequests() {
+        
+    }
 }
