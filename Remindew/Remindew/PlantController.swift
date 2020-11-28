@@ -33,9 +33,16 @@ class PlantController {
     
     /// Create a plant and then save it
     func createPlant(nickname: String, species: String, date: Date, frequency: [Int16]) {
+        print("createPlant")
         let plant = Plant(nickname: nickname, species: species, water_schedule: date, frequency: frequency)
         print("plant schedule: \(String(describing: plant.water_schedule))")
+        print("plant frequency: \(String(describing: plant.frequency))")
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
         
+//        makeAllRequestsForPlant(plant: plant)
+        addRequestsForPlant(plant: plant)
+        
+        // if notes are disable, dont make plant???
         savePlant()
     }
     
@@ -230,7 +237,7 @@ class PlantController {
         print("plant note identifiers = \(result)")
         return result
     }
-    
+        
     /// Returns a [Date] made up of selected weekdays and plant watering schedule (time)
     func makeDateCompsForSchedule(weekday: Int16, time: Date) -> DateComponents {
         print("makeDateCompFromSchdule")
@@ -246,6 +253,65 @@ class PlantController {
         // date from dateComps is inaccurate but not really needed for this right now
 //        print("dateFromComps = \(dateFormatter.string(from: dateFromComps))")
         return dateComps
+    }
+    
+    func makeAllRequestsForPlant(plant: Plant) {
+        print("makeAllRequestsForPlant")
+        
+        for day in plant.frequency! {
+
+            // identifier
+            let identifier = "\(day)\(plant.identifier!)"
+
+            // content
+            let content = UNMutableNotificationContent()
+            content.sound = .default
+            content.title = "WATER YOUR PLANT!"
+            content.body = "\(plant.nickname!) needs water."
+
+            // trigger
+            let date = makeDateCompsForSchedule(weekday: day, time: plant.water_schedule!)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            print("request = \(request)")
+            UNUserNotificationCenter.current().add(request) { (error) in
+                if let error = error {
+                    NSLog("Error adding notification: \(error)")
+                }
+                print("Added Notification! - \(request.identifier), \(String(describing: request.trigger?.description))")
+            }
+        }
+
+        // Double check and see all pending notification requests
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
+            print("pending note requests = \(note)")
+            for thing in note {
+                print("\(thing.identifier)")
+                print(thing)
+//                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testNotification"])
+            }
+        }
+    }
+    
+    func addRequestsForPlant(plant: Plant) {
+        print("addRequestsForPlant")
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            switch granted {
+            case true:
+                print("PERMISSION GRANTED")
+                DispatchQueue.main.async {
+                    print("ASYNC: Attempting to add all requests")
+                    self.makeAllRequestsForPlant(plant: plant)
+                }
+            case false:
+                print("permission NOT granted, please allow notifications")
+                return
+            }
+        }
+//        print("attempting to add requests")
+//        makeAllRequestsForPlant(plant: plant)
     }
     
     /// Makes a notification request for each day in plant frequency array
@@ -288,6 +354,7 @@ class PlantController {
                 }
             case false:
                 print("access NOT granted!")
+                // tell user to go to settings and enable notes?
                 break
             }
         }

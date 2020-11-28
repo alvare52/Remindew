@@ -61,7 +61,8 @@ class PlantsTableViewController: UITableViewController {
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE MMM d, h:mm a"
+//        formatter.dateFormat = "EEEE MMM d, h:mm a"
+        formatter.dateFormat = "h:mm a"
         return formatter
     }
     
@@ -79,49 +80,9 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
-//                switch granted {
-//                case true:
-//
-//                    var date = DateComponents()
-//                    date.hour = 12 + 4
-//                    date.minute = 11
-//                    date.weekday = 6
-//                    let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
-//                    let content = UNMutableNotificationContent()
-//                    content.sound = .default
-//                    content.title = "PLANT NEEDS WATER!"
-//                    content.body = "PLANT NEEDS WATER!"
-//
-//                    let request = UNNotificationRequest(identifier: "testNotification", content: content, trigger: trigger)
-//                    UNUserNotificationCenter.current().add(request) { (error) in
-//                        if let error = error {
-//                            NSLog("Error adding notification: \(error)")
-//                        }
-//                        print("Added notification")
-//                        UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
-//                            print("pending note requests = \(note)")
-//                            for thing in note {
-//                                print(thing.identifier)
-//                                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testNotification"])
-//                            }
-//                        }
-//                        UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
-//                            print("pending note requests NOW = \(note)")
-//
-//                        }
-//
-//                    }
-//                case false:
-//                    print("access NOT granted!")
-//                    break
-//                }
-//            }
-        
         dateLabel.title = dateFormatter2.string(from: Date())
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
-        startTimer()
+//        startTimer()
     }
     
     /// Main timer that is used to check all plants being tracked
