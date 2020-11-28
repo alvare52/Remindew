@@ -167,6 +167,14 @@ class DetailViewController: UIViewController {
         updateViews()
     }
         
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // if the view appears and there's no text, auto "click" into first textfield
+        if nicknameTextField.text == "" {
+            nicknameTextField.becomeFirstResponder()
+        }
+    }
+    
     func updateViews() {
         
         guard isViewLoaded else {return}

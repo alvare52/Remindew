@@ -26,7 +26,7 @@ import AVFoundation
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
 // TODO: AFTER: let user take picture from app? toggle every x days vs days of week
 // TODO: add parameter descriptions
-// TODO: tableview drawing warning
+// TODO: tableview drawing warning (textfield constraints?)
 // TODO: ValueTransformer warning Core Data
 // TODO: changing day to next week at earlier time still triggers notification
 // TODO: add better error handling to detail screen
@@ -34,7 +34,6 @@ import AVFoundation
 // TODO: enable dateLabel BB items to toggle between format?
 // TODO: BUG: when alarm goes off when app is closed, its new time is set to the current plus next day
 // TODO: launch animation where drop slides in front of leaf
-// TODO: auto select first textfield when adding new plant
 // TODO: small bug. checkWatering will run in most cases except when you stay on the table view
 // TODO: small bug. updating time for plant that was already watered that day won't work right
 // TODO: fix water plant button in detail view controller
