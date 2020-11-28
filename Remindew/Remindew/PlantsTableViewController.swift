@@ -33,6 +33,7 @@ import AVFoundation
 // TODO: make nickname not mandatory to make plant ("" default value?)
 // TODO: enable dateLabel BB items to toggle between format?
 // TODO: BUG: when alarm goes off when app is closed, its new time is set to the current plus next day
+// TODO: launch animation where drop slides in front of leaf
 
 class PlantsTableViewController: UITableViewController {
     
@@ -78,6 +79,46 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+//                switch granted {
+//                case true:
+//
+//                    var date = DateComponents()
+//                    date.hour = 12 + 4
+//                    date.minute = 11
+//                    date.weekday = 6
+//                    let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+//                    let content = UNMutableNotificationContent()
+//                    content.sound = .default
+//                    content.title = "PLANT NEEDS WATER!"
+//                    content.body = "PLANT NEEDS WATER!"
+//
+//                    let request = UNNotificationRequest(identifier: "testNotification", content: content, trigger: trigger)
+//                    UNUserNotificationCenter.current().add(request) { (error) in
+//                        if let error = error {
+//                            NSLog("Error adding notification: \(error)")
+//                        }
+//                        print("Added notification")
+//                        UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
+//                            print("pending note requests = \(note)")
+//                            for thing in note {
+//                                print(thing.identifier)
+//                                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testNotification"])
+//                            }
+//                        }
+//                        UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
+//                            print("pending note requests NOW = \(note)")
+//
+//                        }
+//
+//                    }
+//                case false:
+//                    print("access NOT granted!")
+//                    break
+//                }
+//            }
+        
         dateLabel.title = dateFormatter2.string(from: Date())
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
         startTimer()
@@ -110,14 +151,18 @@ class PlantsTableViewController: UITableViewController {
     func updateTimer(timer: Timer) {
         for plant in fetchedResultsController.fetchedObjects! {
             // convert?
+            
+//            print("\(plant.frequency![0]) + \(plant.identifier!)")
+//            print("\(plant.frequency![0])\(plant.identifier!)")
+            
             guard let schedule = plant.water_schedule else { return }
                         
             if schedule <= Date() {
                 print("water_schedule = \(dateFormatter.string(from: schedule))")
                 print("TIME MATCHES, \(plant.nickname ?? "Plant Name error")")
                                 
-                plant.water_schedule = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
-                                                                             days: plant.frequency!)
+//                plant.water_schedule = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
+//                                                                             days: plant.frequency!)
                 // then update plant to have its new schedule
                 let newDate = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
                                                                     days: plant.frequency!)

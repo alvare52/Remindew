@@ -118,8 +118,10 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plantslogoclear1024x1024" translatesAutoresizingMaskIntoConstraints="NO" id="aje-Zj-2LG">
-                                <rect key="frame" x="140" y="538" width="134" height="134.5"/>
+                                <rect key="frame" x="140" y="538" width="134" height="134"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="134" id="0LZ-Np-erL"/>
+                                    <constraint firstAttribute="height" constant="134" id="ngf-rn-VFZ"/>
                                     <constraint firstAttribute="width" secondItem="aje-Zj-2LG" secondAttribute="height" multiplier="1:1" id="v19-tc-Ssh"/>
                                 </constraints>
                             </imageView>
@@ -141,7 +143,6 @@
                             <constraint firstItem="yRG-nk-QcH" firstAttribute="top" secondItem="UYe-ih-km5" secondAttribute="top" id="VTf-L8-dqw"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="7d0-w9-DEb" secondAttribute="trailing" constant="20" id="WXd-D3-dwf"/>
                             <constraint firstItem="Jc8-md-hGl" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="YgS-f2-DES"/>
-                            <constraint firstItem="aje-Zj-2LG" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.15" id="eFC-q8-adt"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.149554" id="g0P-YI-1Zz"/>
                             <constraint firstItem="PZL-BI-0Bw" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="k0X-xe-iVG"/>
                             <constraint firstItem="7d0-w9-DEb" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0379464" id="kK6-Hh-I7N"/>
