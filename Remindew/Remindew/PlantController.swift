@@ -52,6 +52,14 @@ class PlantController {
         plant.species = species
         plant.water_schedule = water_schedule
         plant.frequency = frequency
+        
+        // remove pending notifications for this plant first
+        print("removing")
+        removeAllRequestsForPlant(plant: plant)
+        // then create brand new ones
+        print("adding new ones, \(String(describing: plant.frequency?.count))")
+        addRequestsForPlant(plant: plant)
+        
         savePlant()
     }
     
@@ -221,19 +229,18 @@ class PlantController {
         return result.joined(separator: " ")
     }
     
-    /// Returns String that is made up of a selected weekday Int16 and the plant's UUID
-    func makeNotificationIdentifier(plant: Plant) -> String {
-        return ""
-    }
-    
     /// Returns array of Strings that are the plant's notification identifiers (weekday + UUID)
     func returnPlantNotificationIdentifiers(plant: Plant) -> [String] {
         print("returnPlantNotificationIdentifiers")
         var result = [String]()
         
-        for day in plant.frequency! {
-            result.append("\(day)\(plant.identifier!)")
+//        for day in plant.frequency! {
+//            result.append("\(day)\(plant.identifier!)")
+//        }
+        for i in 1...7 {
+            result.append("\(i)\(plant.identifier!)")
         }
+        
         print("plant note identifiers = \(result)")
         return result
     }
@@ -255,6 +262,7 @@ class PlantController {
         return dateComps
     }
     
+    /// Adds notification requests for all days the plant needs to be watered
     func makeAllRequestsForPlant(plant: Plant) {
         print("makeAllRequestsForPlant")
         
@@ -285,15 +293,15 @@ class PlantController {
 
         // Double check and see all pending notification requests
         UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
-            print("pending note requests = \(note)")
+            print("pending note requests = \(note.count)")
             for thing in note {
-                print("\(thing.identifier)")
                 print(thing)
 //                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testNotification"])
             }
         }
     }
     
+    /// Checks to see if notifications are allowed first, then adds all requests
     func addRequestsForPlant(plant: Plant) {
         print("addRequestsForPlant")
         
@@ -310,52 +318,33 @@ class PlantController {
                 return
             }
         }
-//        print("attempting to add requests")
-//        makeAllRequestsForPlant(plant: plant)
     }
     
-    /// Makes a notification request for each day in plant frequency array
-    func makeNotificationRequests() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
-            switch granted {
-            case true:
-                
-                let identifier = "testNotification"
-                
-                var date = DateComponents()
-                date.hour = 12 + 4
-                date.minute = 11
-                date.weekday = 6
-                let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
-                
-                let content = UNMutableNotificationContent()
-                content.sound = .default
-                content.title = "PLANT NEEDS WATER!"
-                content.body = "PLANT NEEDS WATER!"
-
-                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-                UNUserNotificationCenter.current().add(request) { (error) in
-                    if let error = error {
-                        NSLog("Error adding notification: \(error)")
-                    }
-                    print("Added notification")
-                    UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
-                        print("pending note requests = \(note)")
-                        for thing in note {
-                            print(thing.identifier)
-                            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testNotification"])
-                        }
-                    }
-                    UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
-                        print("pending note requests NOW = \(note)")
-
-                    }
-
-                }
-            case false:
-                print("access NOT granted!")
-                // tell user to go to settings and enable notes?
-                break
+    /// Removes all pending notifications for plant
+    func removeAllRequestsForPlant(plant: Plant) {
+        print("removeAllRequestsForPlant")
+        
+        // get all identifiers for this plant [String]
+        let notesToRemove = returnPlantNotificationIdentifiers(plant: plant)
+        
+        print("notesToRemove = \(notesToRemove)")
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notesToRemove)
+        
+        // check all pending ones to make sure?
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (notes) in
+            DispatchQueue.main.async {
+                print("pending notes count = \(notes.count), notes = \(notes)")
+            }
+        }
+    }
+    
+    /// Testing to see which notes are pending
+    func checkPendingNotes() {
+        print("checkPendingNotes")
+        // check all pending ones to make sure?
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (notes) in
+            DispatchQueue.main.async {
+                print("pending notes count = \(notes.count), notes = \(notes)")
             }
         }
     }

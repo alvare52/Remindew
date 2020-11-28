@@ -34,6 +34,7 @@ import AVFoundation
 // TODO: enable dateLabel BB items to toggle between format?
 // TODO: BUG: when alarm goes off when app is closed, its new time is set to the current plus next day
 // TODO: launch animation where drop slides in front of leaf
+// TODO: auto select first textfield when adding new plant
 
 class PlantsTableViewController: UITableViewController {
     
@@ -182,6 +183,7 @@ class PlantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let plant = fetchedResultsController.object(at: indexPath)
+            userController.removeAllRequestsForPlant(plant: plant)
             userController.deletePlant(plant: plant)
         }
     }

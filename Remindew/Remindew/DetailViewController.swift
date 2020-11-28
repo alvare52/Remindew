@@ -50,7 +50,7 @@ class DetailViewController: UIViewController {
                                                                      time: datePicker.date)
             // If there IS a plant, update (EDIT)
             if let existingPlant = plant {
-                
+                                
                 userController?.update(nickname: nickname.capitalized,
                                        species: species.capitalized,
                                        water_schedule: waterDate ?? Date(),
