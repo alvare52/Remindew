@@ -28,6 +28,28 @@ class DetailViewController: UIViewController {
     
     @IBAction func waterPlantButtonTapped(_ sender: UIButton) {
         print("waterPlantButtonTapped")
+        
+        
+        // If there IS a plant, update (EDIT)
+        if let existingPlant = plant {
+            // if it DOES need to be watered, update needsWatering to false
+            if existingPlant.needsWatering {
+                userController?.updatePlantWithWatering(plant: existingPlant, needsWatering: false)
+            }
+            // does it need this?
+//            else {
+//                // if it does NOT need watering (already watered)
+//                let dateString = dateFormatter2.string(from: existingPlant.lastDateWatered!)
+//                waterPlantButton.setTitle("Last watered: \(dateString)", for: .normal)
+//            }
+            navigationController?.popViewController(animated: true)
+        }
+//
+//        // If there is NO plant (ADD)
+//        else {
+//            waterPlantButton.setTitle("---", for: .normal)
+//            // or hide button?
+//        }
     }
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
@@ -89,9 +111,17 @@ class DetailViewController: UIViewController {
     }
     
     var dateFormatter: DateFormatter {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "EEEE MM/d"
-            return formatter
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE MM/d"
+        return formatter
+    }
+    
+    var dateFormatter2: DateFormatter {
+        let formatter = DateFormatter()
+//            formatter.dateFormat = "EEEE MMM d, h:mm a"
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
     }
     
     // MARK: - View Life Cycle
@@ -150,13 +180,26 @@ class DetailViewController: UIViewController {
             speciesTextField.text = plant.species
             datePicker.date = plant.water_schedule!
             daySelectorOutlet.selectDays((plant.frequency)!)
+            
+            waterPlantButton.isHidden = false
+            if plant.needsWatering {
+                waterPlantButton.setTitle("Water my plant", for: .normal)
+                waterPlantButton.isEnabled = true
+            } else {
+                let dateString = dateFormatter2.string(from: plant.lastDateWatered!)
+                waterPlantButton.setTitle("Last: \(dateString)", for: .normal)
+                waterPlantButton.isEnabled = false
+            }
         }
+            
         else {
             plantButton.setTitle("Add Plant", for: .normal)
             title = "Add New Plant"
             nicknameTextField.text = ""
             speciesTextField.text = ""
             datePicker.date = Date()
+//            waterPlantButton.setTitle("---", for: .normal)
+            waterPlantButton.isHidden = true
         }
         
         plantButton.performFlare()

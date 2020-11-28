@@ -113,11 +113,12 @@ class PlantsTableViewController: UITableViewController {
             
             // get current weekday from calendar first
 //            let today = Int16(7) // not done
-            let currentDayComps = calendar.dateComponents([.hour, .minute, .second, .weekday], from: Date())
+            let currentDayComps = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: Date())
             let currentWeekday = Int16(currentDayComps.weekday!)
             let currentHour = currentDayComps.hour!
             let currentMinute = currentDayComps.minute!
             let currentSecond = currentDayComps.second!
+            let currentDay = currentDayComps.day!
             
             // if today is one of the selected days for this plant
             if let day = plant.frequency!.firstIndex(of: currentWeekday) {
@@ -132,13 +133,22 @@ class PlantsTableViewController: UITableViewController {
                 print("plant time = \(plantHour):\(plantMinute):\(plantSecond)")
                 print("current time = \(currentHour):\(currentMinute):\(currentSecond)")
                 print("plant needs waterin = \(plant.needsWatering)")
-                if plantHour <= currentHour && plantMinute <= currentMinute && !plant.needsWatering {
+                let lastWatered = plant.lastDateWatered!
+                let lastDayComps = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: lastWatered)
+                let lastDay = lastDayComps.day!
+                print("lastDay: \(lastDay), current day: \(currentDay)")
+                // watering it in the cause this to trigger as long
+                // as it's still the same day. check if last date watered day and hour against today
+                if plantHour <= currentHour && plantMinute <= currentMinute && !plant.needsWatering && lastDay != currentDay {
                     // first time this goes off, set plant needsWatering to true
                     // then check if needsWatering is false so this only triggers once
                     
+                    // needsWatering goes from FALSE to TRUE (don't update last watered)
                     userController.updatePlantWithWatering(plant: plant, needsWatering: true)
                     
                     localAlert(plant: plant)
+                    // reload tableview to update watering icon
+                    tableView.reloadData()
                 }
                 
             } else {
@@ -235,7 +245,12 @@ class PlantsTableViewController: UITableViewController {
         let daysString = userController.returnDaysString(plant: testCell)
         cell.detailTextLabel?.text = "\(daysString) - \(dateFormatter.string(from: testCell.water_schedule ?? temp))"
         
-        cell.imageView?.image = UIImage(named: "planticonwater")
+        if testCell.needsWatering {
+            cell.imageView?.image = UIImage(named: "planticonwater")
+        } else {
+            cell.imageView?.image = UIImage(named: "planticonleaf")
+        }
+        
         return cell
     }
     
