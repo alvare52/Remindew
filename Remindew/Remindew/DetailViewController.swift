@@ -183,11 +183,17 @@ class DetailViewController: UIViewController {
             
             waterPlantButton.isHidden = false
             if plant.needsWatering {
-                waterPlantButton.setTitle("Water my plant", for: .normal)
+                waterPlantButton.setTitle("Water Plant", for: .normal)
                 waterPlantButton.isEnabled = true
             } else {
-                let dateString = dateFormatter2.string(from: plant.lastDateWatered!)
-                waterPlantButton.setTitle("Last: \(dateString)", for: .normal)
+                // Plant that has been watered before
+                if let lastWatered = plant.lastDateWatered {
+                    let dateString = dateFormatter2.string(from: lastWatered)
+                    waterPlantButton.setTitle("Last: \(dateString)", for: .normal)
+                } else {
+                    // Plant that HASN'T been watered before (brand new plant)
+                    waterPlantButton.isHidden = true
+                }
                 waterPlantButton.isEnabled = false
             }
         }

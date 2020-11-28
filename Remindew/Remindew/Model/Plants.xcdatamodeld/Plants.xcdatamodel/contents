@@ -3,7 +3,7 @@
     <entity name="Plant" representedClassName="Plant" syncable="YES" codeGenerationType="class">
         <attribute name="frequency" attributeType="Transformable" valueTransformerName="FrequencyTransformer" customClassName="[Int16]"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="lastDateWatered" optional="YES" attributeType="Date" defaultDateTimeInterval="628282980" usesScalarValueType="NO"/>
+        <attribute name="lastDateWatered" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="needsWatering" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="nickname" attributeType="String"/>
         <attribute name="species" attributeType="String"/>

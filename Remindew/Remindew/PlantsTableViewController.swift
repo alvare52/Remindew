@@ -35,6 +35,7 @@ import AVFoundation
 // TODO: BUG: when alarm goes off when app is closed, its new time is set to the current plus next day
 // TODO: launch animation where drop slides in front of leaf
 // TODO: auto select first textfield when adding new plant
+// TODO: small bug. checkWatering will run in most cases except when you stay on the table view
 
 class PlantsTableViewController: UITableViewController {
     
@@ -85,6 +86,7 @@ class PlantsTableViewController: UITableViewController {
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
 //        startTimer()
                 
+        // Add observer so we can know when the app comes back in the foreground
         observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
             // [unowned self] is so avoid strong reference cycle that prevents VC from being deallocated
             // do this when app is brought back to the foreground
@@ -94,6 +96,7 @@ class PlantsTableViewController: UITableViewController {
 
     }
     
+    /// Remove observer when deallocating this view controller
     deinit {
         if let observer = observer {
             NotificationCenter.default.removeObserver(observer)
@@ -105,7 +108,7 @@ class PlantsTableViewController: UITableViewController {
         print("viewDidAppear")
         checkIfPlantsNeedWatering()
     }
-    
+        
     private func checkIfPlantsNeedWatering() {
         print("checkIfPlantNeedsWatering")
         // each plant if it's next water date has passed
@@ -133,9 +136,17 @@ class PlantsTableViewController: UITableViewController {
                 print("plant time = \(plantHour):\(plantMinute):\(plantSecond)")
                 print("current time = \(currentHour):\(currentMinute):\(currentSecond)")
                 print("plant needs waterin = \(plant.needsWatering)")
-                let lastWatered = plant.lastDateWatered!
-                let lastDayComps = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: lastWatered)
-                let lastDay = lastDayComps.day!
+                
+                var lastDay = 0
+                if let lastWatered = plant.lastDateWatered {
+                    print("lastWatered was NOT nil, so its a plant that has been watered before")
+                    lastDay = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: lastWatered).day!
+                } else {
+                    print("lastWatered was nil, so its a fresh plant")
+                    lastDay = 100
+                }
+                
+//                let lastDay = lastDayComps.day!
                 print("lastDay: \(lastDay), current day: \(currentDay)")
                 // watering it in the cause this to trigger as long
                 // as it's still the same day. check if last date watered day and hour against today
