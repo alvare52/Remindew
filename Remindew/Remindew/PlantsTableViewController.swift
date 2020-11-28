@@ -20,7 +20,7 @@ import AVFoundation
 // TODO: add better comments/Marks
 // TODO: UI polish, sounds, font, transparency
 // TODO: add Protocols?
-// TODO: remote notification even when app closed
+// TODO: add badges
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: add ability to add photo for plant
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
@@ -36,6 +36,8 @@ import AVFoundation
 // TODO: launch animation where drop slides in front of leaf
 // TODO: auto select first textfield when adding new plant
 // TODO: small bug. checkWatering will run in most cases except when you stay on the table view
+// TODO: small bug. updating time for plant that was already watered that day won't work right
+// TODO: fix water plant button in detail view controller
 
 class PlantsTableViewController: UITableViewController {
     
@@ -103,52 +105,54 @@ class PlantsTableViewController: UITableViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear")
+    /// Check which plants need water when app comes back from detail screen or first starts up. Chose
+    /// this over viewDidAppear so title would update before it's visible. Change back if there's issues
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
         checkIfPlantsNeedWatering()
     }
-        
+    
+    /// Goes through all plants and checks if they need watering today. Also updates title based on how many need water
     private func checkIfPlantsNeedWatering() {
         print("checkIfPlantNeedsWatering")
+        
+        // for tallying up all plants that need watering
+        var count = 0
+        
         // each plant if it's next water date has passed
         for plant in fetchedResultsController.fetchedObjects! {
             
             // get current weekday from calendar first
-//            let today = Int16(7) // not done
             let currentDayComps = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: Date())
             let currentWeekday = Int16(currentDayComps.weekday!)
             let currentHour = currentDayComps.hour!
             let currentMinute = currentDayComps.minute!
-            let currentSecond = currentDayComps.second!
             let currentDay = currentDayComps.day!
             
             // if today is one of the selected days for this plant
-            if let day = plant.frequency!.firstIndex(of: currentWeekday) {
-                print("today = \(currentWeekday) \(currentHour):\(currentMinute), it IS index \(day) in plant frequency")
+            if let _ = plant.frequency!.firstIndex(of: currentWeekday) {
+//                print("today = \(currentWeekday) \(currentHour):\(currentMinute), it IS index \(day) in plant frequency")
                 // now check if plant.water_schedule time is <= currentMinute and
                 let plantComps = calendar.dateComponents([.hour, .minute, .second], from: plant.water_schedule!)
                 let plantHour = plantComps.hour!
                 let plantMinute = plantComps.minute!
-                let plantSecond = plantComps.second!
-                // plant time is 11:10:03
-                // example: 11:15:00 plantHour MUST be exactly 11, then check if plantMinute <= currMinute
-                print("plant time = \(plantHour):\(plantMinute):\(plantSecond)")
-                print("current time = \(currentHour):\(currentMinute):\(currentSecond)")
-                print("plant needs waterin = \(plant.needsWatering)")
+                
+//                print("plant time = \(plantHour):\(plantMinute):\(plantSecond)")
+//                print("current time = \(currentHour):\(currentMinute):\(currentSecond)")
+//                print("plant needs waterin = \(plant.needsWatering)")
                 
                 var lastDay = 0
                 if let lastWatered = plant.lastDateWatered {
-                    print("lastWatered was NOT nil, so its a plant that has been watered before")
+//                    print("lastWatered was NOT nil, so its a plant that has been watered before")
                     lastDay = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: lastWatered).day!
                 } else {
-                    print("lastWatered was nil, so its a fresh plant")
+//                    print("lastWatered was nil, so its a fresh plant")
                     lastDay = 100
                 }
                 
-//                let lastDay = lastDayComps.day!
-                print("lastDay: \(lastDay), current day: \(currentDay)")
-                // watering it in the cause this to trigger as long
+//                print("lastDay: \(lastDay), current day: \(currentDay)")
+                
                 // as it's still the same day. check if last date watered day and hour against today
                 if plantHour <= currentHour && plantMinute <= currentMinute && !plant.needsWatering && lastDay != currentDay {
                     // first time this goes off, set plant needsWatering to true
@@ -156,16 +160,23 @@ class PlantsTableViewController: UITableViewController {
                     
                     // needsWatering goes from FALSE to TRUE (don't update last watered)
                     userController.updatePlantWithWatering(plant: plant, needsWatering: true)
-                    
-                    localAlert(plant: plant)
-                    // reload tableview to update watering icon
+                
+                    // play sound effect instead?
+                    //localAlert(plant: plant)
+                
                     tableView.reloadData()
                 }
                 
             } else {
-                print("Today is NOT in plant's days array")
+//                print("Today is NOT in plant's days array")
             }
+            
+            // count all plants that need watering for title display
+            if plant.needsWatering { count += 1 }
         }
+        
+        // update title after all plant watering statuses have been checked
+        title = count > 0 ? "Remindew - (\(count))" : "Remindew"
     }
     
     /// Main timer that is used to check all plants being tracked
@@ -185,12 +196,7 @@ class PlantsTableViewController: UITableViewController {
         let request = UNNotificationRequest(identifier: "done", content: note, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
-    
-    /// Schedules the next notification so it goes off when app is in background
-    func setupNextNotification() {
-       print("setup next notification")
-    }
-    
+        
     /// Updates all plants and displays alert
     func updateTimer(timer: Timer) {
         for plant in fetchedResultsController.fetchedObjects! {
