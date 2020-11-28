@@ -8,10 +8,17 @@
 
 import Foundation
 import CoreData
+import UserNotifications
 
 class PlantController {
     
     // MARK: - Properties
+    
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE MMM d, h:mm a"
+        return formatter
+    }
     
     let calendar = Calendar.current
     
@@ -28,6 +35,7 @@ class PlantController {
     func createPlant(nickname: String, species: String, date: Date, frequency: [Int16]) {
         let plant = Plant(nickname: nickname, species: species, water_schedule: date, frequency: frequency)
         print("plant schedule: \(String(describing: plant.water_schedule))")
+        
         savePlant()
     }
     
@@ -223,8 +231,65 @@ class PlantController {
         return result
     }
     
+    /// Returns a [Date] made up of selected weekdays and plant watering schedule (time)
+    func makeDateCompsForSchedule(weekday: Int16, time: Date) -> DateComponents {
+        print("makeDateCompFromSchdule")
+        let day = Int(weekday)
+        let timeComps = calendar.dateComponents([.hour, .minute], from: time)
+        var dateComps = DateComponents()
+        dateComps.hour = timeComps.hour
+        dateComps.minute = timeComps.minute
+        dateComps.weekday = day
+        print("dateComps = \(dateComps)")
+
+//        let dateFromComps = calendar.date(from: dateComps)!
+        // date from dateComps is inaccurate but not really needed for this right now
+//        print("dateFromComps = \(dateFormatter.string(from: dateFromComps))")
+        return dateComps
+    }
+    
     /// Makes a notification request for each day in plant frequency array
     func makeNotificationRequests() {
-        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            switch granted {
+            case true:
+                
+                let identifier = "testNotification"
+                
+                var date = DateComponents()
+                date.hour = 12 + 4
+                date.minute = 11
+                date.weekday = 6
+                let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+                
+                let content = UNMutableNotificationContent()
+                content.sound = .default
+                content.title = "PLANT NEEDS WATER!"
+                content.body = "PLANT NEEDS WATER!"
+
+                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+                UNUserNotificationCenter.current().add(request) { (error) in
+                    if let error = error {
+                        NSLog("Error adding notification: \(error)")
+                    }
+                    print("Added notification")
+                    UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
+                        print("pending note requests = \(note)")
+                        for thing in note {
+                            print(thing.identifier)
+                            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testNotification"])
+                        }
+                    }
+                    UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
+                        print("pending note requests NOW = \(note)")
+
+                    }
+
+                }
+            case false:
+                print("access NOT granted!")
+                break
+            }
+        }
     }
 }
