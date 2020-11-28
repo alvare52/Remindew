@@ -131,10 +131,13 @@ class PlantsTableViewController: UITableViewController {
                 // example: 11:15:00 plantHour MUST be exactly 11, then check if plantMinute <= currMinute
                 print("plant time = \(plantHour):\(plantMinute):\(plantSecond)")
                 print("current time = \(currentHour):\(currentMinute):\(currentSecond)")
-                
-                if plantHour == currentHour && plantMinute <= currentMinute {
+                print("plant needs waterin = \(plant.needsWatering)")
+                if plantHour <= currentHour && plantMinute <= currentMinute && !plant.needsWatering {
                     // first time this goes off, set plant needsWatering to true
                     // then check if needsWatering is false so this only triggers once
+                    
+                    userController.updatePlantWithWatering(plant: plant, needsWatering: true)
+                    
                     localAlert(plant: plant)
                 }
                 
@@ -188,7 +191,6 @@ class PlantsTableViewController: UITableViewController {
                                                                     days: plant.frequency!)
                 
                 print("newDate = \(dateFormatter.string(from: newDate))")
-                userController.updatePlantWithSchedule(plant: plant, schedule: newDate)
                 
                 sendNotification(plant: plant.nickname ?? "Your plants")
                 localAlert(plant: plant)

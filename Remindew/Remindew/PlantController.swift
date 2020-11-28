@@ -58,8 +58,8 @@ class PlantController {
     }
     
     /// Called after reminder goes off so it doesn't keep going off
-    func updatePlantWithSchedule(plant: Plant, schedule: Date) {
-        plant.water_schedule = schedule
+    func updatePlantWithWatering(plant: Plant, needsWatering: Bool) {
+        plant.needsWatering = needsWatering
         savePlant()
     }
     
