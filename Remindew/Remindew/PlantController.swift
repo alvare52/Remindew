@@ -13,13 +13,7 @@ import UserNotifications
 class PlantController {
     
     // MARK: - Properties
-    
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE MMM d, h:mm a"
-        return formatter
-    }
-    
+        
     let calendar = Calendar.current
     
     /// Returns the current day date components
@@ -234,14 +228,10 @@ class PlantController {
         print("returnPlantNotificationIdentifiers")
         var result = [String]()
         
-//        for day in plant.frequency! {
-//            result.append("\(day)\(plant.identifier!)")
-//        }
         for i in 1...7 {
             result.append("\(i)\(plant.identifier!)")
         }
         
-        print("plant note identifiers = \(result)")
         return result
     }
         
@@ -254,11 +244,7 @@ class PlantController {
         dateComps.hour = timeComps.hour
         dateComps.minute = timeComps.minute
         dateComps.weekday = day
-        print("dateComps = \(dateComps)")
-
-//        let dateFromComps = calendar.date(from: dateComps)!
         // date from dateComps is inaccurate but not really needed for this right now
-//        print("dateFromComps = \(dateFormatter.string(from: dateFromComps))")
         return dateComps
     }
     
@@ -273,7 +259,7 @@ class PlantController {
 
             // content
             let content = UNMutableNotificationContent()
-            content.sound = .default
+            content.sound = .defaultCritical//.default
             content.title = "WATER YOUR PLANT!"
             content.body = "\(plant.nickname!) needs water."
 
@@ -282,21 +268,10 @@ class PlantController {
             let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
 
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-            print("request = \(request)")
             UNUserNotificationCenter.current().add(request) { (error) in
                 if let error = error {
                     NSLog("Error adding notification: \(error)")
                 }
-                print("Added Notification! - \(request.identifier), \(String(describing: request.trigger?.description))")
-            }
-        }
-
-        // Double check and see all pending notification requests
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (note) in
-            print("pending note requests = \(note.count)")
-            for thing in note {
-                print(thing)
-//                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["testNotification"])
             }
         }
     }
@@ -322,20 +297,12 @@ class PlantController {
     
     /// Removes all pending notifications for plant
     func removeAllRequestsForPlant(plant: Plant) {
-        print("removeAllRequestsForPlant")
-        
         // get all identifiers for this plant [String]
         let notesToRemove = returnPlantNotificationIdentifiers(plant: plant)
         
-        print("notesToRemove = \(notesToRemove)")
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notesToRemove)
         
-        // check all pending ones to make sure?
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (notes) in
-            DispatchQueue.main.async {
-                print("pending notes count = \(notes.count), notes = \(notes)")
-            }
-        }
+        checkPendingNotes()
     }
     
     /// Testing to see which notes are pending
@@ -345,6 +312,7 @@ class PlantController {
         UNUserNotificationCenter.current().getPendingNotificationRequests { (notes) in
             DispatchQueue.main.async {
                 print("pending notes count = \(notes.count), notes = \(notes)")
+                print("pending count = \(notes.count)")
             }
         }
     }
