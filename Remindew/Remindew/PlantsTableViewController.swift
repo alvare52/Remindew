@@ -62,8 +62,7 @@ class PlantsTableViewController: UITableViewController {
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-//        formatter.dateFormat = "EEEE MMM d, h:mm a"
-        formatter.dateFormat = "h:mm a"
+        formatter.timeStyle = .short
         return formatter
     }
     
@@ -76,6 +75,7 @@ class PlantsTableViewController: UITableViewController {
     var timer: Timer?
     let userController = PlantController()
     let calendar = Calendar.current
+    private var observer: NSObjectProtocol?
     
     // MARK: - View Life Cycle
     
@@ -84,6 +84,64 @@ class PlantsTableViewController: UITableViewController {
         dateLabel.title = dateFormatter2.string(from: Date())
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
 //        startTimer()
+                
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
+            // [unowned self] is so avoid strong reference cycle that prevents VC from being deallocated
+            // do this when app is brought back to the foreground
+            print("BACK IN THE FOREGROUND")
+            self.checkIfPlantsNeedWatering()
+        }
+
+    }
+    
+    deinit {
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
+        checkIfPlantsNeedWatering()
+    }
+    
+    private func checkIfPlantsNeedWatering() {
+        print("checkIfPlantNeedsWatering")
+        // each plant if it's next water date has passed
+        for plant in fetchedResultsController.fetchedObjects! {
+            
+            // get current weekday from calendar first
+//            let today = Int16(7) // not done
+            let currentDayComps = calendar.dateComponents([.hour, .minute, .second, .weekday], from: Date())
+            let currentWeekday = Int16(currentDayComps.weekday!)
+            let currentHour = currentDayComps.hour!
+            let currentMinute = currentDayComps.minute!
+            let currentSecond = currentDayComps.second!
+            
+            // if today is one of the selected days for this plant
+            if let day = plant.frequency!.firstIndex(of: currentWeekday) {
+                print("today = \(currentWeekday) \(currentHour):\(currentMinute), it IS index \(day) in plant frequency")
+                // now check if plant.water_schedule time is <= currentMinute and
+                let plantComps = calendar.dateComponents([.hour, .minute, .second], from: plant.water_schedule!)
+                let plantHour = plantComps.hour!
+                let plantMinute = plantComps.minute!
+                let plantSecond = plantComps.second!
+                // plant time is 11:10:03
+                // example: 11:15:00 plantHour MUST be exactly 11, then check if plantMinute <= currMinute
+                print("plant time = \(plantHour):\(plantMinute):\(plantSecond)")
+                print("current time = \(currentHour):\(currentMinute):\(currentSecond)")
+                
+                if plantHour == currentHour && plantMinute <= currentMinute {
+                    // first time this goes off, set plant needsWatering to true
+                    // then check if needsWatering is false so this only triggers once
+                    localAlert(plant: plant)
+                }
+                
+            } else {
+                print("Today is NOT in plant's days array")
+            }
+        }
     }
     
     /// Main timer that is used to check all plants being tracked

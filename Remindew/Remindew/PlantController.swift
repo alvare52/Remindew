@@ -259,7 +259,7 @@ class PlantController {
 
             // content
             let content = UNMutableNotificationContent()
-            content.sound = .defaultCritical//.default
+            content.sound = .default
             content.title = "WATER YOUR PLANT!"
             content.body = "\(plant.nickname!) needs water."
 
@@ -268,6 +268,7 @@ class PlantController {
             let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
 
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            
             UNUserNotificationCenter.current().add(request) { (error) in
                 if let error = error {
                     NSLog("Error adding notification: \(error)")
