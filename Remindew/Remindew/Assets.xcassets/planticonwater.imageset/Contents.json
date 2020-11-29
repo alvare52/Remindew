@@ -6,10 +6,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "planticonwater200x200.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "planticonwater300x300.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
