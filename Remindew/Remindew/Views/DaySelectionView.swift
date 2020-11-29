@@ -15,6 +15,8 @@ class DaySelectionView: UIStackView {
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     static let dayInitials = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     var buttonArray = [UIButton]()
+    let selectedFont: UIFont = UIFont.boldSystemFont(ofSize: 20.0)
+    let unselectedFont: UIFont = UIFont.systemFont(ofSize: 15, weight: .regular)
     
     // MARK: - View Life Cycle
 
@@ -32,12 +34,16 @@ class DaySelectionView: UIStackView {
     
     @objc private func selectDay(_ button: UIButton) {
         print("tapped button \(button.tag)")
-        if button.backgroundColor == .clear {
-            button.backgroundColor = .waterBlue
-            button.tintColor = .white
-        } else {
-            button.backgroundColor = .clear
+        
+        // NOT Selected, so select it
+        if button.tintColor == .lightGray {
             button.tintColor = .waterBlue
+            button.titleLabel?.font = selectedFont
+        }
+        // IS Selected, so unselect
+        else {
+            button.tintColor = .lightGray
+            button.titleLabel?.font = unselectedFont
         }
     }
     
@@ -59,22 +65,14 @@ class DaySelectionView: UIStackView {
             day.setTitle("\(days[integer])", for: .normal)
             day.backgroundColor = .clear
             
-            day.tintColor = .waterBlue
-            
-            // Change to this later for new underline look
-//            day.tintColor = .lightGray
-//
-//            if day.tag % 2 == 0 {
-//                day.tintColor = .waterBlue
-//                day.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
-//            }
+            day.tintColor = .lightGray
             
             day.addTarget(self, action: #selector(selectDay), for: .touchUpInside)
             
-            print("SELF.FRAME.HEIGHT = \(self.frame.height) / 2 = \(self.frame.height / 2.5)")
+//            print("SELF.FRAME.HEIGHT = \(self.frame.height) / 2 = \(self.frame.height / 2.5)")
 //            day.layer.cornerRadius = self.frame.height / 2.5 // used to be 15.0
             day.layer.cornerRadius = 13.0
-
+            
 //            day.layer.borderWidth = 2.0
 //            day.layer.borderColor = UIColor.mixedBlueGreen.cgColor
         }
@@ -96,7 +94,7 @@ class DaySelectionView: UIStackView {
         var result = [Int16]()
         for button in buttonArray {
             // if "selected"
-            if button.backgroundColor == UIColor.waterBlue {
+            if button.tintColor == UIColor.waterBlue {
                 print("Selected: \(button.titleLabel?.text ?? "no title")")
                 result.append(Int16(button.tag))
             }

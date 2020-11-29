@@ -37,6 +37,7 @@ import AVFoundation
 // TODO: small bug. updating time for plant that was already watered that day won't work right
 // TODO: fix water plant button in detail view controller
 // TODO: make water status icons with white background behind leaf/water
+// TODO: mono fonts for days selected buttons?
 
 class PlantsTableViewController: UITableViewController {
     
