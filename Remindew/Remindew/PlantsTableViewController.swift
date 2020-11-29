@@ -11,7 +11,7 @@ import CoreData
 import UserNotifications
 import AVFoundation
 
-// TODO: add needsWatering, image, webImage, lastWateredDate, 
+// TODO: add userPlantImage. API - scientificName, commonName, webPlantImage 
 // TODO: delete all unneeded comments
 // TODO: screen size issues
 // TODO: improve README (Gif, About, tech ribbons)
@@ -31,8 +31,7 @@ import AVFoundation
 // TODO: changing day to next week at earlier time still triggers notification
 // TODO: add better error handling to detail screen
 // TODO: make nickname not mandatory to make plant ("" default value?)
-// TODO: enable dateLabel BB items to toggle between format?
-// TODO: BUG: when alarm goes off when app is closed, its new time is set to the current plus next day
+// TODO: enable dateLabel bar button items again to toggle between format?
 // TODO: launch animation where drop slides in front of leaf
 // TODO: small bug. checkWatering will run in most cases except when you stay on the table view
 // TODO: small bug. updating time for plant that was already watered that day won't work right

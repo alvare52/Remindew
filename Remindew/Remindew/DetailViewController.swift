@@ -29,27 +29,14 @@ class DetailViewController: UIViewController {
     @IBAction func waterPlantButtonTapped(_ sender: UIButton) {
         print("waterPlantButtonTapped")
         
-        
         // If there IS a plant, update (EDIT)
         if let existingPlant = plant {
             // if it DOES need to be watered, update needsWatering to false
             if existingPlant.needsWatering {
                 userController?.updatePlantWithWatering(plant: existingPlant, needsWatering: false)
             }
-            // does it need this?
-//            else {
-//                // if it does NOT need watering (already watered)
-//                let dateString = dateFormatter2.string(from: existingPlant.lastDateWatered!)
-//                waterPlantButton.setTitle("Last watered: \(dateString)", for: .normal)
-//            }
             navigationController?.popViewController(animated: true)
         }
-//
-//        // If there is NO plant (ADD)
-//        else {
-//            waterPlantButton.setTitle("---", for: .normal)
-//            // or hide button?
-//        }
     }
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
