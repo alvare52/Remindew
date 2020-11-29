@@ -36,6 +36,7 @@ import AVFoundation
 // TODO: small bug. checkWatering will run in most cases except when you stay on the table view
 // TODO: small bug. updating time for plant that was already watered that day won't work right
 // TODO: fix water plant button in detail view controller
+// TODO: make water status icons with white background behind leaf/water
 
 class PlantsTableViewController: UITableViewController {
     
