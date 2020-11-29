@@ -10,6 +10,7 @@ import UIKit
 
 class DaySelectionView: UIStackView {
 
+    // MARK: - Properties
     /// Array of Strings just for label purposes
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     static let dayInitials = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -57,7 +58,17 @@ class DaySelectionView: UIStackView {
 //                                height: 50.0)
             day.setTitle("\(days[integer])", for: .normal)
             day.backgroundColor = .clear
+            
             day.tintColor = .waterBlue
+            
+            // Change to this later for new underline look
+//            day.tintColor = .lightGray
+//
+//            if day.tag % 2 == 0 {
+//                day.tintColor = .waterBlue
+//                day.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
+//            }
+            
             day.addTarget(self, action: #selector(selectDay), for: .touchUpInside)
             
             print("SELF.FRAME.HEIGHT = \(self.frame.height) / 2 = \(self.frame.height / 2.5)")

@@ -81,11 +81,17 @@
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nickname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yRG-nk-QcH">
                                 <rect key="frame" x="170" y="140" width="224" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="xR9-qB-7SO"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Species" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ucM-Fj-27g">
-                                <rect key="frame" x="170" y="174" width="224" height="34"/>
+                                <rect key="frame" x="170" y="172" width="224" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="YrW-YW-YRi"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -123,20 +129,26 @@
                                     <constraint firstAttribute="height" constant="134" id="ngf-rn-VFZ"/>
                                 </constraints>
                             </imageView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="fRY-nS-0k4">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="FTn-Z8-L5o">
                                 <rect key="frame" x="170" y="172" width="224" height="2"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="BpC-Gj-RI5"/>
+                                </constraints>
                             </progressView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="AVH-FW-NoL">
-                                <rect key="frame" x="170" y="206" width="224" height="2"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="LOg-8A-bmW">
+                                <rect key="frame" x="170" y="204" width="224" height="2"/>
                                 <color key="tintColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="LmG-0u-dfQ"/>
+                                </constraints>
                             </progressView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Last watered:                   11/28/20, 2:21 PM" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Q2t-WD-vos">
-                                <rect key="frame" x="170" y="216" width="224" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Last watered:                    11/28/20, 2:21 PM" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-ZH-dC3">
+                                <rect key="frame" x="170" y="214" width="224" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="tdt-dN-kA5"/>
+                                </constraints>
                                 <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -145,20 +157,28 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="PZL-BI-0Bw" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.046875" id="1W8-ut-67L"/>
+                            <constraint firstItem="LOg-8A-bmW" firstAttribute="trailing" secondItem="ucM-Fj-27g" secondAttribute="trailing" id="29S-wX-WPj"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="PZL-BI-0Bw" secondAttribute="trailing" constant="20" id="9ip-zy-H5D"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="Jc8-md-hGl" secondAttribute="trailing" constant="20" id="Cbz-fm-Mm1"/>
                             <constraint firstItem="yRG-nk-QcH" firstAttribute="leading" secondItem="aje-Zj-2LG" secondAttribute="trailing" constant="16" id="F40-xQ-6eb"/>
+                            <constraint firstItem="FTn-Z8-L5o" firstAttribute="leading" secondItem="yRG-nk-QcH" secondAttribute="leading" id="Fcn-Kz-2YR"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="7d0-w9-DEb" secondAttribute="bottom" constant="8" id="H70-Aq-Bhf"/>
                             <constraint firstItem="7d0-w9-DEb" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="Ibl-bR-4JL"/>
+                            <constraint firstItem="dKr-ZH-dC3" firstAttribute="leading" secondItem="aje-Zj-2LG" secondAttribute="trailing" constant="16" id="Jeb-6m-2Iy"/>
+                            <constraint firstItem="ucM-Fj-27g" firstAttribute="top" secondItem="FTn-Z8-L5o" secondAttribute="top" id="KTM-La-d0g"/>
                             <constraint firstItem="7d0-w9-DEb" firstAttribute="top" secondItem="aje-Zj-2LG" secondAttribute="bottom" constant="16" id="KsI-NF-Ht8"/>
                             <constraint firstItem="ucM-Fj-27g" firstAttribute="leading" secondItem="aje-Zj-2LG" secondAttribute="trailing" constant="16" id="MHA-4F-wdM"/>
+                            <constraint firstItem="LOg-8A-bmW" firstAttribute="leading" secondItem="ucM-Fj-27g" secondAttribute="leading" id="Oma-EL-OMz"/>
                             <constraint firstItem="aje-Zj-2LG" firstAttribute="top" secondItem="UYe-ih-km5" secondAttribute="top" id="Qip-E8-GSN"/>
-                            <constraint firstItem="ucM-Fj-27g" firstAttribute="top" secondItem="yRG-nk-QcH" secondAttribute="bottom" id="RbR-IL-4Xo"/>
                             <constraint firstItem="Jc8-md-hGl" firstAttribute="top" secondItem="L3N-yZ-8K4" secondAttribute="bottom" constant="8" id="Su9-j6-vYr"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="T6V-2T-Mw0"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="ucM-Fj-27g" secondAttribute="trailing" constant="20" id="TLK-sJ-9jR"/>
+                            <constraint firstItem="LOg-8A-bmW" firstAttribute="bottom" secondItem="ucM-Fj-27g" secondAttribute="bottom" id="TxX-ce-xkG"/>
+                            <constraint firstItem="FTn-Z8-L5o" firstAttribute="trailing" secondItem="yRG-nk-QcH" secondAttribute="trailing" id="UTb-gg-ILr"/>
                             <constraint firstItem="yRG-nk-QcH" firstAttribute="top" secondItem="UYe-ih-km5" secondAttribute="top" id="VTf-L8-dqw"/>
                             <constraint firstItem="Jc8-md-hGl" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="YgS-f2-DES"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="dKr-ZH-dC3" secondAttribute="trailing" constant="20" id="a4R-9A-TjC"/>
+                            <constraint firstItem="FTn-Z8-L5o" firstAttribute="bottom" secondItem="yRG-nk-QcH" secondAttribute="bottom" id="eHX-Kb-yhG"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.149554" id="g0P-YI-1Zz"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="7d0-w9-DEb" secondAttribute="trailing" constant="20" id="hgR-pq-nqd"/>
                             <constraint firstItem="aje-Zj-2LG" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="je1-wO-kTj"/>
@@ -167,9 +187,8 @@
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="L3N-yZ-8K4" secondAttribute="trailing" constant="20" id="kbJ-PA-qgu"/>
                             <constraint firstItem="PZL-BI-0Bw" firstAttribute="top" secondItem="Jc8-md-hGl" secondAttribute="bottom" constant="8" id="lq0-Ei-2vI"/>
                             <constraint firstItem="Jc8-md-hGl" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.046875" id="n3l-0p-AM3"/>
-                            <constraint firstItem="yRG-nk-QcH" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0379464" id="o7o-Zr-KLO"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="yRG-nk-QcH" secondAttribute="trailing" constant="20" id="tPv-B7-dnD"/>
-                            <constraint firstItem="ucM-Fj-27g" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0379464" id="zX6-fL-qim"/>
+                            <constraint firstItem="dKr-ZH-dC3" firstAttribute="top" secondItem="LOg-8A-bmW" secondAttribute="bottom" constant="8" id="uxu-Z2-agk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UYe-ih-km5"/>
                     </view>
