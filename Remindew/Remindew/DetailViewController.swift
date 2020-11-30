@@ -57,6 +57,16 @@ class DetailViewController: UIViewController {
 //                                                                   days: daySelectorOutlet.returnDaysSelected())
             let waterDate = userController?.createDateFromTimeAndDay(days: daySelectorOutlet.returnDaysSelected(),
                                                                      time: datePicker.date)
+            
+            // if there's no image, this is the default one (which will be removed if you try to save it again)
+            var imageToSave = UIImage(named: "plantslogoclear1024x1024")!
+            // replace image if there's one in the imageView
+            if let image = imageView.image {
+                print("Image in image view!")
+                let scaledImage = userController?.resizeImage(image: image)
+                imageToSave = scaledImage!
+            }
+            
             // If there IS a plant, update (EDIT)
             if let existingPlant = plant {
                                 
@@ -65,19 +75,26 @@ class DetailViewController: UIViewController {
                                        water_schedule: waterDate ?? Date(),
                                        frequency: daySelectorOutlet.returnDaysSelected(),
                                        plant: existingPlant)
+                // save image
+                let imageName = "userPlant\(existingPlant.identifier!)"
+                userController?.saveImage(imageName: imageName, image: imageToSave)
             }
                 
             // If there is NO plant (ADD)
             else {
-                userController?.createPlant(nickname: nickname.capitalized,
+                let plant = userController?.createPlant(nickname: nickname.capitalized,
                                             species: species.capitalized,
                                             date: waterDate ?? Date(),
                                             frequency: daySelectorOutlet.returnDaysSelected())
+                // save image
+                let imageName = "userPlant\(plant!.identifier!)"
+                userController?.saveImage(imageName: imageName, image: imageToSave)
             }
             
             navigationController?.popViewController(animated: true)
         }
         
+        // Missing something in one of the fields, give better error later
         else {
             let alertController = UIAlertController(title: "Invalid Field", message: "Please fill in all fields", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -166,7 +183,16 @@ class DetailViewController: UIViewController {
         
         guard isViewLoaded else {return}
         
+        // DETAIL/EDIT MODE
         if let plant = plant {
+            
+            // try to load saved image
+            if let image = userController?.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)") {
+                imageView.image = image
+            } else {
+//                imageView.image = UIImage()
+            }
+            
             plantButton.setTitle("Edit Plant", for: .normal)
             let name = plant.nickname!
             let xAWeek = "\(plant.frequency!.count)x a week"
@@ -192,7 +218,8 @@ class DetailViewController: UIViewController {
                 waterPlantButton.isEnabled = false
             }
         }
-            
+         
+        // ADD MODE
         else {
             plantButton.setTitle("Add Plant", for: .normal)
             title = "Add New Plant"

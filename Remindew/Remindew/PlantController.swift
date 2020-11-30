@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import UserNotifications
+import UIKit
 
 class PlantController {
     
@@ -26,7 +27,7 @@ class PlantController {
     // MARK: - Create, Read, Update, Delete, Save plants
     
     /// Create a plant and then save it
-    func createPlant(nickname: String, species: String, date: Date, frequency: [Int16]) {
+    func createPlant(nickname: String, species: String, date: Date, frequency: [Int16]) -> Plant {
         print("createPlant")
         let plant = Plant(nickname: nickname, species: species, water_schedule: date, frequency: frequency)
         print("plant schedule: \(String(describing: plant.water_schedule))")
@@ -38,6 +39,7 @@ class PlantController {
         
         // if notes are disable, dont make plant???
         savePlant()
+        return plant
     }
     
     /// Update a plant that already exists
@@ -321,5 +323,69 @@ class PlantController {
                 print("pending count = \(notes.count)")
             }
         }
+    }
+    
+    /// Save image to documents directory, and remove old one if it exists and save new one
+    /// - Parameter imageName: the name of an image that has been saved
+    /// - Parameter image: the UIImage you want to save
+    func saveImage(imageName: String, image: UIImage) {
+        print("saveImage")
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+
+        print("\(image.size) IMAGE SIZE")
+        let fileName = imageName
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        guard let data = image.jpegData(compressionQuality: 1) else { return }
+
+        //Checks if file exists, removes it if so.
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try FileManager.default.removeItem(atPath: fileURL.path)
+                print("Removed old image")
+            } catch let removeError {
+                print("couldn't remove file at path", removeError)
+            }
+
+        }
+
+        do {
+            try data.write(to: fileURL)
+            print("Success saving image")
+        } catch let error {
+            print("error saving file with error", error)
+        }
+
+    }
+
+    /// Takes in the name of a stored image and returns a UIImage or nil if it can't find one
+    func loadImageFromDiskWith(fileName: String) -> UIImage? {
+
+        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
+
+        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+
+        if let dirPath = paths.first {
+            let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
+            let image = UIImage(contentsOfFile: imageUrl.path)
+            print("Success loading image")
+            return image
+        }
+
+        return nil
+    }
+    
+    /// Resize image to given dimensions in floats
+     func resizeImage(image: UIImage) -> UIImage {
+        print("\(image.size) IMAGE STARTS AS THIS")
+        let newWidth: CGFloat = 1024.0 // ? check if image is too big first, then scale down if need be
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        print("\(newImage!.size) IMAGE SIZE RESCALED TO THIS")
+        return newImage!
     }
 }
