@@ -114,12 +114,14 @@ class DetailViewController: UIViewController {
         }
     }
     
+    /// Nav bar date: Sunday 11/29
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE MM/d"
         return formatter
     }
     
+    /// Last Watered Text View / Button title
     var dateFormatter2: DateFormatter {
         let formatter = DateFormatter()
 //            formatter.dateFormat = "EEEE MMM d, h:mm a"
