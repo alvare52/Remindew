@@ -38,6 +38,11 @@ import AVFoundation
 // TODO: fix water plant button in detail view controller
 // TODO: make water status icons with white background behind leaf/water
 // TODO: mono fonts for days selected buttons?
+// TODO: DELETE IMAGES WHEN PLANT IS DELETED
+// TODO: implement cache for faster image loading?
+// TODO: only scale down images if they need it, and at an acceptable size
+// TODO: clean up image and watering logic. remove old debugging prints
+// TODO: rename refactor userController with plantController
 
 class PlantsTableViewController: UITableViewController {
     

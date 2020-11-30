@@ -375,7 +375,7 @@ class PlantController {
         return nil
     }
     
-    /// Resize image to given dimensions in floats
+    /// Resize image to given dimensions
      func resizeImage(image: UIImage) -> UIImage {
         print("\(image.size) IMAGE STARTS AS THIS")
         let newWidth: CGFloat = 1024.0 // ? check if image is too big first, then scale down if need be
