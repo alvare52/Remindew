@@ -147,7 +147,7 @@
                                     <constraint firstAttribute="height" constant="2" id="LmG-0u-dfQ"/>
                                 </constraints>
                             </progressView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-ZH-dC3">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-ZH-dC3">
                                 <rect key="frame" x="170" y="214" width="224" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -164,14 +164,46 @@
                                     <constraint firstAttribute="height" constant="2" id="GKE-Sx-dab"/>
                                 </constraints>
                             </progressView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p9v-0H-cvy">
+                                <rect key="frame" x="20" y="595" width="374" height="218"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ResultsCell" textLabel="vAB-bG-Yew" detailTextLabel="oyM-Xm-HPl" style="IBUITableViewCellStyleSubtitle" id="LsH-wD-poX">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="55.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LsH-wD-poX" id="TIZ-xm-7uG">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="55.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vAB-bG-Yew">
+                                                    <rect key="frame" x="20" y="10" width="33" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oyM-Xm-HPl">
+                                                    <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UYe-ih-km5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="PZL-BI-0Bw" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.046875" id="1W8-ut-67L"/>
                             <constraint firstItem="LOg-8A-bmW" firstAttribute="trailing" secondItem="ucM-Fj-27g" secondAttribute="trailing" id="29S-wX-WPj"/>
+                            <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="p9v-0H-cvy" secondAttribute="trailing" constant="20" id="3i9-B4-qUK"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="PZL-BI-0Bw" secondAttribute="trailing" constant="20" id="9ip-zy-H5D"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="Jc8-md-hGl" secondAttribute="trailing" constant="20" id="Cbz-fm-Mm1"/>
+                            <constraint firstItem="p9v-0H-cvy" firstAttribute="top" secondItem="PZL-BI-0Bw" secondAttribute="bottom" constant="29" id="Exw-c2-seE"/>
                             <constraint firstItem="yRG-nk-QcH" firstAttribute="leading" secondItem="aje-Zj-2LG" secondAttribute="trailing" constant="16" id="F40-xQ-6eb"/>
                             <constraint firstItem="FTn-Z8-L5o" firstAttribute="leading" secondItem="yRG-nk-QcH" secondAttribute="leading" id="Fcn-Kz-2YR"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="7d0-w9-DEb" secondAttribute="bottom" constant="8" id="H70-Aq-Bhf"/>
@@ -195,6 +227,8 @@
                             <constraint firstItem="FTn-Z8-L5o" firstAttribute="bottom" secondItem="yRG-nk-QcH" secondAttribute="bottom" id="eHX-Kb-yhG"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.149554" id="g0P-YI-1Zz"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="7d0-w9-DEb" secondAttribute="trailing" constant="20" id="hgR-pq-nqd"/>
+                            <constraint firstItem="p9v-0H-cvy" firstAttribute="bottom" secondItem="UYe-ih-km5" secondAttribute="bottom" id="iJu-Ct-a6r"/>
+                            <constraint firstItem="p9v-0H-cvy" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="iOx-db-yOb"/>
                             <constraint firstItem="aje-Zj-2LG" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="je1-wO-kTj"/>
                             <constraint firstItem="PZL-BI-0Bw" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="k0X-xe-iVG"/>
                             <constraint firstItem="7d0-w9-DEb" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0379464" id="kK6-Hh-I7N"/>
@@ -225,6 +259,7 @@
                         <outlet property="imageView" destination="aje-Zj-2LG" id="Gpw-u5-yfU"/>
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
+                        <outlet property="resultsTableView" destination="p9v-0H-cvy" id="hcc-G3-nmQ"/>
                         <outlet property="speciesTextField" destination="ucM-Fj-27g" id="p73-rD-hQY"/>
                         <outlet property="textView" destination="dKr-ZH-dC3" id="3Y2-7C-Z3p"/>
                         <outlet property="waterPlantButton" destination="PZL-BI-0Bw" id="PWN-E2-9ML"/>

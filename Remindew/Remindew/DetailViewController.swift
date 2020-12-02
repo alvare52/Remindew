@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var daySelectorOutlet: DaySelectionView!
     @IBOutlet var dateLabel: UIBarButtonItem!
     @IBOutlet var textView: UITextView!
+    @IBOutlet var resultsTableView: UITableView!
     
     // MARK: - Actions
     
@@ -137,6 +138,13 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
+        textView.isScrollEnabled = false
+        
+        // only show it after searching, then hide after choosing plant?
+//        resultsTableView.isHidden = true
+        resultsTableView.delegate = self
+        resultsTableView.dataSource = self
+        
         imageView.layer.borderWidth = 1.0
         imageView.layer.masksToBounds = false
         imageView.layer.borderColor = UIColor.white.cgColor
@@ -150,6 +158,8 @@ class DetailViewController: UIViewController {
         
         // Hides Keyboard when tapping outside of it
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        // so you can still click on the table view
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         
         nicknameTextField.borderStyle = .none
@@ -315,4 +325,55 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
         picker.dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath)
+        resultCell.textLabel?.text = "Common Name \(indexPath.row)"
+        resultCell.detailTextLabel?.text = "Scientific Name"
+        resultCell.imageView?.image = UIImage(named: "plantslogoclear1024x1024")
+        return resultCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alertController = UIAlertController(title: "Hint", message: "You have selected row \(indexPath.row).", preferredStyle: .alert)
+             
+        let alertAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+             
+        alertController.addAction(alertAction)
+             
+        present(alertController, animated: true, completion: nil)
+    }
+
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+////        let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath)
+////
+////        let testCell = fetchedResultsController.object(at: indexPath)
+////
+////        guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
+////
+////        cell.textLabel?.text = "\"\(nickname)\" - \(species)"
+////        //cell.textLabel?.textColor = .systemGreen
+////        //cell.textLabel?.textColor = UIColor(red: 62, green: 79, blue: 36, alpha: 1)
+////        cell.accessoryType = .disclosureIndicator
+////        let temp = Date(timeIntervalSinceNow: 69)
+////
+////        let daysString = userController.returnDaysString(plant: testCell)
+////        cell.detailTextLabel?.text = "\(daysString) - \(dateFormatter.string(from: testCell.water_schedule ?? temp))"
+////
+////        if testCell.needsWatering {
+////            cell.imageView?.image = UIImage(named: "planticonwater")
+////        } else {
+////            cell.imageView?.image = UIImage(named: "planticonleaf")
+////        }
+////
+////        return cell
+//    }
 }
