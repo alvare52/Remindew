@@ -24,6 +24,9 @@ class PlantController {
         return currentDateComps
     }
     
+    var plantSearchResults: [PlantSearchResult] = []
+    var tempToken: TempToken?
+    
     // MARK: - Create, Read, Update, Delete, Save plants
     
     /// Create a plant and then save it
@@ -388,4 +391,126 @@ class PlantController {
         print("\(newImage!.size) IMAGE SIZE RESCALED TO THIS")
         return newImage!
     }
+    
+    let baseUrl = URL(string: "https://trefle.io/api/v1/plants/search?token=")!
+    
+    /// Takes in a search term and assigns local results array to those results
+    func searchPlantSpecies(_ searchTerm: String, completion: @escaping (Error?) -> Void = { _ in }) {
+
+        print("searchPlantSpecies called")
+        
+        // URL REQUEST
+        let requestUrl = URL(string: "\(baseUrl)\(secretToken)&q=\(searchTerm)")!
+        print("requestURL = \(requestUrl)")
+        var request = URLRequest(url: requestUrl)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            if let error = error {
+                print("Error fetching searched plants: \(error)")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+                return
+            }
+
+            guard let data = data else {
+                print("No data return by data task")
+                DispatchQueue.main.async {
+                    completion(NSError())
+                }
+                return
+            }
+
+            let jsonDecoder = JSONDecoder()
+
+            do {
+                let plantSearchResultsDataArray = try jsonDecoder.decode(PlantData.self, from: data)
+                self.plantSearchResults = plantSearchResultsDataArray.data
+//                print("\(self.plantSearchResults.count) items received")
+//                print("\(self.plantSearchResults)")
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            } catch {
+                print("Error decoding or storing searched plants \(error)")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+            }
+        }.resume()
+    }
+    
+    /// Sign Secret Token to get a temporary one for the user and set it to self.tempToken
+    /// Only do this ONCE a day
+    func signToken(completion: @escaping (Error?) -> Void) {
+        print("signToken called")
+        
+        let baseUrl = "https://trefle.io/api/auth/claim?token="
+        let websiteUrl = "https://docs.trefle.io/docs/advanced/client-side-apps"
+        let signUrl = URL(string: "\(baseUrl)\(secretToken)&origin=\(websiteUrl)")!
+        print("signUrl = \(signUrl)")
+        
+        var request = URLRequest(url: signUrl)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+    
+        // Does not require body
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+                return
+            }
+            
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            guard let data = data else {
+                completion(NSError())
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                self.tempToken = try decoder.decode(TempToken.self, from: data)
+                print("self.tempToken now = \(self.tempToken)")
+            } catch {
+                print("Error decoding temp token object: \(error)")
+                completion(error)
+                return
+            }
+            
+            completion(nil) // no error
+        }.resume()
+    }
 }
+
+
+struct PlantData: Decodable {
+    let data: [PlantSearchResult]
+}
+
+struct PlantSearchResult: Decodable {
+    
+    enum CodingKeys: String, CodingKey {
+        case commonName = "common_name"
+        case scientificName = "scientific_name"
+        case imageUrl = "image_url"
+    }
+    
+    let commonName: String?
+    let scientificName: String?
+    let imageUrl: URL?
+}
+
+struct TempToken: Decodable {
+    let token: String?
+    let expiration: String?
+}
+
+let secretToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NzI0LCJvcmlnaW4iOiJodHRwczovL2RvY3MudHJlZmxlLmlvL2RvY3MvYWR2YW5jZWQvY2xpZW50LXNpZGUtYXBwcyIsImlwIjpudWxsLCJleHBpcmUiOiIyMDIwLTEyLTAzIDE5OjQ1OjEyICswMDAwIiwiZXhwIjoxNjA3MDI0NzEyfQ.odFPGyOo-lxGn7oaPkvJNIpSON70vOLlIAZPdphQ_bw"

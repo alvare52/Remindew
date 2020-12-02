@@ -153,12 +153,13 @@ class DetailViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         nicknameTextField.borderStyle = .none
-        speciesTextField.borderStyle = .none
         nicknameTextField.textColor = .darkGray
-        speciesTextField.textColor = .darkGray
-        
         nicknameTextField.delegate = self
+        
+        speciesTextField.borderStyle = .none
         speciesTextField.delegate = self
+        speciesTextField.textColor = .darkGray
+        speciesTextField.returnKeyType = .search
         
         // Dark -> Light?
         plantButton.applyGradient(colors: [UIColor.leafGreen.cgColor, UIColor.lightLeafGreen.cgColor])
@@ -260,6 +261,38 @@ extension DetailViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("Return")
+        if textField == speciesTextField {
+            print("Return inside speciesTextfield")
+            
+            // get temp token first
+//            userController?.signToken(completion: { (error) in
+//                if let error = error {
+//                    print("Error in signToken in detail VC: \(error)")
+//                }
+//                DispatchQueue.main.async {
+//                    print("Success in signToken in detail VC")
+//                    print("tempToken now \(self.userController?.tempToken)")
+//                }
+//            })
+            
+            // Do search here
+            userController?.searchPlantSpecies("daffodils", completion: { (error) in
+                if let error = error {
+                    print("Error with searchPlantSpeciese in detail VC \(error)")
+                }
+
+                DispatchQueue.main.async {
+                    print("Success with searchPlantSpecies in detail VC")
+                    // pop up table VC with results?
+                    for plant in self.userController!.plantSearchResults {
+                        print("common name: \(String(describing: plant.commonName))")
+                        print("scientific name: \(String(describing: plant.scientificName))")
+                        print("image url: \(String(describing: plant.imageUrl))")
+                    }
+                }
+
+            })
+        }
 //        textField.resignFirstResponder()
         return true
     }

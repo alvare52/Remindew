@@ -43,7 +43,7 @@ import AVFoundation
 // TODO: only scale down images if they need it, and at an acceptable size (or just not at all?)
 // TODO: clean up image and watering logic. remove old debugging prints
 // TODO: rename refactor userController with plantController
-// TODO: touch outside textfield dismisses keyboard? Return goes to next textfield
+// TODO: touch outside textfield dismisses keyboard? Return goes to next textfield?
 
 class PlantsTableViewController: UITableViewController {
     
