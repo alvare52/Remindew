@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
+   LastUpgradeVersion = "1220"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1B09880323EA61E5000033FA"
+               BlueprintIdentifier = "1BED79BC25672D3E004241F4"
                BuildableName = "RemindewTests.xctest"
                BlueprintName = "RemindewTests"
                ReferencedContainer = "container:Remindew.xcodeproj">
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1B09880E23EA61E5000033FA"
+               BlueprintIdentifier = "1BED79CA25672D84004241F4"
                BuildableName = "RemindewUITests.xctest"
                BlueprintName = "RemindewUITests"
                ReferencedContainer = "container:Remindew.xcodeproj">

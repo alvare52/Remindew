@@ -235,6 +235,7 @@ class DetailViewController: UIViewController {
             datePicker.date = Date()
 //            waterPlantButton.setTitle("---", for: .normal)
             waterPlantButton.isHidden = true
+            textView.text = "Please select the preferred reminder days to water your plant"
         }
         
         plantButton.performFlare()
