@@ -17,7 +17,7 @@ class DaySelectionView: UIStackView {
     var buttonArray = [UIButton]()
     let selectedFont: UIFont = UIFont.boldSystemFont(ofSize: 20.0)
     let unselectedFont: UIFont = UIFont.systemFont(ofSize: 15, weight: .regular)
-    
+    let selectedColor: UIColor = UIColor.systemTeal
     // MARK: - View Life Cycle
 
     override init(frame: CGRect) {

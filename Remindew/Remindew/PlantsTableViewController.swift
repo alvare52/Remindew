@@ -38,12 +38,12 @@ import AVFoundation
 // TODO: fix water plant button in detail view controller
 // TODO: make water status icons with white background behind leaf/water
 // TODO: mono fonts for days selected buttons?
-// TODO: DELETE IMAGES WHEN PLANT IS DELETED
+// TODO: DELETE IMAGES WHEN PLANT IS DELETED, and delete last image when image changed
 // TODO: implement cache for faster image loading?
-// TODO: only scale down images if they need it, and at an acceptable size
+// TODO: only scale down images if they need it, and at an acceptable size (or just not at all?)
 // TODO: clean up image and watering logic. remove old debugging prints
 // TODO: rename refactor userController with plantController
-// TODO: touch outside textfield dismisses keyboard?
+// TODO: touch outside textfield dismisses keyboard? Return goes to next textfield
 
 class PlantsTableViewController: UITableViewController {
     
@@ -138,15 +138,15 @@ class PlantsTableViewController: UITableViewController {
             
             // if today is one of the selected days for this plant
             if let _ = plant.frequency!.firstIndex(of: currentWeekday) {
-//                print("today = \(currentWeekday) \(currentHour):\(currentMinute), it IS index \(day) in plant frequency")
+                print("today = \(currentWeekday) \(currentHour):\(currentMinute)")
                 // now check if plant.water_schedule time is <= currentMinute and
                 let plantComps = calendar.dateComponents([.hour, .minute, .second], from: plant.water_schedule!)
                 let plantHour = plantComps.hour!
                 let plantMinute = plantComps.minute!
                 
-//                print("plant time = \(plantHour):\(plantMinute):\(plantSecond)")
-//                print("current time = \(currentHour):\(currentMinute):\(currentSecond)")
-//                print("plant needs waterin = \(plant.needsWatering)")
+                print("plant time = \(plantHour):\(plantMinute)")
+                print("current time = \(currentHour):\(currentMinute)")
+                print("plant needs watering = \(plant.needsWatering)")
                 
                 var lastDay = 0
                 if let lastWatered = plant.lastDateWatered {
@@ -174,7 +174,7 @@ class PlantsTableViewController: UITableViewController {
                 }
                 
             } else {
-//                print("Today is NOT in plant's days array")
+                print("Today is NOT in plant's days array")
             }
             
             // count all plants that need watering for title display

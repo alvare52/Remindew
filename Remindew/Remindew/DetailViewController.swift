@@ -23,6 +23,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var cameraButtonLabel: UIBarButtonItem!
     @IBOutlet var daySelectorOutlet: DaySelectionView!
     @IBOutlet var dateLabel: UIBarButtonItem!
+    @IBOutlet var textView: UITextView!
     
     // MARK: - Actions
     
@@ -212,11 +213,15 @@ class DetailViewController: UIViewController {
                 // Plant that has been watered before
                 if let lastWatered = plant.lastDateWatered {
                     let dateString = dateFormatter2.string(from: lastWatered)
-                    waterPlantButton.setTitle("Last: \(dateString)", for: .normal)
+                    // replace this with scientific name from API call later
+                    let scientificName = "Narcissus pseudonarcissus"
+                    textView.text = "Last Watered:\n\(dateString)\n\(scientificName)"
+//                    waterPlantButton.setTitle("Last: \(dateString)", for: .normal)
                 } else {
                     // Plant that HASN'T been watered before (brand new plant)
-                    waterPlantButton.isHidden = true
+//                    waterPlantButton.isHidden = true
                 }
+                waterPlantButton.isHidden = true
                 waterPlantButton.isEnabled = false
             }
         }
@@ -254,7 +259,7 @@ extension DetailViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("Return")
-        textField.resignFirstResponder()
+//        textField.resignFirstResponder()
         return true
     }
 }

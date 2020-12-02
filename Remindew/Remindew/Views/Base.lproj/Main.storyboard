@@ -147,14 +147,14 @@
                                     <constraint firstAttribute="height" constant="2" id="LmG-0u-dfQ"/>
                                 </constraints>
                             </progressView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Last watered:                    11/28/20, 2:21 PM" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-ZH-dC3">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-ZH-dC3">
                                 <rect key="frame" x="170" y="214" width="224" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="tdt-dN-kA5"/>
                                 </constraints>
                                 <color key="textColor" systemColor="systemGrayColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="z7U-iw-G1i">
@@ -226,6 +226,7 @@
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
                         <outlet property="speciesTextField" destination="ucM-Fj-27g" id="p73-rD-hQY"/>
+                        <outlet property="textView" destination="dKr-ZH-dC3" id="3Y2-7C-Z3p"/>
                         <outlet property="waterPlantButton" destination="PZL-BI-0Bw" id="PWN-E2-9ML"/>
                     </connections>
                 </viewController>
