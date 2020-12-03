@@ -44,6 +44,10 @@ import AVFoundation
 // TODO: clean up image and watering logic. remove old debugging prints
 // TODO: rename refactor userController with plantController
 // TODO: touch outside textfield dismisses keyboard? Return goes to next textfield?
+// TODO: make custom tableview cell so images load properly
+// TODO: app crashes when search has spaces
+// TODO: fix activity indicator so table view lines dont' show while it spins
+// TODO: add image cache for search table view
 
 class PlantsTableViewController: UITableViewController {
     

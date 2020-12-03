@@ -400,6 +400,7 @@ class PlantController {
         print("searchPlantSpecies called")
         
         // URL REQUEST
+        // TODO: CRASHES IF THERE'S A SPACE IN THE SEARCH TERM
         let requestUrl = URL(string: "\(baseUrl)\(secretToken)&q=\(searchTerm)")!
         print("requestURL = \(requestUrl)")
         var request = URLRequest(url: requestUrl)
@@ -486,6 +487,36 @@ class PlantController {
             }
             
             completion(nil) // no error
+        }.resume()
+    }
+    
+    /// Fetches image at url given or returns default image if no url
+    func fetchImage(with url: URL?, completion: @escaping (UIImage?) -> Void = { _ in }) {
+
+        /// If there are any errors fetching an image, this image is returned instead
+        let defaultImage = UIImage(named: "plantslogoclear1024x1024")
+
+        guard let url = url else {
+            print("cant make url from passed in string")
+            completion(defaultImage)
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            
+            if let error = error {
+                NSLog("Error fetching image: \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("No data returned from data task")
+                completion(defaultImage)
+                return
+            }
+            
+            let imageToReturn = UIImage(data: data)
+            completion(imageToReturn)
         }.resume()
     }
 }

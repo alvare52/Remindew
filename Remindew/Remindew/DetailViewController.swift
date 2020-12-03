@@ -132,13 +132,21 @@ class DetailViewController: UIViewController {
         return formatter
     }
     
+    /// Loading indicator displayed while searching for a plant
+    let spinner = UIActivityIndicatorView(style: .large)
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        textView.isScrollEnabled = false
+        // setting to false limits line to 2
+//        textView.isScrollEnabled = false
+        
+        resultsTableView.backgroundView = spinner
+        spinner.backgroundColor = .black
+        spinner.color = .leafGreen
         
         // only show it after searching, then hide after choosing plant?
 //        resultsTableView.isHidden = true
@@ -191,6 +199,12 @@ class DetailViewController: UIViewController {
         if nicknameTextField.text == "" {
             nicknameTextField.becomeFirstResponder()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // reset array
+        userController?.plantSearchResults = []
     }
     
     func updateViews() {
@@ -284,21 +298,21 @@ extension DetailViewController: UITextFieldDelegate {
 //                    print("tempToken now \(self.userController?.tempToken)")
 //                }
 //            })
-            
+            guard let term = speciesTextField.text, !term.isEmpty else { return true }
+            textField.resignFirstResponder()
+            spinner.startAnimating()
             // Do search here
-            userController?.searchPlantSpecies("daffodils", completion: { (error) in
+            userController?.searchPlantSpecies(term, completion: { (error) in
                 if let error = error {
                     print("Error with searchPlantSpeciese in detail VC \(error)")
+                    self.spinner.stopAnimating()
                 }
 
                 DispatchQueue.main.async {
                     print("Success with searchPlantSpecies in detail VC")
                     // pop up table VC with results?
-                    for plant in self.userController!.plantSearchResults {
-                        print("common name: \(String(describing: plant.commonName))")
-                        print("scientific name: \(String(describing: plant.scientificName))")
-                        print("image url: \(String(describing: plant.imageUrl))")
-                    }
+                    self.resultsTableView.reloadData()
+                    self.spinner.stopAnimating()
                 }
 
             })
@@ -330,15 +344,23 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return (userController?.plantSearchResults.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        // Cast as a custom tableview cell (after I make one)
         let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath)
-        resultCell.textLabel?.text = "Common Name \(indexPath.row)"
-        resultCell.detailTextLabel?.text = "Scientific Name"
-        resultCell.imageView?.image = UIImage(named: "plantslogoclear1024x1024")
+        let plantResult = userController?.plantSearchResults[indexPath.row]
+        resultCell.textLabel?.text = plantResult?.commonName ?? "No Common Name"
+        resultCell.detailTextLabel?.text = plantResult?.scientificName ?? "No Scientific Name"
+        
+//        userController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
+//            DispatchQueue.main.async {
+//                resultCell.imageView?.image = image
+//            }
+//        })
+        
         return resultCell
     }
     
@@ -351,29 +373,4 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
              
         present(alertController, animated: true, completion: nil)
     }
-
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-////        let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath)
-////
-////        let testCell = fetchedResultsController.object(at: indexPath)
-////
-////        guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
-////
-////        cell.textLabel?.text = "\"\(nickname)\" - \(species)"
-////        //cell.textLabel?.textColor = .systemGreen
-////        //cell.textLabel?.textColor = UIColor(red: 62, green: 79, blue: 36, alpha: 1)
-////        cell.accessoryType = .disclosureIndicator
-////        let temp = Date(timeIntervalSinceNow: 69)
-////
-////        let daysString = userController.returnDaysString(plant: testCell)
-////        cell.detailTextLabel?.text = "\(daysString) - \(dateFormatter.string(from: testCell.water_schedule ?? temp))"
-////
-////        if testCell.needsWatering {
-////            cell.imageView?.image = UIImage(named: "planticonwater")
-////        } else {
-////            cell.imageView?.image = UIImage(named: "planticonleaf")
-////        }
-////
-////        return cell
-//    }
 }
