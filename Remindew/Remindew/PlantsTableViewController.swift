@@ -48,6 +48,7 @@ import AVFoundation
 // TODO: app crashes when search has spaces
 // TODO: fix activity indicator so table view lines dont' show while it spins
 // TODO: add image cache for search table view
+// TODO: make files for custom structs
 
 class PlantsTableViewController: UITableViewController {
     

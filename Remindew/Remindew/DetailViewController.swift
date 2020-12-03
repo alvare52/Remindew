@@ -145,7 +145,6 @@ class DetailViewController: UIViewController {
 //        textView.isScrollEnabled = false
         
         resultsTableView.backgroundView = spinner
-        spinner.backgroundColor = .black
         spinner.color = .leafGreen
         
         // only show it after searching, then hide after choosing plant?
