@@ -25,6 +25,9 @@ class DetailViewController: UIViewController {
     @IBOutlet var dateLabel: UIBarButtonItem!
     @IBOutlet var textView: UITextView!
     @IBOutlet var resultsTableView: UITableView!
+    @IBOutlet var dayProgressView: UIProgressView!
+    @IBOutlet var speciesProgressView: UIProgressView!
+    @IBOutlet var nicknameProgressView: UIProgressView!
     
     // MARK: - Actions
     
@@ -192,11 +195,23 @@ class DetailViewController: UIViewController {
         updateViews()
     }
         
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         // if the view appears and there's no text, auto "click" into first textfield
         if nicknameTextField.text == "" {
             nicknameTextField.becomeFirstResponder()
+        }
+        
+        // Animate progress views
+        UIView.animate(withDuration: 0.6) {
+            self.nicknameProgressView.setProgress(1.0, animated: true)
+        }
+        UIView.animate(withDuration: 0.5) {
+            self.speciesProgressView.setProgress(1.0, animated: true)
+        }
+        UIView.animate(withDuration: 0.4) {
+            self.dayProgressView.setProgress(1.0, animated: true)
         }
     }
     
