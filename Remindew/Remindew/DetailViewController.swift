@@ -38,7 +38,7 @@ class DetailViewController: UIViewController {
         if let existingPlant = plant {
             // if it DOES need to be watered, update needsWatering to false
             if existingPlant.needsWatering {
-                userController?.updatePlantWithWatering(plant: existingPlant, needsWatering: false)
+                plantController?.updatePlantWithWatering(plant: existingPlant, needsWatering: false)
             }
             navigationController?.popViewController(animated: true)
         }
@@ -60,7 +60,7 @@ class DetailViewController: UIViewController {
             // Doesn't really work here
 //            let waterDate = userController?.returnWateringSchedule(plantDate: datePicker.date,
 //                                                                   days: daySelectorOutlet.returnDaysSelected())
-            let waterDate = userController?.createDateFromTimeAndDay(days: daySelectorOutlet.returnDaysSelected(),
+            let waterDate = plantController?.createDateFromTimeAndDay(days: daySelectorOutlet.returnDaysSelected(),
                                                                      time: datePicker.date)
             
             // if there's no image, this is the default one (which will be removed if you try to save it again)
@@ -68,32 +68,32 @@ class DetailViewController: UIViewController {
             // replace image if there's one in the imageView
             if let image = imageView.image {
                 print("Image in image view!")
-                let scaledImage = userController?.resizeImage(image: image)
+                let scaledImage = plantController?.resizeImage(image: image)
                 imageToSave = scaledImage!
             }
             
             // If there IS a plant, update (EDIT)
             if let existingPlant = plant {
                                 
-                userController?.update(nickname: nickname.capitalized,
+                plantController?.update(nickname: nickname.capitalized,
                                        species: species.capitalized,
                                        water_schedule: waterDate ?? Date(),
                                        frequency: daySelectorOutlet.returnDaysSelected(),
                                        plant: existingPlant)
                 // save image
                 let imageName = "userPlant\(existingPlant.identifier!)"
-                userController?.saveImage(imageName: imageName, image: imageToSave)
+                plantController?.saveImage(imageName: imageName, image: imageToSave)
             }
                 
             // If there is NO plant (ADD)
             else {
-                let plant = userController?.createPlant(nickname: nickname.capitalized,
+                let plant = plantController?.createPlant(nickname: nickname.capitalized,
                                             species: species.capitalized,
                                             date: waterDate ?? Date(),
                                             frequency: daySelectorOutlet.returnDaysSelected())
                 // save image
                 let imageName = "userPlant\(plant!.identifier!)"
-                userController?.saveImage(imageName: imageName, image: imageToSave)
+                plantController?.saveImage(imageName: imageName, image: imageToSave)
             }
             
             navigationController?.popViewController(animated: true)
@@ -111,7 +111,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    var userController: PlantController?
+    var plantController: PlantController?
     
     var plant: Plant? {
         didSet {
@@ -218,7 +218,7 @@ class DetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // reset array
-        userController?.plantSearchResults = []
+        plantController?.plantSearchResults = []
     }
     
     func updateViews() {
@@ -229,7 +229,7 @@ class DetailViewController: UIViewController {
         if let plant = plant {
             
             // try to load saved image
-            if let image = userController?.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)") {
+            if let image = plantController?.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)") {
                 imageView.image = image
             } else {
 //                imageView.image = UIImage()
@@ -316,7 +316,7 @@ extension DetailViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
             spinner.startAnimating()
             // Do search here
-            userController?.searchPlantSpecies(term, completion: { (error) in
+            plantController?.searchPlantSpecies(term, completion: { (error) in
                 if let error = error {
                     print("Error with searchPlantSpeciese in detail VC \(error)")
                     self.spinner.stopAnimating()
@@ -358,14 +358,14 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (userController?.plantSearchResults.count)!
+        return (plantController?.plantSearchResults.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Cast as a custom tableview cell (after I make one)
         let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath)
-        let plantResult = userController?.plantSearchResults[indexPath.row]
+        let plantResult = plantController?.plantSearchResults[indexPath.row]
         resultCell.textLabel?.text = plantResult?.commonName ?? "No Common Name"
         resultCell.detailTextLabel?.text = plantResult?.scientificName ?? "No Scientific Name"
         

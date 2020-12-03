@@ -11,42 +11,34 @@ import CoreData
 import UserNotifications
 import AVFoundation
 
-// TODO: add userPlantImage. API - scientificName, commonName, webPlantImage 
 // TODO: delete all unneeded comments
 // TODO: screen size issues
 // TODO: improve README (Gif, About, tech ribbons)
 // TODO: notifications fixes (not allowed, access description)
 // TODO: add Unit/UI tests
 // TODO: add better comments/Marks
-// TODO: UI polish, sounds, font, transparency
+// TODO: UI polish, sounds, font, transparency, new colors?
 // TODO: add Protocols?
 // TODO: add badges
 // TODO: app store preview screen shots (blue, blue green, green)
-// TODO: add ability to add photo for plant
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
-// TODO: AFTER: let user take picture from app? toggle every x days vs days of week
 // TODO: add parameter descriptions
-// TODO: tableview drawing warning (textfield constraints?)
-// TODO: ValueTransformer warning Core Data
 // TODO: changing day to next week at earlier time still triggers notification
 // TODO: add better error handling to detail screen
-// TODO: make nickname not mandatory to make plant ("" default value?)
+// TODO: make nickname not mandatory to make plant ("" default value?)?
 // TODO: enable dateLabel bar button items again to toggle between format?
-// TODO: launch animation where drop slides in front of leaf
+// TODO: launch animation where drop slides in front of leaf???
 // TODO: small bug. checkWatering will run in most cases except when you stay on the table view
 // TODO: small bug. updating time for plant that was already watered that day won't work right
-// TODO: fix water plant button in detail view controller
-// TODO: make water status icons with white background behind leaf/water
-// TODO: mono fonts for days selected buttons?
-// TODO: DELETE IMAGES WHEN PLANT IS DELETED, and delete last image when image changed
+// TODO: mono fonts for days selected buttons??
+// TODO: DELETE IMAGES WHEN PLANT IS DELETED, and delete last image when image changed!!!
 // TODO: implement cache for faster image loading?
 // TODO: only scale down images if they need it, and at an acceptable size (or just not at all?)
 // TODO: clean up image and watering logic. remove old debugging prints
-// TODO: rename refactor userController with plantController
 // TODO: touch outside textfield dismisses keyboard? Return goes to next textfield?
 // TODO: make custom tableview cell so images load properly
-// TODO: app crashes when search has spaces
-// TODO: fix activity indicator so table view lines dont' show while it spins
+// TODO: APP CRASHES WHEN SEARCH TERM HAS SPACES
+// TODO: fix activity indicator so table view lines don't show while it spins?
 // TODO: add image cache for search table view
 // TODO: make files for custom structs
 
@@ -87,7 +79,7 @@ class PlantsTableViewController: UITableViewController {
     }
     
     var timer: Timer?
-    let userController = PlantController()
+    let plantController = PlantController()
     let calendar = Calendar.current
     private var observer: NSObjectProtocol?
     
@@ -170,7 +162,7 @@ class PlantsTableViewController: UITableViewController {
                     // then check if needsWatering is false so this only triggers once
                     
                     // needsWatering goes from FALSE to TRUE (don't update last watered)
-                    userController.updatePlantWithWatering(plant: plant, needsWatering: true)
+                    plantController.updatePlantWithWatering(plant: plant, needsWatering: true)
                 
                     // play sound effect instead?
                     //localAlert(plant: plant)
@@ -225,7 +217,7 @@ class PlantsTableViewController: UITableViewController {
 //                plant.water_schedule = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
 //                                                                             days: plant.frequency!)
                 // then update plant to have its new schedule
-                let newDate = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
+                let newDate = plantController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
                                                                     days: plant.frequency!)
                 
                 print("newDate = \(dateFormatter.string(from: newDate))")
@@ -270,7 +262,7 @@ class PlantsTableViewController: UITableViewController {
         cell.accessoryType = .disclosureIndicator
         let temp = Date(timeIntervalSinceNow: 69)
         
-        let daysString = userController.returnDaysString(plant: testCell)
+        let daysString = plantController.returnDaysString(plant: testCell)
         cell.detailTextLabel?.text = "\(daysString) - \(dateFormatter.string(from: testCell.water_schedule ?? temp))"
         
         if testCell.needsWatering {
@@ -286,8 +278,8 @@ class PlantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let plant = fetchedResultsController.object(at: indexPath)
-            userController.removeAllRequestsForPlant(plant: plant)
-            userController.deletePlant(plant: plant)
+            plantController.removeAllRequestsForPlant(plant: plant)
+            plantController.deletePlant(plant: plant)
         }
     }
 
@@ -299,7 +291,7 @@ class PlantsTableViewController: UITableViewController {
         if segue.identifier == "AddPlantSegue" {
             print("AddPlantSegue")
             if let detailVC = segue.destination as? DetailViewController {
-                    detailVC.userController = self.userController
+                    detailVC.plantController = self.plantController
                 }
             }
         
@@ -307,7 +299,7 @@ class PlantsTableViewController: UITableViewController {
         if segue.identifier == "DetailPlantSegue" {
             print("DetailPlantSegue")
             if let detailVC = segue.destination as? DetailViewController, let indexPath = tableView.indexPathForSelectedRow {
-                detailVC.userController = self.userController
+                detailVC.plantController = self.plantController
                 detailVC.plant = fetchedResultsController.object(at: indexPath)
             }
         }
