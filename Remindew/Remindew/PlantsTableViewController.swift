@@ -32,13 +32,13 @@ import AVFoundation
 // TODO: only scale down images if they need it, and at an acceptable size (or just not at all?)
 // TODO: fix activity indicator so table view lines don't show while it spins?
 // TODO: true concurrency for search table view? (NSOperation)?
-// TODO: put water/add edit button in stack view so tableview gets bigger when water button is hidden
 
 // UI/Polish
 // TODO: sounds, fonts, transparency, new colors?
 // TODO: mono fonts for days selected buttons??
 // TODO: launch animation where drop slides in front of leaf???
 // TODO: app store preview screen shots (blue, blue green, green)
+// TODO: progress views animate also when error in not selecting a value for it
 
 // Bugs/Crashes
 // TODO: BUG: changing day to next week at earlier time still triggers notification

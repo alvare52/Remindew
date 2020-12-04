@@ -52,14 +52,31 @@ class DetailViewController: UIViewController {
         
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
+        // before EDIT or ADD, first check for:
         
+        // 1. nickname has text AND not empty, (insert random nickname instead?) display alert for this
+        guard let nickname = nicknameTextField.text, !nickname.isEmpty else {
+            makeNicknameAlert()
+            return
+        }
+        
+        // 2. species has text AND not empty, display alert for this
+        guard let species = speciesTextField.text, !species.isEmpty else {
+            makeSpeciesAlert()
+            return
+        }
+        
+        // Return false is no days are selected, true if there's at least 1 day selected
         let daysAreSelected: Bool = daySelectorOutlet.returnDaysSelected().count > 0
+        
+        // 3. daysAreSelected is true, display alert for this
+        if !daysAreSelected {
+            makeDaysAlert()
+            return
+        }
         
         if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty, daysAreSelected {
             
-            // Doesn't really work here
-//            let waterDate = userController?.returnWateringSchedule(plantDate: datePicker.date,
-//                                                                   days: daySelectorOutlet.returnDaysSelected())
             let waterDate = plantController?.createDateFromTimeAndDay(days: daySelectorOutlet.returnDaysSelected(),
                                                                      time: datePicker.date)
             
@@ -99,14 +116,13 @@ class DetailViewController: UIViewController {
             navigationController?.popViewController(animated: true)
         }
         
-        // Missing something in one of the fields, give better error later
+        // Missing something in one of the fields, give better error later (shouldn't need this but just in case)
         else {
             let alertController = UIAlertController(title: "Invalid Field", message: "Please fill in all fields", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             self.present(alertController, animated: true, completion: nil)
         }
-        
     }
     
     // MARK: - Properties
@@ -117,6 +133,59 @@ class DetailViewController: UIViewController {
         didSet {
             updateViews()
         }
+    }
+    
+    let randomNicknames: [String] = ["Ted", "Joe", "Matt"]
+    
+    /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
+    private func makeNicknameAlert() {
+        // add two options
+        let title = "Missing Nickname"
+        let message = "Please enter a personal nickname for your plant or select a random nickname"
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        let alertAction = UIAlertAction(title: "Personal", style: .default) { _ in
+            self.nicknameTextField.becomeFirstResponder()
+        }
+        let randomAction = UIAlertAction(title: "Random", style: .default) { _ in
+            self.chooseRandomNickname()
+        }
+        alertController.addAction(alertAction)
+        alertController.addAction(randomAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Presents an alert for missing text in species textfield. Clicks in species textfield when user clicks OK
+    private func makeSpeciesAlert() {
+        let title = "Missing Species Name"
+        let message = "Please enter a species for your plant.\nExample: \"Peace Lily\""
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.speciesTextField.becomeFirstResponder()
+        }
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Presents an alert for missing days and changes text view to give a hint
+    private func makeDaysAlert() {
+        let title = "Missing Watering Days"
+        let message = "Please select which days you would like to receive reminders"
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.textView.text = "Select at least one of the days below"
+        }
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Enters a random nickname in nickname textfield so user doesn't have to make up their own
+    private func chooseRandomNickname() {
+        let randomInt = Int.random(in: 0..<randomNicknames.count)
+        print("randomInt = \(randomInt)")
+        nicknameTextField.text = randomNicknames[randomInt]
     }
     
     /// Nav bar date: Sunday 11/29
