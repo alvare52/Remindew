@@ -46,14 +46,13 @@ class SearchResultTableViewCell: UITableViewCell {
         addSubview(imageView)
         self.plantImageView = imageView
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                            constant: CGFloat(0.0)).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         imageView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(4.0)).isActive = true
         imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-4.0)).isActive = true
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
 
         imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = 20.0 // half of its size
+        imageView.layer.cornerRadius = 21.0 // half of its size
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.layer.borderColor = UIColor.white.cgColor

@@ -37,13 +37,13 @@ class DaySelectionView: UIStackView {
         print("tapped button \(button.tag)")
         
         // NOT Selected, so select it
-        if button.tintColor == .lightGray {
+        if button.tintColor == .secondaryLabel {
             button.tintColor = .waterBlue
             button.titleLabel?.font = selectedFont
         }
         // IS Selected, so unselect
         else {
-            button.tintColor = .lightGray
+            button.tintColor = .secondaryLabel
             button.titleLabel?.font = unselectedFont
         }
     }
@@ -66,7 +66,7 @@ class DaySelectionView: UIStackView {
             day.setTitle("\(days[integer])", for: .normal)
             day.backgroundColor = .clear
             
-            day.tintColor = .lightGray
+            day.tintColor = .secondaryLabel
             
             day.addTarget(self, action: #selector(selectDay), for: .touchUpInside)
             

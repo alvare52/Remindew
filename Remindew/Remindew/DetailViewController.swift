@@ -162,7 +162,6 @@ class DetailViewController: UIViewController {
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true
-//        imageView.backgroundColor = .white
         imageView.contentMode = .scaleToFill
         
         dateLabel.title = dateFormatter.string(from: Date())
@@ -177,11 +176,13 @@ class DetailViewController: UIViewController {
         nicknameTextField.borderStyle = .none
         nicknameTextField.textColor = .darkGray
         nicknameTextField.delegate = self
+        nicknameTextField.textColor = .label
         
         speciesTextField.borderStyle = .none
         speciesTextField.delegate = self
         speciesTextField.textColor = .darkGray
         speciesTextField.returnKeyType = .search
+        speciesTextField.textColor = .label
         
         // Dark -> Light?
         plantButton.applyGradient(colors: [UIColor.leafGreen.cgColor, UIColor.lightLeafGreen.cgColor])
@@ -364,8 +365,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let tableViewHeight = tableView.frame.height
-        print("tableViewHeight = \(tableViewHeight)")
         return 50
     }
     
@@ -376,7 +375,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
         let plantResult = plantController?.plantSearchResults[indexPath.row]
         
-        resultCell.commonNameLabel.text = plantResult?.commonName ?? "No common name"
+        resultCell.commonNameLabel.text = plantResult?.commonName?.capitalized ?? "No common name"
         resultCell.scientificNameLabel.text = plantResult?.scientificName ?? "No scientific name"
         
         // 1. Plant has a scientific name
