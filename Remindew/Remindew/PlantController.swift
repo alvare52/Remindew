@@ -479,7 +479,7 @@ class PlantController {
             let decoder = JSONDecoder()
             do {
                 self.tempToken = try decoder.decode(TempToken.self, from: data)
-                print("self.tempToken now = \(self.tempToken)")
+                print("self.tempToken now = \(String(describing: self.tempToken))")
             } catch {
                 print("Error decoding temp token object: \(error)")
                 completion(error)
@@ -519,29 +519,6 @@ class PlantController {
             completion(imageToReturn)
         }.resume()
     }
-}
-
-
-struct PlantData: Decodable {
-    let data: [PlantSearchResult]
-}
-
-struct PlantSearchResult: Decodable {
-    
-    enum CodingKeys: String, CodingKey {
-        case commonName = "common_name"
-        case scientificName = "scientific_name"
-        case imageUrl = "image_url"
-    }
-    
-    let commonName: String?
-    let scientificName: String?
-    let imageUrl: URL?
-}
-
-struct TempToken: Decodable {
-    let token: String?
-    let expiration: String?
 }
 
 let secretToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NzI0LCJvcmlnaW4iOiJodHRwczovL2RvY3MudHJlZmxlLmlvL2RvY3MvYWR2YW5jZWQvY2xpZW50LXNpZGUtYXBwcyIsImlwIjpudWxsLCJleHBpcmUiOiIyMDIwLTEyLTA0IDIxOjM2OjU5ICswMDAwIiwiZXhwIjoxNjA3MTE3ODE5fQ.KDgloR9TnjXH8qOQbAciKFSChD8b8MFL0HjdnX1TI8M"

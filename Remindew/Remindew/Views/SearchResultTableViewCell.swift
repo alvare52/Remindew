@@ -10,37 +10,26 @@ import UIKit
 
 class SearchResultTableViewCell: UITableViewCell {
 
-    var plantResult: PlantSearchResult? {
-        didSet {
-            updateViews()
-        }
-    }
-
+    /// Displays image from plant's image url (or default image if there is none)
     var plantImageView: UIImageView!
     
+    /// Displays plant's common name (if any) in bold
     var commonNameLabel: UILabel!
     
+    /// Displays plant's scienfific name (if any) in italics
     var scientificNameLabel: UILabel!
     
+    /// 8 pt padding
     var standardMargin: CGFloat = CGFloat(8.0)
-    
-    private func updateViews() {
-        
-        guard let plantResult = plantResult else { return }
-        
-    }
         
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpSubviews()
     }
     
+    /// Sets up all custom views
     private func setUpSubviews() {
-        print("setUpSubviews")
-        
-        textLabel!.translatesAutoresizingMaskIntoConstraints = false
-        textLabel!.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(40.0)).isActive = true
-        
+    
         // Image View
         let imageView = UIImageView()
         addSubview(imageView)
@@ -75,14 +64,12 @@ class SearchResultTableViewCell: UITableViewCell {
         addSubview(author)
         self.scientificNameLabel = author
         scientificNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        scientificNameLabel.topAnchor.constraint(equalTo: commonNameLabel.bottomAnchor,
-                                         constant: standardMargin * 0).isActive = true
+        scientificNameLabel.topAnchor.constraint(equalTo: commonNameLabel.bottomAnchor).isActive = true
         scientificNameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor,
                                              constant: standardMargin).isActive = true
         scientificNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
         scientificNameLabel.font = .italicSystemFont(ofSize: 14)
         scientificNameLabel.textColor = .secondaryLabel
-
     }
     
     override func awakeFromNib() {
@@ -91,7 +78,6 @@ class SearchResultTableViewCell: UITableViewCell {
         setUpSubviews()
     }
     
-    /// ?
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
