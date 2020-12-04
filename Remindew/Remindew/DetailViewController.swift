@@ -138,6 +138,8 @@ class DetailViewController: UIViewController {
     /// Loading indicator displayed while searching for a plant
     let spinner = UIActivityIndicatorView(style: .large)
     
+    var cache = [String: UIImage]()
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -371,24 +373,39 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         
         // Cast as a custom tableview cell (after I make one)
         guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
-        
-//        // Cast as a custom tableview cell (after I make one)
-//        let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath)
-        
+    
         let plantResult = plantController?.plantSearchResults[indexPath.row]
-        
-//        resultCell.textLabel?.text = plantResult?.commonName ?? "No Common Name"
-//        resultCell.detailTextLabel?.text = plantResult?.scientificName ?? "No Scientific Name"
-
         
         resultCell.commonNameLabel.text = plantResult?.commonName ?? "No common name"
         resultCell.scientificNameLabel.text = plantResult?.scientificName ?? "No scientific name"
         
-        plantController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
-            DispatchQueue.main.async {
-                resultCell.plantImageView?.image = image
+        // 1. Plant has a scientific name
+        if let scientificName = plantResult?.scientificName {
+            
+            // if this key has a value already (It should be in the cache)
+            if cache[scientificName] != nil {
+                print("cache[Sname] != nil, grabbing image from cache")
+                resultCell.plantImageView.image = cache[scientificName]
+            } else {
+                print("SName exists but haven't fetched image yet, fetching and storing")
+                // we havene't fetched image yet, so fetch it and store image in cache
+                plantController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
+                    DispatchQueue.main.async {
+                        resultCell.plantImageView?.image = image
+                        self.cache[scientificName] = image
+                        print("cache = \(self.cache)")
+                    }
+                })
             }
-        })
+        } else {
+            // Plant does NOT have a scientific name
+            print("no scientific name, so fetching the old fashioned way")
+            plantController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
+                DispatchQueue.main.async {
+                    resultCell.plantImageView?.image = image
+                }
+            })
+        }
         
         return resultCell
     }
