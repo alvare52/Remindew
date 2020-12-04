@@ -137,7 +137,7 @@ class DetailViewController: UIViewController {
     
     /// Array of random plant nicknames for when a user doesn't want to create their own
     let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Bulba", "Thornhill", "Plant 43",
-                                    "Entty", ""]
+                                    "Entty", "Lily"]
     
     /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
     private func makeNicknameAlert() {
