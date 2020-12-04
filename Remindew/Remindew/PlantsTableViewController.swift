@@ -39,13 +39,14 @@ import AVFoundation
 // TODO: launch animation where drop slides in front of leaf???
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: progress views animate also when error in not selecting a value for it
+// TODO: remove white borders from images?
 
 // Bugs/Crashes
 // TODO: BUG: changing day to next week at earlier time still triggers notification
 // TODO: BUG: checkWatering will run in most cases except when you stay on the table view
 // TODO: BUG: updating time for plant that was already watered that day won't work right
 // TODO: DELETE IMAGES WHEN PLANT IS DELETED, and delete last image when image changed!!!
-
+// TODO: dont save the default images? (if nil, imageview.image = "default")
 
 class PlantsTableViewController: UITableViewController {
     
@@ -283,7 +284,6 @@ class PlantsTableViewController: UITableViewController {
         } else {
             cell.imageView?.image = UIImage(named: "planticonleaf")
         }
-        
         return cell
     }
     

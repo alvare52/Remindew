@@ -135,7 +135,9 @@ class DetailViewController: UIViewController {
         }
     }
     
-    let randomNicknames: [String] = ["Ted", "Joe", "Matt"]
+    /// Array of random plant nicknames for when a user doesn't want to create their own
+    let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Bulba", "Thornhill", "Plant 43",
+                                    "Entty", ""]
     
     /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
     private func makeNicknameAlert() {
@@ -448,7 +450,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

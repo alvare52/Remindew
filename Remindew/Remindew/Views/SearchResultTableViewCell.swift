@@ -41,7 +41,7 @@ class SearchResultTableViewCell: UITableViewCell {
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
 
         imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = 21.0 // half of its size
+        imageView.layer.cornerRadius = 26.0 // half of its size (cellHeight - 8 padding) / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.layer.borderColor = UIColor.white.cgColor
@@ -52,7 +52,7 @@ class SearchResultTableViewCell: UITableViewCell {
         addSubview(label)
         self.commonNameLabel = label
         commonNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        commonNameLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: CGFloat(4.0)).isActive = true
+        commonNameLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: CGFloat(7.0)).isActive = true
         commonNameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor,
                                             constant: standardMargin).isActive = true
         commonNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
