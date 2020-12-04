@@ -11,41 +11,57 @@ import CoreData
 import UserNotifications
 import AVFoundation
 
+// Cleanliness/Formatting
 // TODO: delete all unneeded comments
+// TODO: add better comments/Marks, add paramter descriptions
 // TODO: improve README (Gif, About, tech ribbons)
-// TODO: notifications fixes (not allowed, access description)
+// TODO: clean up image and watering logic. remove old debugging prints
+
+// Debuggin/Tests
 // TODO: add Unit/UI tests
-// TODO: add better comments/Marks
-// TODO: UI polish, sounds, font, transparency, new colors?
 // TODO: add Protocols?
-// TODO: add badges
-// TODO: app store preview screen shots (blue, blue green, green)
+// TODO: notifications fixes (not allowed, access description)
+
+// New Features/Additions
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
-// TODO: add parameter descriptions
-// TODO: BUG: changing day to next week at earlier time still triggers notification
 // TODO: add better error handling to detail screen
-// TODO: make nickname not mandatory to make plant ("" default value?)?
-// TODO: enable dateLabel bar button items again to toggle between format?
-// TODO: launch animation where drop slides in front of leaf???
-// TODO: BUG: checkWatering will run in most cases except when you stay on the table view
-// TODO: BUG: updating time for plant that was already watered that day won't work right
-// TODO: mono fonts for days selected buttons??
-// TODO: DELETE IMAGES WHEN PLANT IS DELETED, and delete last image when image changed!!!
+// TODO: add plant mode uses text view as guide to what each field needs?
+// TODO: make nickname not mandatory to make plant ("" default values?)?
+// TODO: enable dateLabel bar button items again to toggle between format??
 // TODO: implement cache for faster image loading from documents directory?
 // TODO: only scale down images if they need it, and at an acceptable size (or just not at all?)
-// TODO: clean up image and watering logic. remove old debugging prints
-// TODO: make custom tableview cell so images load properly
-// TODO: APP CRASHES WHEN SEARCH TERM HAS SPACES
 // TODO: fix activity indicator so table view lines don't show while it spins?
-// TODO: add image cache for search table view
+// TODO: true concurrency for search table view? (NSOperation)?
+// TODO: put water/add edit button in stack view so tableview gets bigger when water button is hidden
+
+// UI/Polish
+// TODO: sounds, fonts, transparency, new colors?
+// TODO: mono fonts for days selected buttons??
+// TODO: launch animation where drop slides in front of leaf???
+// TODO: app store preview screen shots (blue, blue green, green)
+
+// Bugs/Crashes
+// TODO: BUG: changing day to next week at earlier time still triggers notification
+// TODO: BUG: checkWatering will run in most cases except when you stay on the table view
+// TODO: BUG: updating time for plant that was already watered that day won't work right
+// TODO: DELETE IMAGES WHEN PLANT IS DELETED, and delete last image when image changed!!!
+
 
 class PlantsTableViewController: UITableViewController {
     
     // MARK: - Outlets
+    @IBOutlet var settingsBarButtonLabel: UIBarButtonItem!
     
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
     
     @IBOutlet var dateLabel: UIBarButtonItem!
+    
+    // MARK: - Actions
+    
+    @IBAction func settingsBarButtonTapped(_ sender: UIBarButtonItem) {
+        // Bring up settings tab??? disconnect this maybe?
+    }
+    
     // MARK: - Properties
     
     /// Fetches Plant objects from storage
