@@ -301,7 +301,8 @@ class DetailViewController: UIViewController {
 extension DetailViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("Return")
+        
+        // Clicked "Search" in species textfield
         if textField == speciesTextField {
             print("Return inside speciesTextfield")
             
@@ -315,9 +316,17 @@ extension DetailViewController: UITextFieldDelegate {
 //                    print("tempToken now \(self.plantController?.tempToken)")
 //                }
 //            })
-            guard let term = speciesTextField.text, !term.isEmpty else { return true }
+            guard let unwrappedTerm = speciesTextField.text, !unwrappedTerm.isEmpty else { return true }
+            
+            // dismiss keyboard
             textField.resignFirstResponder()
+            
+            // get rid of any spaces in search term
+            let term = unwrappedTerm.replacingOccurrences(of: " ", with: "")
+            
+            // start animating spinner
             spinner.startAnimating()
+            
             // Do search here
             plantController?.searchPlantSpecies(term, completion: { (error) in
                 if let error = error {
@@ -327,14 +336,19 @@ extension DetailViewController: UITextFieldDelegate {
 
                 DispatchQueue.main.async {
                     print("Success with searchPlantSpecies in detail VC")
-                    // pop up table VC with results?
+                    // pop up table VC with results? (unhide table view?)
                     self.resultsTableView.reloadData()
                     self.spinner.stopAnimating()
                 }
-
             })
         }
-//        textField.resignFirstResponder()
+        
+        // Clicked "Return" in nickname textfield
+        if textField == nicknameTextField {
+            // go to next textfield (species)
+            speciesTextField.becomeFirstResponder()
+        }
+        
         return true
     }
 }

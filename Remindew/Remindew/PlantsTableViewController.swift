@@ -12,7 +12,6 @@ import UserNotifications
 import AVFoundation
 
 // TODO: delete all unneeded comments
-// TODO: screen size issues
 // TODO: improve README (Gif, About, tech ribbons)
 // TODO: notifications fixes (not allowed, access description)
 // TODO: add Unit/UI tests
@@ -23,19 +22,18 @@ import AVFoundation
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
 // TODO: add parameter descriptions
-// TODO: changing day to next week at earlier time still triggers notification
+// TODO: BUG: changing day to next week at earlier time still triggers notification
 // TODO: add better error handling to detail screen
 // TODO: make nickname not mandatory to make plant ("" default value?)?
 // TODO: enable dateLabel bar button items again to toggle between format?
 // TODO: launch animation where drop slides in front of leaf???
-// TODO: small bug. checkWatering will run in most cases except when you stay on the table view
-// TODO: small bug. updating time for plant that was already watered that day won't work right
+// TODO: BUG: checkWatering will run in most cases except when you stay on the table view
+// TODO: BUG: updating time for plant that was already watered that day won't work right
 // TODO: mono fonts for days selected buttons??
 // TODO: DELETE IMAGES WHEN PLANT IS DELETED, and delete last image when image changed!!!
-// TODO: implement cache for faster image loading?
+// TODO: implement cache for faster image loading from documents directory?
 // TODO: only scale down images if they need it, and at an acceptable size (or just not at all?)
 // TODO: clean up image and watering logic. remove old debugging prints
-// TODO: touch outside textfield dismisses keyboard? Return goes to next textfield?
 // TODO: make custom tableview cell so images load properly
 // TODO: APP CRASHES WHEN SEARCH TERM HAS SPACES
 // TODO: fix activity indicator so table view lines don't show while it spins?
