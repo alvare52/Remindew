@@ -377,13 +377,13 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         
         let plantResult = plantController?.plantSearchResults[indexPath.row]
         
-//        resultCell.commonNameLabel.text = plantResult?.commonName ?? "No common name"
-        resultCell.textLabel?.text = plantResult?.commonName ?? "No Common Name"
-        resultCell.detailTextLabel?.text = plantResult?.scientificName ?? "No Scientific Name"
+//        resultCell.textLabel?.text = plantResult?.commonName ?? "No Common Name"
+//        resultCell.detailTextLabel?.text = plantResult?.scientificName ?? "No Scientific Name"
+
         
-//        imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-//        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
-                
+        resultCell.commonNameLabel.text = plantResult?.commonName ?? "No common name"
+        resultCell.scientificNameLabel.text = plantResult?.scientificName ?? "No scientific name"
+        
         plantController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
             DispatchQueue.main.async {
                 resultCell.plantImageView?.image = image

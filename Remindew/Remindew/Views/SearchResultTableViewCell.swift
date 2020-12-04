@@ -22,7 +22,7 @@ class SearchResultTableViewCell: UITableViewCell {
     
     var scientificNameLabel: UILabel!
     
-    var standardMargin: CGFloat = CGFloat(16.0)
+    var standardMargin: CGFloat = CGFloat(8.0)
     
     private func updateViews() {
         
@@ -46,36 +46,44 @@ class SearchResultTableViewCell: UITableViewCell {
         addSubview(imageView)
         self.plantImageView = imageView
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                            constant: CGFloat(-12.0)).isActive = true
-//        imageView.widthAnchor.constraint(equalTo: widthAnchor,
-//                                         multiplier: 0.6).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                            constant: CGFloat(0.0)).isActive = true
         imageView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(4.0)).isActive = true
         imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-4.0)).isActive = true
-//        imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8).isActive = true
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
-        
-//        imageView.heightAnchor.constraint(equalTo: heightAnchor,
-//                                          multiplier: 0.3).isActive = true
-        //imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 3 / 4).isActive = true
-        // mult for height used to be 1.5 of imageView.widthAnchor // widthAnchor used to be 0.25
-        
-        imageView.contentMode = .scaleToFill // used to be .scaleAspectFit
-        imageView.clipsToBounds = true
-        
-//        imageView.layer.cornerRadius = 5
 
-        // makes imageView a circle
-//        imageView.layer.borderWidth = 1.0
         imageView.layer.masksToBounds = false
-//        imageView.layer.borderColor = UIColor.white.cgColor
-        print("imageView frame width = \(imageView.frame.size.width)")
-        imageView.layer.cornerRadius = 40.0 / 2
+        imageView.layer.cornerRadius = 20.0 // half of its size
         imageView.clipsToBounds = true
-//        imageView.backgroundColor = .white
         imageView.contentMode = .scaleToFill
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 1.0
         
+        // Title Label
+        let label = UILabel()
+        addSubview(label)
+        self.commonNameLabel = label
+        commonNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        commonNameLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: CGFloat(4.0)).isActive = true
+        commonNameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor,
+                                            constant: standardMargin).isActive = true
+        commonNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
+        commonNameLabel.textColor = .label
+        commonNameLabel.font = .boldSystemFont(ofSize: 16)
+        
+        // Author Label
+        let author = UILabel()
+        addSubview(author)
+        self.scientificNameLabel = author
+        scientificNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        scientificNameLabel.topAnchor.constraint(equalTo: commonNameLabel.bottomAnchor,
+                                         constant: standardMargin * 0).isActive = true
+        scientificNameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor,
+                                             constant: standardMargin).isActive = true
+        scientificNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
+        scientificNameLabel.font = .italicSystemFont(ofSize: 14)
+        scientificNameLabel.textColor = .secondaryLabel
+
     }
     
     override func awakeFromNib() {
