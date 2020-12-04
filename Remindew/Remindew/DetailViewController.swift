@@ -146,7 +146,6 @@ class DetailViewController: UIViewController {
         
         // setting to false limits line to 2
 //        textView.isScrollEnabled = false
-        
         resultsTableView.backgroundView = spinner
         spinner.color = .leafGreen
         
@@ -155,6 +154,7 @@ class DetailViewController: UIViewController {
         resultsTableView.delegate = self
         resultsTableView.dataSource = self
         
+        // makes imageView a circle
         imageView.layer.borderWidth = 1.0
         imageView.layer.masksToBounds = false
         imageView.layer.borderColor = UIColor.white.cgColor
@@ -302,14 +302,14 @@ extension DetailViewController: UITextFieldDelegate {
         if textField == speciesTextField {
             print("Return inside speciesTextfield")
             
-            // get temp token first
-//            userController?.signToken(completion: { (error) in
+             //get temp token first
+//            plantController?.signToken(completion: { (error) in
 //                if let error = error {
 //                    print("Error in signToken in detail VC: \(error)")
 //                }
 //                DispatchQueue.main.async {
 //                    print("Success in signToken in detail VC")
-//                    print("tempToken now \(self.userController?.tempToken)")
+//                    print("tempToken now \(self.plantController?.tempToken)")
 //                }
 //            })
             guard let term = speciesTextField.text, !term.isEmpty else { return true }
@@ -361,19 +361,34 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return (plantController?.plantSearchResults.count)!
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let tableViewHeight = tableView.frame.height
+        print("tableViewHeight = \(tableViewHeight)")
+        return 50
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Cast as a custom tableview cell (after I make one)
-        let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath)
+        guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
+        
+//        // Cast as a custom tableview cell (after I make one)
+//        let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath)
+        
         let plantResult = plantController?.plantSearchResults[indexPath.row]
+        
+//        resultCell.commonNameLabel.text = plantResult?.commonName ?? "No common name"
         resultCell.textLabel?.text = plantResult?.commonName ?? "No Common Name"
         resultCell.detailTextLabel?.text = plantResult?.scientificName ?? "No Scientific Name"
         
-//        userController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
-//            DispatchQueue.main.async {
-//                resultCell.imageView?.image = image
-//            }
-//        })
+//        imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+                
+        plantController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
+            DispatchQueue.main.async {
+                resultCell.plantImageView?.image = image
+            }
+        })
         
         return resultCell
     }
