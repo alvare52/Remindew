@@ -77,9 +77,6 @@ class DetailViewController: UIViewController {
         
         if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty, daysAreSelected {
             
-            let waterDate = plantController?.createDateFromTimeAndDay(days: daySelectorOutlet.returnDaysSelected(),
-                                                                     time: datePicker.date)
-            
             // if there's no image, this is the default one (which will be removed if you try to save it again)
             var imageToSave = UIImage(named: "plantslogoclear1024x1024")!
             
@@ -95,7 +92,7 @@ class DetailViewController: UIViewController {
                                 
                 plantController?.update(nickname: nickname.capitalized,
                                        species: species.capitalized,
-                                       water_schedule: waterDate ?? Date(),
+                                       water_schedule: datePicker.date,
                                        frequency: daySelectorOutlet.returnDaysSelected(),
                                        plant: existingPlant)
                 // save image
@@ -107,7 +104,7 @@ class DetailViewController: UIViewController {
             else {
                 let plant = plantController?.createPlant(nickname: nickname.capitalized,
                                             species: species.capitalized,
-                                            date: waterDate ?? Date(),
+                                            date: datePicker.date,
                                             frequency: daySelectorOutlet.returnDaysSelected())
                 // save image
                 let imageName = "userPlant\(plant!.identifier!)"
