@@ -75,14 +75,13 @@ class DetailViewController: UIViewController {
             return
         }
         
-        // if there's no image, this is the default one (which will be removed if you try to save it again)
-        var imageToSave = UIImage(named: "plantslogoclear1024x1024")!
+        // Check if we should save image
+        var imageToSave: UIImage?
         
-        // replace image if there's one in the imageView
-        if let image = imageView.image {
-            print("Image in image view!")
-            let scaledImage = UIImage.resizeImage(image: image)
-            imageToSave = scaledImage
+        // If imageView.image is NOT the default one, save it. Else, don't save
+        if imageView.image.hashValue != UIImage(named: "plantslogoclear1024x1024").hashValue {
+            print("Image in imageView is NOT default one")
+            imageToSave = imageView.image!
         }
         
         // If there IS a plant, update (EDIT)
@@ -95,7 +94,11 @@ class DetailViewController: UIViewController {
                                    plant: existingPlant)
             // save image
             let imageName = "userPlant\(existingPlant.identifier!)"
-            UIImage.saveImage(imageName: imageName, image: imageToSave)
+            
+            // if there is an image to save only
+            if let image = imageToSave {
+                UIImage.saveImage(imageName: imageName, image: image)
+            }
         }
             
         // If there is NO plant (ADD)
@@ -106,9 +109,14 @@ class DetailViewController: UIViewController {
                                         frequency: daySelectorOutlet.returnDaysSelected())
             // save image
             let imageName = "userPlant\(plant!.identifier!)"
-            UIImage.saveImage(imageName: imageName, image: imageToSave)
+            
+            // if there is an image to save only
+            if let image = imageToSave {
+                UIImage.saveImage(imageName: imageName, image: image)
+            }
         }
         
+        // Go back to main screen
         navigationController?.popViewController(animated: true)
     }
     
