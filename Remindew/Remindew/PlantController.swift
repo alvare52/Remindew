@@ -64,12 +64,16 @@ class PlantController {
     
     /// Called after reminder goes off so it doesn't keep going off
     func updatePlantWithWatering(plant: Plant, needsWatering: Bool) {
+        
         plant.needsWatering = needsWatering
-        // if it goes from TRUE to FALSE, then update last watered
+        
+        // if it goes from TRUE to FALSE (water plant button clicked), then update last watered
         if needsWatering == false {
             plant.lastDateWatered = Date()
         }
-        // if it goes from FALSE to TRUE, then leave last watered alone
+        
+        // if it goes from FALSE to TRUE, then leave last watered alone (checkWateringStatus)
+        
         savePlant()
     }
     
@@ -270,10 +274,10 @@ class PlantController {
             // content
             let content = UNMutableNotificationContent()
             content.sound = .default
-            content.title = "WATER YOUR PLANT!"
+            content.title = "Time to water your plant!"
             content.body = "\(plant.nickname!) needs water."
             
-            // badge?
+            // badge
             content.badge = 1
 
             // trigger

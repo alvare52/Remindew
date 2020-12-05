@@ -25,24 +25,23 @@ import AVFoundation
 // New Features/Additions
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
 // TODO: add plant mode uses text view as guide to what each field needs?
-// TODO: enable dateLabel bar button items again to toggle between format??
-// TODO: implement cache for faster image loading from documents directory?
+// TODO: implement cache for faster image loading from documents directory??
 // TODO: fix activity indicator so table view lines don't show while it spins?
-// TODO: true concurrency for search table view? (NSOperation)?
+// TODO: true concurrency for search table view? (NSOperation)
+// TODO: select search result cell gives plant new image and scientific name
 
 // UI/Polish
 // TODO: sounds, fonts, transparency, new colors?
 // TODO: mono fonts for days selected buttons??
-// TODO: launch animation where drop slides in front of leaf???
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: progress views animate also when error in not selecting a value for it
 // TODO: remove white borders from images?
 // TODO: make custom main table view cells (rounded corners, no seperator)
 
 // Bugs/Crashes
-// TODO: BUG: changing day to next week at earlier time still triggers notification
+// TODO: BUG: changing day to next week at earlier time still triggers notification??? OLD?
 // TODO: BUG: updating time for plant that was already watered that day won't work right
-// TODO: BUG: textView won't show lastWatered date sometimes
+// TODO: BUG: ^ (related) textView won't show lastWatered date (stops working when watered 2nd time) (fixed maybe?)
 
 class PlantsTableViewController: UITableViewController {
     
@@ -127,7 +126,6 @@ class PlantsTableViewController: UITableViewController {
             print("BACK IN THE FOREGROUND")
             self.checkIfPlantsNeedWatering()
         }
-
     }
     
     /// Remove observer when deallocating this view controller
@@ -142,6 +140,7 @@ class PlantsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear")
+        // just in case notifications are turned off
         checkIfPlantsNeedWatering()
     }
     
@@ -176,15 +175,14 @@ class PlantsTableViewController: UITableViewController {
                 
                 var lastDay = 0
                 if let lastWatered = plant.lastDateWatered {
-//                    print("lastWatered was NOT nil, so its a plant that has been watered before")
+                    // lastWatered was NOT nil, so its a plant that has been watered before
+                    // lastDay is now the weekday int of last day that plant was watered
                     lastDay = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: lastWatered).day!
                 } else {
-//                    print("lastWatered was nil, so its a fresh plant")
+                    // lastWatered is nil (Brand new plant)
                     lastDay = 100
                 }
-                
-//                print("lastDay: \(lastDay), current day: \(currentDay)")
-                
+                                
                 // as it's still the same day. check if last date watered day and hour against today
                 if plantHour <= currentHour && plantMinute <= currentMinute && !plant.needsWatering && lastDay != currentDay {
                     // first time this goes off, set plant needsWatering to true
@@ -192,10 +190,6 @@ class PlantsTableViewController: UITableViewController {
                     
                     // needsWatering goes from FALSE to TRUE (don't update last watered)
                     plantController.updatePlantWithWatering(plant: plant, needsWatering: true)
-                
-                    // play sound effect instead?
-                    //localAlert(plant: plant)
-                
                     tableView.reloadData()
                 }
                 

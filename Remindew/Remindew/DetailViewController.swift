@@ -36,6 +36,7 @@ class DetailViewController: UIViewController {
         
         // If there IS a plant, update (EDIT)
         if let existingPlant = plant {
+            
             // if it DOES need to be watered, update needsWatering to false
             if existingPlant.needsWatering {
                 plantController?.updatePlantWithWatering(plant: existingPlant, needsWatering: false)
@@ -300,10 +301,8 @@ class DetailViewController: UIViewController {
             // try to load saved image
             if let image = UIImage.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)") {
                 imageView.image = image
-            } else {
-//                imageView.image = UIImage()
             }
-            
+        
             plantButton.setTitle("Edit Plant", for: .normal)
             let name = plant.nickname!
             let xAWeek = "\(plant.frequency!.count)x a week"
@@ -314,23 +313,45 @@ class DetailViewController: UIViewController {
             daySelectorOutlet.selectDays((plant.frequency)!)
             
             waterPlantButton.isHidden = false
+            
+            // plant DOES need to be watered
             if plant.needsWatering {
                 waterPlantButton.setTitle("Water Plant", for: .normal)
                 waterPlantButton.isEnabled = true
-            } else {
-                // Plant that has been watered before
-                if let lastWatered = plant.lastDateWatered {
-                    let dateString = dateFormatter2.string(from: lastWatered)
-                    // replace this with scientific name from API call later
-                    let scientificName = "Narcissus pseudonarcissus"
-                    textView.text = "Last Watered:\n\(dateString)\n\(scientificName)"
-//                    waterPlantButton.setTitle("Last: \(dateString)", for: .normal)
-                } else {
-                    // Plant that HASN'T been watered before (brand new plant)
-//                    waterPlantButton.isHidden = true
-                }
+                
+            }
+            // plant does NOT need to be watered
+            else {
+                
+//                // Plant that HAS been watered before
+//                if let lastWatered = plant.lastDateWatered {
+//                    let dateString = dateFormatter2.string(from: lastWatered)
+//
+//                    // replace this with scientific name from API call later
+//                    let scientificName = "Narcissus pseudonarcissus"
+//                    textView.text = "Last Watered:\n\(dateString)\n\(scientificName)"
+//                }
+//                // Plant that HAS NOT been watered before (brand new plant)
+//                else {
+//                    // lastWatered is nil for some reason
+//                    textView.text = "Brand new plant"
+//                }
                 waterPlantButton.isHidden = true
                 waterPlantButton.isEnabled = false
+            }
+            
+            // this all used to be right above line 339 with waterPlantButton.isHidden stuff
+            // Plant that HAS been watered before
+            if let lastWatered = plant.lastDateWatered {
+                let dateString = dateFormatter2.string(from: lastWatered)
+                // replace this with scientific name from API call later
+                let scientificName = "Narcissus pseudonarcissus"
+                textView.text = "Last Watered:\n\(dateString)\n\(scientificName)"
+            }
+            // Plant that HAS NOT been watered before (brand new plant)
+            else {
+                // lastWatered is nil for some reason
+                textView.text = "Brand new plant"
             }
         }
          
@@ -341,7 +362,6 @@ class DetailViewController: UIViewController {
             nicknameTextField.text = ""
             speciesTextField.text = ""
             datePicker.date = Date()
-//            waterPlantButton.setTitle("---", for: .normal)
             waterPlantButton.isHidden = true
             textView.text = "Please select the preferred reminder days to water your plant"
         }
