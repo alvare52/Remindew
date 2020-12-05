@@ -24,9 +24,7 @@ import AVFoundation
 
 // New Features/Additions
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
-// TODO: add better error handling to detail screen
 // TODO: add plant mode uses text view as guide to what each field needs?
-// TODO: make nickname not mandatory to make plant ("" default values?)?
 // TODO: enable dateLabel bar button items again to toggle between format??
 // TODO: implement cache for faster image loading from documents directory?
 // TODO: only scale down images if they need it, and at an acceptable size (or just not at all?)
@@ -40,6 +38,7 @@ import AVFoundation
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: progress views animate also when error in not selecting a value for it
 // TODO: remove white borders from images?
+// TODO: make custom main table view cells (rounded corners, no seperator)
 
 // Bugs/Crashes
 // TODO: BUG: changing day to next week at earlier time still triggers notification
@@ -291,6 +290,7 @@ class PlantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let plant = fetchedResultsController.object(at: indexPath)
+            plantController.deleteImage("userPlant\(plant.identifier!)")
             plantController.removeAllRequestsForPlant(plant: plant)
             plantController.deletePlant(plant: plant)
         }

@@ -378,6 +378,25 @@ class PlantController {
         return nil
     }
     
+    /// Deletes image in directory with given name in file path
+    func deleteImage(_ imageName: String) {
+        print("deleteImage")
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+
+        let fileName = imageName
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+
+        //Checks if file exists, removes it if so.
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try FileManager.default.removeItem(atPath: fileURL.path)
+                print("Removed old image")
+            } catch let removeError {
+                print("couldn't remove file at path", removeError)
+            }
+        }
+    }
+    
     /// Resize image to given dimensions
      func resizeImage(image: UIImage) -> UIImage {
         print("\(image.size) IMAGE STARTS AS THIS")
