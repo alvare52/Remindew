@@ -82,11 +82,12 @@ class DetailViewController: UIViewController {
             
             // if there's no image, this is the default one (which will be removed if you try to save it again)
             var imageToSave = UIImage(named: "plantslogoclear1024x1024")!
+            
             // replace image if there's one in the imageView
             if let image = imageView.image {
                 print("Image in image view!")
-                let scaledImage = plantController?.resizeImage(image: image)
-                imageToSave = scaledImage!
+                let scaledImage = UIImage.resizeImage(image: image)
+                imageToSave = scaledImage
             }
             
             // If there IS a plant, update (EDIT)
@@ -99,7 +100,7 @@ class DetailViewController: UIViewController {
                                        plant: existingPlant)
                 // save image
                 let imageName = "userPlant\(existingPlant.identifier!)"
-                plantController?.saveImage(imageName: imageName, image: imageToSave)
+                UIImage.saveImage(imageName: imageName, image: imageToSave)
             }
                 
             // If there is NO plant (ADD)
@@ -110,7 +111,7 @@ class DetailViewController: UIViewController {
                                             frequency: daySelectorOutlet.returnDaysSelected())
                 // save image
                 let imageName = "userPlant\(plant!.identifier!)"
-                plantController?.saveImage(imageName: imageName, image: imageToSave)
+                UIImage.saveImage(imageName: imageName, image: imageToSave)
             }
             
             navigationController?.popViewController(animated: true)
@@ -303,7 +304,7 @@ class DetailViewController: UIViewController {
         if let plant = plant {
             
             // try to load saved image
-            if let image = plantController?.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)") {
+            if let image = UIImage.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)") {
                 imageView.image = image
             } else {
 //                imageView.image = UIImage()

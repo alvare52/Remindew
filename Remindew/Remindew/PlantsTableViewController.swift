@@ -290,7 +290,7 @@ class PlantsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let plant = fetchedResultsController.object(at: indexPath)
-            plantController.deleteImage("userPlant\(plant.identifier!)")
+            UIImage.deleteImage("userPlant\(plant.identifier!)")
             plantController.removeAllRequestsForPlant(plant: plant)
             plantController.deletePlant(plant: plant)
         }
