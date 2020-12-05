@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+// MARK: - NSNotification
+
+// Step 1
+extension NSNotification.Name {
+    static let checkWateringStatus = NSNotification.Name("checkWateringStatus")
+}
+
 // MARK: - UIView
 
 extension UIView {

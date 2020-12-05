@@ -41,10 +41,8 @@ import AVFoundation
 
 // Bugs/Crashes
 // TODO: BUG: changing day to next week at earlier time still triggers notification
-// TODO: BUG: checkWatering will run in most cases except when you stay on the table view
 // TODO: BUG: updating time for plant that was already watered that day won't work right
 // TODO: BUG: textView won't show lastWatered date sometimes
-// TODO: BUG: call checkWateringStatus when plant is deleted?
 
 class PlantsTableViewController: UITableViewController {
     
@@ -112,6 +110,12 @@ class PlantsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Step 2 (step 3 is the thing in selector)
+        NotificationCenter.default.addObserver(self,
+        selector: #selector(checkIfPlantsNeedWatering),
+        name: .checkWateringStatus,
+        object: nil)
+        
         dateLabel.title = dateFormatter2.string(from: Date())
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
 //        startTimer()
@@ -142,7 +146,7 @@ class PlantsTableViewController: UITableViewController {
     }
     
     /// Goes through all plants and checks if they need watering today. Also updates title based on how many need water
-    private func checkIfPlantsNeedWatering() {
+    @objc private func checkIfPlantsNeedWatering() {
         print("checkIfPlantNeedsWatering")
         
         // for tallying up all plants that need watering

@@ -53,8 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound, .badge])
-        // update plant watering status icon here? (send notification to observer (main table view?))
-        print("notification went off while app is in foreground")
+        // check watering status of all plants by sending notification to observer (PlantTableViewController)
+        // Step 4
+        NotificationCenter.default.post(name: .checkWateringStatus, object: self)
     }
     
 //    /// Called when you tap on notification banner
