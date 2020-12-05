@@ -54,13 +54,13 @@ class DetailViewController: UIViewController {
         
         // before EDIT or ADD, first check for:
         
-        // 1. nickname has text AND not empty, (insert random nickname instead?) display alert for this
+        // 1. nickname has text AND not empty, else display alert for this
         guard let nickname = nicknameTextField.text, !nickname.isEmpty else {
             makeNicknameAlert()
             return
         }
         
-        // 2. species has text AND not empty, display alert for this
+        // 2. species has text AND not empty, else display alert for this
         guard let species = speciesTextField.text, !species.isEmpty else {
             makeSpeciesAlert()
             return
@@ -69,58 +69,47 @@ class DetailViewController: UIViewController {
         // Return false is no days are selected, true if there's at least 1 day selected
         let daysAreSelected: Bool = daySelectorOutlet.returnDaysSelected().count > 0
         
-        // 3. daysAreSelected is true, display alert for this
+        // 3. daysAreSelected is true, else display alert for this
         if !daysAreSelected {
             makeDaysAlert()
             return
         }
         
-        if let nickname = nicknameTextField.text, let species = speciesTextField.text, !nickname.isEmpty, !species.isEmpty, daysAreSelected {
-            
-            // if there's no image, this is the default one (which will be removed if you try to save it again)
-            var imageToSave = UIImage(named: "plantslogoclear1024x1024")!
-            
-            // replace image if there's one in the imageView
-            if let image = imageView.image {
-                print("Image in image view!")
-                let scaledImage = UIImage.resizeImage(image: image)
-                imageToSave = scaledImage
-            }
-            
-            // If there IS a plant, update (EDIT)
-            if let existingPlant = plant {
-                                
-                plantController?.update(nickname: nickname.capitalized,
-                                       species: species.capitalized,
-                                       water_schedule: datePicker.date,
-                                       frequency: daySelectorOutlet.returnDaysSelected(),
-                                       plant: existingPlant)
-                // save image
-                let imageName = "userPlant\(existingPlant.identifier!)"
-                UIImage.saveImage(imageName: imageName, image: imageToSave)
-            }
-                
-            // If there is NO plant (ADD)
-            else {
-                let plant = plantController?.createPlant(nickname: nickname.capitalized,
-                                            species: species.capitalized,
-                                            date: datePicker.date,
-                                            frequency: daySelectorOutlet.returnDaysSelected())
-                // save image
-                let imageName = "userPlant\(plant!.identifier!)"
-                UIImage.saveImage(imageName: imageName, image: imageToSave)
-            }
-            
-            navigationController?.popViewController(animated: true)
+        // if there's no image, this is the default one (which will be removed if you try to save it again)
+        var imageToSave = UIImage(named: "plantslogoclear1024x1024")!
+        
+        // replace image if there's one in the imageView
+        if let image = imageView.image {
+            print("Image in image view!")
+            let scaledImage = UIImage.resizeImage(image: image)
+            imageToSave = scaledImage
         }
         
-        // Missing something in one of the fields, give better error later (shouldn't need this but just in case)
-        else {
-            let alertController = UIAlertController(title: "Invalid Field", message: "Please fill in all fields", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(alertAction)
-            self.present(alertController, animated: true, completion: nil)
+        // If there IS a plant, update (EDIT)
+        if let existingPlant = plant {
+                            
+            plantController?.update(nickname: nickname.capitalized,
+                                   species: species.capitalized,
+                                   water_schedule: datePicker.date,
+                                   frequency: daySelectorOutlet.returnDaysSelected(),
+                                   plant: existingPlant)
+            // save image
+            let imageName = "userPlant\(existingPlant.identifier!)"
+            UIImage.saveImage(imageName: imageName, image: imageToSave)
         }
+            
+        // If there is NO plant (ADD)
+        else {
+            let plant = plantController?.createPlant(nickname: nickname.capitalized,
+                                        species: species.capitalized,
+                                        date: datePicker.date,
+                                        frequency: daySelectorOutlet.returnDaysSelected())
+            // save image
+            let imageName = "userPlant\(plant!.identifier!)"
+            UIImage.saveImage(imageName: imageName, image: imageToSave)
+        }
+        
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Properties
