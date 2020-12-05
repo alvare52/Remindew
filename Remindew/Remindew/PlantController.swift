@@ -272,6 +272,9 @@ class PlantController {
             content.sound = .default
             content.title = "WATER YOUR PLANT!"
             content.body = "\(plant.nickname!) needs water."
+            
+            // badge?
+            content.badge = 1
 
             // trigger
             let date = makeDateCompsForSchedule(weekday: day, time: plant.water_schedule!)

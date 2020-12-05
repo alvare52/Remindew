@@ -27,7 +27,6 @@ import AVFoundation
 // TODO: add plant mode uses text view as guide to what each field needs?
 // TODO: enable dateLabel bar button items again to toggle between format??
 // TODO: implement cache for faster image loading from documents directory?
-// TODO: only scale down images if they need it, and at an acceptable size (or just not at all?)
 // TODO: fix activity indicator so table view lines don't show while it spins?
 // TODO: true concurrency for search table view? (NSOperation)?
 
@@ -44,12 +43,13 @@ import AVFoundation
 // TODO: BUG: changing day to next week at earlier time still triggers notification
 // TODO: BUG: checkWatering will run in most cases except when you stay on the table view
 // TODO: BUG: updating time for plant that was already watered that day won't work right
-// TODO: DELETE IMAGES WHEN PLANT IS DELETED, and delete last image when image changed!!!
-// TODO: dont save the default images? (if nil, imageview.image = "default")
+// TODO: BUG: textView won't show lastWatered date sometimes
+// TODO: BUG: call checkWateringStatus when plant is deleted?
 
 class PlantsTableViewController: UITableViewController {
     
     // MARK: - Outlets
+    
     @IBOutlet var settingsBarButtonLabel: UIBarButtonItem!
     
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
@@ -79,12 +79,14 @@ class PlantsTableViewController: UITableViewController {
         return frc
     }()
     
+    /// Date formatter for table view cell
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         return formatter
     }
     
+    /// Date formatter for nav bar button
     var dateFormatter2: DateFormatter {
             let formatter = DateFormatter()
             formatter.dateFormat = "EEEE MM/d"
@@ -96,10 +98,20 @@ class PlantsTableViewController: UITableViewController {
     let calendar = Calendar.current
     private var observer: NSObjectProtocol?
     
+    var plantsThatNeedWaterCount = 0 {
+        didSet {
+            // update title after all plant watering statuses have been checked
+            title = plantsThatNeedWaterCount > 0 ? "Remindew - (\(plantsThatNeedWaterCount))" : "Remindew"
+            // update badge here?
+            UIApplication.shared.applicationIconBadgeNumber = plantsThatNeedWaterCount
+        }
+    }
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         dateLabel.title = dateFormatter2.string(from: Date())
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
 //        startTimer()
@@ -190,9 +202,7 @@ class PlantsTableViewController: UITableViewController {
             // count all plants that need watering for title display
             if plant.needsWatering { count += 1 }
         }
-        
-        // update title after all plant watering statuses have been checked
-        title = count > 0 ? "Remindew - (\(count))" : "Remindew"
+        plantsThatNeedWaterCount = count
     }
     
     /// Main timer that is used to check all plants being tracked
@@ -293,6 +303,7 @@ class PlantsTableViewController: UITableViewController {
             UIImage.deleteImage("userPlant\(plant.identifier!)")
             plantController.removeAllRequestsForPlant(plant: plant)
             plantController.deletePlant(plant: plant)
+            checkIfPlantsNeedWatering() // to update badge/count
         }
     }
 

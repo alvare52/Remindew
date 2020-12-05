@@ -19,6 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         /// Asks user for permission to send notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if granted {
+                print("App launched for first time, note permission granted")
+            } else {
+                // local alert saying it needs permission??
+                print("App launced for first time, note permission NOT granted")
+            }
+            
+            if let error = error {
+                print("error first time asking for permission in app delegate \(error)")
+            }
         }
     
         return true
@@ -42,9 +52,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
-
+        completionHandler([.alert, .sound, .badge])
+        // update plant watering status icon here? (send notification to observer (main table view?))
+        print("notification went off while app is in foreground")
     }
+    
+//    /// Called when you tap on notification banner
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        print("userNotificationCenter didReceive response called")
+//        let content = response.notification.request.content
+//        let badge = content.badge as! Int
+//        print("badge = \(badge)")
+//        UIApplication.shared.applicationIconBadgeNumber = 69
+//    }
     
 //    /// Checks if app is in the foreground and if it's foreground then show Local PushNotification
 //    func application(_ application: UIApplication,didReceiveRemoteNotification userInfo: [AnyHashable: Any],fetchCompletionHandler completionHandler:@escaping (UIBackgroundFetchResult) -> Void) {
