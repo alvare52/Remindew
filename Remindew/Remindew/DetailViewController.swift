@@ -440,6 +440,7 @@ extension DetailViewController: UITextFieldDelegate {
                 // Do search here
                 plantController?.searchPlantSpecies(term, completion: { (error) in
                     if let error = error {
+                        // crashes here if no secret API key (so bad URL)
                         print("Error with searchPlantSpeciese in detail VC \(error)")
                         self.spinner.stopAnimating()
                     }

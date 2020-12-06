@@ -385,7 +385,7 @@ class PlantController {
         
         guard let token = UserDefaults.standard.string(forKey: .lastTempToken) else {
             print("userdefault lastTempToken string is nil in searchPlantSpecies")
-            completion(NSError())
+            completion(nil)
             return
         }
         
@@ -408,7 +408,7 @@ class PlantController {
             guard let data = data else {
                 print("No data return by data task")
                 DispatchQueue.main.async {
-                    completion(NSError())
+                    completion(nil)
                 }
                 return
             }
@@ -459,7 +459,7 @@ class PlantController {
             }
             
             guard let data = data else {
-                completion(NSError())
+                completion(nil)
                 return
             }
             
