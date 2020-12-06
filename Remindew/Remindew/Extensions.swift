@@ -106,6 +106,9 @@ extension UIColor {
 
 extension UIImage {
     
+    /// App icon image to use throughout app when a default image is needed. UIImage(named: "plantslogoclear1024x1024")!
+    static let logoImage = UIImage(named: "plantslogoclear1024x1024")!
+    
     /// Save image to documents directory, and remove old one if it exists and save new one
     /// - Parameter imageName: the name of an image that has been saved
     /// - Parameter image: the UIImage you want to save

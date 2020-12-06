@@ -31,6 +31,7 @@ import AVFoundation
 // TODO: true concurrency for search table view? (NSOperation)
 // TODO: select search result cell gives plant new image and scientific name
 // TODO: grab temp token first (if its a new day?), then do network call
+// TODO: LIMIT SEARCHES TO 120 (100?) A MINUTE!!!
 
 // UI/Polish
 // TODO: sounds, fonts, transparency, new colors?
@@ -42,9 +43,8 @@ import AVFoundation
 
 // Bugs/Crashes
 // TODO: BUG: changing day to next week at earlier time still triggers notification??? OLD?
-// TODO: BUG: updating time for plant that was already watered that day won't work right
-// TODO: BUG: ^ (related) textView won't show lastWatered date (stops working when watered 2nd time) (fixed maybe?)
-// TODO: local alert for watering status causes warning in debug console (tableview updating without being in view yet)
+// TODO: BUG: updating time for plant that was already watered that day won't trigger alarm (need to set lastWatered back to nil2)
+// TODO: BUG: local alert for watering status causes warning in debug console? (tableview updating without being in view yet)
 
 class PlantsTableViewController: UITableViewController {
     

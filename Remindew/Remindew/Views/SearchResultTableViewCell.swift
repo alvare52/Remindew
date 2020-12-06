@@ -21,6 +21,17 @@ class SearchResultTableViewCell: UITableViewCell {
     
     /// 8 pt padding
     var standardMargin: CGFloat = CGFloat(8.0)
+    
+    /// closure that we call when the cell's prepareForReuse method is called
+    /// in cellForRow we tell it to try and cancel the load it was performing
+    var onReuse: () -> Void = {}
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        onReuse()
+        // remove current image from the cell so it doesn't show old image while loading a new one
+        plantImageView.image = nil
+    }
         
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -73,7 +84,6 @@ class SearchResultTableViewCell: UITableViewCell {
     }
     
     override func awakeFromNib() {
-        print("awakeFromNib")
         super.awakeFromNib()
         setUpSubviews()
     }

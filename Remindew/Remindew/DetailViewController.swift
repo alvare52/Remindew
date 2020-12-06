@@ -80,7 +80,7 @@ class DetailViewController: UIViewController {
         var imageToSave: UIImage?
         
         // If imageView.image is NOT the default one, save it. Else, don't save
-        if imageView.image.hashValue != UIImage(named: "plantslogoclear1024x1024").hashValue {
+        if imageView.image.hashValue != UIImage.logoImage.hashValue {
             print("Image in imageView is NOT default one")
             imageToSave = imageView.image!
         }
@@ -501,35 +501,38 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
         let plantResult = plantController?.plantSearchResults[indexPath.row]
         
+        // common name
         resultCell.commonNameLabel.text = plantResult?.commonName?.capitalized ?? "No common name"
+        
+        // scientific name
         resultCell.scientificNameLabel.text = plantResult?.scientificName ?? "No scientific name"
         
-        // 1. Plant has a scientific name
-        if let scientificName = plantResult?.scientificName {
-            
-            // if this key has a value already (It should be in the cache)
-            if cache[scientificName] != nil {
-                print("cache[Sname] != nil, grabbing image from cache")
-                resultCell.plantImageView.image = cache[scientificName]
-            } else {
-                print("SName exists but haven't fetched image yet, fetching and storing")
-                // we havene't fetched image yet, so fetch it and store image in cache
-                plantController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
-                    DispatchQueue.main.async {
-                        resultCell.plantImageView?.image = image
-                        self.cache[scientificName] = image
-                        print("cache = \(self.cache)")
-                    }
-                })
-            }
-        } else {
-            // Plant does NOT have a scientific name
-            print("no scientific name, so fetching the old fashioned way")
-            plantController?.fetchImage(with: plantResult?.imageUrl, completion: { (image) in
+        // image
+        // store returned UUID? for task for later
+        let token = plantController?.loadImage(plantResult?.imageUrl) { result in
+            do {
+                
+                // extract result (UIImage)
+                let image = try result.get()
+                
+                // if we get an image, display in cell's image view on main queue
                 DispatchQueue.main.async {
                     resultCell.plantImageView?.image = image
                 }
-            })
+            } catch {
+                // do something if there's an error
+                // set image to default picture?
+                print("Error in result of loadImage in cellForRowAt")
+                resultCell.plantImageView?.image = .logoImage
+            }
+        }
+        
+        // use UUID? we just made to now cancel the load for it
+        resultCell.onReuse = {
+            // when cell is reused, try to cancel the task it started here
+            if let token = token {
+                self.plantController?.cancelLoad(token)
+            }
         }
         
         return resultCell

@@ -19,6 +19,21 @@ class PlantController {
     
     let baseUrl = URL(string: "https://trefle.io/api/v1/plants/search?token=")!
     
+    /// Memory cache to store already fetched images, clears itself after it has more than 100 images
+    private var loadedImages = [URL: UIImage]() {
+        didSet {
+            // clear cache after 100 images are stored
+            if loadedImages.count > 100 {
+                print("loadedImages count > 100, clearing cache")
+                loadedImages.removeAll()
+                print("loadedImages cleared, now = \(loadedImages)")
+            }
+        }
+    }
+    
+    /// Keeps track of running downloads to cancel them later
+    private var runningRequests = [UUID: URLSessionDataTask]()
+    
     /// Returns the current day date components
     var currentDayComps: DateComponents {
         let currentDateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
@@ -508,6 +523,71 @@ class PlantController {
             let imageToReturn = UIImage(data: data)
             completion(imageToReturn)
         }.resume()
+    }
+    
+    ///
+    func loadImage(_ url: URL?, _ completion: @escaping (Result<UIImage, Error>) -> Void) -> UUID? {
+        
+        
+        /// If there are any errors fetching an image, this image is returned instead
+        let defaultImage = UIImage.logoImage
+
+        guard let url = url else {
+            print("cant make url from passed in string")
+            completion(.success(defaultImage))
+            return nil
+        }
+        
+        // check if image at url is already in our cache, return nil since task wasn't made yet
+        if let image = loadedImages[url] {
+            completion(.success(image))
+            return nil
+        }
+        
+        // used to identify the task we're about to make
+        let uuid = UUID()
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            // removes running task before we leave scope of the task's completion handler
+            defer {
+                self.runningRequests.removeValue(forKey: uuid)
+            }
+            
+            // if there's data and we can get an image out of it, return it in completion
+            if let data = data, let image = UIImage(data: data) {
+                self.loadedImages[url] = image
+                completion(.success(image))
+                return
+            }
+            
+            // check for error and do something with it
+            guard let error = error else {
+                // without an image or an error, we'll just ignore this for now
+                // you could add your own special error cases for this scenario
+                return
+            }
+            
+            guard (error as NSError).code == NSURLErrorCancelled else {
+                completion(.failure(error))
+                return
+            }
+            
+            // the request was cancelled, no need to call the callback
+        }
+        task.resume()
+        
+        // add request to dictionary, then return to caller
+        runningRequests[uuid] = task
+        
+        return uuid
+    }
+    
+    /// Uses given UUID to find a running data task and cancels it.
+    /// Then removes task from running requests if it exists
+    func cancelLoad(_ uuid: UUID) {
+        runningRequests[uuid]?.cancel()
+        runningRequests.removeValue(forKey: uuid)
     }
 }
 
