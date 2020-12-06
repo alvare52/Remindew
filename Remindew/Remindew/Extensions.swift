@@ -16,6 +16,17 @@ extension NSNotification.Name {
     static let checkWateringStatus = NSNotification.Name("checkWateringStatus")
 }
 
+// MARK: - String
+
+extension String {
+    
+    /// Get/Set value of last temporary token for API
+    static let lastTempToken = "lastTempToken"
+    
+    /// Get/Set value of last Date temporary token was set
+    static let lastDateTokenGrabbed = "lastDateTokenGrabbed"
+}
+
 // MARK: - UIView
 
 extension UIView {

@@ -21,6 +21,7 @@ import AVFoundation
 // TODO: add Unit/UI tests
 // TODO: add Protocols?
 // TODO: notifications fixes (not allowed, access description)
+// TODO: error handling for issues with network calls (or no connection at all)
 
 // New Features/Additions
 // TODO: add settings button/page (auto water plants, shout out to Trefle API)
@@ -29,6 +30,7 @@ import AVFoundation
 // TODO: fix activity indicator so table view lines don't show while it spins?
 // TODO: true concurrency for search table view? (NSOperation)
 // TODO: select search result cell gives plant new image and scientific name
+// TODO: grab temp token first (if its a new day?), then do network call
 
 // UI/Polish
 // TODO: sounds, fonts, transparency, new colors?
@@ -57,6 +59,8 @@ class PlantsTableViewController: UITableViewController {
     
     @IBAction func settingsBarButtonTapped(_ sender: UIBarButtonItem) {
         // Bring up settings tab??? disconnect this maybe?
+        print("settingsBarButtonTapped")
+        plantController.newTempTokenIsNeeded()
     }
     
     // MARK: - Properties
@@ -108,7 +112,7 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         // Step 2 (step 3 is the thing in selector)
         NotificationCenter.default.addObserver(self,
         selector: #selector(checkIfPlantsNeedWatering),

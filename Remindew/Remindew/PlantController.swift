@@ -17,6 +17,8 @@ class PlantController {
         
     let calendar = Calendar.current
     
+    let baseUrl = URL(string: "https://trefle.io/api/v1/plants/search?token=")!
+    
     /// Returns the current day date components
     var currentDayComps: DateComponents {
         let currentDateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
@@ -220,7 +222,7 @@ class PlantController {
         return Int(val)
     }
     
-    // Returns a string of all days selected separated by a space
+    /// Returns a string of all days selected separated by a space (to dispaly in table view cell)
     func returnDaysString(plant: Plant) -> String {
         
         var result = [String]()
@@ -236,6 +238,45 @@ class PlantController {
         }
         return result.joined(separator: " ")
     }
+    
+    /// When getting back temp token, set lastDateTokenGrabbed
+    /// Checks Date() and lastDayTokenSet (Date), returns true if time between the two
+    /// is greatere than 24 hours?
+    func newTempTokenIsNeeded() -> Bool {
+        
+        // only return false if it hasn't been 24 hours (or more) since last token was grabbed
+        if let lastDate = UserDefaults.standard.object(forKey: .lastDateTokenGrabbed) as? Date {
+            // if timeinterval is < 85000, then return false (86400 secs in 24 hours, 85000 just in case)
+            if Date().timeIntervalSince(lastDate) < 85000 {
+                print("Time interval since Date() = \(Date().timeIntervalSince(lastDate)) is less then 85000")
+                print("no new temp token needed, quitting early and returning false")
+                return false
+            }
+        }
+        // return true if lastDate was never set or it's been more than 24 hours
+        return true
+    }
+    
+    /// Prints out last temp token grabbed and the date it was set (call in viewDidLoad )
+    func printLastTokenAndDate() {
+        
+        if let lastToken = UserDefaults.standard.string(forKey: .lastTempToken) {
+            print("lastToken = \(lastToken)")
+        } else {
+            print("lastToken = nil")
+        }
+        if let lastDate = UserDefaults.standard.object(forKey: .lastDateTokenGrabbed) as? Date {
+            let formatter = DateFormatter()
+            formatter.timeStyle = .medium
+            formatter.dateStyle = .medium
+            print("currDate = \(formatter.string(from: lastDate))")
+            print("lastDate = \(formatter.string(from: lastDate))")
+        } else {
+            print("lastDate = nil")
+        }
+    }
+    
+    // MARK: - Notification Center
     
     /// Returns array of Strings that are the plant's notification identifiers (weekday + UUID)
     func returnPlantNotificationIdentifiers(plant: Plant) -> [String] {
@@ -335,9 +376,7 @@ class PlantController {
         }
     }
     
-    
-    
-    let baseUrl = URL(string: "https://trefle.io/api/v1/plants/search?token=")!
+    // MARK: - Network Calls
     
     /// Takes in a search term and assigns local results array to those results
     func searchPlantSpecies(_ searchTerm: String, completion: @escaping (Error?) -> Void = { _ in }) {
@@ -345,7 +384,6 @@ class PlantController {
         print("searchPlantSpecies called")
         
         // URL REQUEST
-        // TODO: CRASHES IF THERE'S A SPACE IN THE SEARCH TERM
         let requestUrl = URL(string: "\(baseUrl)\(secretToken)&q=\(searchTerm)")!
         print("requestURL = \(requestUrl)")
         var request = URLRequest(url: requestUrl)
@@ -374,8 +412,6 @@ class PlantController {
             do {
                 let plantSearchResultsDataArray = try jsonDecoder.decode(PlantData.self, from: data)
                 self.plantSearchResults = plantSearchResultsDataArray.data
-//                print("\(self.plantSearchResults.count) items received")
-//                print("\(self.plantSearchResults)")
                 DispatchQueue.main.async {
                     completion(nil)
                 }
@@ -393,6 +429,7 @@ class PlantController {
     func signToken(completion: @escaping (Error?) -> Void) {
         print("signToken called")
         
+        // TODO: first check if we even need to grab another temp token by checking user defaults date
         let baseUrl = "https://trefle.io/api/auth/claim?token="
         let websiteUrl = "https://docs.trefle.io/docs/advanced/client-side-apps"
         let signUrl = URL(string: "\(baseUrl)\(secretToken)&origin=\(websiteUrl)")!
@@ -424,6 +461,9 @@ class PlantController {
             let decoder = JSONDecoder()
             do {
                 self.tempToken = try decoder.decode(TempToken.self, from: data)
+                // set new temp token
+                UserDefaults.standard.set(self.tempToken?.token, forKey: "lastTempToken")
+                UserDefaults.standard.set(Date(), forKey: "lastDateTokenGrabbed")
                 print("self.tempToken now = \(String(describing: self.tempToken))")
             } catch {
                 print("Error decoding temp token object: \(error)")
@@ -466,4 +506,4 @@ class PlantController {
     }
 }
 
-let secretToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NzI0LCJvcmlnaW4iOiJodHRwczovL2RvY3MudHJlZmxlLmlvL2RvY3MvYWR2YW5jZWQvY2xpZW50LXNpZGUtYXBwcyIsImlwIjpudWxsLCJleHBpcmUiOiIyMDIwLTEyLTA0IDIxOjM2OjU5ICswMDAwIiwiZXhwIjoxNjA3MTE3ODE5fQ.KDgloR9TnjXH8qOQbAciKFSChD8b8MFL0HjdnX1TI8M"
+let secretToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NzI0LCJvcmlnaW4iOiJodHRwczovL2RvY3MudHJlZmxlLmlvL2RvY3MvYWR2YW5jZWQvY2xpZW50LXNpZGUtYXBwcyIsImlwIjpudWxsLCJleHBpcmUiOiIyMDIwLTEyLTA2IDIxOjU3OjQxICswMDAwIiwiZXhwIjoxNjA3MjkxODYxfQ.o5MNy7jZYXfufqoh17EBhEnDAr79hU6DZPm75xSQFQY"
