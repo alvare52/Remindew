@@ -44,6 +44,7 @@ import AVFoundation
 // TODO: BUG: changing day to next week at earlier time still triggers notification??? OLD?
 // TODO: BUG: updating time for plant that was already watered that day won't work right
 // TODO: BUG: ^ (related) textView won't show lastWatered date (stops working when watered 2nd time) (fixed maybe?)
+// TODO: local alert for watering status causes warning in debug console (tableview updating without being in view yet)
 
 class PlantsTableViewController: UITableViewController {
     
@@ -60,7 +61,7 @@ class PlantsTableViewController: UITableViewController {
     @IBAction func settingsBarButtonTapped(_ sender: UIBarButtonItem) {
         // Bring up settings tab??? disconnect this maybe?
         print("settingsBarButtonTapped")
-        plantController.newTempTokenIsNeeded()
+        plantController.printLastTokenAndDate()
     }
     
     // MARK: - Properties
@@ -112,7 +113,7 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+                        
         // Step 2 (step 3 is the thing in selector)
         NotificationCenter.default.addObserver(self,
         selector: #selector(checkIfPlantsNeedWatering),

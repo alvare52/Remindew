@@ -391,17 +391,7 @@ extension DetailViewController: UITextFieldDelegate {
         // Clicked "Search" in species textfield
         if textField == speciesTextField {
             print("Return inside speciesTextfield")
-            
-             //get temp token first
-//            plantController?.signToken(completion: { (error) in
-//                if let error = error {
-//                    print("Error in signToken in detail VC: \(error)")
-//                }
-//                DispatchQueue.main.async {
-//                    print("Success in signToken in detail VC")
-//                    print("tempToken now \(self.plantController?.tempToken)")
-//                }
-//            })
+
             guard let unwrappedTerm = speciesTextField.text, !unwrappedTerm.isEmpty else { return true }
             
             // dismiss keyboard
@@ -413,20 +403,55 @@ extension DetailViewController: UITextFieldDelegate {
             // start animating spinner
             spinner.startAnimating()
             
-            // Do search here
-            plantController?.searchPlantSpecies(term, completion: { (error) in
-                if let error = error {
-                    print("Error with searchPlantSpeciese in detail VC \(error)")
-                    self.spinner.stopAnimating()
-                }
+            // check if we need a new token first
+            if plantController?.newTempTokenIsNeeded() == true {
+                
+                print("new token needed, fetching one first")
+                plantController?.signToken(completion: { (error) in
+                    
+                    if let error = error {
+                        print("error getting new token in textFieldShouldReturn \(error)")
+                        // local alert?
+                    }
+                    
+                    DispatchQueue.main.async {
+                        
+                        // Do search here
+                        self.plantController?.searchPlantSpecies(term, completion: { (error) in
+                                if let error = error {
+                                    print("Error with searchPlantSpeciese in detail VC \(error)")
+                                    self.spinner.stopAnimating()
+                            }
 
-                DispatchQueue.main.async {
-                    print("Success with searchPlantSpecies in detail VC")
-                    // pop up table VC with results? (unhide table view?)
-                    self.resultsTableView.reloadData()
-                    self.spinner.stopAnimating()
-                }
-            })
+                            DispatchQueue.main.async {
+                                print("Success with searchPlantSpecies in detail VC")
+                                // pop up table VC with results? (unhide table view?)
+                                self.resultsTableView.reloadData()
+                                self.spinner.stopAnimating()
+                            }
+                        })
+                    }
+                })
+            }
+            
+            // No new token needed
+            else {
+                print("No token needed, searching")
+                // Do search here
+                plantController?.searchPlantSpecies(term, completion: { (error) in
+                    if let error = error {
+                        print("Error with searchPlantSpeciese in detail VC \(error)")
+                        self.spinner.stopAnimating()
+                    }
+
+                    DispatchQueue.main.async {
+                        print("Success with searchPlantSpecies in detail VC")
+                        // pop up table VC with results? (unhide table view?)
+                        self.resultsTableView.reloadData()
+                        self.spinner.stopAnimating()
+                    }
+                })
+            }
         }
         
         // Clicked "Return" in nickname textfield

@@ -269,7 +269,7 @@ class PlantController {
             let formatter = DateFormatter()
             formatter.timeStyle = .medium
             formatter.dateStyle = .medium
-            print("currDate = \(formatter.string(from: lastDate))")
+            print("currDate = \(formatter.string(from: Date()))")
             print("lastDate = \(formatter.string(from: lastDate))")
         } else {
             print("lastDate = nil")
@@ -383,8 +383,14 @@ class PlantController {
 
         print("searchPlantSpecies called")
         
+        guard let token = UserDefaults.standard.string(forKey: .lastTempToken) else {
+            print("userdefault lastTempToken string is nil in searchPlantSpecies")
+            completion(NSError())
+            return
+        }
+        
         // URL REQUEST
-        let requestUrl = URL(string: "\(baseUrl)\(secretToken)&q=\(searchTerm)")!
+        let requestUrl = URL(string: "\(baseUrl)\(token)&q=\(searchTerm)")!
         print("requestURL = \(requestUrl)")
         var request = URLRequest(url: requestUrl)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -429,7 +435,6 @@ class PlantController {
     func signToken(completion: @escaping (Error?) -> Void) {
         print("signToken called")
         
-        // TODO: first check if we even need to grab another temp token by checking user defaults date
         let baseUrl = "https://trefle.io/api/auth/claim?token="
         let websiteUrl = "https://docs.trefle.io/docs/advanced/client-side-apps"
         let signUrl = URL(string: "\(baseUrl)\(secretToken)&origin=\(websiteUrl)")!
@@ -506,4 +511,4 @@ class PlantController {
     }
 }
 
-let secretToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5NzI0LCJvcmlnaW4iOiJodHRwczovL2RvY3MudHJlZmxlLmlvL2RvY3MvYWR2YW5jZWQvY2xpZW50LXNpZGUtYXBwcyIsImlwIjpudWxsLCJleHBpcmUiOiIyMDIwLTEyLTA2IDIxOjU3OjQxICswMDAwIiwiZXhwIjoxNjA3MjkxODYxfQ.o5MNy7jZYXfufqoh17EBhEnDAr79hU6DZPm75xSQFQY"
+let secretToken = ""
