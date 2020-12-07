@@ -28,21 +28,20 @@ import AVFoundation
 // TODO: add plant mode uses text view as guide to what each field needs?
 // TODO: implement cache for faster image loading from documents directory??
 // TODO: fix activity indicator so table view lines don't show while it spins?
-// TODO: true concurrency for search table view? (NSOperation)
 // TODO: select search result cell gives plant new image and scientific name
-// TODO: grab temp token first (if its a new day?), then do network call
 // TODO: LIMIT SEARCHES TO 120 (100?) A MINUTE!!!
+// TODO: add small activity indicator to cell imageView?
 
 // UI/Polish
-// TODO: sounds, fonts, transparency, new colors?
+// TODO: sounds, fonts (Avenir Next Bold/Italic?), transparency, new colors, haptics?
 // TODO: mono fonts for days selected buttons??
 // TODO: app store preview screen shots (blue, blue green, green)
-// TODO: progress views animate also when error in not selecting a value for it
+// TODO: buttons gray out when not able to continue
 // TODO: remove white borders from images?
 // TODO: make custom main table view cells (rounded corners, no seperator)
 
 // Bugs/Crashes
-// TODO: BUG: changing day to next week at earlier time still triggers notification??? OLD?
+// TODO: BUG: changing day to next week at earlier time still triggers notification?
 // TODO: BUG: updating time for plant that was already watered that day won't trigger alarm (need to set lastWatered back to nil2)
 // TODO: BUG: local alert for watering status causes warning in debug console? (tableview updating without being in view yet)
 

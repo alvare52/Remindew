@@ -57,6 +57,7 @@ class DetailViewController: UIViewController {
         
         // 1. nickname has text AND not empty, else display alert for this
         guard let nickname = nicknameTextField.text, !nickname.isEmpty else {
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
             makeNicknameAlert()
             return
         }
@@ -64,6 +65,7 @@ class DetailViewController: UIViewController {
         // 2. species has text AND not empty, else display alert for this
         guard let species = speciesTextField.text, !species.isEmpty else {
             makeSpeciesAlert()
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
         }
         
@@ -73,6 +75,7 @@ class DetailViewController: UIViewController {
         // 3. daysAreSelected is true, else display alert for this
         if !daysAreSelected {
             makeDaysAlert()
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
         }
         
@@ -80,7 +83,8 @@ class DetailViewController: UIViewController {
         var imageToSave: UIImage?
         
         // If imageView.image is NOT the default one, save it. Else, don't save
-        if imageView.image.hashValue != UIImage.logoImage.hashValue {
+        // Check default image manually here because it won't work with .logoImage for some reason
+        if imageView.image.hashValue != UIImage(named: "plantslogoclear1024x1024").hashValue {
             print("Image in imageView is NOT default one")
             imageToSave = imageView.image!
         }
@@ -117,6 +121,9 @@ class DetailViewController: UIViewController {
             }
         }
         
+        // Vibrate
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        
         // Go back to main screen
         navigationController?.popViewController(animated: true)
     }
@@ -142,11 +149,19 @@ class DetailViewController: UIViewController {
         let message = "Please enter a personal nickname for your plant or select a random nickname"
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         // handler could select the textfield it needs or change textview text??
+        self.nicknameProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "Personal", style: .default) { _ in
             self.nicknameTextField.becomeFirstResponder()
+            UIView.animate(withDuration: 0.275) {
+                self.nicknameProgressView.setProgress(1.0, animated: true)
+            }
         }
         let randomAction = UIAlertAction(title: "Random", style: .default) { _ in
             self.chooseRandomNickname()
+            self.nicknameTextField.becomeFirstResponder()
+            UIView.animate(withDuration: 0.275) {
+                self.nicknameProgressView.setProgress(1.0, animated: true)
+            }
         }
         alertController.addAction(alertAction)
         alertController.addAction(randomAction)
@@ -159,8 +174,12 @@ class DetailViewController: UIViewController {
         let message = "Please enter a species for your plant.\nExample: \"Peace Lily\""
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         // handler could select the textfield it needs or change textview text??
+        self.speciesProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
             self.speciesTextField.becomeFirstResponder()
+            UIView.animate(withDuration: 0.275) {
+                self.speciesProgressView.setProgress(1.0, animated: true)
+            }
         }
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
@@ -172,8 +191,12 @@ class DetailViewController: UIViewController {
         let message = "Please select which days you would like to receive reminders"
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         // handler could select the textfield it needs or change textview text??
+        self.dayProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
             self.textView.text = "Select at least one of the days below"
+            UIView.animate(withDuration: 0.275) {
+                self.dayProgressView.setProgress(1.0, animated: true)
+            }
         }
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
@@ -265,6 +288,7 @@ class DetailViewController: UIViewController {
         updateViews()
     }
         
+    // doing this in viewDIDAppear is a little too slow, but viewWillAppear causes lag on iphone8 sim somehow
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
