@@ -28,7 +28,6 @@ import AVFoundation
 // TODO: add plant mode uses text view as guide to what each field needs?
 // TODO: implement cache for faster image loading from documents directory??
 // TODO: fix activity indicator so table view lines don't show while it spins?
-// TODO: select search result cell gives plant new image and scientific name
 // TODO: LIMIT SEARCHES TO 120 (100?) A MINUTE!!!
 // TODO: add small activity indicator to cell imageView?
 

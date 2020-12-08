@@ -86,7 +86,7 @@ class DetailViewController: UIViewController {
         // Check default image manually here because it won't work with .logoImage for some reason
         if imageView.image.hashValue != UIImage(named: "plantslogoclear1024x1024").hashValue {
             print("Image in imageView is NOT default one")
-            imageToSave = imageView.image!
+            imageToSave = imageView.image ?? .logoImage
         }
         
         // If there IS a plant, update (EDIT)
@@ -96,6 +96,7 @@ class DetailViewController: UIViewController {
                                    species: species.capitalized,
                                    water_schedule: datePicker.date,
                                    frequency: daySelectorOutlet.returnDaysSelected(),
+                                   scientificName: fetchedScientificName,
                                    plant: existingPlant)
             // save image
             let imageName = "userPlant\(existingPlant.identifier!)"
@@ -111,7 +112,8 @@ class DetailViewController: UIViewController {
             let plant = plantController?.createPlant(nickname: nickname.capitalized,
                                         species: species.capitalized,
                                         date: datePicker.date,
-                                        frequency: daySelectorOutlet.returnDaysSelected())
+                                        frequency: daySelectorOutlet.returnDaysSelected(),
+                                        scientificName: fetchedScientificName)
             // save image
             let imageName = "userPlant\(plant!.identifier!)"
             
@@ -137,6 +139,9 @@ class DetailViewController: UIViewController {
             updateViews()
         }
     }
+    
+    /// Holds scientificName grabbed from plant species search
+    var fetchedScientificName = ""
     
     /// Array of random plant nicknames for when a user doesn't want to create their own
     let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Bulba", "Thornhill", "Plant 43",
@@ -315,6 +320,33 @@ class DetailViewController: UIViewController {
         plantController?.plantSearchResults = []
     }
     
+    /// Updates textView to display tapped cells scientfic name
+    private func updateTextView() {
+        
+        // if in edit mode
+        if let plant = plant {
+            // Plant that HAS been watered before
+            if let lastWatered = plant.lastDateWatered {
+                let dateString = dateFormatter2.string(from: lastWatered)
+                // replace this with scientific name from API call later
+                textView.text = "Last Watered:\n\(dateString)"
+            }
+            // Plant that HAS NOT been watered before (brand new plant)
+            else {
+                // lastWatered is nil for some reason
+                textView.text = "Brand new plant"
+            }
+            textView.text += "\n\(fetchedScientificName)"
+        }
+        
+        // if in add mode
+        else {
+            textView.text = "Please select the preferred reminder days to water your plant"
+            textView.text += "\n\(fetchedScientificName)"
+        }
+
+    }
+    
     func updateViews() {
         
         guard isViewLoaded else {return}
@@ -335,7 +367,7 @@ class DetailViewController: UIViewController {
             speciesTextField.text = plant.species
             datePicker.date = plant.water_schedule!
             daySelectorOutlet.selectDays((plant.frequency)!)
-            
+            fetchedScientificName = plant.scientificName ?? ""
             waterPlantButton.isHidden = false
             
             // plant DOES need to be watered
@@ -346,37 +378,22 @@ class DetailViewController: UIViewController {
             }
             // plant does NOT need to be watered
             else {
-                
-//                // Plant that HAS been watered before
-//                if let lastWatered = plant.lastDateWatered {
-//                    let dateString = dateFormatter2.string(from: lastWatered)
-//
-//                    // replace this with scientific name from API call later
-//                    let scientificName = "Narcissus pseudonarcissus"
-//                    textView.text = "Last Watered:\n\(dateString)\n\(scientificName)"
-//                }
-//                // Plant that HAS NOT been watered before (brand new plant)
-//                else {
-//                    // lastWatered is nil for some reason
-//                    textView.text = "Brand new plant"
-//                }
                 waterPlantButton.isHidden = true
                 waterPlantButton.isEnabled = false
             }
             
-            // this all used to be right above line 339 with waterPlantButton.isHidden stuff
             // Plant that HAS been watered before
             if let lastWatered = plant.lastDateWatered {
                 let dateString = dateFormatter2.string(from: lastWatered)
                 // replace this with scientific name from API call later
-                let scientificName = "Narcissus pseudonarcissus"
-                textView.text = "Last Watered:\n\(dateString)\n\(scientificName)"
+                textView.text = "Last Watered:\n\(dateString)"
             }
             // Plant that HAS NOT been watered before (brand new plant)
             else {
                 // lastWatered is nil for some reason
                 textView.text = "Brand new plant"
             }
+            textView.text += "\n\(plant.scientificName ?? "")"
         }
          
         // ADD MODE
@@ -565,8 +582,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 
         let plantResultCell = tableView.cellForRow(at: indexPath) as? SearchResultTableViewCell
+        let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
         imageView.image = plantResultCell?.plantImageView.image
-        textView.text = "\(plantResultCell?.commonNameLabel.text ?? "")\n\(plantResultCell?.scientificNameLabel.text ?? "")"
-
+//        textView.text = "\(plantResultCell?.commonNameLabel.text ?? "")\n\(scientificName)"
+        fetchedScientificName = scientificName
+        updateTextView()
     }
 }

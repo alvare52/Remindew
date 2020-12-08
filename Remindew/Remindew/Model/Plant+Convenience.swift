@@ -18,6 +18,7 @@ extension Plant {
                                         frequency: [Int16],
                                         needsWatering: Bool = false,
                                         lastDateWatered: Date? = nil,
+                                        scientificName: String = "",
                                         identifier: UUID = UUID(),
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
@@ -27,6 +28,7 @@ extension Plant {
         self.frequency = frequency
         self.needsWatering = needsWatering
         self.lastDateWatered = lastDateWatered
+        self.scientificName = scientificName
         self.identifier = identifier
     }
 }

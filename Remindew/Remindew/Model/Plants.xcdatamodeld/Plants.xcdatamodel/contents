@@ -6,10 +6,11 @@
         <attribute name="lastDateWatered" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="needsWatering" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="nickname" attributeType="String"/>
+        <attribute name="scientificName" attributeType="String"/>
         <attribute name="species" attributeType="String"/>
         <attribute name="water_schedule" attributeType="Date" defaultDateTimeInterval="605272080" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Plant" positionX="36" positionY="171" width="128" height="148"/>
+        <element name="Plant" positionX="36" positionY="171" width="128" height="163"/>
     </elements>
 </model>

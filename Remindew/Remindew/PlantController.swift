@@ -47,9 +47,9 @@ class PlantController {
     // MARK: - Create, Read, Update, Delete, Save plants
     
     /// Create a plant and then save it
-    func createPlant(nickname: String, species: String, date: Date, frequency: [Int16]) -> Plant {
+    func createPlant(nickname: String, species: String, date: Date, frequency: [Int16], scientificName: String) -> Plant {
         print("createPlant")
-        let plant = Plant(nickname: nickname, species: species, water_schedule: date, frequency: frequency)
+        let plant = Plant(nickname: nickname, species: species, water_schedule: date, frequency: frequency, scientificName: scientificName)
         print("plant schedule: \(String(describing: plant.water_schedule))")
         print("plant frequency: \(String(describing: plant.frequency))")
 //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
@@ -63,12 +63,12 @@ class PlantController {
     }
     
     /// Update a plant that already exists
-    func update(nickname: String, species: String, water_schedule: Date, frequency: [Int16], plant: Plant) {
+    func update(nickname: String, species: String, water_schedule: Date, frequency: [Int16], scientificName: String, plant: Plant) {
         plant.nickname = nickname
         plant.species = species
         plant.water_schedule = water_schedule
         plant.frequency = frequency
-        
+        plant.scientificName = scientificName
         // remove pending notifications for this plant first
         print("removing")
         removeAllRequestsForPlant(plant: plant)
