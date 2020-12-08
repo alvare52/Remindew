@@ -563,12 +563,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alertController = UIAlertController(title: "Hint", message: "You have selected row \(indexPath.row).", preferredStyle: .alert)
-             
-        let alertAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-             
-        alertController.addAction(alertAction)
-             
-        present(alertController, animated: true, completion: nil)
+                
+        let plantResultCell = tableView.cellForRow(at: indexPath) as? SearchResultTableViewCell
+        imageView.image = plantResultCell?.plantImageView.image
+        textView.text = "\(plantResultCell?.commonNameLabel.text ?? "")\n\(plantResultCell?.scientificNameLabel.text ?? "")"
+
     }
 }
