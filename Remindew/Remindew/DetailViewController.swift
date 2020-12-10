@@ -217,7 +217,7 @@ class DetailViewController: UIViewController {
     /// Nav bar date: Sunday 11/29
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE MM/d"
+        formatter.dateFormat = "EE MM/d"
         return formatter
     }
     
