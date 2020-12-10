@@ -48,8 +48,7 @@ class PlantsTableViewCell: UITableViewCell {
     /// Sets up all custom views
     private func setUpSubviews() {
         
-        contentView.layer.cornerRadius = 10
-        contentView.backgroundColor = .lightBackgroundGray
+        contentView.backgroundColor = .customBackgroundColor
         
         let content = UIView()
         addSubview(content)
@@ -59,7 +58,7 @@ class PlantsTableViewCell: UITableViewCell {
         containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(20.0)).isActive = true
         containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(-20.0)).isActive = true
         containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-4.0)).isActive = true
-        containerView.backgroundColor = .white
+        containerView.backgroundColor = .customCellColor
         containerView.layer.cornerRadius = 10
         
         // Time Label
@@ -72,7 +71,7 @@ class PlantsTableViewCell: UITableViewCell {
         timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
         timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -standardMargin).isActive = true
         timeLabel.font = .boldSystemFont(ofSize: 25)
-        timeLabel.textColor = .secondaryLabel
+        timeLabel.textColor = .customTimeLabelColor
         timeLabel.textAlignment = .center
         timeLabel.numberOfLines = 1
         
@@ -85,9 +84,7 @@ class PlantsTableViewCell: UITableViewCell {
         nicknameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,
                                             constant: standardMargin).isActive = true
         nicknameLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
-//        nicknameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6).isActive = true
         nicknameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
-//        nicknameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
         nicknameLabel.textColor = .mixedBlueGreen
         nicknameLabel.font = .boldSystemFont(ofSize: 25)
         nicknameLabel.numberOfLines = 1
@@ -113,8 +110,8 @@ class PlantsTableViewCell: UITableViewCell {
         speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
         speciesLabel.trailingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor).isActive = true
         speciesLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
-        speciesLabel.font = .italicSystemFont(ofSize: 17)
-        speciesLabel.textColor = .secondaryLabel
+        speciesLabel.font = .systemFont(ofSize: 17.0)//.italicSystemFont(ofSize: 17)
+        speciesLabel.textColor = .customTimeLabelColor//.secondaryLabel
         speciesLabel.numberOfLines = 1
         
         // Days Label

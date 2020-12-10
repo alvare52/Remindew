@@ -106,8 +106,17 @@ extension UIColor {
     
     /// Light Background Gray. R: 36, G: 36, B: 40
     static let darkBackgroundGray = UIColor(red: 36.0 / 255.0, green: 36.0 / 255.0, blue: 40.0 / 255.0, alpha: 1.0)
+    
+    /// Black/Off-White used for main background color: Black (0,0,0) - Off-White  (242,242,247)
+    static let customBackgroundColor = UIColor.init(named: "customBackgroundColor")
+    
+    /// White/Dark-Gray used for plant table view cells: White (255,255,255) - Dark-Gray (28,28,30
+    static let customCellColor = UIColor.init(named: "customCellColor")
+    
+    /// White/MediumGray used for time label in main table view: MediumGray(134,134,137) - White (255,255,255)
+    static let customTimeLabelColor = UIColor.init(named: "customTimeLabelColor")
 }
-
+    
 // MARK: - UIImage
 
 extension UIImage {
