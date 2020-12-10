@@ -267,15 +267,11 @@ class DetailViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         nicknameTextField.borderStyle = .none
-        nicknameTextField.textColor = .darkGray
         nicknameTextField.delegate = self
-        nicknameTextField.textColor = .label
         
         speciesTextField.borderStyle = .none
         speciesTextField.delegate = self
-        speciesTextField.textColor = .darkGray
         speciesTextField.returnKeyType = .search
-        speciesTextField.textColor = .label
         
         // Dark -> Light?
         plantButton.applyGradient(colors: [UIColor.leafGreen.cgColor, UIColor.lightLeafGreen.cgColor])
