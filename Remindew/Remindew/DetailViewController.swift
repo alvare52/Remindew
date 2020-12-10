@@ -214,7 +214,7 @@ class DetailViewController: UIViewController {
         nicknameTextField.text = randomNicknames[randomInt]
     }
     
-    /// Nav bar date: Sunday 11/29
+    /// Nav bar date: Sun 11/29
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "EE MM/d"
@@ -232,9 +232,7 @@ class DetailViewController: UIViewController {
     
     /// Loading indicator displayed while searching for a plant
     let spinner = UIActivityIndicatorView(style: .large)
-    
-    var cache = [String: UIImage]()
-    
+        
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -548,6 +546,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         // scientific name
         resultCell.scientificNameLabel.text = plantResult?.scientificName ?? "No scientific name"
         
+        resultCell.spinner.startAnimating()
         // image
         // store returned UUID? for task for later
         let token = plantController?.loadImage(plantResult?.imageUrl) { result in
@@ -559,12 +558,17 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 // if we get an image, display in cell's image view on main queue
                 DispatchQueue.main.async {
                     resultCell.plantImageView?.image = image
+                    resultCell.spinner.stopAnimating()
                 }
             } catch {
                 // do something if there's an error
                 // set image to default picture?
                 print("Error in result of loadImage in cellForRowAt")
-                resultCell.plantImageView?.image = .logoImage
+                DispatchQueue.main.async {
+                    resultCell.plantImageView?.image = .logoImage
+                    resultCell.spinner.stopAnimating()
+                }
+//                resultCell.plantImageView?.image = .logoImage
             }
         }
         
@@ -572,6 +576,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         resultCell.onReuse = {
             // when cell is reused, try to cancel the task it started here
             if let token = token {
+                resultCell.spinner.stopAnimating()
                 self.plantController?.cancelLoad(token)
             }
         }
@@ -584,7 +589,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         let plantResultCell = tableView.cellForRow(at: indexPath) as? SearchResultTableViewCell
         let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
         imageView.image = plantResultCell?.plantImageView.image
-//        textView.text = "\(plantResultCell?.commonNameLabel.text ?? "")\n\(scientificName)"
         fetchedScientificName = scientificName
         updateTextView()
     }

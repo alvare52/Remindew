@@ -10,6 +10,9 @@ import UIKit
 
 class SearchResultTableViewCell: UITableViewCell {
 
+    /// Activity Indicator to show that image is loading
+    var spinner: UIActivityIndicatorView!
+    
     /// Displays image from plant's image url (or default image if there is none)
     var plantImageView: UIImageView!
     
@@ -41,30 +44,41 @@ class SearchResultTableViewCell: UITableViewCell {
     /// Sets up all custom views
     private func setUpSubviews() {
     
+        // Spinner
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        addSubview(activityIndicator)
+        self.spinner = activityIndicator
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(4.0)).isActive = true
+        spinner.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        spinner.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-4.0)).isActive = true
+        spinner.widthAnchor.constraint(equalTo: spinner.heightAnchor).isActive = true
+        spinner.color = .leafGreen
+        
         // Image View
         let imageView = UIImageView()
         addSubview(imageView)
         self.plantImageView = imageView
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        imageView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(4.0)).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-4.0)).isActive = true
-        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
+        plantImageView.translatesAutoresizingMaskIntoConstraints = false
+        plantImageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        plantImageView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(4.0)).isActive = true
+        plantImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-4.0)).isActive = true
+        plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
 
-        imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = 26.0 // half of its size (cellHeight - 8 padding) / 2
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleToFill
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.layer.borderWidth = 1.0
+        plantImageView.layer.masksToBounds = false
+        plantImageView.layer.cornerRadius = 26.0 // half of its size (cellHeight - 8 padding) / 2
+        plantImageView.clipsToBounds = true
+        plantImageView.contentMode = .scaleToFill
+        plantImageView.layer.borderColor = UIColor.white.cgColor
+        plantImageView.layer.borderWidth = 1.0
         
         // Title Label
         let label = UILabel()
         addSubview(label)
         self.commonNameLabel = label
         commonNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        commonNameLabel.topAnchor.constraint(equalTo: imageView.topAnchor, constant: CGFloat(7.0)).isActive = true
-        commonNameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor,
+        commonNameLabel.topAnchor.constraint(equalTo: plantImageView.topAnchor, constant: CGFloat(7.0)).isActive = true
+        commonNameLabel.leadingAnchor.constraint(equalTo: plantImageView.trailingAnchor,
                                             constant: standardMargin).isActive = true
         commonNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
         commonNameLabel.textColor = .label
@@ -76,7 +90,7 @@ class SearchResultTableViewCell: UITableViewCell {
         self.scientificNameLabel = author
         scientificNameLabel.translatesAutoresizingMaskIntoConstraints = false
         scientificNameLabel.topAnchor.constraint(equalTo: commonNameLabel.bottomAnchor).isActive = true
-        scientificNameLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor,
+        scientificNameLabel.leadingAnchor.constraint(equalTo: plantImageView.trailingAnchor,
                                              constant: standardMargin).isActive = true
         scientificNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
         scientificNameLabel.font = .italicSystemFont(ofSize: 14)

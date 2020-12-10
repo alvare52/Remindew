@@ -451,7 +451,7 @@ class PlantController {
         print("signToken called")
         
         let baseUrl = "https://trefle.io/api/auth/claim?token="
-        let websiteUrl = "https://docs.trefle.io/docs/advanced/client-side-apps"
+        let websiteUrl = "https://github.com/alvare52/Remindew"
         let signUrl = URL(string: "\(baseUrl)\(secretToken)&origin=\(websiteUrl)")!
         print("signUrl = \(signUrl)")
         
@@ -495,39 +495,8 @@ class PlantController {
         }.resume()
     }
     
-    /// Fetches image at url given or returns default image if no url
-    func fetchImage(with url: URL?, completion: @escaping (UIImage?) -> Void = { _ in }) {
-
-        /// If there are any errors fetching an image, this image is returned instead
-        let defaultImage = UIImage(named: "plantslogoclear1024x1024")
-
-        guard let url = url else {
-            print("cant make url from passed in string")
-            completion(defaultImage)
-            return
-        }
-
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            
-            if let error = error {
-                NSLog("Error fetching image: \(error)")
-                return
-            }
-            
-            guard let data = data else {
-                NSLog("No data returned from data task")
-                completion(defaultImage)
-                return
-            }
-            
-            let imageToReturn = UIImage(data: data)
-            completion(imageToReturn)
-        }.resume()
-    }
-    
-    ///
+    /// Fetches image from URL, returns default image if url is invalid, returns image in cache if image already fetched
     func loadImage(_ url: URL?, _ completion: @escaping (Result<UIImage, Error>) -> Void) -> UUID? {
-        
         
         /// If there are any errors fetching an image, this image is returned instead
         let defaultImage = UIImage.logoImage
