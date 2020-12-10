@@ -273,26 +273,37 @@ class PlantsTableViewController: UITableViewController {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 125
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath) as? PlantsTableViewCell else {
+            return UITableViewCell()
+        }
     
         let testCell = fetchedResultsController.object(at: indexPath)
         
         guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
         
-        cell.textLabel?.text = "\"\(nickname)\" - \(species)"
-        //cell.textLabel?.textColor = .systemGreen
-        //cell.textLabel?.textColor = UIColor(red: 62, green: 79, blue: 36, alpha: 1)
-        cell.accessoryType = .disclosureIndicator
+//        cell.textLabel?.text = "\"\(nickname)\" - \(species)"
+//        //cell.textLabel?.textColor = .systemGreen
+//        //cell.textLabel?.textColor = UIColor(red: 62, green: 79, blue: 36, alpha: 1)
+//        cell.accessoryType = .disclosureIndicator
         let temp = Date(timeIntervalSinceNow: 69)
-        
+
         let daysString = plantController.returnDaysString(plant: testCell)
-        cell.detailTextLabel?.text = "\(daysString) - \(dateFormatter.string(from: testCell.water_schedule ?? temp))"
+        
+        
+        cell.nicknameLabel.text = nickname
+        cell.timeLabel.text = "\(dateFormatter.string(from: testCell.water_schedule ?? temp))"
+        cell.speciesLabel.text = species
+        cell.daysLabel.text = "\(daysString)"
         
         if testCell.needsWatering {
-            cell.imageView?.image = UIImage(named: "planticonwater")
+            cell.plantImageView?.image = UIImage(named: "planticonwater")
         } else {
-            cell.imageView?.image = UIImage(named: "planticonleaf")
+            cell.plantImageView?.image = UIImage(named: "planticonleaf")
         }
         return cell
     }
