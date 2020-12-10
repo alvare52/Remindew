@@ -100,6 +100,12 @@ extension UIColor {
     
     /// Dark Blue Green. R: 39, G: 78, B: 72
     static let darkBlueGreen = UIColor(red: 39.0 / 255.0, green: 78.0 / 255.0, blue: 72.0 / 255.0, alpha: 1.0)
+    
+    /// Light Background Gray. R: 36, G: 36, B: 40
+    static let lightBackgroundGray = UIColor(red: 242.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0)
+    
+    /// Light Background Gray. R: 36, G: 36, B: 40
+    static let darkBackgroundGray = UIColor(red: 36.0 / 255.0, green: 36.0 / 255.0, blue: 40.0 / 255.0, alpha: 1.0)
 }
 
 // MARK: - UIImage

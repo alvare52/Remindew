@@ -37,12 +37,10 @@ import AVFoundation
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: buttons gray out when not able to continue
 // TODO: remove white borders from images?
-// TODO: make custom main table view cells (rounded corners, no seperator)
 
 // Bugs/Crashes
 // TODO: BUG: changing day to next week at earlier time still triggers notification?
 // TODO: BUG: updating time for plant that was already watered that day won't trigger alarm (need to set lastWatered back to nil2)
-// TODO: BUG: local alert for watering status causes warning in debug console? (tableview updating without being in view yet)
 
 class PlantsTableViewController: UITableViewController {
     
@@ -292,7 +290,6 @@ class PlantsTableViewController: UITableViewController {
         let temp = Date(timeIntervalSinceNow: 69)
 
         let daysString = plantController.returnDaysString(plant: testCell)
-        
         
         cell.nicknameLabel.text = nickname
         cell.timeLabel.text = "\(dateFormatter.string(from: testCell.water_schedule ?? temp))"
