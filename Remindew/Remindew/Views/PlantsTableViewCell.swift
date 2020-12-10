@@ -54,12 +54,12 @@ class PlantsTableViewCell: UITableViewCell {
         addSubview(content)
         self.containerView = content
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(4.0)).isActive = true
+        containerView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(8.0)).isActive = true
         containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(20.0)).isActive = true
         containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(-20.0)).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-4.0)).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-8.0)).isActive = true
         containerView.backgroundColor = .customCellColor
-        containerView.layer.cornerRadius = 10
+        containerView.layer.cornerRadius = 15
         
         // Time Label
         let time = UILabel()
@@ -110,8 +110,8 @@ class PlantsTableViewCell: UITableViewCell {
         speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
         speciesLabel.trailingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor).isActive = true
         speciesLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
-        speciesLabel.font = .systemFont(ofSize: 17.0)//.italicSystemFont(ofSize: 17)
-        speciesLabel.textColor = .customTimeLabelColor//.secondaryLabel
+        speciesLabel.font = .systemFont(ofSize: 17.0)
+        speciesLabel.textColor = .customTimeLabelColor
         speciesLabel.numberOfLines = 1
         
         // Days Label
