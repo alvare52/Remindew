@@ -26,7 +26,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="egV-2b-yvb" kind="show" identifier="DetailPlantSegue" id="Jqh-rC-9Yu"/>
+                                    <segue destination="egV-2b-yvb" kind="show" identifier="DetailPlantSegue" id="dyr-t4-fYB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -76,7 +76,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="xR9-qB-7SO"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Species" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ucM-Fj-27g">
@@ -85,7 +85,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="YrW-YW-YRi"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7d0-w9-DEb" customClass="DaySelectionView" customModule="Remindew" customModuleProvider="target">
@@ -276,7 +276,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Jqh-rC-9Yu"/>
+        <segue reference="dyr-t4-fYB"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
