@@ -250,9 +250,7 @@ class DetailViewController: UIViewController {
         resultsTableView.dataSource = self
         
         // makes imageView a circle
-        imageView.layer.borderWidth = 1.0
         imageView.layer.masksToBounds = false
-        imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill

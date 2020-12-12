@@ -71,6 +71,7 @@ class PlantsTableViewCell: UITableViewCell {
         timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
         timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -standardMargin).isActive = true
         timeLabel.font = .boldSystemFont(ofSize: 25)
+//        timeLabel.font = .monospacedDigitSystemFont(ofSize: 25, weight: .bold)
         timeLabel.textColor = .customTimeLabelColor
         timeLabel.textAlignment = .center
         timeLabel.numberOfLines = 1

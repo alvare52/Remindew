@@ -69,8 +69,6 @@ class SearchResultTableViewCell: UITableViewCell {
         plantImageView.layer.cornerRadius = 26.0 // half of its size (cellHeight - 8 padding) / 2
         plantImageView.clipsToBounds = true
         plantImageView.contentMode = .scaleToFill
-        plantImageView.layer.borderColor = UIColor.white.cgColor
-        plantImageView.layer.borderWidth = 1.0
         
         // Title Label
         let label = UILabel()

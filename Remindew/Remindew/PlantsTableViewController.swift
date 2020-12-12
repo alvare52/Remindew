@@ -37,6 +37,7 @@ import AVFoundation
 // TODO: buttons gray out when not able to continue
 // TODO: remove white borders from images?
 // TODO: custom colors for dark mode
+// TODO: change detail vc ui
 
 // Bugs/Crashes
 // TODO: BUG: changing day to next week at earlier time still triggers notification?
@@ -271,6 +272,7 @@ class PlantsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        print("view.frame.width = \(view.frame.width) - view.frame.height = \(view.frame.height)")
         return 125
     }
     
