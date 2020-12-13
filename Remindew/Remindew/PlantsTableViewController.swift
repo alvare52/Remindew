@@ -35,13 +35,11 @@ import AVFoundation
 // TODO: mono fonts for days selected buttons??
 // TODO: app store preview screen shots (blue, blue green, green)
 // TODO: buttons gray out when not able to continue
-// TODO: remove white borders from images?
-// TODO: custom colors for dark mode
 // TODO: change detail vc ui
 
 // Bugs/Crashes
-// TODO: BUG: changing day to next week at earlier time still triggers notification?
-// TODO: BUG: updating time for plant that was already watered that day won't trigger alarm (need to set lastWatered back to nil2)
+// TODO: BUG?: changing day to next week at earlier time still triggers notification?
+// TODO: BUG?: updating time for plant that was already watered that day won't trigger alarm (need to set lastWatered back to nil2)
 
 class PlantsTableViewController: UITableViewController {
     
@@ -202,6 +200,8 @@ class PlantsTableViewController: UITableViewController {
             if plant.needsWatering { count += 1 }
         }
         plantsThatNeedWaterCount = count
+        // update date label since it needs to be updated at least once a day to display correct date
+        dateLabel.title = dateFormatter2.string(from: Date())
     }
     
     /// Main timer that is used to check all plants being tracked
