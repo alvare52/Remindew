@@ -341,6 +341,9 @@ class DetailViewController: UIViewController {
     
     func updateViews() {
         
+        // update date label at least once a day so it displays correct date
+        dateLabel.title = dateFormatter.string(from: Date())
+        
         guard isViewLoaded else {return}
         
         // DETAIL/EDIT MODE
