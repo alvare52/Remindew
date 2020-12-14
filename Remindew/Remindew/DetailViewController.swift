@@ -251,7 +251,7 @@ class DetailViewController: UIViewController {
         
         // makes imageView a circle
         imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = imageView.frame.size.width / 2
+        imageView.layer.cornerRadius = 15//imageView.frame.size.width / 2
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         
