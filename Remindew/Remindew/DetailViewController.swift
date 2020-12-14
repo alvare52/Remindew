@@ -355,9 +355,8 @@ class DetailViewController: UIViewController {
             }
         
             plantButton.setTitle("Edit Plant", for: .normal)
-            let name = plant.nickname!
-            let xAWeek = "\(plant.frequency!.count)x a week"
-            title = "\(name) - \(xAWeek)"
+            let xAWeek = "\(plant.frequency!.count) times a week"
+            title = "\(xAWeek)"
             nicknameTextField.text = plant.nickname
             speciesTextField.text = plant.species
             datePicker.date = plant.water_schedule!
