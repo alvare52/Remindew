@@ -11,36 +11,6 @@ import CoreData
 import UserNotifications
 import AVFoundation
 
-// Cleanliness/Formatting
-// TODO: delete all unneeded comments
-// TODO: add better comments/Marks, add paramter descriptions
-// TODO: improve README (Gif, About, tech ribbons)
-// TODO: clean up image and watering logic. remove old debugging prints
-
-// Debuggin/Tests
-// TODO: add Unit/UI tests
-// TODO: add Protocols?
-// TODO: notifications fixes (not allowed, access description)
-// TODO: error handling for issues with network calls (or no connection at all)
-
-// New Features/Additions
-// TODO: add settings button/page (auto water plants, shout out to Trefle API)
-// TODO: add plant mode uses text view as guide to what each field needs?
-// TODO: implement cache for faster image loading from documents directory??
-// TODO: fix activity indicator so table view lines don't show while it spins?
-// TODO: LIMIT SEARCHES TO 120 (100?) A MINUTE!!! (1 search every half second, image fetching too)
-
-// UI/Polish
-// TODO: sounds, fonts (Avenir Next Bold/Italic?), transparency, new colors, haptics?
-// TODO: mono fonts for days selected buttons??
-// TODO: app store preview screen shots (blue, blue green, green)
-// TODO: buttons gray out when not able to continue
-// TODO: change detail vc ui
-
-// Bugs/Crashes
-// TODO: BUG?: changing day to next week at earlier time still triggers notification?
-// TODO: BUG?: updating time for plant that was already watered that day won't trigger alarm (need to set lastWatered back to nil2)
-
 class PlantsTableViewController: UITableViewController {
     
     // MARK: - Outlets

@@ -159,7 +159,7 @@
                                 </constraints>
                             </progressView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dKr-ZH-dC3">
-                                <rect key="frame" x="170" y="214" width="224" height="60"/>
+                                <rect key="frame" x="170" y="210" width="224" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="tdt-dN-kA5"/>
@@ -231,7 +231,7 @@
                             <constraint firstItem="z7U-iw-G1i" firstAttribute="leading" secondItem="7d0-w9-DEb" secondAttribute="leading" id="nb5-IE-be6"/>
                             <constraint firstItem="p9v-0H-cvy" firstAttribute="top" secondItem="ogy-M6-HfD" secondAttribute="bottom" constant="20" id="pW8-lE-ft1"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="yRG-nk-QcH" secondAttribute="trailing" constant="20" id="tPv-B7-dnD"/>
-                            <constraint firstItem="dKr-ZH-dC3" firstAttribute="top" secondItem="LOg-8A-bmW" secondAttribute="bottom" constant="8" id="uxu-Z2-agk"/>
+                            <constraint firstItem="dKr-ZH-dC3" firstAttribute="top" secondItem="LOg-8A-bmW" secondAttribute="bottom" constant="4" id="uxu-Z2-agk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw">

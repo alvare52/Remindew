@@ -145,7 +145,7 @@ class DetailViewController: UIViewController {
     
     /// Array of random plant nicknames for when a user doesn't want to create their own
     let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Bulba", "Thornhill", "Plant 43",
-                                    "Entty", "Lily"]
+                                    "Entty", "Lily", "Greenman", "Bud"]
     
     /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
     private func makeNicknameAlert() {
@@ -339,6 +339,7 @@ class DetailViewController: UIViewController {
 
     }
     
+    /// Update all views depending on if in Edit/Add mode
     func updateViews() {
         
         // update date label at least once a day so it displays correct date
