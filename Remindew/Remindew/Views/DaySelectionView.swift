@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class DaySelectionView: UIStackView {
 
@@ -40,6 +41,7 @@ class DaySelectionView: UIStackView {
         if button.tintColor == .secondaryLabel {
             button.tintColor = .waterBlue
             button.titleLabel?.font = selectedFont
+//            AudioServicesPlaySystemSound(SystemSoundID(1104))
         }
         // IS Selected, so unselect
         else {

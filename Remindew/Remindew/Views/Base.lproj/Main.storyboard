@@ -49,7 +49,7 @@
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kmi-s3-Tfa">
                             <connections>
-                                <segue destination="egV-2b-yvb" kind="show" identifier="AddPlantSegue" id="2xQ-mZ-YBa"/>
+                                <action selector="addPlantButtonTapped:" destination="h6g-pM-PCw" id="cHC-ZV-ga3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -58,11 +58,12 @@
                         <outlet property="addPlantIcon" destination="kmi-s3-Tfa" id="S3J-CK-81G"/>
                         <outlet property="dateLabel" destination="tHs-1W-LYp" id="0pP-DK-Zhd"/>
                         <outlet property="settingsBarButtonLabel" destination="9ch-Ko-LFh" id="wB1-lR-hqz"/>
+                        <segue destination="egV-2b-yvb" kind="show" identifier="AddPlantSegue" id="K1t-dj-wNi"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cf7-ir-5Mj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="840.57971014492762" y="75.669642857142847"/>
+            <point key="canvasLocation" x="875" y="76"/>
         </scene>
         <!--Plant-->
         <scene sceneID="ZYc-Ey-tPq">
@@ -293,7 +294,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dyr-t4-fYB"/>
+        <segue reference="K1t-dj-wNi"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>

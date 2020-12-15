@@ -29,6 +29,11 @@ class PlantsTableViewController: UITableViewController {
         plantController.printLastTokenAndDate()
     }
     
+    @IBAction func addPlantButtonTapped(_ sender: UIBarButtonItem) {
+        print("addPlantButtonTapped")
+        AudioServicesPlaySystemSound(SystemSoundID(1057))// 1057
+        performSegue(withIdentifier: "AddPlantSegue", sender: self)
+    }
     // MARK: - Properties
     
     /// Fetches Plant objects from storage

@@ -47,7 +47,7 @@ class DetailViewController: UIViewController {
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
-        AudioServicesPlaySystemSound(SystemSoundID(1105))
+        AudioServicesPlaySystemSound(SystemSoundID(1057))
         presentImagePickerController()
     }
         
@@ -123,9 +123,11 @@ class DetailViewController: UIViewController {
             }
         }
         
+//        AudioServicesPlaySystemSound(SystemSoundID(1107))
+        
         // Vibrate
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        
+
         // Go back to main screen
         navigationController?.popViewController(animated: true)
     }
