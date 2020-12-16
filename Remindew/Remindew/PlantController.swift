@@ -559,5 +559,3 @@ class PlantController {
         runningRequests.removeValue(forKey: uuid)
     }
 }
-
-let secretToken = ""

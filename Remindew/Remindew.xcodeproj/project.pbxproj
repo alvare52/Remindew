@@ -22,6 +22,7 @@
 		1BAA3FD925798BCA0076CE91 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */; };
 		1BAA3FDE257AA2FD0076CE91 /* APIStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */; };
 		1BAA3FE325808FFA0076CE91 /* PlantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */; };
+		1BAA3FEE25898B9A0076CE91 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FED25898B910076CE91 /* Key.swift */; };
 		1BED79C025672D3E004241F4 /* RemindewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79BF25672D3E004241F4 /* RemindewTests.swift */; };
 		1BED79CE25672D84004241F4 /* RemindewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79CD25672D84004241F4 /* RemindewUITests.swift */; };
 		1BED79D62568A3E9004241F4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BED79D52568A3E9004241F4 /* Extensions.swift */; };
@@ -63,6 +64,7 @@
 		1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructs.swift; sourceTree = "<group>"; };
 		1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTableViewCell.swift; sourceTree = "<group>"; };
+		1BAA3FED25898B910076CE91 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		1BED79BD25672D3E004241F4 /* RemindewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BED79BF25672D3E004241F4 /* RemindewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindewTests.swift; sourceTree = "<group>"; };
 		1BED79C125672D3E004241F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				1B09883723EA9451000033FA /* Plant+Convenience.swift */,
 				1B09883B23EA9475000033FA /* PlantRepresentation.swift */,
 				1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */,
+				1BAA3FED25898B910076CE91 /* Key.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				1B0987F423EA61DF000033FA /* SceneDelegate.swift in Sources */,
 				1BAA3FE325808FFA0076CE91 /* PlantsTableViewCell.swift in Sources */,
 				1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */,
+				1BAA3FEE25898B9A0076CE91 /* Key.swift in Sources */,
 				1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */,
 				1BED79D8256D8970004241F4 /* DaySelectionView.swift in Sources */,
 				1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */,
