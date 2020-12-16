@@ -56,7 +56,7 @@ extension UIButton {
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0)
         gradientLayer.frame = self.bounds
-        gradientLayer.cornerRadius = self.frame.height / 2 // used to be 7.0
+        gradientLayer.cornerRadius = 15//self.frame.height / 2 // used to be 7.0
         
         // Shadow
         gradientLayer.shadowColor = UIColor.darkGray.cgColor
