@@ -47,12 +47,52 @@ class DetailViewController: UIViewController {
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
-        AudioServicesPlaySystemSound(SystemSoundID(1057))
+//        AudioServicesPlaySystemSound(SystemSoundID(1057))
         presentImagePickerController()
     }
         
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
+        // first check if notifications are enabled (alerts, badges, and sounds)
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            
+            // only create/edit plants if notifications are enabled
+            if settings.alertSetting == .enabled  && settings.badgeSetting == .enabled && settings.soundSetting == .enabled {
+                print("Permission Granted (.alert, .badge, .sound)")
+                DispatchQueue.main.async {
+                    self.addOrEditPlant()
+                }
+            }
+            // if notifications are NOT enabled, let user know and take them to Settings app
+            else {
+                // local alert saying it needs permission
+                print("Notification permissions NOT granted")
+                DispatchQueue.main.async {
+                    self.makePermissionAlert()
+                }
+            }
+        }
+    }
+    
+    // MARK: - Properties
+    
+    var plantController: PlantController?
+    
+    var plant: Plant? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    /// Holds scientificName grabbed from plant species search
+    var fetchedScientificName = ""
+    
+    /// Array of random plant nicknames for when a user doesn't want to create their own
+    let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Bulba", "Thornhill", "Plant 43",
+                                    "Entty", "Lily", "Greenman", "Bud"]
+    
+    /// Creates or Edits a plant
+    private func addOrEditPlant() {
         // before EDIT or ADD, first check for:
         
         // 1. nickname has text AND not empty, else display alert for this
@@ -123,6 +163,7 @@ class DetailViewController: UIViewController {
             }
         }
         
+        // sound won't play for some reason
 //        AudioServicesPlaySystemSound(SystemSoundID(1107))
         
         // Vibrate
@@ -132,22 +173,26 @@ class DetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    // MARK: - Properties
+    /// Presents an alert for when a user did not allow notifications at launch and lets them go to Settings to change before they make/edit a plant
+    private func makePermissionAlert() {
     
-    var plantController: PlantController?
-    
-    var plant: Plant? {
-        didSet {
-            updateViews()
+        // add two options
+        let title = "Notifications Disabled"
+        let message = "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            print("selected OK option")
         }
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { _ in
+            // take user to Settings app
+            print("selected Settings option")
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        }
+        alertController.addAction(alertAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
     }
-    
-    /// Holds scientificName grabbed from plant species search
-    var fetchedScientificName = ""
-    
-    /// Array of random plant nicknames for when a user doesn't want to create their own
-    let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Bulba", "Thornhill", "Plant 43",
-                                    "Entty", "Lily", "Greenman", "Bud"]
     
     /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
     private func makeNicknameAlert() {
