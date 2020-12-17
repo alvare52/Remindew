@@ -47,7 +47,6 @@ class DetailViewController: UIViewController {
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
-//        AudioServicesPlaySystemSound(SystemSoundID(1057))
         presentImagePickerController()
     }
         
@@ -88,8 +87,9 @@ class DetailViewController: UIViewController {
     var fetchedScientificName = ""
     
     /// Array of random plant nicknames for when a user doesn't want to create their own
-    let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Bulba", "Thornhill", "Plant 43",
-                                    "Entty", "Lily", "Greenman", "Bud"]
+    let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
+                                    "Entty", "Lily", "Greenman", "Budd Dwyer",
+                                    "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
     
     /// Creates or Edits a plant
     private func addOrEditPlant() {
@@ -184,7 +184,8 @@ class DetailViewController: UIViewController {
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
             print("selected OK option")
         }
-        let settingsAction = UIAlertAction(title: "Settings", style: .default) { _ in
+        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
+        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
             // take user to Settings app
             print("selected Settings option")
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)

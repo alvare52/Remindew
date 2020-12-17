@@ -92,7 +92,6 @@ class PlantsTableViewController: UITableViewController {
         // capitalized so it does it in Spanish too
         dateLabel.title = dateFormatter2.string(from: Date()).capitalized
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
-//        startTimer()
                 
         // Add observer so we can know when the app comes back in the foreground
         observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
@@ -175,66 +174,12 @@ class PlantsTableViewController: UITableViewController {
             // count all plants that need watering for title display
             if plant.needsWatering { count += 1 }
         }
+        
+        // update counter
         plantsThatNeedWaterCount = count
+        
         // update date label since it needs to be updated at least once a day to display correct date
         dateLabel.title = dateFormatter2.string(from: Date()).capitalized
-    }
-    
-    /// Main timer that is used to check all plants being tracked
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: updateTimer(timer:))
-        RunLoop.current.add(timer!, forMode: .common)
-        timer?.tolerance = 0.1
-    }
-    
-    /// Will only run when app is not in the foreground
-    func sendNotification(plant: String) {
-        let note = UNMutableNotificationContent()
-        note.title = "Water your plant!"
-        note.body = "\(plant) needs to be watered!"
-        note.sound = UNNotificationSound.default
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
-        let request = UNNotificationRequest(identifier: "done", content: note, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-    }
-        
-    /// Updates all plants and displays alert
-    func updateTimer(timer: Timer) {
-        for plant in fetchedResultsController.fetchedObjects! {
-            // convert?
-            
-//            print("\(plant.frequency![0]) + \(plant.identifier!)")
-//            print("\(plant.frequency![0])\(plant.identifier!)")
-            
-            guard let schedule = plant.water_schedule else { return }
-                        
-            if schedule <= Date() {
-                print("water_schedule = \(dateFormatter.string(from: schedule))")
-                print("TIME MATCHES, \(plant.nickname ?? "Plant Name error")")
-                                
-//                plant.water_schedule = userController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
-//                                                                             days: plant.frequency!)
-                // then update plant to have its new schedule
-                let newDate = plantController.returnWateringSchedule(plantDate: plant.water_schedule ?? Date(),
-                                                                    days: plant.frequency!)
-                
-                print("newDate = \(dateFormatter.string(from: newDate))")
-                
-                sendNotification(plant: plant.nickname ?? "Your plants")
-                localAlert(plant: plant)
-                tableView.reloadData()
-            }
-        }
-    }
-    
-    /// Presents Alert View when reminder goes off while app is running
-    func localAlert(plant: Plant) {
-        guard let schedule = plant.water_schedule, let nickname = plant.nickname else {return}
-        
-        let nextDate: String = dateFormatter.string(from: schedule)
-        let alert = UIAlertController(title: "Water your plant!", message: "Start watering \(nickname)! \n Next watering date: \(nextDate)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -248,7 +193,6 @@ class PlantsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        print("view.frame.width = \(view.frame.width) - view.frame.height = \(view.frame.height)")
         return 125
     }
     
@@ -261,11 +205,7 @@ class PlantsTableViewController: UITableViewController {
         
         guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
         
-//        cell.textLabel?.text = "\"\(nickname)\" - \(species)"
-//        //cell.textLabel?.textColor = .systemGreen
-//        //cell.textLabel?.textColor = UIColor(red: 62, green: 79, blue: 36, alpha: 1)
-//        cell.accessoryType = .disclosureIndicator
-        let temp = Date(timeIntervalSinceNow: 69)
+        let temp = Date(timeIntervalSinceNow: 60)
 
         let daysString = plantController.returnDaysString(plant: testCell)
         

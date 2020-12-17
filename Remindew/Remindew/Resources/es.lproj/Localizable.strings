@@ -4,6 +4,7 @@
 
   Created by Jorge Alvarez on 12/16/20.
   Copyright © 2020 Jorge Alvarez. All rights reserved.
+  Accents: áéíó
 */
 
 // MARK: - A
@@ -47,6 +48,7 @@
 
 // MARK: - S
 "Sat" = "Sáb";
+"Settings" = "Configuración";
 "Sun" = "Dom";
 
 // MARK: - T
