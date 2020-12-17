@@ -38,10 +38,11 @@
 
 // MARK: - N
 "needs water." = "necesita aqua.";
+"Notifications Disabled" = "Notificaciones Desactivados";
 // MARK: - O
 
 // MARK: - P
-
+"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos.";
 // MARK: - Q
 
 // MARK: - R

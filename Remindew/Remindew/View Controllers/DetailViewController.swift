@@ -177,8 +177,8 @@ class DetailViewController: UIViewController {
     private func makePermissionAlert() {
     
         // add two options
-        let title = "Notifications Disabled"
-        let message = "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
+        let title = NSLocalizedString("Notifications Disabled", comment: "Title for notification permissions not allowed")//"Notifications Disabled"
+        let message = NSLocalizedString("Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges.", comment: "Error message for when notifications are not allowed")//"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         // handler could select the textfield it needs or change textview text??
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
