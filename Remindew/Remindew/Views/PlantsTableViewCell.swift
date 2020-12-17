@@ -121,7 +121,7 @@ class PlantsTableViewCell: UITableViewCell {
         daysLabel.translatesAutoresizingMaskIntoConstraints = false
         daysLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
         daysLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
-        daysLabel.trailingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor).isActive = true
+        daysLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
         daysLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
         daysLabel.font = .italicSystemFont(ofSize: 17)
         daysLabel.textColor = .systemGray2
