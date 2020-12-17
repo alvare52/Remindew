@@ -98,7 +98,7 @@ class DaySelectionView: UIStackView {
         for button in buttonArray {
             // if "selected"
             if button.tintColor == UIColor.waterBlue {
-                print("Selected: \(button.titleLabel?.text ?? "no title")")
+                print("Selected: \(button.titleLabel?.text ?? "-")")
                 result.append(Int16(button.tag))
             }
         }
