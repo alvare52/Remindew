@@ -177,7 +177,8 @@ class DetailViewController: UIViewController {
     private func makePermissionAlert() {
     
         // add two options
-        let title = NSLocalizedString("Notifications Disabled", comment: "Title for notification permissions not allowed")//"Notifications Disabled"
+        let title = NSLocalizedString("Notifications Disabled",
+                                      comment: "Title for notification permissions not allowed")//"Notifications Disabled"
         let message = NSLocalizedString("Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges.", comment: "Error message for when notifications are not allowed")//"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         // handler could select the textfield it needs or change textview text??
@@ -197,19 +198,21 @@ class DetailViewController: UIViewController {
     
     /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
     private func makeNicknameAlert() {
-        // add two options
-        let title = "Missing Nickname"
-        let message = "Please enter a personal nickname for your plant or select a random nickname"
+        
+        let title = NSLocalizedString("Missing Nickname",
+                                      comment: "Title for no nickname in textfield")
+        let message = NSLocalizedString("Please enter a custom nickname for your plant or select a random nickname",
+                                        comment: "Message for when nickname is missing in textfield")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // handler could select the textfield it needs or change textview text??
+        
         self.nicknameProgressView.progress = 0.0
-        let alertAction = UIAlertAction(title: "Personal", style: .default) { _ in
+        let alertAction = UIAlertAction(title: NSLocalizedString("Custom", comment: "User generated name"), style: .default) { _ in
             self.nicknameTextField.becomeFirstResponder()
             UIView.animate(withDuration: 0.275) {
                 self.nicknameProgressView.setProgress(1.0, animated: true)
             }
         }
-        let randomAction = UIAlertAction(title: "Random", style: .default) { _ in
+        let randomAction = UIAlertAction(title: NSLocalizedString("Random", comment: "Randomly generated name"), style: .default) { _ in
             self.chooseRandomNickname()
             self.nicknameTextField.becomeFirstResponder()
             UIView.animate(withDuration: 0.275) {
@@ -223,8 +226,10 @@ class DetailViewController: UIViewController {
     
     /// Presents an alert for missing text in species textfield. Clicks in species textfield when user clicks OK
     private func makeSpeciesAlert() {
-        let title = "Missing Species Name"
-        let message = "Please enter a species for your plant.\nExample: \"Peace Lily\""
+        let title = NSLocalizedString("Missing Species Name",
+                                      comment: "Title for when species name is missing in textfield")
+        let message = NSLocalizedString("Please enter a species for your plant.\nExample: \"Peace Lily\"",
+                                        comment: "Message for when species name is missing in textfield")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         // handler could select the textfield it needs or change textview text??
         self.speciesProgressView.progress = 0.0
@@ -240,13 +245,16 @@ class DetailViewController: UIViewController {
     
     /// Presents an alert for missing days and changes text view to give a hint
     private func makeDaysAlert() {
-        let title = "Missing Watering Days"
-        let message = "Please select which days you would like to receive reminders"
+        let title = NSLocalizedString("Missing Watering Days",
+                                      comment: "Title for when watering days are missing")
+        let message = NSLocalizedString("Please select which days you would like to receive reminders",
+                                        comment: "Message for when watering days are missing")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         // handler could select the textfield it needs or change textview text??
         self.dayProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            self.textView.text = "Select at least one of the days below"
+            self.textView.text = NSLocalizedString("Select at least one of the days below",
+                                                   comment: "Hint on how to set a least one reminder")
             UIView.animate(withDuration: 0.275) {
                 self.dayProgressView.setProgress(1.0, animated: true)
             }

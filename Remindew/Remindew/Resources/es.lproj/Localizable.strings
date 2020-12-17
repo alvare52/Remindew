@@ -12,7 +12,7 @@
 // MARK: - B
 
 // MARK: - C
-
+"Custom" = "Personal";
 // MARK: - D
 
 // MARK: - E
@@ -34,6 +34,9 @@
 // MARK: - L
 
 // MARK: - M
+"Missing Nickname" = "No Sobrenombre";
+"Missing Species Name" = "No Especie";
+"Missing Watering Days" = "No Días de Riego";
 "Mon" = "Lun";
 
 // MARK: - N
@@ -42,13 +45,18 @@
 // MARK: - O
 
 // MARK: - P
-"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos.";
+"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos";
+"Please enter a custom nickname for your plant or select a random nickname" = "Por favor escriba un sobrenombre para su planta o seleccione uno al azar";
+"Please enter a species for your plant.\nExample: \"Peace Lily\"" = "Por favor escriba la especie de su planta.\nEjemplo: \"Rosa\"";
+"Please select which days you would like to receive reminders" = "Por favor seleccione los días que le gustaría recibir el recordatorio";
 // MARK: - Q
 
 // MARK: - R
+"Random" = "Azar";
 
 // MARK: - S
 "Sat" = "Sáb";
+"Select at least one of the days below" = "Seleccione por los menos un día de los de abajo";
 "Settings" = "Configuración";
 "Sun" = "Dom";
 
