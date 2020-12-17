@@ -244,7 +244,7 @@ class PlantController {
         
         for day in plant.frequency! {
             // [1,2,3,7]
-            result.append("\(DaySelectionView.dayInitials[Int(day - 1)])")
+            result.append("\(String.dayInitials[Int(day - 1)])")
         }
         
         // if everyday basically

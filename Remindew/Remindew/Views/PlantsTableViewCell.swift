@@ -67,7 +67,7 @@ class PlantsTableViewCell: UITableViewCell {
         self.timeLabel = time
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: CGFloat(16.0)).isActive = true
-        timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.33).isActive = true
+        timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.37).isActive = true
         timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
         timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -standardMargin).isActive = true
         timeLabel.font = .boldSystemFont(ofSize: 25)

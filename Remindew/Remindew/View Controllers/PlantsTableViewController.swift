@@ -89,7 +89,8 @@ class PlantsTableViewController: UITableViewController {
         name: .checkWateringStatus,
         object: nil)
         
-        dateLabel.title = dateFormatter2.string(from: Date())
+        // capitalized so it does it in Spanish too
+        dateLabel.title = dateFormatter2.string(from: Date()).capitalized
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
 //        startTimer()
                 
@@ -176,7 +177,7 @@ class PlantsTableViewController: UITableViewController {
         }
         plantsThatNeedWaterCount = count
         // update date label since it needs to be updated at least once a day to display correct date
-        dateLabel.title = dateFormatter2.string(from: Date())
+        dateLabel.title = dateFormatter2.string(from: Date()).capitalized
     }
     
     /// Main timer that is used to check all plants being tracked

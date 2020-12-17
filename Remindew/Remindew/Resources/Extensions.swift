@@ -25,6 +25,17 @@ extension String {
     
     /// Get/Set value of last Date temporary token was set
     static let lastDateTokenGrabbed = "lastDateTokenGrabbed"
+    
+    static let sunday = NSLocalizedString("Sun", comment: "Sunday abbreviated")
+    static let monday = NSLocalizedString("Mon", comment: "Monday abbreviated")
+    static let tuesday = NSLocalizedString("Tue", comment: "Tuesday abbreviated")
+    static let wednesday = NSLocalizedString("Wed", comment: "Wednesday abbreviated")
+    static let thursday = NSLocalizedString("Thu", comment: "Thursday abbreviated")
+    static let friday = NSLocalizedString("Fri", comment: "Friday abbreviated")
+    static let saturday = NSLocalizedString("Sat", comment: "Saturday abbreviated")
+    
+    /// Array of NSLocalizedStrings just for label purposes
+    static let dayInitials = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
 }
 
 // MARK: - UIView

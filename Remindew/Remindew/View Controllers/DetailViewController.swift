@@ -302,7 +302,8 @@ class DetailViewController: UIViewController {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         
-        dateLabel.title = dateFormatter.string(from: Date())
+        dateLabel.title = dateFormatter.string(from: Date()).capitalized
+        // Lets button be disabled with a custom color
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
         
         // Hides Keyboard when tapping outside of it
@@ -390,7 +391,7 @@ class DetailViewController: UIViewController {
     func updateViews() {
         
         // update date label at least once a day so it displays correct date
-        dateLabel.title = dateFormatter.string(from: Date())
+        dateLabel.title = dateFormatter.string(from: Date()).capitalized
                 
         guard isViewLoaded else {return}
         

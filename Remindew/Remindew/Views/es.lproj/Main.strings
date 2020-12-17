@@ -1,0 +1,27 @@
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "9ch-Ko-LFh"; */
+"9ch-Ko-LFh.title" = "Item";
+
+/* Class = "UIBarButtonItem"; title = "Date"; ObjectID = "AGU-sd-0YG"; */
+"AGU-sd-0YG.title" = "Date";
+
+/* Class = "UINavigationItem"; title = "Remindew"; ObjectID = "EK6-Ws-JkZ"; */
+"EK6-Ws-JkZ.title" = "Remindew";
+
+/* Class = "UIButton"; normalTitle = "Add Plant"; ObjectID = "Jc8-md-hGl"; */
+"Jc8-md-hGl.normalTitle" = "Añadir Plant";
+
+/* Class = "UINavigationItem"; title = "Plant"; ObjectID = "LEP-xb-JEw"; */
+"LEP-xb-JEw.title" = "Planta";
+
+/* Class = "UIButton"; normalTitle = "Water Plant"; ObjectID = "PZL-BI-0Bw"; */
+"PZL-BI-0Bw.normalTitle" = "Regar Planta";
+
+/* Class = "UIBarButtonItem"; title = "Date"; ObjectID = "tHs-1W-LYp"; */
+"tHs-1W-LYp.title" = "Date";
+
+/* Class = "UITextField"; placeholder = "Species"; ObjectID = "ucM-Fj-27g"; */
+"ucM-Fj-27g.placeholder" = "Especie";
+
+/* Class = "UITextField"; placeholder = "Nickname"; ObjectID = "yRG-nk-QcH"; */
+"yRG-nk-QcH.placeholder" = "Apodo";

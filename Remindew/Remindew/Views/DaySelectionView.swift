@@ -13,8 +13,8 @@ class DaySelectionView: UIStackView {
 
     // MARK: - Properties
     /// Array of Strings just for label purposes
-    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    static let dayInitials = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+//    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    
     var buttonArray = [UIButton]()
     let selectedFont: UIFont = UIFont.boldSystemFont(ofSize: 20.0)
     let unselectedFont: UIFont = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -54,7 +54,7 @@ class DaySelectionView: UIStackView {
         
         distribution = .fillEqually
         self.spacing = 4
-        for integer in 0..<days.count {
+        for integer in 0..<String.dayInitials.count {
             let day = UIButton(type: .system)
             day.translatesAutoresizingMaskIntoConstraints = false
             addArrangedSubview(day)
@@ -65,7 +65,7 @@ class DaySelectionView: UIStackView {
 //                                y: 0,
 //                                width: 20.0,
 //                                height: 50.0)
-            day.setTitle("\(days[integer])", for: .normal)
+            day.setTitle("\(String.dayInitials[integer])", for: .normal)
             day.backgroundColor = .clear
             
             day.tintColor = .secondaryLabel
