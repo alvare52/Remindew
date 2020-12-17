@@ -5,10 +5,64 @@
   Created by Jorge Alvarez on 12/16/20.
   Copyright © 2020 Jorge Alvarez. All rights reserved.
 */
-"Sun" = "Dom";
-"Mon" = "Lun";
-"Tue" = "Mar";
-"Wed" = "Mié";
-"Thu" = "Jue";
+
+// MARK: - A
+
+// MARK: - B
+
+// MARK: - C
+
+// MARK: - D
+
+// MARK: - E
+"Every day" = "Cada día";
+
+// MARK: - F
 "Fri" = "Vie";
+
+// MARK: - G
+
+// MARK: - H
+
+// MARK: - I
+
+// MARK: - J
+
+// MARK: - K
+
+// MARK: - L
+
+// MARK: - M
+"Mon" = "Lun";
+
+// MARK: - N
+"needs water." = "necesita aqua.";
+// MARK: - O
+
+// MARK: - P
+
+// MARK: - Q
+
+// MARK: - R
+
+// MARK: - S
 "Sat" = "Sáb";
+"Sun" = "Dom";
+
+// MARK: - T
+"Thu" = "Jue";
+"Time to water your plant!" = "Es hora de regar su planta!";
+"Tue" = "Mar";
+
+// MARK: - U
+
+// MARK: - V
+
+// MARK: - W
+"Wed" = "Mié";
+
+// MARK: - X
+
+// MARK: - Y
+
+// MARK: - Z

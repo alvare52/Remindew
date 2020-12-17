@@ -249,7 +249,7 @@ class PlantController {
         
         // if everyday basically
         if result.count == 7 {
-            return "Every day"
+            return NSLocalizedString("Every day", comment: "Every day as in all 7 days are selected")//"Every day"
         }
         return result.joined(separator: " ")
     }
@@ -330,8 +330,9 @@ class PlantController {
             // content
             let content = UNMutableNotificationContent()
             content.sound = .default
-            content.title = "Time to water your plant!"
-            content.body = "\(plant.nickname!) needs water."
+            content.title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")//"Time to water your plant!"
+            let bodyString = "\(plant.nickname!) " + NSLocalizedString("needs water.", comment: "plant.nickname needs water.")
+            content.body = bodyString//"\(plant.nickname!) needs water."
             
             // badge
             content.badge = 1
@@ -502,7 +503,7 @@ class PlantController {
         let defaultImage = UIImage.logoImage
 
         guard let url = url else {
-            print("cant make url from passed in string")
+            print("can not make url from passed in string")
             completion(.success(defaultImage))
             return nil
         }
