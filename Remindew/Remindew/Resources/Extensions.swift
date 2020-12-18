@@ -118,6 +118,9 @@ extension UIColor {
     /// Light Background Gray. R: 36, G: 36, B: 40
     static let darkBackgroundGray = UIColor(red: 36.0 / 255.0, green: 36.0 / 255.0, blue: 40.0 / 255.0, alpha: 1.0)
     
+    /// Light Gray for disabled button:. R: 28, G: 28, B: 30
+    static let disabledGray = UIColor(red: 28.0 / 255.0, green: 28.0 / 255.0, blue: 30.0 / 255.0, alpha: 1.0)
+    
     /// Black/Off-White used for main background color: Black (0,0,0) - Off-White  (242,242,247)
     static let customBackgroundColor = UIColor.init(named: "customBackgroundColor")
     
@@ -126,6 +129,9 @@ extension UIColor {
     
     /// White/MediumGray used for time label in main table view: MediumGray(134,134,137) - White (255,255,255)
     static let customTimeLabelColor = UIColor.init(named: "customTimeLabelColor")
+    
+    /// MediumGray/Off-White used for disabled buttons detail view controller: DarkGray(28,28,30) - Off-White (242,242,247)
+    static let customDisabledGrayColor = UIColor.init(named: "customDisabledGrayColor")
 }
     
 // MARK: - UIImage

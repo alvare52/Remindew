@@ -88,7 +88,7 @@ class DetailViewController: UIViewController {
     
     /// Array of random plant nicknames for when a user doesn't want to create their own
     let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
-                                    "Entty", "Lily", "Greenman", "Budd Dwyer",
+                                    "Entty", "Lily", "Greenman", "Bud Dwyer",
                                     "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
     
     /// Creates or Edits a plant
@@ -205,6 +205,8 @@ class DetailViewController: UIViewController {
                                         comment: "Message for when nickname is missing in textfield")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
+        alertController.view.tintColor = .lightLeafGreen
+        
         self.nicknameProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: NSLocalizedString("Custom", comment: "User generated name"), style: .default) { _ in
             self.nicknameTextField.becomeFirstResponder()
@@ -219,6 +221,7 @@ class DetailViewController: UIViewController {
                 self.nicknameProgressView.setProgress(1.0, animated: true)
             }
         }
+        
         alertController.addAction(alertAction)
         alertController.addAction(randomAction)
         self.present(alertController, animated: true, completion: nil)
@@ -230,7 +233,10 @@ class DetailViewController: UIViewController {
                                       comment: "Title for when species name is missing in textfield")
         let message = NSLocalizedString("Please enter a species for your plant.\nExample: \"Peace Lily\"",
                                         comment: "Message for when species name is missing in textfield")
+
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.view.tintColor = .lightLeafGreen
+
         // handler could select the textfield it needs or change textview text??
         self.speciesProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
@@ -250,6 +256,7 @@ class DetailViewController: UIViewController {
         let message = NSLocalizedString("Please select which days you would like to receive reminders",
                                         comment: "Message for when watering days are missing")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.view.tintColor = .lightWaterBlue
         // handler could select the textfield it needs or change textview text??
         self.dayProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
@@ -329,8 +336,16 @@ class DetailViewController: UIViewController {
         speciesTextField.returnKeyType = .search
         
         // Dark -> Light?
-        plantButton.applyGradient(colors: [UIColor.leafGreen.cgColor, UIColor.lightLeafGreen.cgColor])
-        waterPlantButton.applyGradient(colors: [UIColor.waterBlue.cgColor, UIColor.lightWaterBlue.cgColor])
+        plantButton.backgroundColor = .lightLeafGreen//UIColor.customDisabledGrayColor
+        //plantButton.tintColor = .lightGray
+        
+        plantButton.layer.cornerRadius = 15.0
+        waterPlantButton.backgroundColor = .lightWaterBlue
+        waterPlantButton.layer.cornerRadius = 15.0
+        
+        nicknameProgressView.progressTintColor = .lightLeafGreen
+        speciesProgressView.progressTintColor = .lightLeafGreen
+        dayProgressView.progressTintColor = .lightWaterBlue
         
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
@@ -403,7 +418,7 @@ class DetailViewController: UIViewController {
         dateLabel.title = dateFormatter.string(from: Date()).capitalized
                 
         guard isViewLoaded else {return}
-        
+                
         // DETAIL/EDIT MODE
         if let plant = plant {
             
