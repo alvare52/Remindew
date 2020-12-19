@@ -426,8 +426,14 @@ class DetailViewController: UIViewController {
             }
         
             plantButton.setTitle(NSLocalizedString("Save Changes", comment: "Save changes made to plant"), for: .normal)
-            let xAWeek = "\(plant.frequency!.count) times a week"
-            title = "\(xAWeek)"
+            
+            // Title says how many times a week plant needs water
+            if plant.frequency!.count == 7 {
+                title = NSLocalizedString("Every day", comment: "7 times a week")
+            } else {
+                title = "\(plant.frequency!.count)" + NSLocalizedString(" times a week", comment: "Water (X) times a week")
+            }
+            
             nicknameTextField.text = plant.nickname
             speciesTextField.text = plant.species
             datePicker.date = plant.water_schedule!
