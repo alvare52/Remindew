@@ -47,7 +47,11 @@ class DetailViewController: UIViewController {
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
-        presentImagePickerController()
+        
+        // dismiss keyboards so they don't stay up when library is loading
+        nicknameTextField.resignFirstResponder()
+        speciesTextField.resignFirstResponder()
+        presentPhotoActionSheet()
     }
         
     @IBAction func plantButtonTapped(_ sender: UIButton) {
@@ -90,6 +94,43 @@ class DetailViewController: UIViewController {
     let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
                                     "Entty", "Lily", "Greenman", "Bud Dwyer",
                                     "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
+    
+    /// Presents and action sheet with options to use camera to take photo or just choose from library
+    @objc func presentPhotoActionSheet() {
+        print("presentPhotoActionSheet")
+        AudioServicesPlaySystemSound(SystemSoundID(1105))
+        
+        let act = UIAlertController(title: NSLocalizedString("Add Plant Image", comment: "Image Action Sheet Title"),
+                                    message: nil,
+                                    preferredStyle: .actionSheet)
+        
+        // Take Photo
+        let takePhotoAction = UIAlertAction(title: "Take a Photo",
+                                            style: .default,
+                                            handler: takePhoto)
+        takePhotoAction.setValue(UIColor.lightLeafGreen, forKey: "titleTextColor")
+        act.addAction(takePhotoAction)
+        
+        // Choose Photo
+        let choosePhotoAction = UIAlertAction(title: "Choose from Library",
+                                              style: .default,
+                                              handler: presentImagePickerController)
+        choosePhotoAction.setValue(UIColor.lightLeafGreen, forKey: "titleTextColor")
+        act.addAction(choosePhotoAction)
+        
+        // Cancel
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel)
+        cancelAction.setValue(UIColor.lightWaterBlue, forKey: "titleTextColor")
+        act.addAction(cancelAction)
+        
+        present(act, animated: true)
+    }
+    
+    /// Brings up camera (if permitted) to let user take a photo of their plant
+    private func takePhoto(action: UIAlertAction) {
+        print("take photo")
+    }
     
     /// Creates or Edits a plant
     private func addOrEditPlant() {
@@ -358,7 +399,7 @@ class DetailViewController: UIViewController {
     // doing this in viewDIDAppear is a little too slow, but viewWillAppear causes lag on iphone8 sim somehow
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print("View will Appeara")
         // if the view appears and there's no text, auto "click" into first textfield
         if nicknameTextField.text == "" {
             nicknameTextField.becomeFirstResponder()
@@ -483,7 +524,7 @@ class DetailViewController: UIViewController {
         waterPlantButton.performFlare()
     }
     
-    private func presentImagePickerController() {
+    private func presentImagePickerController(action: UIAlertAction) {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
             print("Error: the photo library is unavailable")
             return
@@ -507,7 +548,7 @@ extension DetailViewController: UITextFieldDelegate {
         }
         
         else if textField == speciesTextField {
-            textView.text = "Please enter the plant species (ex: \"Peace Lily\") and then click \"search\""
+            textView.text = "Species example: \"Peace Lily\"\nClick \"search\" to search"
         }
     }
 
