@@ -127,11 +127,6 @@ class DetailViewController: UIViewController {
         present(act, animated: true)
     }
     
-    /// Brings up camera (if permitted) to let user take a photo of their plant
-    private func takePhoto(action: UIAlertAction) {
-        print("take photo")
-    }
-    
     /// Creates or Edits a plant
     private func addOrEditPlant() {
         // before EDIT or ADD, first check for:
@@ -524,6 +519,7 @@ class DetailViewController: UIViewController {
         waterPlantButton.performFlare()
     }
     
+    /// Lets user choose an image from their photo library (no permission required)
     private func presentImagePickerController(action: UIAlertAction) {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
             print("Error: the photo library is unavailable")
@@ -532,8 +528,27 @@ class DetailViewController: UIViewController {
         
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
         imagePicker.delegate = self
         present(imagePicker, animated: true)
+    }
+    
+    /// Brings up camera (if permitted) to let user take a photo of their plant
+    private func takePhoto(action: UIAlertAction) {
+        print("take photo")
+        
+        // check if we have access to Camera (if not, present an alert with option to go to Settings)
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            print("Error: camera is unavailable")
+            return
+        }
+        
+        let viewController = UIImagePickerController()
+        
+        viewController.sourceType = .camera
+        viewController.allowsEditing = true
+        viewController.delegate = self
+        present(viewController, animated: true)
     }
 }
 
@@ -637,7 +652,8 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print("Picked Image")
         
-        if let image = info[.originalImage] as? UIImage {
+        // .editedImage instead? (used to say .originalImage)
+        if let image = info[.editedImage] as? UIImage {
             imageView.image = image
         }
         picker.dismiss(animated: true)
@@ -647,7 +663,6 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
         print("Cancel")
         picker.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
