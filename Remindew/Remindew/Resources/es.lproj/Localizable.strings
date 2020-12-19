@@ -14,7 +14,9 @@
 // MARK: - B
 
 // MARK: - C
+"Choose from Library" = "Escoje de Photos";
 "Custom" = "Personal";
+"Cancel" = "Cancelar";
 // MARK: - D
 
 // MARK: - E
@@ -64,6 +66,7 @@
 "Sun" = "Dom";
 
 // MARK: - T
+"Take a Photo" = "Toma una foto";
 "Thu" = "Jue";
 "Time to water your plant!" = "Es hora de regar su planta!";
 " times a week" = " veces a la semana";

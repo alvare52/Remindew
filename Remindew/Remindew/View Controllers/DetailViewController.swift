@@ -105,21 +105,21 @@ class DetailViewController: UIViewController {
                                     preferredStyle: .actionSheet)
         
         // Take Photo
-        let takePhotoAction = UIAlertAction(title: "Take a Photo",
+        let takePhotoAction = UIAlertAction(title: NSLocalizedString("Take a Photo", comment: "Use Camera to take photo"),
                                             style: .default,
                                             handler: takePhoto)
         takePhotoAction.setValue(UIColor.lightLeafGreen, forKey: "titleTextColor")
         act.addAction(takePhotoAction)
         
         // Choose Photo
-        let choosePhotoAction = UIAlertAction(title: "Choose from Library",
+        let choosePhotoAction = UIAlertAction(title: NSLocalizedString("Choose from Library", comment: "Choose image from photos"),
                                               style: .default,
                                               handler: presentImagePickerController)
         choosePhotoAction.setValue(UIColor.lightLeafGreen, forKey: "titleTextColor")
         act.addAction(choosePhotoAction)
         
         // Cancel
-        let cancelAction = UIAlertAction(title: "Cancel",
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
                                          style: .cancel)
         cancelAction.setValue(UIColor.lightWaterBlue, forKey: "titleTextColor")
         act.addAction(cancelAction)
