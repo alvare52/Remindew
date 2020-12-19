@@ -314,7 +314,7 @@ class DetailViewController: UIViewController {
         
         // makes imageView a circle
         imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = 15//imageView.frame.size.width / 2
+        imageView.layer.cornerRadius = 15
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         
@@ -324,6 +324,7 @@ class DetailViewController: UIViewController {
         
         // Hides Keyboard when tapping outside of it
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        
         // so you can still click on the table view
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
@@ -349,10 +350,7 @@ class DetailViewController: UIViewController {
         
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
-        // NEW
-//        datePicker.minimumDate = Date()
-        // NEW
-        // Should maximumDate be untle the end of the current day?
+
         datePicker.datePickerMode = .time
         updateViews()
     }
@@ -398,7 +396,7 @@ class DetailViewController: UIViewController {
             // Plant that HAS NOT been watered before (brand new plant)
             else {
                 // lastWatered is nil for some reason
-                textView.text = "Brand new plant"
+                textView.text = "Tap any field to edit"
             }
             textView.text += "\n\(fetchedScientificName)"
         }
@@ -427,7 +425,7 @@ class DetailViewController: UIViewController {
                 imageView.image = image
             }
         
-            plantButton.setTitle("Edit Plant", for: .normal)
+            plantButton.setTitle(NSLocalizedString("Save Changes", comment: "Save changes made to plant"), for: .normal)
             let xAWeek = "\(plant.frequency!.count) times a week"
             title = "\(xAWeek)"
             nicknameTextField.text = plant.nickname
@@ -458,7 +456,7 @@ class DetailViewController: UIViewController {
             // Plant that HAS NOT been watered before (brand new plant)
             else {
                 // lastWatered is nil for some reason
-                textView.text = "Brand new plant"
+                textView.text = "Tap any field to edit"
             }
             textView.text += "\n\(plant.scientificName ?? "")"
         }
@@ -493,6 +491,19 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        // only do the following when in "add mode"
+        if let _ = plant { return }
+        if textField == nicknameTextField {
+            textView.text = "Please enter a nickname for your plant"
+        }
+        
+        else if textField == speciesTextField {
+            textView.text = "Please enter the plant species (ex: \"Peace Lily\") and then click \"search\""
+        }
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         

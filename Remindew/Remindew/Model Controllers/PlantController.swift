@@ -406,7 +406,12 @@ class PlantController {
         }
         
         // URL REQUEST
-        let requestUrl = URL(string: "\(baseUrl)\(token)&q=\(searchTerm)")!
+        guard let requestUrl = URL(string: "\(baseUrl)\(token)&q=\(searchTerm)") else {
+            print("invalid url")
+            completion(nil)
+            return
+        }
+        
         print("requestURL = \(requestUrl)")
         var request = URLRequest(url: requestUrl)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

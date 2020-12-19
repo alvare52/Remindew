@@ -108,7 +108,8 @@ class PlantsTableViewCell: UITableViewCell {
         speciesLabel.translatesAutoresizingMaskIntoConstraints = false
         speciesLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor).isActive = true
         speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
-        speciesLabel.trailingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor).isActive = true
+//        speciesLabel.trailingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor).isActive = true
+        speciesLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
         speciesLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
         speciesLabel.font = .systemFont(ofSize: 17.0)
         speciesLabel.textColor = .customTimeLabelColor
