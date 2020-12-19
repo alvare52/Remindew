@@ -69,7 +69,7 @@ class PlantsTableViewCell: UITableViewCell {
         timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: CGFloat(16.0)).isActive = true
         timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.37).isActive = true
         timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
-        timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -standardMargin).isActive = true
+        timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: CGFloat(-8.0)).isActive = true
         timeLabel.font = .boldSystemFont(ofSize: 25)
         timeLabel.textColor = .customTimeLabelColor
         timeLabel.textAlignment = .center
@@ -108,7 +108,6 @@ class PlantsTableViewCell: UITableViewCell {
         speciesLabel.translatesAutoresizingMaskIntoConstraints = false
         speciesLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor).isActive = true
         speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
-//        speciesLabel.trailingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor).isActive = true
         speciesLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
         speciesLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
         speciesLabel.font = .systemFont(ofSize: 17.0)

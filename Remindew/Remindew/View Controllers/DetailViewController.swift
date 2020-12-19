@@ -463,8 +463,8 @@ class DetailViewController: UIViewController {
          
         // ADD MODE
         else {
-            plantButton.setTitle("Add Plant", for: .normal)
-            title = "Add New Plant"
+            plantButton.setTitle(NSLocalizedString("Add Plant", comment: "Add a plant to your collection"), for: .normal)
+            title = NSLocalizedString("Add New Plant", comment: "Title for Add Plant screen")
             nicknameTextField.text = ""
             speciesTextField.text = ""
             datePicker.date = Date()
