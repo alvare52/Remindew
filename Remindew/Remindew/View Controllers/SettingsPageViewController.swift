@@ -43,7 +43,7 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
         case 1:
             return "SEARCHING"
         case 2:
-            return "TREFLE API LINK"
+            return "SEARCHES POWERED BY TREFLE"
         default:
             return ""
         }
@@ -74,14 +74,35 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // Cast as a custom tableview cell (after I make one)
-        guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
+//        if indexPath.section == 2 {
+//            print("try to make a regular cell")
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath)
+//            cell.textLabel?.text = "Go to Trefle API Home Page"
+//            cell.accessoryType = .disclosureIndicator
+//            return cell
+//        }
         
-        settingCell.backgroundColor = .red
-        settingCell.commonNameLabel.text = "Setting"
-        if indexPath.row == 2 {
-            settingCell.textLabel?.text = "https://trefle.io/"
+        // Cast as a custom tableview cell (after I make one)
+        guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
+        
+        settingCell.settingLabel.text = "Setting"
+        if indexPath.section == 2 {
+
+            settingCell.settingLabel.text = "Trefle API Home Page"
+            settingCell.optionSwitch.isHidden = true
+            settingCell.optionSwitch.isEnabled = false
         }
+
         return settingCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+                
+        let selectedCell = tableView.cellForRow(at: indexPath) as? SettingsTableViewCell
+        print("Selected Cell = \(selectedCell?.settingLabel.text ?? "title")")
+        if indexPath.section == 2 {
+            guard let url = URL(string: "https://trefle.io/") else { return }
+            UIApplication.shared.open(url)
+        }
     }
 }
