@@ -16,6 +16,9 @@ class SettingsTableViewCell: UITableViewCell {
     /// Displays setting's name
     var settingLabel: UILabel!
     
+    /// Switch won't hide or change alpha
+    var blockingView: UIView!
+    
     /// 8 pt padding
     var standardMargin: CGFloat = CGFloat(20.0)
             
@@ -47,6 +50,18 @@ class SettingsTableViewCell: UITableViewCell {
         optionSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
         optionSwitch.centerYAnchor.constraint(equalTo: settingLabel.centerYAnchor).isActive = true
         optionSwitch.onTintColor = .lightLeafGreen
+        
+        // Blocking View
+        let blocking = UIView()
+        addSubview(blocking)
+        self.blockingView = blocking
+        blockingView.translatesAutoresizingMaskIntoConstraints = false
+        blockingView.topAnchor.constraint(equalTo: optionSwitch.topAnchor).isActive = true
+        blockingView.leadingAnchor.constraint(equalTo: optionSwitch.leadingAnchor).isActive = true
+        blockingView.trailingAnchor.constraint(equalTo: optionSwitch.trailingAnchor, constant: CGFloat(2.0)).isActive = true
+        blockingView.bottomAnchor.constraint(equalTo: optionSwitch.bottomAnchor).isActive = true
+        blockingView.backgroundColor = UIColor.customCellColor
+        blockingView.isHidden = true
 
     }
     

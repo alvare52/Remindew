@@ -52,9 +52,11 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Total plants: 5"
+            return "Sort by nickname or species"
+        case 1:
+            return "Clicking on a search result will replace species with common name of selected result"
         case 2:
-            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource. By using Trefle you accept and agree to abide by the its terms and conditions."
+            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource. By using Trefle you accept and agree to abide by its terms and conditions."
         default:
             return ""
         }
@@ -74,23 +76,22 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        if indexPath.section == 2 {
-//            print("try to make a regular cell")
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath)
-//            cell.textLabel?.text = "Go to Trefle API Home Page"
-//            cell.accessoryType = .disclosureIndicator
-//            return cell
-//        }
-        
         // Cast as a custom tableview cell (after I make one)
         guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
         
-        settingCell.settingLabel.text = "Setting"
+        if indexPath.section == 0 {
+            settingCell.settingLabel.text = "Sort by nickname"
+        }
+        
+        if indexPath.section == 1 {
+            settingCell.settingLabel.text = "Replace species with search result"
+        }
+        
         if indexPath.section == 2 {
 
             settingCell.settingLabel.text = "Trefle API Home Page"
-            settingCell.optionSwitch.isHidden = true
-            settingCell.optionSwitch.isEnabled = false
+            settingCell.settingLabel.textColor = .link
+            settingCell.blockingView.isHidden = false
         }
 
         return settingCell
