@@ -442,12 +442,6 @@ class DetailViewController: UIViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        // reset array
-//        plantController?.plantSearchResults = []
-    }
-    
     /// Updates textView to display tapped cells scientfic name
     private func updateTextView() {
         
@@ -594,6 +588,15 @@ class DetailViewController: UIViewController {
         present(viewController, animated: true)
     }
     
+    /// Makes custom alerts with given title and message for network errors
+    private func makeAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.view.tintColor = .lightWaterBlue
+        let alertAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     /// Presents custom alerts for given network error
     func handleNetworkErrors(_ error: NetworkError) {
         switch error {
@@ -602,7 +605,8 @@ class DetailViewController: UIViewController {
         case .noToken:
             print("no token in searchPlants")
         case .invalidURL:
-            print("invalid url, search term is invalid")
+            makeAlert(title: NSLocalizedString("Invalid Species", comment: ".invalidURL"),
+                                         message: NSLocalizedString("Please enter a valid species name", comment: "invalid URL"))
         case .otherError:
             print("other error in searchPlants")
         case .noData:
@@ -626,7 +630,10 @@ class DetailViewController: UIViewController {
                     self.plantSearchResults = plantResults
                     self.spinner.stopAnimating()
                     if plantResults.count == 0 {
-                        print("no resutls")
+                        self.makeAlert(title: NSLocalizedString("No Results Found",
+                                                                comment: "no search resutls"),
+                                       message: NSLocalizedString("Please search for another species",
+                                                                  comment: "try another species"))
                     }
                     print("set array to plants we got back")
                 }

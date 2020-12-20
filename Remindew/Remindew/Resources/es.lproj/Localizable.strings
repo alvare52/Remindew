@@ -31,6 +31,7 @@
 // MARK: - H
 
 // MARK: - I
+"Invalid Species" = "Especie Inválida";
 
 // MARK: - J
 
@@ -46,6 +47,7 @@
 
 // MARK: - N
 "needs water." = "necesita aqua.";
+"No Results Found" = "No se Encontró Resultados";
 "Notifications Disabled" = "Notificaciones Desactivados";
 // MARK: - O
 
@@ -54,6 +56,8 @@
 "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos";
 "Please enter a custom nickname for your plant or select a random nickname" = "Por favor escriba un sobrenombre para su planta o seleccione uno al azar";
 "Please enter a species for your plant.\nExample: \"Peace Lily\"" = "Por favor escriba la especie de su planta.\nEjemplo: \"Rosa\"";
+"Please enter a valid species name" = "Por favor escriba una especie válida";
+"Please search for another species" = "Por favor trate de buscar otra especie";
 "Please select which days you would like to receive reminders" = "Por favor seleccione los días que le gustaría recibir el recordatorio";
 // MARK: - Q
 
