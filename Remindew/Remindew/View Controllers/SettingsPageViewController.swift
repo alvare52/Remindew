@@ -88,7 +88,7 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         if indexPath.section == 2 {
-
+            
             settingCell.settingLabel.text = "Trefle API Home Page"
             settingCell.settingLabel.textColor = .link
             settingCell.blockingView.isHidden = false

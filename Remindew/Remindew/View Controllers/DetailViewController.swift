@@ -87,6 +87,13 @@ class DetailViewController: UIViewController {
         }
     }
     
+    /// Holds the PlantSearchResult array we get in network call
+    var plantSearchResults: [PlantSearchResult] = [] {
+        didSet {
+            resultsTableView.reloadData()
+        }
+    }
+    
     /// Holds scientificName grabbed from plant species search
     var fetchedScientificName = ""
     
@@ -438,7 +445,7 @@ class DetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // reset array
-        plantController?.plantSearchResults = []
+//        plantController?.plantSearchResults = []
     }
     
     /// Updates textView to display tapped cells scientfic name
@@ -586,6 +593,51 @@ class DetailViewController: UIViewController {
         viewController.delegate = self
         present(viewController, animated: true)
     }
+    
+    /// Presents custom alerts for given network error
+    func handleNetworkErrors(_ error: NetworkError) {
+        switch error {
+        case .badAuth:
+            print("badAuth in signToken")
+        case .noToken:
+            print("no token in searchPlants")
+        case .invalidURL:
+            print("invalid url, search term is invalid")
+        case .otherError:
+            print("other error in searchPlants")
+        case .noData:
+            print("No data received or data corrupted")
+        case .noDecode:
+            print("JSON could not be decoded")
+        case .invalidToken:
+            print("personal token invalid when sending to get temp token url")
+        default:
+            print("default error in searchPlants")
+        }
+    }
+    
+    /// Performs a search for plants species (called inside textfield Return)
+    func performPlantSearch(_ term: String) {
+        self.plantController?.searchPlantSpecies(term, completion: { (result) in
+            
+            do {
+                let plantResults = try result.get()
+                DispatchQueue.main.async {
+                    self.plantSearchResults = plantResults
+                    self.spinner.stopAnimating()
+                    if plantResults.count == 0 {
+                        print("no resutls")
+                    }
+                    print("set array to plants we got back")
+                }
+            } catch {
+                self.spinner.stopAnimating()
+                if let error = error as? NetworkError {
+                    self.handleNetworkErrors(error)
+                }
+            }
+        })
+    }
 }
 
 extension DetailViewController: UITextFieldDelegate {
@@ -609,11 +661,11 @@ extension DetailViewController: UITextFieldDelegate {
         if textField == speciesTextField {
             print("Return inside speciesTextfield")
 
-            guard let unwrappedTerm = speciesTextField.text, !unwrappedTerm.isEmpty else { return true }
-            
             // dismiss keyboard
             textField.resignFirstResponder()
             
+            guard let unwrappedTerm = speciesTextField.text, !unwrappedTerm.isEmpty else { return true }
+                    
             // get rid of any spaces in search term
             let term = unwrappedTerm.replacingOccurrences(of: " ", with: "")
             
@@ -622,31 +674,18 @@ extension DetailViewController: UITextFieldDelegate {
             
             // check if we need a new token first
             if plantController?.newTempTokenIsNeeded() == true {
-                
                 print("new token needed, fetching one first")
-                plantController?.signToken(completion: { (error) in
-                    
-                    if let error = error {
-                        print("error getting new token in textFieldShouldReturn \(error)")
-                        // local alert?
-                    }
-                    
-                    DispatchQueue.main.async {
-                        
-                        // Do search here
-                        self.plantController?.searchPlantSpecies(term, completion: { (error) in
-                                if let error = error {
-                                    print("Error with searchPlantSpeciese in detail VC \(error)")
-                                    self.spinner.stopAnimating()
-                            }
-
-                            DispatchQueue.main.async {
-                                print("Success with searchPlantSpecies in detail VC")
-                                // pop up table VC with results? (unhide table view?)
-                                self.resultsTableView.reloadData()
-                                self.spinner.stopAnimating()
-                            }
-                        })
+                plantController?.signToken(completion: { (result) in
+                    do {
+                        let message = try result.get()
+                        DispatchQueue.main.async {
+                            print("success in signToken: \(message)")
+                            self.performPlantSearch(term)
+                        }
+                    } catch {
+                        if let error = error as? NetworkError {
+                            self.handleNetworkErrors(error)
+                        }
                     }
                 })
             }
@@ -654,21 +693,7 @@ extension DetailViewController: UITextFieldDelegate {
             // No new token needed
             else {
                 print("No token needed, searching")
-                // Do search here
-                plantController?.searchPlantSpecies(term, completion: { (error) in
-                    if let error = error {
-                        // crashes here if no secret API key (so bad URL)
-                        print("Error with searchPlantSpeciese in detail VC \(error)")
-                        self.spinner.stopAnimating()
-                    }
-
-                    DispatchQueue.main.async {
-                        print("Success with searchPlantSpecies in detail VC")
-                        // pop up table VC with results? (unhide table view?)
-                        self.resultsTableView.reloadData()
-                        self.spinner.stopAnimating()
-                    }
-                })
+                performPlantSearch(term)
             }
         }
         
@@ -704,7 +729,7 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (plantController?.plantSearchResults.count)!
+        return plantSearchResults.count//(plantController?.plantSearchResults.count)!
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -716,18 +741,18 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         // Cast as a custom tableview cell (after I make one)
         guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
     
-        let plantResult = plantController?.plantSearchResults[indexPath.row]
+        let plantResult = plantSearchResults[indexPath.row]//plantController?.plantSearchResults[indexPath.row]
         
         // common name
-        resultCell.commonNameLabel.text = plantResult?.commonName?.capitalized ?? "No common name"
+        resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? "No common name"
         
         // scientific name
-        resultCell.scientificNameLabel.text = plantResult?.scientificName ?? "No scientific name"
+        resultCell.scientificNameLabel.text = plantResult.scientificName ?? "No scientific name"
         
         resultCell.spinner.startAnimating()
         // image
         // store returned UUID? for task for later
-        let token = plantController?.loadImage(plantResult?.imageUrl) { result in
+        let token = plantController?.loadImage(plantResult.imageUrl) { result in
             do {
                 
                 // extract result (UIImage)

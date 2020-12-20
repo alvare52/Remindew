@@ -11,6 +11,20 @@ import CoreData
 import UserNotifications
 import UIKit
 
+/// Custom Errors to provide better error messages
+enum NetworkError: Error {
+    case noAuth
+    case badAuth
+    case otherError
+    case badData
+    case noDecode
+    case noEncode
+    case noToken
+    case invalidURL
+    case noData
+    case invalidToken
+}
+
 class PlantController {
     
     // MARK: - Properties
@@ -394,93 +408,42 @@ class PlantController {
     
     // MARK: - Network Calls
     
-    /// Takes in a search term and assigns local results array to those results
-    func searchPlantSpecies(_ searchTerm: String, completion: @escaping (Error?) -> Void = { _ in }) {
-
-        print("searchPlantSpecies called")
-        
-        guard let token = UserDefaults.standard.string(forKey: .lastTempToken) else {
-            print("userdefault lastTempToken string is nil in searchPlantSpecies")
-            completion(nil)
-            return
-        }
-        
-        // URL REQUEST
-        guard let requestUrl = URL(string: "\(baseUrl)\(token)&q=\(searchTerm)") else {
-            print("invalid url")
-            completion(nil)
-            return
-        }
-        
-        print("requestURL = \(requestUrl)")
-        var request = URLRequest(url: requestUrl)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-
-            if let error = error {
-                print("Error fetching searched plants: \(error)")
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-                return
-            }
-
-            guard let data = data else {
-                print("No data return by data task")
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-                return
-            }
-
-            let jsonDecoder = JSONDecoder()
-
-            do {
-                let plantSearchResultsDataArray = try jsonDecoder.decode(PlantData.self, from: data)
-                self.plantSearchResults = plantSearchResultsDataArray.data
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-            } catch {
-                print("Error decoding or storing searched plants \(error)")
-                DispatchQueue.main.async {
-                    completion(error)
-                }
-            }
-        }.resume()
-    }
-    
-    /// Sign Secret Token to get a temporary one for the user and set it to self.tempToken
+    /// Sign Secret Token to get a temporary one for the user and set it to self.tempToken or returns a NetworkError
     /// Only do this ONCE a day
-    func signToken(completion: @escaping (Error?) -> Void) {
+    func signToken(completion: @escaping (Result<String,NetworkError>) -> Void) {
         print("signToken called")
         
         let baseUrl = "https://trefle.io/api/auth/claim?token="
         let websiteUrl = "https://github.com/alvare52/Remindew"
-        let signUrl = URL(string: "\(baseUrl)\(secretToken)&origin=\(websiteUrl)")!
+
+        // URL
+        guard let signUrl = URL(string: "\(baseUrl)\(secretToken)&origin=\(websiteUrl)") else {
+            print("invalid token")
+            completion(.failure(.invalidToken))
+            return
+        }
         print("signUrl = \(signUrl)")
         
         var request = URLRequest(url: signUrl)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-    
         // Does not require body
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+                completion(.failure(.badAuth))
+//                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
                 return
             }
             
             if let error = error {
-                completion(error)
+                print("otherError in signToken \(error)")
+                completion(.failure(.otherError))
                 return
             }
             
             guard let data = data else {
-                completion(nil)
+                completion(.failure(.noData))
                 return
             }
             
@@ -493,11 +456,70 @@ class PlantController {
                 print("self.tempToken now = \(String(describing: self.tempToken))")
             } catch {
                 print("Error decoding temp token object: \(error)")
-                completion(error)
+                completion(.failure(.noDecode))
                 return
             }
             
-            completion(nil) // no error
+            completion(.success("New token/timestamp set to user default")) // no error
+        }.resume()
+    }
+    
+    /// Takes in a search term. Returns either an array of PlantSearchResult or a NetworkError
+    func searchPlantSpecies(_ searchTerm: String, completion: @escaping (Result<[PlantSearchResult],NetworkError>) -> Void = { _ in }) {
+
+        print("searchPlantSpecies called")
+        
+        // No token (non-temp one)
+        guard let token = UserDefaults.standard.string(forKey: .lastTempToken) else {
+            print("userdefault lastTempToken string is nil in searchPlantSpecies")
+            completion(.failure(.noToken))
+            return
+        }
+        
+        // URL REQUEST
+        guard let requestUrl = URL(string: "\(baseUrl)\(token)&q=\(searchTerm)") else {
+            print("invalid url")
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        print("requestURL = \(requestUrl)")
+        var request = URLRequest(url: requestUrl)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            if let error = error {
+                print("Error fetching searched plants: \(error)")
+                DispatchQueue.main.async {
+                    completion(.failure(.otherError))
+                }
+                return
+            }
+
+            guard let data = data else {
+                print("No data return by data task")
+                DispatchQueue.main.async {
+                    completion(.failure(.noData))
+                }
+                return
+            }
+
+            let jsonDecoder = JSONDecoder()
+
+            do {
+                let plantSearchResultsDataArray = try jsonDecoder.decode(PlantData.self, from: data)
+                // might not be needed anymore
+//                self.plantSearchResults = plantSearchResultsDataArray.data
+                DispatchQueue.main.async {
+                    completion(.success(plantSearchResultsDataArray.data))
+                }
+            } catch {
+                print("Error decoding or storing searched plants \(error)")
+                DispatchQueue.main.async {
+                    completion(.failure(.noDecode))
+                }
+            }
         }.resume()
     }
     
