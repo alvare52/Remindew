@@ -16,9 +16,6 @@ class SettingsTableViewCell: UITableViewCell {
     /// Displays setting's name
     var settingLabel: UILabel!
     
-    /// Switch won't hide or change alpha
-    var blockingView: UIView!
-    
     /// 8 pt padding
     var standardMargin: CGFloat = CGFloat(20.0)
     
@@ -34,7 +31,7 @@ class SettingsTableViewCell: UITableViewCell {
         
         // Setting Label
         let label = UILabel()
-        addSubview(label)
+        contentView.addSubview(label)
         self.settingLabel = label
         settingLabel.translatesAutoresizingMaskIntoConstraints = false
         settingLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -44,25 +41,14 @@ class SettingsTableViewCell: UITableViewCell {
         
         // Switch
         let option = UISwitch()
-        addSubview(option)
+        contentView.addSubview(option)
         self.optionSwitch = option
         optionSwitch.translatesAutoresizingMaskIntoConstraints = false
         optionSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
         optionSwitch.centerYAnchor.constraint(equalTo: settingLabel.centerYAnchor).isActive = true
         optionSwitch.onTintColor = .lightLeafGreen
-        
-        // Blocking View
-        let blocking = UIView()
-        addSubview(blocking)
-        self.blockingView = blocking
-        blockingView.translatesAutoresizingMaskIntoConstraints = false
-        blockingView.topAnchor.constraint(equalTo: optionSwitch.topAnchor).isActive = true
-        blockingView.leadingAnchor.constraint(equalTo: optionSwitch.leadingAnchor).isActive = true
-        blockingView.trailingAnchor.constraint(equalTo: optionSwitch.trailingAnchor, constant: CGFloat(2.0)).isActive = true
-        blockingView.bottomAnchor.constraint(equalTo: optionSwitch.bottomAnchor).isActive = true
-        blockingView.backgroundColor = UIColor.customCellColor
-        blockingView.isHidden = true
-
+        // hide here because hiding in cellForRow doesn't work right
+        optionSwitch.isHidden = true
     }
     
     override func awakeFromNib() {

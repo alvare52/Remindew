@@ -81,17 +81,18 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
         
         if indexPath.section == 0 {
             settingCell.settingLabel.text = "Sort by nickname"
+            settingCell.optionSwitch.isHidden = false
         }
         
         if indexPath.section == 1 {
             settingCell.settingLabel.text = "Replace species with search result"
+            settingCell.optionSwitch.isHidden = false
         }
         
         if indexPath.section == 2 {
             
             settingCell.settingLabel.text = "Trefle API Home Page"
             settingCell.settingLabel.textColor = .link
-            settingCell.blockingView.isHidden = false
         }
 
         return settingCell
