@@ -209,6 +209,29 @@ class DetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    /// Presents an alert for when a user did not usage of their camera and lets them go to Settings to change it (will restart app though)
+    private func makeCameraUsagePermissionAlert() {
+    
+        // add two options
+        let title = NSLocalizedString("Camera Access Denied",
+                                      comment: "Title for camera usage not allowed")
+        let message = NSLocalizedString("Please allow camera usage by going to Settings and turning Camera access on", comment: "Error message for when camera access is not allowed")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            print("selected OK option")
+        }
+        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
+        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
+            // take user to Settings app
+            print("selected Settings option")
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        }
+        alertController.addAction(alertAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     /// Presents an alert for when a user did not allow notifications at launch and lets them go to Settings to change before they make/edit a plant
     private func makePermissionAlert() {
     
@@ -537,9 +560,22 @@ class DetailViewController: UIViewController {
     private func takePhoto(action: UIAlertAction) {
         print("take photo")
         
-        // check if we have access to Camera (if not, present an alert with option to go to Settings)
+        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        switch cameraAuthorizationStatus {
+        case .notDetermined, .denied, .restricted:
+            makeCameraUsagePermissionAlert()
+            return
+        case .authorized:
+            print("Authorized camera in takePhoto")
+        default:
+            print("Default in takePhoto")
+        }
+        
+        // check if we have access to Camera (if not, present an alert with option to go to Settings). Just in case
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
             print("Error: camera is unavailable")
+            makeCameraUsagePermissionAlert()
             return
         }
         

@@ -14,6 +14,7 @@
 // MARK: - B
 
 // MARK: - C
+"Camera Access Denied" = "No Acceso de Cámara";
 "Choose from Library" = "Escoje de Fotos";
 "Custom" = "Personal";
 "Cancel" = "Cancelar";
@@ -49,6 +50,7 @@
 // MARK: - O
 
 // MARK: - P
+"Please allow camera usage by going to Settings and turning Camera access on" = "Por favor dé acceso a la cámara llendo a Configuración";
 "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos";
 "Please enter a custom nickname for your plant or select a random nickname" = "Por favor escriba un sobrenombre para su planta o seleccione uno al azar";
 "Please enter a species for your plant.\nExample: \"Peace Lily\"" = "Por favor escriba la especie de su planta.\nEjemplo: \"Rosa\"";
