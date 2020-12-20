@@ -375,7 +375,7 @@ class DetailViewController: UIViewController {
         imageView.layer.masksToBounds = false
         imageView.layer.cornerRadius = 15
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill//.scaleToFill
         
         dateLabel.title = dateFormatter.string(from: Date()).capitalized
         // Lets button be disabled with a custom color

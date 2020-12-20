@@ -21,7 +21,7 @@ class SettingsTableViewCell: UITableViewCell {
     
     /// 8 pt padding
     var standardMargin: CGFloat = CGFloat(20.0)
-            
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpSubviews()
