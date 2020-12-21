@@ -130,7 +130,6 @@ class DetailViewController: UIViewController {
                                          style: .cancel)
         cancelAction.setValue(UIColor.mixedBlueGreen, forKey: "titleTextColor")
         act.addAction(cancelAction)
-        
         present(act, animated: true)
     }
     
@@ -368,15 +367,12 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
-        // setting to false limits line to 2
-//        textView.isScrollEnabled = false
         resultsTableView.backgroundView = spinner
         spinner.color = .leafGreen
         
-        // only show it after searching, then hide after choosing plant?
-//        resultsTableView.isHidden = true
         resultsTableView.delegate = self
         resultsTableView.dataSource = self
+        resultsTableView.isHidden = true
         
         // makes imageView a circle
         imageView.layer.masksToBounds = false
@@ -435,6 +431,12 @@ class DetailViewController: UIViewController {
         UIView.animate(withDuration: 0.4) {
             self.dayProgressView.setProgress(1.0, animated: true)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // hide tableview when this screen disappears
+        resultsTableView.isHidden = true
     }
     
     /// Updates textView to display tapped cells scientfic name
@@ -685,6 +687,9 @@ extension DetailViewController: UITextFieldDelegate {
                     
             // get rid of any spaces in search term
             let term = unwrappedTerm.replacingOccurrences(of: " ", with: "")
+            
+            // show tableview
+            resultsTableView.isHidden = false
             
             // start animating spinner
             spinner.startAnimating()
