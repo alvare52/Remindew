@@ -40,12 +40,23 @@ class PlantsTableViewController: UITableViewController {
     /// Fetches Plant objects from storage
     lazy var fetchedResultsController: NSFetchedResultsController<Plant> = {
         let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "nickname", ascending: true)]
+        
+        print("FetchedResultsController fetching now")
+        // default is to sort by nickname
+        var sortKey = "nickname"
+        
+        // if we DO sort by species instead of nickname, do the following
+        if UserDefaults.standard.bool(forKey: .sortPlantsBySpecies) {
+            print("Sorting by species instead")
+            sortKey = "species"
+        }
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
 
         let context = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,
-                                             sectionNameKeyPath: "nickname",
+                                             sectionNameKeyPath: sortKey,
                                              cacheName: nil)
         frc.delegate = self
         try! frc.performFetch() // do it and crash if you have to
