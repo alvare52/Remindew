@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct CustomSetting {
+    var settingKey: String
+}
+
 class SettingsTableViewCell: UITableViewCell {
     
     /// Switch used to toggle setting on/off
@@ -19,9 +23,28 @@ class SettingsTableViewCell: UITableViewCell {
     /// 8 pt padding
     var standardMargin: CGFloat = CGFloat(20.0)
     
+    /// Holds the key for this cell's setting
+    var customSetting: String?
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpSubviews()
+    }
+    
+    /// Sets the cell's setting to the current value of its optionSwitch
+    @objc func optionChanged(_ sender: UISwitch) {
+        
+        // make sure it actually has a setting set (link cell doesn't)
+        guard let setting = customSetting else { return }
+        
+        switch setting {
+        case .sortPlantsBySpecies:
+            UserDefaults.standard.set(optionSwitch.isOn, forKey: .sortPlantsBySpecies)
+        case .resultFillsSpeciesTextfield:
+            UserDefaults.standard.set(optionSwitch.isOn, forKey: .resultFillsSpeciesTextfield)
+        default:
+            print("none")
+        }
     }
     
     /// Sets up all custom views
@@ -47,6 +70,7 @@ class SettingsTableViewCell: UITableViewCell {
         optionSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
         optionSwitch.centerYAnchor.constraint(equalTo: settingLabel.centerYAnchor).isActive = true
         optionSwitch.onTintColor = .lightLeafGreen
+        optionSwitch.addTarget(self, action: #selector(optionChanged), for: .valueChanged)
         // hide here because hiding in cellForRow doesn't work right
         optionSwitch.isHidden = true
     }

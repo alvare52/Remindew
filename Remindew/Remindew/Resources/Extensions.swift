@@ -26,6 +26,12 @@ extension String {
     /// Get/Set value of last Date temporary token was set
     static let lastDateTokenGrabbed = "lastDateTokenGrabbed"
     
+    /// Get/Set value of plant sorting by species
+    static let sortPlantsBySpecies = "sortPlantsBySpecies"
+    
+    /// Get/Set value of setting for filling in species textfield with result's common name
+    static let resultFillsSpeciesTextfield = "resultFillsSpeciesTextfield"
+    
     static let sunday = NSLocalizedString("Sun", comment: "Sunday abbreviated")
     static let monday = NSLocalizedString("Mon", comment: "Monday abbreviated")
     static let tuesday = NSLocalizedString("Tue", comment: "Tuesday abbreviated")

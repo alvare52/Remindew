@@ -80,17 +80,20 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
         guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
         
         if indexPath.section == 0 {
-            settingCell.settingLabel.text = "Sort by nickname"
+            settingCell.settingLabel.text = "Sort by species"
             settingCell.optionSwitch.isHidden = false
+            settingCell.customSetting = .sortPlantsBySpecies
+            settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .sortPlantsBySpecies)
         }
         
         if indexPath.section == 1 {
             settingCell.settingLabel.text = "Replace species with search result"
             settingCell.optionSwitch.isHidden = false
+            settingCell.customSetting = .resultFillsSpeciesTextfield
+            settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield)
         }
         
         if indexPath.section == 2 {
-            
             settingCell.settingLabel.text = "Trefle API Home Page"
             settingCell.settingLabel.textColor = .link
         }
@@ -102,6 +105,7 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
                 
         let selectedCell = tableView.cellForRow(at: indexPath) as? SettingsTableViewCell
         print("Selected Cell = \(selectedCell?.settingLabel.text ?? "title")")
+        // if link cell is selected, go to Trefle API home page
         if indexPath.section == 2 {
             guard let url = URL(string: "https://trefle.io/") else { return }
             UIApplication.shared.open(url)
