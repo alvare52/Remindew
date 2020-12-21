@@ -23,6 +23,7 @@ enum NetworkError: Error {
     case invalidURL
     case noData
     case invalidToken
+    case serverDown
 }
 
 class PlantController {
@@ -422,6 +423,7 @@ class PlantController {
             completion(.failure(.invalidToken))
             return
         }
+        
         print("signUrl = \(signUrl)")
         
         var request = URLRequest(url: signUrl)
@@ -430,11 +432,6 @@ class PlantController {
         // Does not require body
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                completion(.failure(.badAuth))
-//                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
-                return
-            }
             
             if let error = error {
                 print("otherError in signToken \(error)")
@@ -447,10 +444,16 @@ class PlantController {
                 return
             }
             
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                print("status code = \(response.statusCode)")
+                completion(.failure(.serverDown))
+                return
+            }
+            
             let decoder = JSONDecoder()
             do {
                 self.tempToken = try decoder.decode(TempToken.self, from: data)
-                // set new temp token
+                // set new temp token and timestamp for it to check before calling this method again
                 UserDefaults.standard.set(self.tempToken?.token, forKey: "lastTempToken")
                 UserDefaults.standard.set(Date(), forKey: "lastDateTokenGrabbed")
                 print("self.tempToken now = \(String(describing: self.tempToken))")
@@ -504,13 +507,17 @@ class PlantController {
                 }
                 return
             }
-
+            
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                print("status code = \(response.statusCode)")
+                completion(.failure(.serverDown))
+                return
+            }
+        
             let jsonDecoder = JSONDecoder()
 
             do {
                 let plantSearchResultsDataArray = try jsonDecoder.decode(PlantData.self, from: data)
-                // might not be needed anymore
-//                self.plantSearchResults = plantSearchResultsDataArray.data
                 DispatchQueue.main.async {
                     completion(.success(plantSearchResultsDataArray.data))
                 }

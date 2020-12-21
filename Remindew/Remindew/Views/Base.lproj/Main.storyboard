@@ -134,7 +134,7 @@
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nickname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yRG-nk-QcH">
                                 <rect key="frame" x="170" y="140" width="224" height="34"/>
-                                <color key="tintColor" red="0.40595585109999999" green="0.60359317059999995" blue="0.3919216096" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="xR9-qB-7SO"/>
                                 </constraints>
@@ -144,7 +144,7 @@
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Species" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ucM-Fj-27g">
                                 <rect key="frame" x="170" y="172" width="224" height="34"/>
-                                <color key="tintColor" red="0.40595585109999999" green="0.60359317059999995" blue="0.3919216096" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.15408918260000001" green="0.38535547260000003" blue="0.36161702870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="YrW-YW-YRi"/>
                                 </constraints>

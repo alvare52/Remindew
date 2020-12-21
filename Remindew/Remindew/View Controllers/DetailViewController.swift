@@ -115,20 +115,20 @@ class DetailViewController: UIViewController {
         let takePhotoAction = UIAlertAction(title: NSLocalizedString("Take a Photo", comment: "Use Camera to take photo"),
                                             style: .default,
                                             handler: takePhoto)
-        takePhotoAction.setValue(UIColor.lightLeafGreen, forKey: "titleTextColor")
+        takePhotoAction.setValue(UIColor.waterBlue, forKey: "titleTextColor")
         act.addAction(takePhotoAction)
         
         // Choose Photo
         let choosePhotoAction = UIAlertAction(title: NSLocalizedString("Choose from Library", comment: "Choose image from photos"),
                                               style: .default,
                                               handler: presentImagePickerController)
-        choosePhotoAction.setValue(UIColor.lightLeafGreen, forKey: "titleTextColor")
+        choosePhotoAction.setValue(UIColor.waterBlue, forKey: "titleTextColor")
         act.addAction(choosePhotoAction)
         
         // Cancel
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
                                          style: .cancel)
-        cancelAction.setValue(UIColor.lightWaterBlue, forKey: "titleTextColor")
+        cancelAction.setValue(UIColor.mixedBlueGreen, forKey: "titleTextColor")
         act.addAction(cancelAction)
         
         present(act, animated: true)
@@ -402,17 +402,12 @@ class DetailViewController: UIViewController {
         speciesTextField.delegate = self
         speciesTextField.returnKeyType = .search
         
-        // Dark -> Light?
-        plantButton.backgroundColor = .lightLeafGreen//UIColor.customDisabledGrayColor
-        //plantButton.tintColor = .lightGray
+        plantButton.applyGradient(colors: [UIColor.darkBlueGreen.cgColor, UIColor.lightBlueGreen.cgColor])
+        waterPlantButton.applyGradient(colors: [UIColor.darkWaterBlue.cgColor, UIColor.lightWaterBlue.cgColor])
         
-        plantButton.layer.cornerRadius = 15.0
-        waterPlantButton.backgroundColor = .lightWaterBlue
-        waterPlantButton.layer.cornerRadius = 15.0
-        
-        nicknameProgressView.progressTintColor = .lightLeafGreen
-        speciesProgressView.progressTintColor = .lightLeafGreen
-        dayProgressView.progressTintColor = .lightWaterBlue
+        nicknameProgressView.progressTintColor = .mixedBlueGreen
+        speciesProgressView.progressTintColor = .mixedBlueGreen
+        dayProgressView.progressTintColor = .waterBlue
         
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
@@ -488,7 +483,6 @@ class DetailViewController: UIViewController {
             plantButton.setTitle(NSLocalizedString("Save Changes", comment: "Save changes made to plant"), for: .normal)
             
             // Title says how many times a week plant needs water
-            // TODO: 1 TIMES A WEEK NEEDS TO BE 1 TIME A WEEK (SPANISH TOO)
             if plant.frequency!.count == 7 {
                 title = NSLocalizedString("Every day", comment: "7 times a week")
             }
@@ -612,6 +606,7 @@ class DetailViewController: UIViewController {
         case .invalidURL:
             makeAlert(title: NSLocalizedString("Invalid Species", comment: ".invalidURL"),
                                          message: NSLocalizedString("Please enter a valid species name", comment: "invalid URL"))
+            return
         case .otherError:
             print("other error in searchPlants")
         case .noData:
@@ -620,9 +615,16 @@ class DetailViewController: UIViewController {
             print("JSON could not be decoded")
         case .invalidToken:
             print("personal token invalid when sending to get temp token url")
+        case .serverDown:
+            // TODO: needs localization
+            makeAlert(title: "Server Maintenance", message: "Servers down for maintenance. Please try again later.")
+            return
         default:
             print("default error in searchPlants")
         }
+        // Error for all cases that don't have custom ones
+        makeAlert(title: NSLocalizedString("Network Error", comment: "any network error"),
+                                     message: NSLocalizedString("Search feature temporarily unavailable", comment: "any network error"))
     }
     
     /// Performs a search for plants species (called inside textfield Return)
@@ -643,9 +645,12 @@ class DetailViewController: UIViewController {
                     print("set array to plants we got back")
                 }
             } catch {
-                self.spinner.stopAnimating()
                 if let error = error as? NetworkError {
-                    self.handleNetworkErrors(error)
+                    DispatchQueue.main.async {
+                        print("Error searching for plants in performPlantSearch")
+                        self.spinner.stopAnimating()
+                        self.handleNetworkErrors(error)
+                    }
                 }
             }
         })
@@ -696,7 +701,11 @@ extension DetailViewController: UITextFieldDelegate {
                         }
                     } catch {
                         if let error = error as? NetworkError {
-                            self.handleNetworkErrors(error)
+                            print("error in detailVC when signing token")
+                            DispatchQueue.main.async {
+                                self.spinner.stopAnimating()
+                                self.handleNetworkErrors(error)
+                            }
                         }
                     }
                 })
