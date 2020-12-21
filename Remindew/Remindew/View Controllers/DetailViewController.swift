@@ -813,6 +813,12 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         let plantResultCell = tableView.cellForRow(at: indexPath) as? SearchResultTableViewCell
         let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
         imageView.image = plantResultCell?.plantImageView.image
+        
+        // if we DO want it to put common name selected into species field
+        if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && plantResultCell?.commonNameLabel.text != "No common name"{
+            speciesTextField.text = plantResultCell?.commonNameLabel.text
+        }
+        
         fetchedScientificName = scientificName
         updateTextView()
     }
