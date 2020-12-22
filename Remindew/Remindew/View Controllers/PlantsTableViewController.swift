@@ -32,7 +32,8 @@ class PlantsTableViewController: UITableViewController {
     
     @IBAction func addPlantButtonTapped(_ sender: UIBarButtonItem) {
         print("addPlantButtonTapped")
-//        AudioServicesPlaySystemSound(SystemSoundID(1057))// 1057
+        AudioServicesPlaySystemSound(SystemSoundID(1104))
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         performSegue(withIdentifier: "AddPlantSegue", sender: self)
     }
     // MARK: - Properties

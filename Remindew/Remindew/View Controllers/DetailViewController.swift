@@ -47,7 +47,8 @@ class DetailViewController: UIViewController {
     
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
-        
+        AudioServicesPlaySystemSound(SystemSoundID(1104))
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         // dismiss keyboards so they don't stay up when library is loading
         nicknameTextField.resignFirstResponder()
         speciesTextField.resignFirstResponder()
@@ -377,8 +378,7 @@ class DetailViewController: UIViewController {
             }
         }
         
-        // sound won't play for some reason
-//        AudioServicesPlaySystemSound(SystemSoundID(1107))
+        AudioServicesPlaySystemSound(SystemSoundID(1313))
         
         // Vibrate
         UINotificationFeedbackGenerator().notificationOccurred(.success)
@@ -399,7 +399,6 @@ class DetailViewController: UIViewController {
     /// Presents and action sheet with options to use camera to take photo or just choose from library
     @objc func presentPhotoActionSheet() {
         print("presentPhotoActionSheet")
-        AudioServicesPlaySystemSound(SystemSoundID(1105))
         
         let act = UIAlertController(title: NSLocalizedString("Add Plant Image", comment: "Image Action Sheet Title"),
                                     message: nil,
