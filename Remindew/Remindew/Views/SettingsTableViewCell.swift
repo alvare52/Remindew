@@ -40,6 +40,8 @@ class SettingsTableViewCell: UITableViewCell {
         switch setting {
         case .sortPlantsBySpecies:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .sortPlantsBySpecies)
+            // Let main table view know we changed the sort setting
+            NotificationCenter.default.post(name: .updateSortDescriptors, object: self)
         case .resultFillsSpeciesTextfield:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .resultFillsSpeciesTextfield)
         default:

@@ -97,9 +97,15 @@ class PlantsTableViewController: UITableViewController {
         super.viewDidLoad()
         // Step 2 (step 3 is the thing in selector)
         NotificationCenter.default.addObserver(self,
-        selector: #selector(checkIfPlantsNeedWatering),
-        name: .checkWateringStatus,
-        object: nil)
+                                               selector: #selector(checkIfPlantsNeedWatering),
+                                               name: .checkWateringStatus,
+                                               object: nil)
+        
+        // Listen to see if we need to update the sorting
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateSorting),
+                                               name: .updateSortDescriptors,
+                                               object: nil)
         
         // capitalized so it does it in Spanish too
         dateLabel.title = dateFormatter2.string(from: Date()).capitalized
@@ -128,6 +134,31 @@ class PlantsTableViewController: UITableViewController {
         print("viewWillAppear")
         // just in case notifications are turned off
         checkIfPlantsNeedWatering()
+    }
+    
+    /// When sort setting is set, run this to update the table view's sort descriptor
+    @objc func updateSorting() {
+        print("upateSorting")
+        
+        // sort by nickname, unless sort by species is turned on
+        var sortKey = "nickname"
+        
+        // if we DO sort by species instead of nickname, do the following
+        if UserDefaults.standard.bool(forKey: .sortPlantsBySpecies) {
+            print("Sorting by species instead")
+            sortKey = "species"
+        }
+        
+        // set sort descriptors
+        fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
+        
+        // try to perform fetch
+        do {
+            try fetchedResultsController.performFetch()
+            tableView.reloadData()
+        } catch {
+            print("fetch failed in viewWillAppear")
+        }
     }
     
     /// Goes through all plants and checks if they need watering today. Also updates title based on how many need water
@@ -267,6 +298,8 @@ class PlantsTableViewController: UITableViewController {
         }
     }
 }
+
+// MARK: - NSFetchedResultsControllerDelegate
 
 /// Core Data boiler plate code
 extension PlantsTableViewController: NSFetchedResultsControllerDelegate {
