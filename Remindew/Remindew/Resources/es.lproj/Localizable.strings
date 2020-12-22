@@ -4,7 +4,7 @@
 
   Created by Jorge Alvarez on 12/16/20.
   Copyright © 2020 Jorge Alvarez. All rights reserved.
-  Accents: áéíóñ
+  Accents: á é í ó ú ü ñ Á É Í Ó Ú Ü Ñ ¿ ¡
 */
 
 // MARK: - A
@@ -38,7 +38,7 @@
 // MARK: - K
 
 // MARK: - L
-
+"Last Watered:\n" = "Última Regada:\n";
 // MARK: - M
 "Missing Nickname" = "No Sobrenombre";
 "Missing Species Name" = "No Especie";
@@ -56,6 +56,7 @@
 "Please allow camera usage by going to Settings and turning Camera access on" = "Por favor dé acceso a la cámara llendo a Configuración";
 "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos";
 "Please enter a custom nickname for your plant or select a random nickname" = "Por favor escriba un sobrenombre para su planta o seleccione uno al azar";
+"Please enter a nickname for your plant" = "Por favor escriba un sobrenombre para su planta";
 "Please enter a species for your plant.\nExample: \"Peace Lily\"" = "Por favor escriba la especie de su planta.\nEjemplo: \"Rosa\"";
 "Please enter a valid species name" = "Por favor escriba una especie válida";
 "Please search for another species" = "Por favor trate de buscar otra especie";
@@ -72,10 +73,12 @@
 "Server Maintenance" = "Mantenimiento del Servidor";
 "Servers down for maintenance. Please try again later." = "Servidores en mantenimiento. Por favor trate más tarde";
 "Settings" = "Configuración";
+"Species example: \"Rose\"\nPress \"search\" to search" = "Ejemplo de especie: \"Rosa\"\nPressione \"buscar\" para buscar";
 "Sun" = "Dom";
 
 // MARK: - T
 "Take a Photo" = "Toma una foto";
+"Tap any field to edit" = "Seleccione cualquier cosa para cambiar";
 "Thu" = "Jue";
 "Time to water your plant!" = "Es hora de regar su planta!";
 " times a week" = " veces a la semana";
@@ -86,6 +89,7 @@
 // MARK: - V
 
 // MARK: - W
+"Water Plant" = "Riega Planta";
 "Wed" = "Mié";
 
 // MARK: - X

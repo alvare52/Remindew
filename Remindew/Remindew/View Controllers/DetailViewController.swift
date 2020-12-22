@@ -210,19 +210,20 @@ class DetailViewController: UIViewController {
             if let lastWatered = plant.lastDateWatered {
                 let dateString = dateFormatter2.string(from: lastWatered)
                 // replace this with scientific name from API call later
-                textView.text = "Last Watered:\n\(dateString)"
+                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
             }
             // Plant that HAS NOT been watered before (brand new plant)
             else {
                 // lastWatered is nil for some reason
-                textView.text = "Tap any field to edit"
+                textView.text = NSLocalizedString("Tap any field to edit", comment: "textview instructions for editing")
             }
             textView.text += "\n\(fetchedScientificName)"
         }
         
         // if in add mode
         else {
-            textView.text = "Please select the preferred reminder days to water your plant"
+            textView.text = NSLocalizedString("Please select which days you would like to receive reminders",
+                                              comment: "Message for when watering days are missing")
             textView.text += "\n\(fetchedScientificName)"
         }
 
@@ -266,9 +267,8 @@ class DetailViewController: UIViewController {
             
             // plant DOES need to be watered
             if plant.needsWatering {
-                waterPlantButton.setTitle("Water Plant", for: .normal)
+                waterPlantButton.setTitle(NSLocalizedString("Water Plant", comment: "button to water plant"), for: .normal)
                 waterPlantButton.isEnabled = true
-                
             }
             // plant does NOT need to be watered
             else {
@@ -280,12 +280,12 @@ class DetailViewController: UIViewController {
             if let lastWatered = plant.lastDateWatered {
                 let dateString = dateFormatter2.string(from: lastWatered)
                 // replace this with scientific name from API call later
-                textView.text = "Last Watered:\n\(dateString)"
+                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
             }
             // Plant that HAS NOT been watered before (brand new plant)
             else {
                 // lastWatered is nil for some reason
-                textView.text = "Tap any field to edit"
+                textView.text = NSLocalizedString("Tap any field to edit", comment: "textview instructions for editing")
             }
             textView.text += "\n\(plant.scientificName ?? "")"
         }
@@ -668,11 +668,13 @@ extension DetailViewController: UITextFieldDelegate {
         // only do the following when in "add mode"
         if let _ = plant { return }
         if textField == nicknameTextField {
-            textView.text = "Please enter a nickname for your plant"
+            textView.text = NSLocalizedString("Please enter a nickname for your plant",
+                                              comment: "textview instructions for nickname")
         }
         
         else if textField == speciesTextField {
-            textView.text = "Species example: \"Rose\"\nClick \"search\" to search"
+            textView.text = NSLocalizedString("Species example: \"Rose\"\nPress \"search\" to search",
+                                              comment: "textview instructions for species/search")
         }
     }
 
