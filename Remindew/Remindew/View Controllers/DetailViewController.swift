@@ -618,7 +618,6 @@ class DetailViewController: UIViewController {
         case .invalidToken:
             print("personal token invalid when sending to get temp token url")
         case .serverDown:
-            // TODO: needs localization
             makeAlert(title: NSLocalizedString("Server Maintenance", comment: "Title for Servers down temporarily"),
                       message: NSLocalizedString("Servers down for maintenance. Please try again later.", comment: "Servers down"))
             return
@@ -660,6 +659,8 @@ class DetailViewController: UIViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
+
 extension DetailViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -671,7 +672,7 @@ extension DetailViewController: UITextFieldDelegate {
         }
         
         else if textField == speciesTextField {
-            textView.text = "Species example: \"Peace Lily\"\nClick \"search\" to search"
+            textView.text = "Species example: \"Rose\"\nClick \"search\" to search"
         }
     }
 
@@ -683,6 +684,12 @@ extension DetailViewController: UITextFieldDelegate {
 
             // dismiss keyboard
             textField.resignFirstResponder()
+            
+            // if there's still a search going on, exit out
+            if spinner.isAnimating {
+                print("still spinning")
+                return true
+            }
             
             guard let unwrappedTerm = speciesTextField.text, !unwrappedTerm.isEmpty else { return true }
                     
@@ -734,6 +741,8 @@ extension DetailViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
 /// For accessing the photo library
 extension DetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
@@ -752,6 +761,8 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
