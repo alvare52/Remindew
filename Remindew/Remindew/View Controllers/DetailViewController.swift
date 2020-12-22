@@ -115,20 +115,17 @@ class DetailViewController: UIViewController {
         let takePhotoAction = UIAlertAction(title: NSLocalizedString("Take a Photo", comment: "Use Camera to take photo"),
                                             style: .default,
                                             handler: takePhoto)
-        takePhotoAction.setValue(UIColor.waterBlue, forKey: "titleTextColor")
         act.addAction(takePhotoAction)
         
         // Choose Photo
         let choosePhotoAction = UIAlertAction(title: NSLocalizedString("Choose from Library", comment: "Choose image from photos"),
                                               style: .default,
                                               handler: presentImagePickerController)
-        choosePhotoAction.setValue(UIColor.waterBlue, forKey: "titleTextColor")
         act.addAction(choosePhotoAction)
         
         // Cancel
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
                                          style: .cancel)
-        cancelAction.setValue(UIColor.mixedBlueGreen, forKey: "titleTextColor")
         act.addAction(cancelAction)
         present(act, animated: true)
     }
@@ -270,7 +267,7 @@ class DetailViewController: UIViewController {
                                         comment: "Message for when nickname is missing in textfield")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        alertController.view.tintColor = .lightLeafGreen
+        //alertController.view.tintColor = .lightLeafGreen
         
         self.nicknameProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: NSLocalizedString("Custom", comment: "User generated name"), style: .default) { _ in
@@ -300,7 +297,6 @@ class DetailViewController: UIViewController {
                                         comment: "Message for when species name is missing in textfield")
 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.view.tintColor = .lightLeafGreen
 
         // handler could select the textfield it needs or change textview text??
         self.speciesProgressView.progress = 0.0
@@ -321,7 +317,6 @@ class DetailViewController: UIViewController {
         let message = NSLocalizedString("Please select which days you would like to receive reminders",
                                         comment: "Message for when watering days are missing")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.view.tintColor = .lightWaterBlue
         // handler could select the textfield it needs or change textview text??
         self.dayProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
@@ -592,7 +587,6 @@ class DetailViewController: UIViewController {
     /// Makes custom alerts with given title and message for network errors
     private func makeAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.view.tintColor = .lightWaterBlue
         let alertAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)

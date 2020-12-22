@@ -71,7 +71,6 @@ class SettingsTableViewCell: UITableViewCell {
         optionSwitch.translatesAutoresizingMaskIntoConstraints = false
         optionSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
         optionSwitch.centerYAnchor.constraint(equalTo: settingLabel.centerYAnchor).isActive = true
-        optionSwitch.onTintColor = .lightLeafGreen
         optionSwitch.addTarget(self, action: #selector(optionChanged), for: .valueChanged)
         // hide here because hiding in cellForRow doesn't work right
         optionSwitch.isHidden = true
