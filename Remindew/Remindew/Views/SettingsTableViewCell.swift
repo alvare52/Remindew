@@ -36,7 +36,6 @@ class SettingsTableViewCell: UITableViewCell {
         
         // make sure it actually has a setting set (link cell doesn't)
         guard let setting = customSetting else { return }
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         switch setting {
         case .sortPlantsBySpecies:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .sortPlantsBySpecies)
