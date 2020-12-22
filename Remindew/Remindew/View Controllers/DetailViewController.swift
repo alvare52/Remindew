@@ -403,7 +403,6 @@ class DetailViewController: UIViewController {
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
 
-        datePicker.datePickerMode = .time
         updateViews()
     }
         
