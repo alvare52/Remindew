@@ -69,6 +69,8 @@
 "Sat" = "Sáb";
 "Save Changes" = "Guardar Cambios";
 "Select at least one of the days below" = "Seleccione por lo menos un día de los de abajo";
+"Server Maintenance" = "Mantenimiento del Servidor";
+"Servers down for maintenance. Please try again later." = "Servidores en mantenimiento. Por favor trate más tarde";
 "Settings" = "Configuración";
 "Sun" = "Dom";
 

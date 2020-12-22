@@ -71,7 +71,7 @@ class DetailViewController: UIViewController {
                 // local alert saying it needs permission
                 print("Notification permissions NOT granted")
                 DispatchQueue.main.async {
-                    self.makePermissionAlert()
+                    self.makeNotificationsPermissionAlert()
                 }
             }
         }
@@ -101,241 +101,6 @@ class DetailViewController: UIViewController {
     let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
                                     "Entty", "Lily", "Greenman", "Bud Dwyer",
                                     "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
-    
-    /// Presents and action sheet with options to use camera to take photo or just choose from library
-    @objc func presentPhotoActionSheet() {
-        print("presentPhotoActionSheet")
-        AudioServicesPlaySystemSound(SystemSoundID(1105))
-        
-        let act = UIAlertController(title: NSLocalizedString("Add Plant Image", comment: "Image Action Sheet Title"),
-                                    message: nil,
-                                    preferredStyle: .actionSheet)
-        
-        // Take Photo
-        let takePhotoAction = UIAlertAction(title: NSLocalizedString("Take a Photo", comment: "Use Camera to take photo"),
-                                            style: .default,
-                                            handler: takePhoto)
-        act.addAction(takePhotoAction)
-        
-        // Choose Photo
-        let choosePhotoAction = UIAlertAction(title: NSLocalizedString("Choose from Library", comment: "Choose image from photos"),
-                                              style: .default,
-                                              handler: presentImagePickerController)
-        act.addAction(choosePhotoAction)
-        
-        // Cancel
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
-                                         style: .cancel)
-        act.addAction(cancelAction)
-        present(act, animated: true)
-    }
-    
-    /// Creates or Edits a plant
-    private func addOrEditPlant() {
-        // before EDIT or ADD, first check for:
-        
-        // 1. nickname has text AND not empty, else display alert for this
-        guard let nickname = nicknameTextField.text, !nickname.isEmpty else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            makeNicknameAlert()
-            return
-        }
-        
-        // 2. species has text AND not empty, else display alert for this
-        guard let species = speciesTextField.text, !species.isEmpty else {
-            makeSpeciesAlert()
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
-        }
-        
-        // Return false is no days are selected, true if there's at least 1 day selected
-        let daysAreSelected: Bool = daySelectorOutlet.returnDaysSelected().count > 0
-        
-        // 3. daysAreSelected is true, else display alert for this
-        if !daysAreSelected {
-            makeDaysAlert()
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
-        }
-        
-        // Check if we should save image
-        var imageToSave: UIImage?
-        
-        // If imageView.image is NOT the default one, save it. Else, don't save
-        // Check default image manually here because it won't work with .logoImage for some reason
-        if imageView.image.hashValue != UIImage(named: "plantslogoclear1024x1024").hashValue {
-            print("Image in imageView is NOT default one")
-            imageToSave = imageView.image ?? .logoImage
-        }
-        
-        // If there IS a plant, update (EDIT)
-        if let existingPlant = plant {
-                            
-            plantController?.update(nickname: nickname.capitalized,
-                                   species: species.capitalized,
-                                   water_schedule: datePicker.date,
-                                   frequency: daySelectorOutlet.returnDaysSelected(),
-                                   scientificName: fetchedScientificName,
-                                   plant: existingPlant)
-            // save image
-            let imageName = "userPlant\(existingPlant.identifier!)"
-            
-            // if there is an image to save only
-            if let image = imageToSave {
-                UIImage.saveImage(imageName: imageName, image: image)
-            }
-        }
-            
-        // If there is NO plant (ADD)
-        else {
-            let plant = plantController?.createPlant(nickname: nickname.capitalized,
-                                        species: species.capitalized,
-                                        date: datePicker.date,
-                                        frequency: daySelectorOutlet.returnDaysSelected(),
-                                        scientificName: fetchedScientificName)
-            // save image
-            let imageName = "userPlant\(plant!.identifier!)"
-            
-            // if there is an image to save only
-            if let image = imageToSave {
-                UIImage.saveImage(imageName: imageName, image: image)
-            }
-        }
-        
-        // sound won't play for some reason
-//        AudioServicesPlaySystemSound(SystemSoundID(1107))
-        
-        // Vibrate
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-
-        // Go back to main screen
-        navigationController?.popViewController(animated: true)
-    }
-    
-    /// Presents an alert for when a user did not usage of their camera and lets them go to Settings to change it (will restart app though)
-    private func makeCameraUsagePermissionAlert() {
-    
-        // add two options
-        let title = NSLocalizedString("Camera Access Denied",
-                                      comment: "Title for camera usage not allowed")
-        let message = NSLocalizedString("Please allow camera usage by going to Settings and turning Camera access on", comment: "Error message for when camera access is not allowed")
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // handler could select the textfield it needs or change textview text??
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            print("selected OK option")
-        }
-        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
-        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
-            // take user to Settings app
-            print("selected Settings option")
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-        }
-        alertController.addAction(alertAction)
-        alertController.addAction(settingsAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Presents an alert for when a user did not allow notifications at launch and lets them go to Settings to change before they make/edit a plant
-    private func makePermissionAlert() {
-    
-        // add two options
-        let title = NSLocalizedString("Notifications Disabled",
-                                      comment: "Title for notification permissions not allowed")//"Notifications Disabled"
-        let message = NSLocalizedString("Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges.", comment: "Error message for when notifications are not allowed")//"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // handler could select the textfield it needs or change textview text??
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            print("selected OK option")
-        }
-        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
-        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
-            // take user to Settings app
-            print("selected Settings option")
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-        }
-        alertController.addAction(alertAction)
-        alertController.addAction(settingsAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
-    private func makeNicknameAlert() {
-        
-        let title = NSLocalizedString("Missing Nickname",
-                                      comment: "Title for no nickname in textfield")
-        let message = NSLocalizedString("Please enter a custom nickname for your plant or select a random nickname",
-                                        comment: "Message for when nickname is missing in textfield")
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        //alertController.view.tintColor = .lightLeafGreen
-        
-        self.nicknameProgressView.progress = 0.0
-        let alertAction = UIAlertAction(title: NSLocalizedString("Custom", comment: "User generated name"), style: .default) { _ in
-            self.nicknameTextField.becomeFirstResponder()
-            UIView.animate(withDuration: 0.275) {
-                self.nicknameProgressView.setProgress(1.0, animated: true)
-            }
-        }
-        let randomAction = UIAlertAction(title: NSLocalizedString("Random", comment: "Randomly generated name"), style: .default) { _ in
-            self.chooseRandomNickname()
-            self.nicknameTextField.becomeFirstResponder()
-            UIView.animate(withDuration: 0.275) {
-                self.nicknameProgressView.setProgress(1.0, animated: true)
-            }
-        }
-        
-        alertController.addAction(alertAction)
-        alertController.addAction(randomAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Presents an alert for missing text in species textfield. Clicks in species textfield when user clicks OK
-    private func makeSpeciesAlert() {
-        let title = NSLocalizedString("Missing Species Name",
-                                      comment: "Title for when species name is missing in textfield")
-        let message = NSLocalizedString("Please enter a species for your plant.\nExample: \"Peace Lily\"",
-                                        comment: "Message for when species name is missing in textfield")
-
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        // handler could select the textfield it needs or change textview text??
-        self.speciesProgressView.progress = 0.0
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            self.speciesTextField.becomeFirstResponder()
-            UIView.animate(withDuration: 0.275) {
-                self.speciesProgressView.setProgress(1.0, animated: true)
-            }
-        }
-        alertController.addAction(alertAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Presents an alert for missing days and changes text view to give a hint
-    private func makeDaysAlert() {
-        let title = NSLocalizedString("Missing Watering Days",
-                                      comment: "Title for when watering days are missing")
-        let message = NSLocalizedString("Please select which days you would like to receive reminders",
-                                        comment: "Message for when watering days are missing")
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // handler could select the textfield it needs or change textview text??
-        self.dayProgressView.progress = 0.0
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            self.textView.text = NSLocalizedString("Select at least one of the days below",
-                                                   comment: "Hint on how to set a least one reminder")
-            UIView.animate(withDuration: 0.275) {
-                self.dayProgressView.setProgress(1.0, animated: true)
-            }
-        }
-        alertController.addAction(alertAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Enters a random nickname in nickname textfield so user doesn't have to make up their own
-    private func chooseRandomNickname() {
-        let randomInt = Int.random(in: 0..<randomNicknames.count)
-        print("randomInt = \(randomInt)")
-        nicknameTextField.text = randomNicknames[randomInt]
-    }
     
     /// Nav bar date: Sun 11/29
     var dateFormatter: DateFormatter {
@@ -432,6 +197,8 @@ class DetailViewController: UIViewController {
         // hide tableview when this screen disappears
         resultsTableView.isHidden = true
     }
+    
+    // MARK: - Helpers
     
     /// Updates textView to display tapped cells scientfic name
     private func updateTextView() {
@@ -538,6 +305,125 @@ class DetailViewController: UIViewController {
         waterPlantButton.performFlare()
     }
     
+    /// Creates or Edits a plant
+    private func addOrEditPlant() {
+        // before EDIT or ADD, first check for:
+        
+        // 1. nickname has text AND not empty, else display alert for this
+        guard let nickname = nicknameTextField.text, !nickname.isEmpty else {
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            makeNicknameAlert()
+            return
+        }
+        
+        // 2. species has text AND not empty, else display alert for this
+        guard let species = speciesTextField.text, !species.isEmpty else {
+            makeSpeciesAlert()
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            return
+        }
+        
+        // Return false is no days are selected, true if there's at least 1 day selected
+        let daysAreSelected: Bool = daySelectorOutlet.returnDaysSelected().count > 0
+        
+        // 3. daysAreSelected is true, else display alert for this
+        if !daysAreSelected {
+            makeDaysAlert()
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            return
+        }
+        
+        // Check if we should save image
+        var imageToSave: UIImage?
+        
+        // If imageView.image is NOT the default one, save it. Else, don't save
+        // Check default image manually here because it won't work with .logoImage for some reason
+        if imageView.image.hashValue != UIImage(named: "plantslogoclear1024x1024").hashValue {
+            print("Image in imageView is NOT default one")
+            imageToSave = imageView.image ?? .logoImage
+        }
+        
+        // If there IS a plant, update (EDIT)
+        if let existingPlant = plant {
+                            
+            plantController?.update(nickname: nickname.capitalized,
+                                   species: species.capitalized,
+                                   water_schedule: datePicker.date,
+                                   frequency: daySelectorOutlet.returnDaysSelected(),
+                                   scientificName: fetchedScientificName,
+                                   plant: existingPlant)
+            // save image
+            let imageName = "userPlant\(existingPlant.identifier!)"
+            
+            // if there is an image to save only
+            if let image = imageToSave {
+                UIImage.saveImage(imageName: imageName, image: image)
+            }
+        }
+            
+        // If there is NO plant (ADD)
+        else {
+            let plant = plantController?.createPlant(nickname: nickname.capitalized,
+                                        species: species.capitalized,
+                                        date: datePicker.date,
+                                        frequency: daySelectorOutlet.returnDaysSelected(),
+                                        scientificName: fetchedScientificName)
+            // save image
+            let imageName = "userPlant\(plant!.identifier!)"
+            
+            // if there is an image to save only
+            if let image = imageToSave {
+                UIImage.saveImage(imageName: imageName, image: image)
+            }
+        }
+        
+        // sound won't play for some reason
+//        AudioServicesPlaySystemSound(SystemSoundID(1107))
+        
+        // Vibrate
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+
+        // Go back to main screen
+        navigationController?.popViewController(animated: true)
+    }
+    
+    /// Enters a random nickname in nickname textfield so user doesn't have to make up their own
+    private func chooseRandomNickname() {
+        let randomInt = Int.random(in: 0..<randomNicknames.count)
+        print("randomInt = \(randomInt)")
+        nicknameTextField.text = randomNicknames[randomInt]
+    }
+    
+    // MARK: - Photos
+    
+    /// Presents and action sheet with options to use camera to take photo or just choose from library
+    @objc func presentPhotoActionSheet() {
+        print("presentPhotoActionSheet")
+        AudioServicesPlaySystemSound(SystemSoundID(1105))
+        
+        let act = UIAlertController(title: NSLocalizedString("Add Plant Image", comment: "Image Action Sheet Title"),
+                                    message: nil,
+                                    preferredStyle: .actionSheet)
+        
+        // Take Photo
+        let takePhotoAction = UIAlertAction(title: NSLocalizedString("Take a Photo", comment: "Use Camera to take photo"),
+                                            style: .default,
+                                            handler: takePhoto)
+        act.addAction(takePhotoAction)
+        
+        // Choose Photo
+        let choosePhotoAction = UIAlertAction(title: NSLocalizedString("Choose from Library", comment: "Choose image from photos"),
+                                              style: .default,
+                                              handler: presentImagePickerController)
+        act.addAction(choosePhotoAction)
+        
+        // Cancel
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
+                                         style: .cancel)
+        act.addAction(cancelAction)
+        present(act, animated: true)
+    }
+    
     /// Lets user choose an image from their photo library (no permission required)
     private func presentImagePickerController(action: UIAlertAction) {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
@@ -583,6 +469,126 @@ class DetailViewController: UIViewController {
         present(viewController, animated: true)
     }
     
+    // MARK: - Alerts
+    
+    /// Presents an alert for when a user did not usage of their camera and lets them go to Settings to change it (will restart app though)
+    private func makeCameraUsagePermissionAlert() {
+    
+        // add two options
+        let title = NSLocalizedString("Camera Access Denied",
+                                      comment: "Title for camera usage not allowed")
+        let message = NSLocalizedString("Please allow camera usage by going to Settings and turning Camera access on", comment: "Error message for when camera access is not allowed")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            print("selected OK option")
+        }
+        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
+        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
+            // take user to Settings app
+            print("selected Settings option")
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        }
+        alertController.addAction(alertAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Presents an alert for when a user did not allow notifications at launch and lets them go to Settings to change before they make/edit a plant
+    private func makeNotificationsPermissionAlert() {
+    
+        // add two options
+        let title = NSLocalizedString("Notifications Disabled",
+                                      comment: "Title for notification permissions not allowed")//"Notifications Disabled"
+        let message = NSLocalizedString("Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges.", comment: "Error message for when notifications are not allowed")//"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            print("selected OK option")
+        }
+        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
+        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
+            // take user to Settings app
+            print("selected Settings option")
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        }
+        alertController.addAction(alertAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
+    private func makeNicknameAlert() {
+        
+        let title = NSLocalizedString("Missing Nickname",
+                                      comment: "Title for no nickname in textfield")
+        let message = NSLocalizedString("Please enter a custom nickname for your plant or select a random nickname",
+                                        comment: "Message for when nickname is missing in textfield")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        //alertController.view.tintColor = .lightLeafGreen
+        
+        self.nicknameProgressView.progress = 0.0
+        let alertAction = UIAlertAction(title: NSLocalizedString("Custom", comment: "User generated name"), style: .default) { _ in
+            self.nicknameTextField.becomeFirstResponder()
+            UIView.animate(withDuration: 0.275) {
+                self.nicknameProgressView.setProgress(1.0, animated: true)
+            }
+        }
+        let randomAction = UIAlertAction(title: NSLocalizedString("Random", comment: "Randomly generated name"), style: .default) { _ in
+            self.chooseRandomNickname()
+            self.nicknameTextField.becomeFirstResponder()
+            UIView.animate(withDuration: 0.275) {
+                self.nicknameProgressView.setProgress(1.0, animated: true)
+            }
+        }
+        
+        alertController.addAction(alertAction)
+        alertController.addAction(randomAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Presents an alert for missing text in species textfield. Clicks in species textfield when user clicks OK
+    private func makeSpeciesAlert() {
+        let title = NSLocalizedString("Missing Species Name",
+                                      comment: "Title for when species name is missing in textfield")
+        let message = NSLocalizedString("Please enter a species for your plant.\nExample: \"Peace Lily\"",
+                                        comment: "Message for when species name is missing in textfield")
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        // handler could select the textfield it needs or change textview text??
+        self.speciesProgressView.progress = 0.0
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.speciesTextField.becomeFirstResponder()
+            UIView.animate(withDuration: 0.275) {
+                self.speciesProgressView.setProgress(1.0, animated: true)
+            }
+        }
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Presents an alert for missing days and changes text view to give a hint
+    private func makeDaysAlert() {
+        let title = NSLocalizedString("Missing Watering Days",
+                                      comment: "Title for when watering days are missing")
+        let message = NSLocalizedString("Please select which days you would like to receive reminders",
+                                        comment: "Message for when watering days are missing")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        self.dayProgressView.progress = 0.0
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.textView.text = NSLocalizedString("Select at least one of the days below",
+                                                   comment: "Hint on how to set a least one reminder")
+            UIView.animate(withDuration: 0.275) {
+                self.dayProgressView.setProgress(1.0, animated: true)
+            }
+        }
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     /// Makes custom alerts with given title and message for network errors
     private func makeAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -590,6 +596,8 @@ class DetailViewController: UIViewController {
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    // MARK: - Networking
     
     /// Presents custom alerts for given network error
     func handleNetworkErrors(_ error: NetworkError) {
@@ -600,7 +608,7 @@ class DetailViewController: UIViewController {
             print("no token in searchPlants")
         case .invalidURL:
             makeAlert(title: NSLocalizedString("Invalid Species", comment: ".invalidURL"),
-                                         message: NSLocalizedString("Please enter a valid species name", comment: "invalid URL"))
+                      message: NSLocalizedString("Please enter a valid species name", comment: "invalid URL"))
             return
         case .otherError:
             print("other error in searchPlants")
@@ -612,14 +620,15 @@ class DetailViewController: UIViewController {
             print("personal token invalid when sending to get temp token url")
         case .serverDown:
             // TODO: needs localization
-            makeAlert(title: "Server Maintenance", message: "Servers down for maintenance. Please try again later.")
+            makeAlert(title: NSLocalizedString("Server Maintenance", comment: "Title for Servers down temporarily"),
+                      message: NSLocalizedString("Servers down for maintenance. Please try again later.", comment: "Servers down"))
             return
         default:
             print("default error in searchPlants")
         }
         // Error for all cases that don't have custom ones
         makeAlert(title: NSLocalizedString("Network Error", comment: "any network error"),
-                                     message: NSLocalizedString("Search feature temporarily unavailable", comment: "any network error"))
+                  message: NSLocalizedString("Search feature temporarily unavailable", comment: "any network error"))
     }
     
     /// Performs a search for plants species (called inside textfield Return)
@@ -790,7 +799,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                     resultCell.plantImageView?.image = .logoImage
                     resultCell.spinner.stopAnimating()
                 }
-//                resultCell.plantImageView?.image = .logoImage
             }
         }
         
