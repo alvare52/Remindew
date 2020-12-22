@@ -378,7 +378,7 @@ class DetailViewController: UIViewController {
             }
         }
         
-        AudioServicesPlaySystemSound(SystemSoundID(1313))
+        AudioServicesPlaySystemSound(SystemSoundID(1105))
         
         // Vibrate
         UINotificationFeedbackGenerator().notificationOccurred(.success)

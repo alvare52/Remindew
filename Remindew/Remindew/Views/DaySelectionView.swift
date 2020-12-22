@@ -37,13 +37,12 @@ class DaySelectionView: UIStackView {
     @objc private func selectDay(_ button: UIButton) {
         print("tapped button \(button.tag)")
         
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         // NOT Selected, so select it
         if button.tintColor == .secondaryLabel {
             button.tintColor = .waterBlue
             button.titleLabel?.font = selectedFont
-//            AudioServicesPlaySystemSound(SystemSoundID(1104))
         }
         // IS Selected, so unselect
         else {
