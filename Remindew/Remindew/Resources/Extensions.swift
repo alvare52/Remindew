@@ -19,6 +19,9 @@ extension NSNotification.Name {
     
     /// Posts a notification that tells main table view to update its sort descriptors
     static let updateSortDescriptors = NSNotification.Name("updateSortDescriptors")
+    
+    /// Posts a notification that tells the 3 main view controllers to update their appearance
+    static let updateAllViewControllerAppearance = NSNotification.Name("updateAllViewControllerAppearance")
 }
 
 // MARK: - String
@@ -36,6 +39,9 @@ extension String {
     
     /// Get/Set value of setting for filling in species textfield with result's common name
     static let resultFillsSpeciesTextfield = "resultFillsSpeciesTextfield"
+    
+    /// Get/Set value of setting for using dark mode in this app only
+    static let darkThemeOn = "darkThemeOn"
     
     static let sunday = NSLocalizedString("Sun", comment: "Sunday abbreviated")
     static let monday = NSLocalizedString("Mon", comment: "Monday abbreviated")

@@ -96,7 +96,7 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Step 2 (step 3 is the thing in selector)
+        // Step 2 (Step 3 is the thing in selector)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(checkIfPlantsNeedWatering),
                                                name: .checkWateringStatus,

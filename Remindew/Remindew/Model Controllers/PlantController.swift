@@ -32,7 +32,9 @@ class PlantController {
         
     let calendar = Calendar.current
     
-    let baseUrl = URL(string: "https://trefle.io/api/v1/plants/search?token=")!
+    /// "https://trefle.io/api/v1/plants/search?token="
+    /// /species/ gives matching species, subspecies, varieties and /plants/ gives you only main species (without child species)
+    let baseUrl = URL(string: "https://trefle.io/api/v1/species/search?token=")!
     
     /// Memory cache to store already fetched images, clears itself after it has more than 100 images
     private var loadedImages = [URL: UIImage]() {

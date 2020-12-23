@@ -26,10 +26,12 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
         
         switch section {
         case 0:
-            return "SORTING"
+            return "APPEARANCE"
         case 1:
-            return "SEARCHING"
+            return "SORTING"
         case 2:
+            return "SEARCHING"
+        case 3:
             return "SEARCHES POWERED BY TREFLE"
         default:
             return ""
@@ -39,10 +41,12 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Sort by nickname or species"
+            return "Toggle between Light or Dark Theme"
         case 1:
-            return "Clicking on a search result will replace species with common name of selected result"
+            return "Sort by nickname or species"
         case 2:
+            return "Clicking on a search result will replace species with common name of selected result"
+        case 3:
             return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource. By using Trefle you accept and agree to abide by its terms and conditions."
         default:
             return ""
@@ -50,7 +54,7 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,25 +70,36 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
         // Cast as a custom tableview cell (after I make one)
         guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
         
+        // APPEARANCE
         if indexPath.section == 0 {
+            settingCell.settingLabel.text = "Dark Theme"
+            settingCell.optionSwitch.isHidden = false
+            settingCell.customSetting = .darkThemeOn
+            settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .darkThemeOn)
+        }
+        
+        // SORTING
+        if indexPath.section == 1 {
             settingCell.settingLabel.text = "Sort by species"
             settingCell.optionSwitch.isHidden = false
             settingCell.customSetting = .sortPlantsBySpecies
             settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .sortPlantsBySpecies)
         }
         
-        if indexPath.section == 1 {
+        // SEARCHING
+        if indexPath.section == 2 {
             settingCell.settingLabel.text = "Replace species with search result"
             settingCell.optionSwitch.isHidden = false
             settingCell.customSetting = .resultFillsSpeciesTextfield
             settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield)
         }
         
-        if indexPath.section == 2 {
+        // SEARCHES POWERED BY TREFLE
+        if indexPath.section == 3 {
             settingCell.settingLabel.text = "Trefle API Home Page"
             settingCell.settingLabel.textColor = .link
         }
-
+        
         return settingCell
     }
     
@@ -93,7 +108,7 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
         let selectedCell = tableView.cellForRow(at: indexPath) as? SettingsTableViewCell
         print("Selected Cell = \(selectedCell?.settingLabel.text ?? "title")")
         // if link cell is selected, go to Trefle API home page
-        if indexPath.section == 2 {
+        if indexPath.section == 3 {
             guard let url = URL(string: "https://trefle.io/") else { return }
             UIApplication.shared.open(url)
         }

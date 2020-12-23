@@ -31,6 +31,20 @@ class SettingsTableViewCell: UITableViewCell {
         setUpSubviews()
     }
     
+    /// check the value of the "darkThemeOn" UserDefault to then update the app window
+    func updateToDarkOrLightTheme() {
+        // Dark Theme
+        if UserDefaults.standard.bool(forKey: .darkThemeOn) {
+            print("Dark Theme On in Switch")
+            UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .dark
+        }
+        // Light Theme
+        else {
+            print("Light Theme On in Switch")
+            UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .light
+        }
+    }
+    
     /// Sets the cell's setting to the current value of its optionSwitch
     @objc func optionChanged(_ sender: UISwitch) {
         
@@ -43,6 +57,9 @@ class SettingsTableViewCell: UITableViewCell {
             NotificationCenter.default.post(name: .updateSortDescriptors, object: self)
         case .resultFillsSpeciesTextfield:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .resultFillsSpeciesTextfield)
+        case .darkThemeOn:
+            UserDefaults.standard.set(optionSwitch.isOn, forKey: .darkThemeOn)
+            updateToDarkOrLightTheme()
         default:
             print("none")
         }
