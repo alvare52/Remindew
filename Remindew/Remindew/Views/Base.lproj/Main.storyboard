@@ -282,7 +282,11 @@
                                     <action selector="cameraButtonTapped:" destination="egV-2b-yvb" id="8GQ-VQ-8kf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="note.text" catalog="system" id="mPY-9k-kkA"/>
+                            <barButtonItem title="Item" image="note.text" catalog="system" id="mPY-9k-kkA">
+                                <connections>
+                                    <action selector="notesButtonTapped:" destination="egV-2b-yvb" id="OM8-Mp-tWh"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
                         </rightBarButtonItems>
                     </navigationItem>

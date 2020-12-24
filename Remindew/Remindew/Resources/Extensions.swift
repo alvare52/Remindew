@@ -149,6 +149,20 @@ extension UIColor {
     
     /// MediumGray/Off-White used for disabled buttons detail view controller: DarkGray(28,28,30) - Off-White (242,242,247)
     static let customDisabledGrayColor = UIColor.init(named: "customDisabledGrayColor")
+    
+    /// check the value of the "darkThemeOn" UserDefault to then update the app window
+    func updateToDarkOrLightTheme() {
+        // Dark Theme
+        if UserDefaults.standard.bool(forKey: .darkThemeOn) {
+            print("Dark Theme On in Switch")
+            UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .dark
+        }
+        // Light Theme
+        else {
+            print("Light Theme On in Switch")
+            UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .light
+        }
+    }
 }
     
 // MARK: - UIImage

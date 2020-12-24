@@ -30,6 +30,9 @@ class DetailViewController: UIViewController {
     @IBOutlet var nicknameProgressView: UIProgressView!
     
     // MARK: - Actions
+    @IBAction func notesButtonTapped(_ sender: UIBarButtonItem) {
+        print("notesButtonTapped")
+    }
     
     @IBAction func waterPlantButtonTapped(_ sender: UIButton) {
         print("waterPlantButtonTapped")
