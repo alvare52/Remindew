@@ -106,7 +106,7 @@ class DetailViewController: UIViewController {
     /// Nav bar date: Sun 11/29
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "EE MM/d"
+        formatter.dateFormat = "EEEE MM/d"
         return formatter
     }
     
@@ -234,7 +234,8 @@ class DetailViewController: UIViewController {
         
         // update date label at least once a day so it displays correct date
         dateLabel.title = dateFormatter.string(from: Date()).capitalized
-                
+        
+        // will crash if view isn't loaded yet
         guard isViewLoaded else {return}
                 
         // DETAIL/EDIT MODE
@@ -296,7 +297,6 @@ class DetailViewController: UIViewController {
             title = NSLocalizedString("Add New Plant", comment: "Title for Add Plant screen")
             nicknameTextField.text = ""
             speciesTextField.text = ""
-            datePicker.date = Date()
             waterPlantButton.isHidden = true
             textView.text = "Please enter a plant nickname, species, and select reminder days"
         }
