@@ -28,6 +28,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var dayProgressView: UIProgressView!
     @IBOutlet var speciesProgressView: UIProgressView!
     @IBOutlet var nicknameProgressView: UIProgressView!
+    @IBOutlet var notesButtonLabel: UIBarButtonItem!
     
     // MARK: - Actions
     @IBAction func notesButtonTapped(_ sender: UIBarButtonItem) {
@@ -130,6 +131,10 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        if #available(iOS 14.0, *) {
+            notesButtonLabel.image = UIImage(systemName: "note.text")
+        }
         
         resultsTableView.backgroundView = spinner
         spinner.color = .leafGreen

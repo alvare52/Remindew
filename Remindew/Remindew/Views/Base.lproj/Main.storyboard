@@ -282,7 +282,7 @@
                                     <action selector="cameraButtonTapped:" destination="egV-2b-yvb" id="8GQ-VQ-8kf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="note.text" catalog="system" id="mPY-9k-kkA">
+                            <barButtonItem title="Notes" image="text.bubble" catalog="system" id="mPY-9k-kkA">
                                 <connections>
                                     <action selector="notesButtonTapped:" destination="egV-2b-yvb" id="OM8-Mp-tWh"/>
                                 </connections>
@@ -300,6 +300,7 @@
                         <outlet property="imageView" destination="aje-Zj-2LG" id="Gpw-u5-yfU"/>
                         <outlet property="nicknameProgressView" destination="FTn-Z8-L5o" id="4PJ-PO-CJh"/>
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
+                        <outlet property="notesButtonLabel" destination="mPY-9k-kkA" id="xPI-Eh-lpV"/>
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
                         <outlet property="resultsTableView" destination="p9v-0H-cvy" id="hcc-G3-nmQ"/>
                         <outlet property="speciesProgressView" destination="LOg-8A-bmW" id="88v-Xk-83C"/>
@@ -344,8 +345,8 @@
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
-        <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="plantslogoclear1024x1024" width="1024" height="1024"/>
+        <image name="text.bubble" catalog="system" width="128" height="110"/>
         <namedColor name="customBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
