@@ -172,6 +172,26 @@ extension UIImage {
     /// App icon image to use throughout app when a default image is needed. UIImage(named: "plantslogoclear1024x1024")!
     static let logoImage = UIImage(named: "plantslogoclear1024x1024")!
     
+    /// Takes in a UIImageView and gives the bottom half a clear/black gradient with the given opacity.
+    /// - Parameter imageView: the UIImageView we want to give a bottom half gradient (imageView needs a frame)
+    /// - Parameter opacity: the amount of transparency we want for the applied gradient
+    static func applyLowerPortionGradient(imageView: UIImageView, opacity: Float = 0.5) {
+        let gradient = CAGradientLayer()
+        // frame should be just bottom half of imageView
+        let chunk = imageView.bounds.height / CGFloat(2.0)
+        // only apply gradient to bottom half of imageView
+        let bottomHalf = CGRect(x: imageView.bounds.origin.x,
+                                y: imageView.bounds.maxY - chunk,
+                                width: imageView.bounds.width,
+                                height: chunk)
+        gradient.frame = bottomHalf
+        // first color is top color, second color is bottom color
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+        // add transparency to taste
+        gradient.opacity = opacity
+        imageView.layer.addSublayer(gradient)
+    }
+    
     /// Save image to documents directory, and remove old one if it exists and save new one
     /// - Parameter imageName: the name of an image that has been saved
     /// - Parameter image: the UIImage you want to save
