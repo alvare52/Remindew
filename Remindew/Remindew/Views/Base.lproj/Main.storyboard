@@ -88,6 +88,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Remindew" id="EK6-Ws-JkZ">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="bnw-Rq-Ig2"/>
                         <leftBarButtonItems>
                             <barButtonItem title="Item" image="ellipsis.circle" catalog="system" id="9ch-Ko-LFh">
                                 <connections>
@@ -276,8 +277,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw">
+                        <barButtonItem key="backBarButtonItem" id="XUW-mL-cLo"/>
                         <rightBarButtonItems>
-                            <barButtonItem image="camera" catalog="system" id="Zuh-eX-2UT">
+                            <barButtonItem image="photo" catalog="system" id="Zuh-eX-2UT">
                                 <connections>
                                     <action selector="cameraButtonTapped:" destination="egV-2b-yvb" id="8GQ-VQ-8kf"/>
                                 </connections>
@@ -287,6 +289,7 @@
                                     <action selector="notesButtonTapped:" destination="egV-2b-yvb" id="OM8-Mp-tWh"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Item" image="bell" catalog="system" id="70H-0c-oGJ"/>
                             <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -343,8 +346,9 @@
         <segue reference="K1t-dj-wNi"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="camera" catalog="system" width="128" height="94"/>
+        <image name="bell" catalog="system" width="128" height="124"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <image name="plantslogoclear1024x1024" width="1024" height="1024"/>
         <image name="text.bubble" catalog="system" width="128" height="110"/>
         <namedColor name="customBackgroundColor">
