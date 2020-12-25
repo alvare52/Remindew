@@ -289,7 +289,7 @@
                                     <action selector="notesButtonTapped:" destination="egV-2b-yvb" id="OM8-Mp-tWh"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="bell" catalog="system" id="70H-0c-oGJ"/>
+                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="70H-0c-oGJ"/>
                             <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -346,8 +346,8 @@
         <segue reference="K1t-dj-wNi"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="bell" catalog="system" width="128" height="124"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="plantslogoclear1024x1024" width="1024" height="1024"/>
         <image name="text.bubble" catalog="system" width="128" height="110"/>
