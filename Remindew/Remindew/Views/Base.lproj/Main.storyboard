@@ -125,7 +125,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-M6-HfD">
-                                <rect key="frame" x="20" y="527" width="374" height="88"/>
+                                <rect key="frame" x="20" y="529" width="374" height="88"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-md-hGl">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
@@ -158,7 +158,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p9v-0H-cvy">
-                                <rect key="frame" x="20" y="635" width="374" height="158"/>
+                                <rect key="frame" x="20" y="637" width="374" height="156"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ResultsCell" id="LsH-wD-poX" customClass="SearchResultTableViewCell" customModule="Remindew" customModuleProvider="target">
@@ -172,7 +172,7 @@
                                 </prototypes>
                             </tableView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z7U-iw-G1i">
-                                <rect key="frame" x="20" y="415" width="374" height="2"/>
+                                <rect key="frame" x="20" y="417" width="374" height="2"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="GKE-Sx-dab"/>
                                 </constraints>
@@ -180,7 +180,7 @@
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7d0-w9-DEb" customClass="DaySelectionView" customModule="Remindew" customModuleProvider="target">
-                                <rect key="frame" x="20" y="381" width="374" height="34"/>
+                                <rect key="frame" x="20" y="383" width="374" height="34"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7iH-dd-bX5">
@@ -211,7 +211,7 @@
                                 </subviews>
                             </stackView>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="wheels" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3N-yZ-8K4">
-                                <rect key="frame" x="20" y="419" width="374" height="100"/>
+                                <rect key="frame" x="20" y="421" width="374" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <date key="date" timeIntervalSinceReferenceDate="630469800.85621095">
                                     <!--2020-12-24 02:30:00 +0000-->
@@ -221,9 +221,9 @@
                         <viewLayoutGuide key="safeArea" id="UYe-ih-km5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="7d0-w9-DEb" firstAttribute="top" secondItem="aje-Zj-2LG" secondAttribute="bottom" constant="2" id="2uh-WC-bIc"/>
+                            <constraint firstItem="7d0-w9-DEb" firstAttribute="top" secondItem="aje-Zj-2LG" secondAttribute="bottom" constant="4" id="2uh-WC-bIc"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="p9v-0H-cvy" secondAttribute="trailing" constant="20" id="3i9-B4-qUK"/>
-                            <constraint firstItem="z7U-iw-G1i" firstAttribute="trailing" secondItem="afK-Kd-SPE" secondAttribute="trailingMargin" id="77o-QF-xHE"/>
+                            <constraint firstItem="z7U-iw-G1i" firstAttribute="leading" secondItem="7d0-w9-DEb" secondAttribute="leading" id="BhR-pS-pJy"/>
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.111607" id="CWv-FM-hnj"/>
                             <constraint firstItem="aje-Zj-2LG" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="ER8-5b-6ae"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="ogy-M6-HfD" secondAttribute="trailing" constant="20" id="EUp-to-dwS"/>
@@ -237,10 +237,10 @@
                             <constraint firstItem="L3N-yZ-8K4" firstAttribute="top" secondItem="z7U-iw-G1i" secondAttribute="bottom" constant="2" id="Tih-Ne-Kqt"/>
                             <constraint firstItem="z7U-iw-G1i" firstAttribute="top" secondItem="7d0-w9-DEb" secondAttribute="bottom" id="cAM-S7-Xc4"/>
                             <constraint firstItem="7iH-dd-bX5" firstAttribute="leading" secondItem="afK-Kd-SPE" secondAttribute="leadingMargin" constant="16" id="cd2-Qf-4Gg"/>
+                            <constraint firstItem="z7U-iw-G1i" firstAttribute="trailing" secondItem="7d0-w9-DEb" secondAttribute="trailing" id="cha-TQ-fpT"/>
                             <constraint firstItem="ogy-M6-HfD" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="gDp-oh-cNF"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="7d0-w9-DEb" secondAttribute="trailing" constant="20" id="hgR-pq-nqd"/>
                             <constraint firstItem="p9v-0H-cvy" firstAttribute="leading" secondItem="UYe-ih-km5" secondAttribute="leading" constant="20" id="iOx-db-yOb"/>
-                            <constraint firstItem="z7U-iw-G1i" firstAttribute="leading" secondItem="afK-Kd-SPE" secondAttribute="leadingMargin" id="ix6-bR-PO9"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="L3N-yZ-8K4" secondAttribute="trailing" constant="20" id="jsq-hL-Zjo"/>
                             <constraint firstItem="7d0-w9-DEb" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0379464" id="kK6-Hh-I7N"/>
                             <constraint firstItem="aje-Zj-2LG" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.208705" constant="52" id="n4h-pv-Rgz"/>
