@@ -31,6 +31,58 @@ class PlantsTableViewCell: UITableViewCell {
     /// 8 pt padding
     var standardMargin: CGFloat = CGFloat(16.0)
     
+    /// Plant that's passed in from PlantsTableViewController
+    var plant: Plant? {
+        didSet {
+            updateView()
+        }
+    }
+    
+    /// Date formatter for timeLabel
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter
+    }
+    
+    /// Sets the cells views when it is passed in a plant
+    private func updateView() {
+        guard let plant = plant else { return }
+        guard let nickname = plant.nickname, let species = plant.species else { return }
+        
+        let temp = Date(timeIntervalSinceNow: 60)
+
+        let daysString = returnDaysString(plant: plant)
+        
+        nicknameLabel.text = nickname
+        timeLabel.text = "\(dateFormatter.string(from: plant.water_schedule ?? temp))"
+        speciesLabel.text = species
+        daysLabel.text = "\(daysString)"
+        
+        if plant.needsWatering {
+            plantImageView?.image = UIImage(named: "planticonwater")
+        } else {
+            plantImageView?.image = UIImage(named: "planticonleaf")
+        }
+    }
+    
+    /// Returns a string of all days selected separated by a space (to dispaly in table view cell)
+    func returnDaysString(plant: Plant) -> String {
+        
+        var result = [String]()
+        
+        for day in plant.frequency! {
+            // [1,2,3,7]
+            result.append("\(String.dayInitials[Int(day - 1)])")
+        }
+        
+        // if everyday basically
+        if result.count == 7 {
+            return NSLocalizedString("Every day", comment: "Every day as in all 7 days are selected")//"Every day"
+        }
+        return result.joined(separator: " ")
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpSubviews()

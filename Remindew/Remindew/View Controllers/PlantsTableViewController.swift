@@ -64,13 +64,7 @@ class PlantsTableViewController: UITableViewController {
         return frc
     }()
     
-    /// Date formatter for table view cell
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter
-    }
-    
+    // TODO: Make this global to use in detailVC?
     /// Date formatter for nav bar button
     var dateFormatter2: DateFormatter {
             let formatter = DateFormatter()
@@ -247,25 +241,7 @@ class PlantsTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlantCell", for: indexPath) as? PlantsTableViewCell else {
             return UITableViewCell()
         }
-    
-        let testCell = fetchedResultsController.object(at: indexPath)
-        
-        guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
-        
-        let temp = Date(timeIntervalSinceNow: 60)
-
-        let daysString = plantController.returnDaysString(plant: testCell)
-        
-        cell.nicknameLabel.text = nickname
-        cell.timeLabel.text = "\(dateFormatter.string(from: testCell.water_schedule ?? temp))"
-        cell.speciesLabel.text = species
-        cell.daysLabel.text = "\(daysString)"
-        
-        if testCell.needsWatering {
-            cell.plantImageView?.image = UIImage(named: "planticonwater")
-        } else {
-            cell.plantImageView?.image = UIImage(named: "planticonleaf")
-        }
+        cell.plant = fetchedResultsController.object(at: indexPath)
         return cell
     }
     

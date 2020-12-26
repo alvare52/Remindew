@@ -254,23 +254,6 @@ class PlantController {
         return Int(val)
     }
     
-    /// Returns a string of all days selected separated by a space (to dispaly in table view cell)
-    func returnDaysString(plant: Plant) -> String {
-        
-        var result = [String]()
-        
-        for day in plant.frequency! {
-            // [1,2,3,7]
-            result.append("\(String.dayInitials[Int(day - 1)])")
-        }
-        
-        // if everyday basically
-        if result.count == 7 {
-            return NSLocalizedString("Every day", comment: "Every day as in all 7 days are selected")//"Every day"
-        }
-        return result.joined(separator: " ")
-    }
-    
     /// When getting back temp token, set lastDateTokenGrabbed
     /// Checks Date() and lastDayTokenSet (Date), returns true if time between the two
     /// is greatere than 24 hours?
