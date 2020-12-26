@@ -16,7 +16,6 @@ class NotepadViewController: UIViewController {
     let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.backgroundColor = .green
         contentView.layer.cornerRadius = 15
         return contentView
     }()
@@ -30,7 +29,6 @@ class NotepadViewController: UIViewController {
         label.textAlignment = .left
         label.numberOfLines = 1
         label.contentMode = .bottom
-//        label.backgroundColor = .lightGray
         return label
     }()
     
@@ -117,28 +115,8 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Water"
-        textfield.textAlignment = .center
         textfield.contentVerticalAlignment = .bottom
         return textfield
-    }()
-    
-    /// Image view that holds action icon
-    let iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "drop.fill")
-        imageView.tintColor = .blue
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    /// Button to change color of action
-    let colorButton: UIButton = {
-        let tempButton = UIButton(type: .system)
-        tempButton.translatesAutoresizingMaskIntoConstraints = false
-        tempButton.backgroundColor = .waterBlue
-        tempButton.layer.cornerRadius = 0
-        return tempButton
     }()
     
     /// Textview for any notes
@@ -183,11 +161,6 @@ class NotepadViewController: UIViewController {
         print("Save button tapped")
     }
     
-    @objc private func colorButtonTapped() {
-        print("color button tapped")
-        iconImageView.tintColor = .red
-    }
-    
     var sizeForColorButtonRadius: CGFloat {
         return ((view.frame.width - CGFloat(40)) * CGFloat(0.2)) / CGFloat(4)
     }
@@ -196,7 +169,6 @@ class NotepadViewController: UIViewController {
         super.viewDidLoad()
         setupSubViews()
     }
-    
     
     // TODO: alert if user tries to leave without saving?
     /// Present alert if user tries to leave without saving?
@@ -296,22 +268,6 @@ class NotepadViewController: UIViewController {
         actionTextfield.leadingAnchor.constraint(equalTo: locationTextfield.trailingAnchor).isActive = true
         actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
         actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-//        // Action Icon ("drop.fill")
-//        contentView.addSubview(iconImageView)
-//        iconImageView.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
-//        iconImageView.leadingAnchor.constraint(equalTo: actionTextfield.trailingAnchor).isActive = true
-//        iconImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15).isActive = true
-//        iconImageView.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-//
-//        // Action Color (".waterBlue")
-//        contentView.addSubview(colorButton)
-//        colorButton.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
-//        colorButton.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor).isActive = true
-//        colorButton.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-//        colorButton.widthAnchor.constraint(equalTo: colorButton.heightAnchor).isActive = true
-//        colorButton.layer.cornerRadius = sizeForColorButtonRadius
-//        colorButton.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
         
         // Notes Textview
         contentView.addSubview(notesTextView)
