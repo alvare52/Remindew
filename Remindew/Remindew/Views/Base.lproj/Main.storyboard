@@ -284,6 +284,21 @@
             </objects>
             <point key="canvasLocation" x="1548" y="102"/>
         </scene>
+        <!--Notepad View Controller-->
+        <scene sceneID="XNW-DU-GQi">
+            <objects>
+                <viewController storyboardIdentifier="NotepadViewControllerID" id="aqX-HE-ODk" customClass="NotepadViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oAK-Ax-aE0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="7hK-ZJ-GZN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Br9-MW-Ar4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2584" y="105"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z4s-Od-tVP">
             <objects>

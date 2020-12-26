@@ -30,6 +30,10 @@ class DetailViewController: UIViewController {
     // MARK: - Actions
     @IBAction func notesButtonTapped(_ sender: UIBarButtonItem) {
         print("notesButtonTapped")
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let notepadVC = storyboard.instantiateViewController(identifier: "NotepadViewControllerID")
+        notepadVC.modalPresentationStyle = .automatic
+        present(notepadVC, animated: true, completion: nil)
     }
     
     @IBAction func waterPlantButtonTapped(_ sender: UIButton) {
