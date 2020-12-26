@@ -55,6 +55,7 @@ class NotepadViewController: UIViewController {
 //        stack.backgroundColor = .cyan
 //        return stack
 //    }()
+    
     let scientificNameTextfield: UITextField = {
         let scienceTextfield = UITextField()
         scienceTextfield.translatesAutoresizingMaskIntoConstraints = false
@@ -99,6 +100,23 @@ class NotepadViewController: UIViewController {
     
     /// Thin gray line thats under reminderMessageTextfield
     let messageLine: UIView = {
+        let lineBreak = UIView()
+        lineBreak.translatesAutoresizingMaskIntoConstraints = false
+        return lineBreak
+    }()
+    
+    /// Location textfield
+    let locationTextfield: UITextField = {
+        let textfield = UITextField()
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.placeholder = "Location"
+        textfield.backgroundColor = .purple
+        textfield.contentVerticalAlignment = .bottom
+        return textfield
+    }()
+    
+    /// Thin gray line thats under locationTextfield
+    let locationLine: UIView = {
         let lineBreak = UIView()
         lineBreak.translatesAutoresizingMaskIntoConstraints = false
         return lineBreak
@@ -226,6 +244,20 @@ class NotepadViewController: UIViewController {
         messageLine.backgroundColor = .lightGray
         
         // Location ("tag", "category") Textfield
+        contentView.addSubview(locationTextfield)
+        locationTextfield.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+        locationTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        locationTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
+//        locationTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, multiplier: 0.4).isActive = true
+        locationTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+        
+        // Location Line
+        contentView.addSubview(locationLine)
+        locationLine.topAnchor.constraint(equalTo: locationTextfield.bottomAnchor).isActive = true
+        locationLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        locationLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        locationLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        locationLine.backgroundColor = .lightGray
         
         // Action Name ("Water")
         
