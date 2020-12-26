@@ -41,29 +41,18 @@ class NotepadViewController: UIViewController {
         tempButton.backgroundColor = .clear
         tempButton.tintColor = .mixedBlueGreen
         tempButton.setTitle("Save", for: .normal)
-        tempButton.contentMode = .right
-//        tempButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        tempButton.titleLabel?.font = .systemFont(ofSize: 18)
+        tempButton.contentHorizontalAlignment = .right
         tempButton.layer.cornerRadius = 0
         return tempButton
     }()
-    
-//    /// Stack view that holds 3 textfields
-//    let textFieldStackView: UIStackView = {
-//        let stack = UIStackView()
-//        stack.translatesAutoresizingMaskIntoConstraints = false
-//        stack.axis = .vertical
-//        stack.spacing = 4
-//        stack.distribution = .equalSpacing
-//        stack.backgroundColor = .cyan
-//        return stack
-//    }()
     
     let scientificNameTextfield: UITextField = {
         let scienceTextfield = UITextField()
         scienceTextfield.translatesAutoresizingMaskIntoConstraints = false
         scienceTextfield.font = .italicSystemFont(ofSize: 17)
         scienceTextfield.placeholder = "Scientific name"
-        scienceTextfield.backgroundColor = .white//.systemPink
+        scienceTextfield.backgroundColor = .white
         scienceTextfield.contentVerticalAlignment = .bottom
         return scienceTextfield
     }()
@@ -72,7 +61,7 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Reminder Title"
-        textfield.backgroundColor = .white//.systemIndigo
+        textfield.backgroundColor = .white
         textfield.contentVerticalAlignment = .bottom
         return textfield
     }()
@@ -81,7 +70,7 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Reminder Message"
-        textfield.backgroundColor = .white//.purple
+        textfield.backgroundColor = .white
         textfield.contentVerticalAlignment = .bottom
         return textfield
     }()
@@ -112,7 +101,6 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Location"
-//        textfield.backgroundColor = .purple
         textfield.contentVerticalAlignment = .bottom
         return textfield
     }()
@@ -130,7 +118,6 @@ class NotepadViewController: UIViewController {
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Water"
         textfield.textAlignment = .center
-//        textfield.backgroundColor = .systemBlue
         textfield.contentVerticalAlignment = .bottom
         return textfield
     }()
@@ -139,7 +126,6 @@ class NotepadViewController: UIViewController {
     let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.backgroundColor = .orange
         imageView.image = UIImage(systemName: "drop.fill")
         imageView.tintColor = .blue
         imageView.contentMode = .scaleAspectFit
@@ -151,9 +137,6 @@ class NotepadViewController: UIViewController {
         let tempButton = UIButton(type: .system)
         tempButton.translatesAutoresizingMaskIntoConstraints = false
         tempButton.backgroundColor = .waterBlue
-//        tempButton.tintColor = .white
-//        tempButton.setTitle("Save", for: .normal)
-//        tempButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         tempButton.layer.cornerRadius = 0
         return tempButton
     }()
@@ -165,7 +148,6 @@ class NotepadViewController: UIViewController {
         textView.text = "Notes"
         textView.font = .systemFont(ofSize: 14)
         textView.backgroundColor = .white
-//        textView.isScrollEnabled = true
         textView.contentMode = .left
         return textView
     }()
@@ -239,7 +221,6 @@ class NotepadViewController: UIViewController {
         saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         saveButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: CGFloat(0.2)).isActive = true
         saveButton.heightAnchor.constraint(equalTo: saveButton.widthAnchor, multiplier: 0.5).isActive = true
-        // added here because touches weren't registering
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
         // Last Date (Watered) Label
@@ -248,12 +229,6 @@ class NotepadViewController: UIViewController {
         lastDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         lastDateLabel.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor).isActive = true
         lastDateLabel.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-        // Stack View for Scientific Name, Title, Message?
-//        contentView.addSubview(textFieldStackView)
-//        textFieldStackView.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
-//        textFieldStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        textFieldStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         
         // Scientific Name Textfield
         contentView.addSubview(scientificNameTextfield)
@@ -305,7 +280,6 @@ class NotepadViewController: UIViewController {
         locationTextfield.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
         locationTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         locationTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
-//        locationTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, multiplier: 0.4).isActive = true
         locationTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
         // Location Line
@@ -323,21 +297,21 @@ class NotepadViewController: UIViewController {
         actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
         actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
-        // Action Icon ("drop.fill")
-        contentView.addSubview(iconImageView)
-        iconImageView.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
-        iconImageView.leadingAnchor.constraint(equalTo: actionTextfield.trailingAnchor).isActive = true
-        iconImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15).isActive = true
-        iconImageView.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-        // Action Color (".waterBlue")
-        contentView.addSubview(colorButton)
-        colorButton.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
-        colorButton.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor).isActive = true
-        colorButton.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        colorButton.widthAnchor.constraint(equalTo: colorButton.heightAnchor).isActive = true
-        colorButton.layer.cornerRadius = sizeForColorButtonRadius
-        colorButton.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
+//        // Action Icon ("drop.fill")
+//        contentView.addSubview(iconImageView)
+//        iconImageView.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+//        iconImageView.leadingAnchor.constraint(equalTo: actionTextfield.trailingAnchor).isActive = true
+//        iconImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15).isActive = true
+//        iconImageView.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+//
+//        // Action Color (".waterBlue")
+//        contentView.addSubview(colorButton)
+//        colorButton.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+//        colorButton.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor).isActive = true
+//        colorButton.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+//        colorButton.widthAnchor.constraint(equalTo: colorButton.heightAnchor).isActive = true
+//        colorButton.layer.cornerRadius = sizeForColorButtonRadius
+//        colorButton.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
         
         // Notes Textview
         contentView.addSubview(notesTextView)
@@ -345,9 +319,8 @@ class NotepadViewController: UIViewController {
         notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-//        notesTextView.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -355,6 +328,4 @@ class NotepadViewController: UIViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
-
 }
