@@ -129,6 +129,9 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
+//        UINavigationBar.appearance().barTintColor = UIColor.customBackgroundColor
+//        UINavigationBar.appearance().isTranslucent = false
+        
         // import SVG version instead later?
         if #available(iOS 14.0, *) {
             notesButtonLabel.image = UIImage(systemName: "note.text")
@@ -172,9 +175,9 @@ class DetailViewController: UIViewController {
 //        plantButton.applyGradient(colors: [UIColor.darkBlueGreen.cgColor, UIColor.lightBlueGreen.cgColor])
 //        waterPlantButton.applyGradient(colors: [UIColor.darkWaterBlue.cgColor, UIColor.lightWaterBlue.cgColor])
         plantButton.backgroundColor = .mixedBlueGreen
-        plantButton.layer.cornerRadius = 15
+        plantButton.layer.cornerRadius = plantButton.frame.height / 2
         waterPlantButton.backgroundColor = .waterBlue
-        waterPlantButton.layer.cornerRadius = 15
+        waterPlantButton.layer.cornerRadius = waterPlantButton.frame.height / 2
             
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
