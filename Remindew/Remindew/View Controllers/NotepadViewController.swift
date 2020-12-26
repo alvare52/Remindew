@@ -25,7 +25,7 @@ class NotepadViewController: UIViewController {
     let lastDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Last: Friday 12/25/20, 10:00 AM"
+        label.text = "Last: Friday 12/25/20, 10:00 a. m."
         label.textColor = .waterBlue
         label.textAlignment = .left
         label.numberOfLines = 2
@@ -120,6 +120,37 @@ class NotepadViewController: UIViewController {
         let lineBreak = UIView()
         lineBreak.translatesAutoresizingMaskIntoConstraints = false
         return lineBreak
+    }()
+    
+    /// Action  textfield
+    let actionTextfield: UITextField = {
+        let textfield = UITextField()
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.placeholder = "Water"
+        textfield.textAlignment = .center
+        textfield.backgroundColor = .systemBlue
+        textfield.contentVerticalAlignment = .bottom
+        return textfield
+    }()
+    
+    /// Image view that holds action icon
+    let iconImageView: UIView = {
+        let imageView = UIView()
+        imageView.backgroundColor = .orange
+//        imageView.image = UIImage(systemName: "drop.fill")
+//        imageView.tintColor = .blue
+        return imageView
+    }()
+    
+    /// Textview for any notes
+    let notesTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = "Notes"
+        textView.font = .systemFont(ofSize: 17)
+        textView.backgroundColor = .white
+        textView.isScrollEnabled = true
+        return textView
     }()
     
     /// Holds plant that will be passed in and displayed
@@ -228,7 +259,7 @@ class NotepadViewController: UIViewController {
         titleLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         titleLine.backgroundColor = .lightGray
 
-        // Reminder Message ("Plant needs water") Textfield
+        // Reminder Message Textfield
         contentView.addSubview(reminderMessageTextfield)
         reminderMessageTextfield.topAnchor.constraint(equalTo: titleLine.bottomAnchor).isActive = true
         reminderMessageTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -243,7 +274,7 @@ class NotepadViewController: UIViewController {
         messageLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         messageLine.backgroundColor = .lightGray
         
-        // Location ("tag", "category") Textfield
+        // Location Textfield
         contentView.addSubview(locationTextfield)
         locationTextfield.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
         locationTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
@@ -260,12 +291,28 @@ class NotepadViewController: UIViewController {
         locationLine.backgroundColor = .lightGray
         
         // Action Name ("Water")
+        contentView.addSubview(actionTextfield)
+        actionTextfield.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+        actionTextfield.leadingAnchor.constraint(equalTo: locationTextfield.trailingAnchor).isActive = true
+        actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
+        actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
         // Action Icon ("drop.fill")
+//        contentView.addSubview(iconImageView)
+//        iconImageView.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+//        iconImageView.leadingAnchor.constraint(equalTo: actionTextfield.trailingAnchor).isActive = true
+//        iconImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15).isActive = true
+//        iconImageView.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
         // Action Color (".waterBlue")
         
         // Notes Textview
+        contentView.addSubview(notesTextView)
+        notesTextView.topAnchor.constraint(equalTo: locationLine.bottomAnchor).isActive = true
+        notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+//        notesTextView.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
     }
     /*
     // MARK: - Navigation
