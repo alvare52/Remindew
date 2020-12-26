@@ -10,8 +10,6 @@ import UIKit
 
 class PlantsTableViewCell: UITableViewCell {
 
-    // TODO: add 4 image views to hold circle.fill to show what reminder needs attention
-    
     /// Container view that holds all other view elements
     var containerView: UIView!
     

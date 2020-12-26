@@ -250,7 +250,6 @@ class PlantsTableViewController: UITableViewController {
     
         let testCell = fetchedResultsController.object(at: indexPath)
         
-        // TODO: pass in a Plant to PlantsTableViewCell and do this inside of that file
         guard let nickname = testCell.nickname, let species = testCell.species else {return cell}
         
         let temp = Date(timeIntervalSinceNow: 60)
