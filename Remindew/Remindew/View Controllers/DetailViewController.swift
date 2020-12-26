@@ -169,8 +169,12 @@ class DetailViewController: UIViewController {
         speciesTextField.attributedPlaceholder = NSAttributedString(string: "Type of plant",
                                                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
-        plantButton.applyGradient(colors: [UIColor.darkBlueGreen.cgColor, UIColor.lightBlueGreen.cgColor])
-        waterPlantButton.applyGradient(colors: [UIColor.darkWaterBlue.cgColor, UIColor.lightWaterBlue.cgColor])
+//        plantButton.applyGradient(colors: [UIColor.darkBlueGreen.cgColor, UIColor.lightBlueGreen.cgColor])
+//        waterPlantButton.applyGradient(colors: [UIColor.darkWaterBlue.cgColor, UIColor.lightWaterBlue.cgColor])
+        plantButton.backgroundColor = .mixedBlueGreen
+        plantButton.layer.cornerRadius = 15
+        waterPlantButton.backgroundColor = .waterBlue
+        waterPlantButton.layer.cornerRadius = 15
             
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
@@ -209,7 +213,7 @@ class DetailViewController: UIViewController {
         if let plant = plant {
             // Plant that HAS been watered before
             if let lastWatered = plant.lastDateWatered {
-                let dateString = dateFormatter2.string(from: lastWatered)
+//                let dateString = dateFormatter2.string(from: lastWatered)
                 // replace this with scientific name from API call later
 //                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
             }
@@ -280,7 +284,7 @@ class DetailViewController: UIViewController {
             
             // Plant that HAS been watered before
             if let lastWatered = plant.lastDateWatered {
-                let dateString = dateFormatter2.string(from: lastWatered)
+//                let dateString = dateFormatter2.string(from: lastWatered)
                 // replace this with scientific name from API call later
 //                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
             }

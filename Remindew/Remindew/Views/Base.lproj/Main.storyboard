@@ -124,13 +124,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-M6-HfD">
-                                <rect key="frame" x="20" y="529" width="374" height="88"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-M6-HfD">
+                                <rect key="frame" x="20" y="529" width="374" height="36.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-md-hGl">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="182" height="36.5"/>
                                         <color key="backgroundColor" red="0.40595585109999999" green="0.60359317059999995" blue="0.3919216096" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Add Plant"/>
                                         <connections>
@@ -138,9 +138,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZL-BI-0Bw">
-                                        <rect key="frame" x="0.0" y="48" width="374" height="40"/>
+                                        <rect key="frame" x="192" y="0.0" width="182" height="36.5"/>
                                         <color key="backgroundColor" red="0.39488583799999999" green="0.54453420640000005" blue="0.60330891610000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Water Plant"/>
                                         <connections>
@@ -149,8 +149,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Jc8-md-hGl" firstAttribute="height" secondItem="ogy-M6-HfD" secondAttribute="height" multiplier="0.046875" constant="35.8125" id="J8B-aH-mdL"/>
-                                    <constraint firstItem="PZL-BI-0Bw" firstAttribute="height" secondItem="ogy-M6-HfD" secondAttribute="height" multiplier="0.046875" constant="35.8125" id="UkS-JH-lMS"/>
+                                    <constraint firstItem="Jc8-md-hGl" firstAttribute="height" secondItem="ogy-M6-HfD" secondAttribute="height" multiplier="0.046875" constant="35" id="J8B-aH-mdL"/>
                                 </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemindewDefaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="aje-Zj-2LG">
@@ -158,7 +157,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p9v-0H-cvy">
-                                <rect key="frame" x="20" y="637" width="374" height="156"/>
+                                <rect key="frame" x="20" y="585.5" width="374" height="207.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ResultsCell" id="LsH-wD-poX" customClass="SearchResultTableViewCell" customModule="Remindew" customModuleProvider="target">
