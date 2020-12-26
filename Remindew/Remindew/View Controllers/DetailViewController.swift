@@ -129,6 +129,8 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
+        navigationItem.largeTitleDisplayMode = .never
+        
         // import SVG version instead later?
         if #available(iOS 14.0, *) {
             notesButtonLabel.image = UIImage(systemName: "note.text")

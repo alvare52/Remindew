@@ -124,12 +124,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7d0-w9-DEb" customClass="DaySelectionView" customModule="Remindew" customModuleProvider="target">
-                                <rect key="frame" x="20" y="329" width="374" height="34"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-M6-HfD">
-                                <rect key="frame" x="20" y="475" width="374" height="88"/>
+                                <rect key="frame" x="20" y="527" width="374" height="88"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jc8-md-hGl">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="40"/>
@@ -157,20 +153,12 @@
                                     <constraint firstItem="PZL-BI-0Bw" firstAttribute="height" secondItem="ogy-M6-HfD" secondAttribute="height" multiplier="0.046875" constant="35.8125" id="UkS-JH-lMS"/>
                                 </constraints>
                             </stackView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z7U-iw-G1i">
-                                <rect key="frame" x="20" y="363" width="374" height="2"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="GKE-Sx-dab"/>
-                                </constraints>
-                                <color key="progressTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </progressView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemindewDefaultImage" translatesAutoresizingMaskIntoConstraints="NO" id="aje-Zj-2LG">
-                                <rect key="frame" x="20" y="140" width="374" height="187"/>
+                                <rect key="frame" x="20" y="140" width="374" height="239"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="p9v-0H-cvy">
-                                <rect key="frame" x="20" y="583" width="374" height="210"/>
+                                <rect key="frame" x="20" y="635" width="374" height="158"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ResultsCell" id="LsH-wD-poX" customClass="SearchResultTableViewCell" customModule="Remindew" customModuleProvider="target">
@@ -183,8 +171,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z7U-iw-G1i">
+                                <rect key="frame" x="20" y="415" width="374" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="GKE-Sx-dab"/>
+                                </constraints>
+                                <color key="progressTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </progressView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7d0-w9-DEb" customClass="DaySelectionView" customModule="Remindew" customModuleProvider="target">
+                                <rect key="frame" x="20" y="381" width="374" height="34"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7iH-dd-bX5">
-                                <rect key="frame" x="36" y="259" width="342" height="68"/>
+                                <rect key="frame" x="36" y="311" width="342" height="68"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="Leaf Erikson" placeholder="Nickname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yRG-nk-QcH">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="34"/>
@@ -211,7 +211,7 @@
                                 </subviews>
                             </stackView>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="wheels" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3N-yZ-8K4">
-                                <rect key="frame" x="20" y="367" width="374" height="100"/>
+                                <rect key="frame" x="20" y="419" width="374" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <date key="date" timeIntervalSinceReferenceDate="630469800.85621095">
                                     <!--2020-12-24 02:30:00 +0000-->
@@ -243,7 +243,7 @@
                             <constraint firstItem="z7U-iw-G1i" firstAttribute="leading" secondItem="afK-Kd-SPE" secondAttribute="leadingMargin" id="ix6-bR-PO9"/>
                             <constraint firstItem="UYe-ih-km5" firstAttribute="trailing" secondItem="L3N-yZ-8K4" secondAttribute="trailing" constant="20" id="jsq-hL-Zjo"/>
                             <constraint firstItem="7d0-w9-DEb" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.0379464" id="kK6-Hh-I7N"/>
-                            <constraint firstItem="aje-Zj-2LG" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.208705" id="n4h-pv-Rgz"/>
+                            <constraint firstItem="aje-Zj-2LG" firstAttribute="height" secondItem="afK-Kd-SPE" secondAttribute="height" multiplier="0.208705" constant="52" id="n4h-pv-Rgz"/>
                             <constraint firstItem="7iH-dd-bX5" firstAttribute="bottom" secondItem="aje-Zj-2LG" secondAttribute="bottom" id="nJR-gp-vtX"/>
                             <constraint firstItem="p9v-0H-cvy" firstAttribute="top" secondItem="ogy-M6-HfD" secondAttribute="bottom" constant="20" id="pW8-lE-ft1"/>
                         </constraints>
@@ -283,7 +283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjs-sh-Ez5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1647.826086956522" y="78.348214285714278"/>
+            <point key="canvasLocation" x="1548" y="102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z4s-Od-tVP">
