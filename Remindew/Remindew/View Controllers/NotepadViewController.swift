@@ -142,12 +142,13 @@ class NotepadViewController: UIViewController {
     
     /// Updates all views when plant is passed in
     private func updateViews() {
-        
+        print("updateViews")
         guard isViewLoaded else { return }
         
         // EDIT/DETAIL Mode
         if let plant = plant {
-            
+            scientificNameTextfield.text = plant.scientificName
+            // update the rest of the views here later
         }
         
         // ADD Mode
@@ -159,15 +160,13 @@ class NotepadViewController: UIViewController {
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
         print("Save button tapped")
+        dismiss(animated: true, completion: nil)
     }
-    
-    var sizeForColorButtonRadius: CGFloat {
-        return ((view.frame.width - CGFloat(40)) * CGFloat(0.2)) / CGFloat(4)
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubViews()
+        updateViews()
     }
     
     // TODO: alert if user tries to leave without saving?

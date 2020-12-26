@@ -31,9 +31,11 @@ class DetailViewController: UIViewController {
     @IBAction func notesButtonTapped(_ sender: UIBarButtonItem) {
         print("notesButtonTapped")
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let notepadVC = storyboard.instantiateViewController(identifier: "NotepadViewControllerID")
-        notepadVC.modalPresentationStyle = .automatic
-        present(notepadVC, animated: true, completion: nil)
+        if let notepadVC = storyboard.instantiateViewController(identifier: "NotepadViewControllerID") as? NotepadViewController {
+            notepadVC.modalPresentationStyle = .automatic
+            notepadVC.plant = plant
+            present(notepadVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func waterPlantButtonTapped(_ sender: UIButton) {
@@ -175,9 +177,6 @@ class DetailViewController: UIViewController {
         speciesTextField.returnKeyType = .search
         speciesTextField.attributedPlaceholder = NSAttributedString(string: "Type of plant",
                                                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        
-//        plantButton.applyGradient(colors: [UIColor.darkBlueGreen.cgColor, UIColor.lightBlueGreen.cgColor])
-//        waterPlantButton.applyGradient(colors: [UIColor.darkWaterBlue.cgColor, UIColor.lightWaterBlue.cgColor])
         plantButton.backgroundColor = .mixedBlueGreen
         plantButton.layer.cornerRadius = plantButton.frame.height / 2
         waterPlantButton.backgroundColor = .waterBlue
