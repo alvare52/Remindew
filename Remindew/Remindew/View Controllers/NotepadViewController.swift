@@ -28,8 +28,9 @@ class NotepadViewController: UIViewController {
         label.text = "Last: Friday 12/25/20, 10:00 a. m."
         label.textColor = .waterBlue
         label.textAlignment = .left
-        label.numberOfLines = 2
-        label.backgroundColor = .lightGray
+        label.numberOfLines = 1
+        label.contentMode = .bottom
+//        label.backgroundColor = .lightGray
         return label
     }()
     
@@ -37,9 +38,10 @@ class NotepadViewController: UIViewController {
     let saveButton: UIButton = {
         let tempButton = UIButton(type: .system) // .system
         tempButton.translatesAutoresizingMaskIntoConstraints = false
-        tempButton.backgroundColor = .mixedBlueGreen
-        tempButton.tintColor = .white
+        tempButton.backgroundColor = .clear
+        tempButton.tintColor = .mixedBlueGreen
         tempButton.setTitle("Save", for: .normal)
+        tempButton.contentMode = .right
 //        tempButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         tempButton.layer.cornerRadius = 0
         return tempButton
@@ -110,7 +112,7 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Location"
-        textfield.backgroundColor = .purple
+//        textfield.backgroundColor = .purple
         textfield.contentVerticalAlignment = .bottom
         return textfield
     }()
@@ -128,18 +130,32 @@ class NotepadViewController: UIViewController {
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Water"
         textfield.textAlignment = .center
-        textfield.backgroundColor = .systemBlue
+//        textfield.backgroundColor = .systemBlue
         textfield.contentVerticalAlignment = .bottom
         return textfield
     }()
     
     /// Image view that holds action icon
-    let iconImageView: UIView = {
-        let imageView = UIView()
-        imageView.backgroundColor = .orange
-//        imageView.image = UIImage(systemName: "drop.fill")
-//        imageView.tintColor = .blue
+    let iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.backgroundColor = .orange
+        imageView.image = UIImage(systemName: "drop.fill")
+        imageView.tintColor = .blue
+        imageView.contentMode = .scaleAspectFit
         return imageView
+    }()
+    
+    /// Button to change color of action
+    let colorButton: UIButton = {
+        let tempButton = UIButton(type: .system)
+        tempButton.translatesAutoresizingMaskIntoConstraints = false
+        tempButton.backgroundColor = .waterBlue
+//        tempButton.tintColor = .white
+//        tempButton.setTitle("Save", for: .normal)
+//        tempButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        tempButton.layer.cornerRadius = 0
+        return tempButton
     }()
     
     /// Textview for any notes
@@ -147,9 +163,10 @@ class NotepadViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = "Notes"
-        textView.font = .systemFont(ofSize: 17)
+        textView.font = .systemFont(ofSize: 14)
         textView.backgroundColor = .white
-        textView.isScrollEnabled = true
+//        textView.isScrollEnabled = true
+        textView.contentMode = .left
         return textView
     }()
     
@@ -182,6 +199,15 @@ class NotepadViewController: UIViewController {
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
         print("Save button tapped")
+    }
+    
+    @objc private func colorButtonTapped() {
+        print("color button tapped")
+        iconImageView.tintColor = .red
+    }
+    
+    var sizeForColorButtonRadius: CGFloat {
+        return ((view.frame.width - CGFloat(40)) * CGFloat(0.2)) / CGFloat(4)
     }
     
     override func viewDidLoad() {
@@ -298,13 +324,20 @@ class NotepadViewController: UIViewController {
         actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
         // Action Icon ("drop.fill")
-//        contentView.addSubview(iconImageView)
-//        iconImageView.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
-//        iconImageView.leadingAnchor.constraint(equalTo: actionTextfield.trailingAnchor).isActive = true
-//        iconImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15).isActive = true
-//        iconImageView.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+        contentView.addSubview(iconImageView)
+        iconImageView.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+        iconImageView.leadingAnchor.constraint(equalTo: actionTextfield.trailingAnchor).isActive = true
+        iconImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15).isActive = true
+        iconImageView.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
         // Action Color (".waterBlue")
+        contentView.addSubview(colorButton)
+        colorButton.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+        colorButton.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor).isActive = true
+        colorButton.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+        colorButton.widthAnchor.constraint(equalTo: colorButton.heightAnchor).isActive = true
+        colorButton.layer.cornerRadius = sizeForColorButtonRadius
+        colorButton.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
         
         // Notes Textview
         contentView.addSubview(notesTextView)
