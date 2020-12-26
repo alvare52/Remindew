@@ -23,11 +23,8 @@ class DetailViewController: UIViewController {
     @IBOutlet var cameraButtonLabel: UIBarButtonItem!
     @IBOutlet var daySelectorOutlet: DaySelectionView!
     @IBOutlet var dateLabel: UIBarButtonItem!
-    @IBOutlet var textView: UITextView!
     @IBOutlet var resultsTableView: UITableView!
     @IBOutlet var dayProgressView: UIProgressView!
-    @IBOutlet var speciesProgressView: UIProgressView!
-    @IBOutlet var nicknameProgressView: UIProgressView!
     @IBOutlet var notesButtonLabel: UIBarButtonItem!
     
     // MARK: - Actions
@@ -132,6 +129,7 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
+        // import SVG version instead later?
         if #available(iOS 14.0, *) {
             notesButtonLabel.image = UIImage(systemName: "note.text")
         }
@@ -147,7 +145,7 @@ class DetailViewController: UIViewController {
         imageView.layer.masksToBounds = false
         imageView.layer.cornerRadius = 15
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill//.scaleToFill
+        UIImage.applyLowerPortionGradient(imageView: imageView)
         
         dateLabel.title = dateFormatter.string(from: Date()).capitalized
         // Lets button be disabled with a custom color
@@ -162,20 +160,22 @@ class DetailViewController: UIViewController {
         
         nicknameTextField.borderStyle = .none
         nicknameTextField.delegate = self
+        nicknameTextField.attributedPlaceholder = NSAttributedString(string: "Nickname",
+                                                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
         speciesTextField.borderStyle = .none
         speciesTextField.delegate = self
         speciesTextField.returnKeyType = .search
+        speciesTextField.attributedPlaceholder = NSAttributedString(string: "Type of plant",
+                                                                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
         plantButton.applyGradient(colors: [UIColor.darkBlueGreen.cgColor, UIColor.lightBlueGreen.cgColor])
         waterPlantButton.applyGradient(colors: [UIColor.darkWaterBlue.cgColor, UIColor.lightWaterBlue.cgColor])
-        
-        nicknameProgressView.progressTintColor = .mixedBlueGreen
-        speciesProgressView.progressTintColor = .mixedBlueGreen
-        dayProgressView.progressTintColor = .waterBlue
-        
+            
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
+        
+        datePicker.contentHorizontalAlignment = .right
 
         updateViews()
     }
@@ -189,13 +189,6 @@ class DetailViewController: UIViewController {
             nicknameTextField.becomeFirstResponder()
         }
         
-        // Animate progress views
-        UIView.animate(withDuration: 0.6) {
-            self.nicknameProgressView.setProgress(1.0, animated: true)
-        }
-        UIView.animate(withDuration: 0.5) {
-            self.speciesProgressView.setProgress(1.0, animated: true)
-        }
         UIView.animate(withDuration: 0.4) {
             self.dayProgressView.setProgress(1.0, animated: true)
         }
@@ -218,21 +211,21 @@ class DetailViewController: UIViewController {
             if let lastWatered = plant.lastDateWatered {
                 let dateString = dateFormatter2.string(from: lastWatered)
                 // replace this with scientific name from API call later
-                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
+//                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
             }
             // Plant that HAS NOT been watered before (brand new plant)
             else {
                 // lastWatered is nil for some reason
-                textView.text = NSLocalizedString("Tap any field to edit", comment: "textview instructions for editing")
+//                textView.text = NSLocalizedString("Tap any field to edit", comment: "textview instructions for editing")
             }
-            textView.text += "\n\(fetchedScientificName)"
+//            textView.text += "\n\(fetchedScientificName)"
         }
         
         // if in add mode
         else {
-            textView.text = NSLocalizedString("Please select which days you would like to receive reminders",
-                                              comment: "Message for when watering days are missing")
-            textView.text += "\n\(fetchedScientificName)"
+//            textView.text = NSLocalizedString("Please select which days you would like to receive reminders",
+//                                              comment: "Message for when watering days are missing")
+//            textView.text += "\n\(fetchedScientificName)"
         }
 
     }
@@ -289,14 +282,14 @@ class DetailViewController: UIViewController {
             if let lastWatered = plant.lastDateWatered {
                 let dateString = dateFormatter2.string(from: lastWatered)
                 // replace this with scientific name from API call later
-                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
+//                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
             }
             // Plant that HAS NOT been watered before (brand new plant)
             else {
                 // lastWatered is nil for some reason
-                textView.text = NSLocalizedString("Tap any field to edit", comment: "textview instructions for editing")
+//                textView.text = NSLocalizedString("Tap any field to edit", comment: "textview instructions for editing")
             }
-            textView.text += "\n\(plant.scientificName ?? "")"
+//            textView.text += "\n\(plant.scientificName ?? "")"
         }
          
         // ADD MODE
@@ -306,7 +299,7 @@ class DetailViewController: UIViewController {
             nicknameTextField.text = ""
             speciesTextField.text = ""
             waterPlantButton.isHidden = true
-            textView.text = "Please enter a plant nickname, species, and select reminder days"
+//            textView.text = "Please enter a plant nickname, species, and select reminder days"
         }
         
         plantButton.performFlare()
@@ -535,19 +528,12 @@ class DetailViewController: UIViewController {
         
         //alertController.view.tintColor = .lightLeafGreen
         
-        self.nicknameProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: NSLocalizedString("Custom", comment: "User generated name"), style: .default) { _ in
             self.nicknameTextField.becomeFirstResponder()
-            UIView.animate(withDuration: 0.275) {
-                self.nicknameProgressView.setProgress(1.0, animated: true)
-            }
         }
         let randomAction = UIAlertAction(title: NSLocalizedString("Random", comment: "Randomly generated name"), style: .default) { _ in
             self.chooseRandomNickname()
             self.nicknameTextField.becomeFirstResponder()
-            UIView.animate(withDuration: 0.275) {
-                self.nicknameProgressView.setProgress(1.0, animated: true)
-            }
         }
         
         alertController.addAction(alertAction)
@@ -565,12 +551,8 @@ class DetailViewController: UIViewController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         // handler could select the textfield it needs or change textview text??
-        self.speciesProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
             self.speciesTextField.becomeFirstResponder()
-            UIView.animate(withDuration: 0.275) {
-                self.speciesProgressView.setProgress(1.0, animated: true)
-            }
         }
         alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
@@ -586,8 +568,8 @@ class DetailViewController: UIViewController {
         // handler could select the textfield it needs or change textview text??
         self.dayProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            self.textView.text = NSLocalizedString("Select at least one of the days below",
-                                                   comment: "Hint on how to set a least one reminder")
+//            self.textView.text = NSLocalizedString("Select at least one of the days below",
+//                                                   comment: "Hint on how to set a least one reminder")
             UIView.animate(withDuration: 0.275) {
                 self.dayProgressView.setProgress(1.0, animated: true)
             }
@@ -676,13 +658,13 @@ extension DetailViewController: UITextFieldDelegate {
         // only do the following when in "add mode"
         if let _ = plant { return }
         if textField == nicknameTextField {
-            textView.text = NSLocalizedString("Please enter a nickname for your plant",
-                                              comment: "textview instructions for nickname")
+//            textView.text = NSLocalizedString("Please enter a nickname for your plant",
+//                                              comment: "textview instructions for nickname")
         }
         
         else if textField == speciesTextField {
-            textView.text = NSLocalizedString("Species example: \"Rose\"\nPress \"search\" to search",
-                                              comment: "textview instructions for species/search")
+//            textView.text = NSLocalizedString("Species example: \"Rose\"\nPress \"search\" to search",
+//                                              comment: "textview instructions for species/search")
         }
     }
 

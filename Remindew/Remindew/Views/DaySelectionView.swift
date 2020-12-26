@@ -41,7 +41,7 @@ class DaySelectionView: UIStackView {
         
         // NOT Selected, so select it
         if button.tintColor == .secondaryLabel {
-            button.tintColor = .waterBlue
+            button.tintColor = .darkGray
             button.titleLabel?.font = selectedFont
         }
         // IS Selected, so unselect
@@ -98,7 +98,7 @@ class DaySelectionView: UIStackView {
         var result = [Int16]()
         for button in buttonArray {
             // if "selected"
-            if button.tintColor == UIColor.waterBlue {
+            if button.tintColor == UIColor.darkGray {
                 print("Selected: \(button.titleLabel?.text ?? "-")")
                 result.append(Int16(button.tag))
             }
