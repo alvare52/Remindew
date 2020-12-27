@@ -11,6 +11,7 @@ import UIKit
 // Delegate 1
 protocol NotepadDelegate {
     func didMakeNotepad(notepad: NotePad)
+    func didMakeNotepadWithPlant(notepad: NotePad, plant: Plant)
 }
 
 class NotepadViewController: UIViewController {
@@ -167,7 +168,7 @@ class NotepadViewController: UIViewController {
         
         // ADD Mode
         else {
-            
+            actionTextfield.text = "water"
         }
     }
     
@@ -178,20 +179,30 @@ class NotepadViewController: UIViewController {
         let notepad = NotePad(notes: notesTextView.text,
                               mainTitle: reminderTitleTextfield.text ?? "",
                               mainMessage: reminderMessageTextfield.text ?? "",
-                              mainAction: actionTextfield.text ?? "",
+                              mainAction: actionTextfield.text ?? "water",
                               location: locationTextfield.text ?? "",
                               scientificName: scientificNameTextfield.text ?? "")
         
-        // Delegate 3
-        // pass back notepad we have now
-        notepadDelegate?.didMakeNotepad(notepad: notepad)
+       
         
         // We came from EDIT mode, so we can safely update the plant here
         if let plant = plant {
+            // save plant, so we pass back an updated one (removing existing notifications MIGHT slow this down)
             plantController?.updateInNotepad(notepad: notepad, plant: plant)
+            // pass back our notepad and hopefully updated plant so it triggers didSet -> updateViews() -> update Action button
+            notepadDelegate?.didMakeNotepadWithPlant(notepad: notepad, plant: plant)
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        // if we DON'T have a plant
+        else {
+            // Delegate 3
+            // pass back notepad we have now
+            notepadDelegate?.didMakeNotepad(notepad: notepad)
+            dismiss(animated: true, completion: nil)
+            return
         }
         
-        dismiss(animated: true, completion: nil)
     }
         
     override func viewDidLoad() {

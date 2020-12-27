@@ -229,6 +229,8 @@ class DetailViewController: UIViewController {
         // DETAIL/EDIT MODE
         if let plant = plant {
             
+            notePad = NotePad(notes: plant.notes!, mainTitle: plant.mainTitle!, mainMessage: plant.mainMessage!, mainAction: plant.mainAction!, location: plant.location!, scientificName: plant.scientificName!)
+            
             // try to load saved image
             if let image = UIImage.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)") {
                 imageView.image = image
@@ -256,7 +258,9 @@ class DetailViewController: UIViewController {
             
             // plant DOES need to be watered
             if plant.needsWatering {
-                waterPlantButton.setTitle(NSLocalizedString("Water Plant", comment: "button to water plant"), for: .normal)
+                waterPlantButton.setTitle(plant.mainAction, for: .normal)
+                // old
+//                waterPlantButton.setTitle(NSLocalizedString("Water Plant", comment: "button to water plant"), for: .normal)
                 waterPlantButton.isEnabled = true
             }
             // plant does NOT need to be watered
@@ -824,5 +828,11 @@ extension DetailViewController: NotepadDelegate {
     // receive the notepad we made in other screen and set ours to what we get back
     func didMakeNotepad(notepad: NotePad) {
         self.notePad = notepad
+    }
+    
+    // same as above but this way we can update views with "new" plant
+    func didMakeNotepadWithPlant(notepad: NotePad, plant: Plant) {
+        self.notePad = notepad
+        self.plant = plant
     }
 }

@@ -129,6 +129,8 @@ class PlantController {
         plant.mainAction = notepad.mainAction
         plant.location = notepad.location
         
+        // TODO: check here if Title and Message are different?
+        
         // remove pending notifications for this plant first
         print("removing")
         removeAllRequestsForPlant(plant: plant)
