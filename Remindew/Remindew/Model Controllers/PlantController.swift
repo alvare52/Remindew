@@ -381,10 +381,24 @@ class PlantController {
 
             // content
             let content = UNMutableNotificationContent()
+            // TODO: use custom sound later?
             content.sound = .default
-            content.title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")//"Time to water your plant!"
-            let bodyString = "\(plant.nickname!) " + NSLocalizedString("needs water.", comment: "plant.nickname needs water.")
-            content.body = bodyString//"\(plant.nickname!) needs water."
+            
+            // title
+            var title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
+            // only use custom title if it's not nil and its not an empty string
+            if plant.mainTitle != nil && plant.mainTitle != "" {
+                title = plant.mainTitle!
+            }
+            content.title = "\(title)"
+            
+            // message
+            var message = "\(plant.nickname!) " + NSLocalizedString("needs water.", comment: "plant.nickname needs water.")
+            // only use custom message if it's not nil and its not an empty string
+            if plant.mainMessage != nil && plant.mainMessage != "" {
+                message = plant.mainMessage!
+            }
+            content.body = message
             
             // badge
             content.badge = 1
