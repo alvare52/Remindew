@@ -77,6 +77,7 @@ class PlantsTableViewController: UITableViewController {
     let plantController = PlantController()
     let calendar = Calendar.current
     private var observer: NSObjectProtocol?
+    let refreshWheel = UIRefreshControl()
     
     var plantsThatNeedWaterCount = 0 {
         didSet {
@@ -93,6 +94,11 @@ class PlantsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         UIColor().updateToDarkOrLightTheme()
+        
+        // refresh control
+        tableView.refreshControl = refreshWheel
+        refreshWheel.tintColor = .mixedBlueGreen
+        refreshWheel.addTarget(self, action: #selector(checkIfPlantsNeedWatering), for: .valueChanged)
         
         // Step 2 (Step 3 is the thing in selector)
         NotificationCenter.default.addObserver(self,
@@ -222,6 +228,9 @@ class PlantsTableViewController: UITableViewController {
         
         // update date label since it needs to be updated at least once a day to display correct date
         dateLabel.title = dateFormatter2.string(from: Date()).capitalized
+        
+        // stop refresh animation (starts refreshing when its called)
+        refreshWheel.endRefreshing()
     }
     
     // MARK: - Table view data source
