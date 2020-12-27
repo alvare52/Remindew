@@ -150,6 +150,9 @@ extension UIColor {
     /// MediumGray/Off-White used for disabled buttons detail view controller: DarkGray(28,28,30) - Off-White (242,242,247)
     static let customDisabledGrayColor = UIColor.init(named: "customDisabledGrayColor")
     
+    /// darkGray / White color used for selected days: darkGray (84,84,84) - White (255,255,255)
+    static let customSelectedDayColor = UIColor.init(named: "customSelectedDayColor")
+    
     /// check the value of the "darkThemeOn" UserDefault to then update the app window
     func updateToDarkOrLightTheme() {
         // Dark Theme

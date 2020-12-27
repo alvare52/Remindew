@@ -18,7 +18,6 @@ class DaySelectionView: UIStackView {
     var buttonArray = [UIButton]()
     let selectedFont: UIFont = UIFont.boldSystemFont(ofSize: 20.0)
     let unselectedFont: UIFont = UIFont.systemFont(ofSize: 15, weight: .regular)
-    let selectedColor: UIColor = UIColor.systemTeal
 
     // MARK: - View Life Cycle
 
@@ -41,7 +40,7 @@ class DaySelectionView: UIStackView {
         
         // NOT Selected, so select it
         if button.tintColor == .secondaryLabel {
-            button.tintColor = .darkGray
+            button.tintColor = UIColor.customSelectedDayColor//.darkGray
             button.titleLabel?.font = selectedFont
         }
         // IS Selected, so unselect
@@ -90,7 +89,6 @@ class DaySelectionView: UIStackView {
             print("day = \(day) index = \(index)")
             selectDay(buttonArray[index])
         }
-//        selectDay(buttonArray[index])
     }
     
     /// Return an array of Int16s that are currently selected (Sunday = 1, etc)
@@ -98,7 +96,7 @@ class DaySelectionView: UIStackView {
         var result = [Int16]()
         for button in buttonArray {
             // if "selected"
-            if button.tintColor == UIColor.darkGray {
+            if button.tintColor == UIColor.customSelectedDayColor {
                 print("Selected: \(button.titleLabel?.text ?? "-")")
                 result.append(Int16(button.tag))
             }
