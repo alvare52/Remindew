@@ -19,6 +19,11 @@ extension Plant {
                                         needsWatering: Bool = false,
                                         lastDateWatered: Date? = nil,
                                         scientificName: String = "",
+                                        notes: String = "",
+                                        mainTitle: String = "",
+                                        mainMessage: String = "",
+                                        mainAction: String = "",
+                                        location: String = "",
                                         identifier: UUID = UUID(),
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
@@ -29,6 +34,11 @@ extension Plant {
         self.needsWatering = needsWatering
         self.lastDateWatered = lastDateWatered
         self.scientificName = scientificName
+        self.notes = notes
+        self.mainTitle = mainTitle
+        self.mainMessage = mainMessage
+        self.mainAction = mainAction
+        self.location = location
         self.identifier = identifier
     }
 }

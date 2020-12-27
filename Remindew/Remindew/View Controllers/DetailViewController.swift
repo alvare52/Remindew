@@ -33,7 +33,9 @@ class DetailViewController: UIViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let notepadVC = storyboard.instantiateViewController(identifier: "NotepadViewControllerID") as? NotepadViewController {
             notepadVC.modalPresentationStyle = .automatic
+            notepadVC.plantController = plantController
             notepadVC.plant = plant
+            notepadVC.notepadDelegate = self
             present(notepadVC, animated: true, completion: nil)
         }
     }
@@ -94,6 +96,9 @@ class DetailViewController: UIViewController {
             updateViews()
         }
     }
+    
+    /// Holds what we get back from notepad vc
+    var notePad: NotePad?
     
     /// Holds the PlantSearchResult array we get in network call
     var plantSearchResults: [PlantSearchResult] = [] {
@@ -212,34 +217,6 @@ class DetailViewController: UIViewController {
     
     // MARK: - Helpers
     
-    /// Updates textView to display tapped cells scientfic name
-    private func updateTextView() {
-        
-        // if in edit mode
-        if let plant = plant {
-            // Plant that HAS been watered before
-            if let lastWatered = plant.lastDateWatered {
-//                let dateString = dateFormatter2.string(from: lastWatered)
-                // replace this with scientific name from API call later
-//                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
-            }
-            // Plant that HAS NOT been watered before (brand new plant)
-            else {
-                // lastWatered is nil for some reason
-//                textView.text = NSLocalizedString("Tap any field to edit", comment: "textview instructions for editing")
-            }
-//            textView.text += "\n\(fetchedScientificName)"
-        }
-        
-        // if in add mode
-        else {
-//            textView.text = NSLocalizedString("Please select which days you would like to receive reminders",
-//                                              comment: "Message for when watering days are missing")
-//            textView.text += "\n\(fetchedScientificName)"
-        }
-
-    }
-    
     /// Update all views depending on if in Edit/Add mode
     func updateViews() {
         
@@ -287,19 +264,6 @@ class DetailViewController: UIViewController {
                 waterPlantButton.isHidden = true
                 waterPlantButton.isEnabled = false
             }
-            
-            // Plant that HAS been watered before
-            if let lastWatered = plant.lastDateWatered {
-//                let dateString = dateFormatter2.string(from: lastWatered)
-                // replace this with scientific name from API call later
-//                textView.text = NSLocalizedString("Last Watered:\n", comment: "Last time watered:") + "\(dateString)"
-            }
-            // Plant that HAS NOT been watered before (brand new plant)
-            else {
-                // lastWatered is nil for some reason
-//                textView.text = NSLocalizedString("Tap any field to edit", comment: "textview instructions for editing")
-            }
-//            textView.text += "\n\(plant.scientificName ?? "")"
         }
          
         // ADD MODE
@@ -357,12 +321,18 @@ class DetailViewController: UIViewController {
         
         // If there IS a plant, update (EDIT)
         if let existingPlant = plant {
-                            
+                
+            var emptyNotepad = NotePad()
+            if let fullNotepad = notePad {
+                emptyNotepad = fullNotepad
+            }
+            
             plantController?.update(nickname: nickname.capitalized,
                                    species: species.capitalized,
                                    water_schedule: datePicker.date,
                                    frequency: daySelectorOutlet.returnDaysSelected(),
-                                   scientificName: fetchedScientificName,
+                                   scientificName: emptyNotepad.scientificName,
+                                   notepad: emptyNotepad,
                                    plant: existingPlant)
             // save image
             let imageName = "userPlant\(existingPlant.identifier!)"
@@ -375,11 +345,18 @@ class DetailViewController: UIViewController {
             
         // If there is NO plant (ADD)
         else {
+            
+            var emptyNotepad = NotePad()
+            if let fullNotepad = notePad {
+                emptyNotepad = fullNotepad
+            }
+            
             let plant = plantController?.createPlant(nickname: nickname.capitalized,
                                         species: species.capitalized,
                                         date: datePicker.date,
                                         frequency: daySelectorOutlet.returnDaysSelected(),
-                                        scientificName: fetchedScientificName)
+                                        scientificName: emptyNotepad.scientificName,
+                                        notepad: emptyNotepad)
             // save image
             let imageName = "userPlant\(plant!.identifier!)"
             
@@ -838,6 +815,14 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         fetchedScientificName = scientificName
-        updateTextView()
+    }
+}
+
+// MARK: - NotepadDelegate
+
+extension DetailViewController: NotepadDelegate {
+    // receive the notepad we made in other screen and set ours to what we get back
+    func didMakeNotepad(notepad: NotePad) {
+        self.notePad = notepad
     }
 }

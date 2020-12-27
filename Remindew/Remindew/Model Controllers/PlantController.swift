@@ -64,9 +64,18 @@ class PlantController {
     // MARK: - Create, Read, Update, Delete, Save plants
     
     /// Create a plant and then save it
-    func createPlant(nickname: String, species: String, date: Date, frequency: [Int16], scientificName: String) -> Plant {
+    func createPlant(nickname: String, species: String, date: Date, frequency: [Int16], scientificName: String, notepad: NotePad) -> Plant {
         print("createPlant")
-        let plant = Plant(nickname: nickname, species: species, water_schedule: date, frequency: frequency, scientificName: scientificName)
+        let plant = Plant(nickname: nickname,
+                          species: species,
+                          water_schedule: date,
+                          frequency: frequency,
+                          scientificName: scientificName,
+                          notes: notepad.notes,
+                          mainTitle: notepad.mainTitle,
+                          mainMessage: notepad.mainMessage,
+                          mainAction: notepad.mainAction,
+                          location: notepad.location)
         print("plant schedule: \(String(describing: plant.water_schedule))")
         print("plant frequency: \(String(describing: plant.frequency))")
 //        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
@@ -80,12 +89,46 @@ class PlantController {
     }
     
     /// Update a plant that already exists
-    func update(nickname: String, species: String, water_schedule: Date, frequency: [Int16], scientificName: String, plant: Plant) {
+    func update(nickname: String,
+                species: String,
+                water_schedule: Date,
+                frequency: [Int16],
+                scientificName: String,
+                notepad: NotePad,
+                plant: Plant) {
         plant.nickname = nickname
         plant.species = species
         plant.water_schedule = water_schedule
         plant.frequency = frequency
         plant.scientificName = scientificName
+        
+        plant.notes = notepad.notes
+        plant.mainTitle = notepad.mainTitle
+        plant.mainMessage = notepad.mainMessage
+        plant.mainAction = notepad.mainAction
+        plant.location = notepad.location
+        
+        // remove pending notifications for this plant first
+        print("removing")
+        removeAllRequestsForPlant(plant: plant)
+        // then create brand new ones
+        print("adding new ones, \(String(describing: plant.frequency?.count))")
+        addRequestsForPlant(plant: plant)
+        
+        savePlant()
+    }
+    
+    /// Update a plant that already exists when we leave notepa
+    func updateInNotepad(notepad: NotePad,
+                         plant: Plant) {
+        
+        plant.scientificName = notepad.scientificName
+        plant.notes = notepad.notes
+        plant.mainTitle = notepad.mainTitle
+        plant.mainMessage = notepad.mainMessage
+        plant.mainAction = notepad.mainAction
+        plant.location = notepad.location
+        
         // remove pending notifications for this plant first
         print("removing")
         removeAllRequestsForPlant(plant: plant)

@@ -8,9 +8,17 @@
 
 import UIKit
 
+// Delegate 1
+protocol NotepadDelegate {
+    func didMakeNotepad(notepad: NotePad)
+}
+
 class NotepadViewController: UIViewController {
 
     // MARK: - Properties
+    
+    // Delegate 2
+    var notepadDelegate: NotepadDelegate?
     
     /// Holds all other views,
     let contentView: UIView = {
@@ -130,6 +138,8 @@ class NotepadViewController: UIViewController {
         return textView
     }()
     
+    var plantController: PlantController?
+    
     /// Holds plant that will be passed in and displayed
     var plant: Plant? {
         didSet {
@@ -148,7 +158,11 @@ class NotepadViewController: UIViewController {
         // EDIT/DETAIL Mode
         if let plant = plant {
             scientificNameTextfield.text = plant.scientificName
-            // update the rest of the views here later
+            reminderTitleTextfield.text = plant.mainTitle
+            reminderMessageTextfield.text = plant.mainMessage
+            actionTextfield.text = plant.mainAction
+            locationTextfield.text = plant.location
+            notesTextView.text = plant.notes
         }
         
         // ADD Mode
@@ -160,6 +174,23 @@ class NotepadViewController: UIViewController {
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
         print("Save button tapped")
+        
+        let notepad = NotePad(notes: notesTextView.text,
+                              mainTitle: reminderTitleTextfield.text ?? "",
+                              mainMessage: reminderMessageTextfield.text ?? "",
+                              mainAction: actionTextfield.text ?? "",
+                              location: locationTextfield.text ?? "",
+                              scientificName: scientificNameTextfield.text ?? "")
+        
+        // Delegate 3
+        // pass back notepad we have now
+        notepadDelegate?.didMakeNotepad(notepad: notepad)
+        
+        // We came from EDIT mode, so we can safely update the plant here
+        if let plant = plant {
+            plantController?.updateInNotepad(notepad: notepad, plant: plant)
+        }
+        
         dismiss(animated: true, completion: nil)
     }
         
@@ -283,4 +314,13 @@ class NotepadViewController: UIViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
+}
+
+struct NotePad {
+    var notes: String = ""
+    var mainTitle: String = ""
+    var mainMessage: String = ""
+    var mainAction: String = ""
+    var location: String = ""
+    var scientificName: String = ""
 }
