@@ -48,6 +48,7 @@ class DaySelectionView: UIStackView {
             button.tintColor = .secondaryLabel
             button.titleLabel?.font = unselectedFont
         }
+        print("\(button.tag) isSelected = \(button.isSelected)")
     }
     
     private func setupSubviews() {
@@ -72,23 +73,32 @@ class DaySelectionView: UIStackView {
             
             day.addTarget(self, action: #selector(selectDay), for: .touchUpInside)
             
-//            print("SELF.FRAME.HEIGHT = \(self.frame.height) / 2 = \(self.frame.height / 2.5)")
-//            day.layer.cornerRadius = self.frame.height / 2.5 // used to be 15.0
             day.layer.cornerRadius = 13.0
-            
-//            day.layer.borderWidth = 2.0
-//            day.layer.borderColor = UIColor.mixedBlueGreen.cgColor
         }
     }
     
-    /// Sets buttons to selected
+    /// Sets buttons to be selected if they are in the plants days  (should NOT select buttons that are already selected)
     func selectDays(_ daysToSelect: [Int16]) {
         print("selectDays called")
         for day in daysToSelect {
             let index = Int(day) - 1
             print("day = \(day) index = \(index)")
-            selectDay(buttonArray[index])
+            // NOT Selected, so select it
+            if buttonArray[index].tintColor == .secondaryLabel {
+                buttonArray[index].tintColor = UIColor.customSelectedDayColor//.darkGray
+                buttonArray[index].titleLabel?.font = selectedFont
+            }
         }
+    }
+ 
+    /// Resets all days so they're unselected
+    private func resetDays() {
+        print("resetDays")
+        for button in buttonArray {
+            button.tintColor = .secondaryLabel
+            button.titleLabel?.font = unselectedFont
+        }
+        
     }
     
     /// Return an array of Int16s that are currently selected (Sunday = 1, etc)

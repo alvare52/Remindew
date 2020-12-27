@@ -446,13 +446,13 @@ class PlantController {
         checkPendingNotes()
     }
     
-    /// Testing to see which notes are pending
+    /// Prints out total amount of notifications that are pending
     func checkPendingNotes() {
         print("checkPendingNotes")
         // check all pending ones to make sure?
         UNUserNotificationCenter.current().getPendingNotificationRequests { (notes) in
             DispatchQueue.main.async {
-                print("pending notes count = \(notes.count), notes = \(notes)")
+//                print("pending notes count = \(notes.count), notes = \(notes)")
                 print("pending count = \(notes.count)")
             }
         }

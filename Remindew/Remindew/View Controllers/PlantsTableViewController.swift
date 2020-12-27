@@ -27,6 +27,7 @@ class PlantsTableViewController: UITableViewController {
         // Bring up settings tab??? disconnect this maybe?
         print("settingsBarButtonTapped")
         plantController.printLastTokenAndDate()
+        plantController.checkPendingNotes()
         performSegue(withIdentifier: "ShowSettingsSegue", sender: self)
     }
     
