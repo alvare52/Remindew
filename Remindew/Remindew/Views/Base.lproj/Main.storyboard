@@ -39,14 +39,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="muc-cH-3Fv">
+                                <rect key="frame" x="192" y="14" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="MTQ-Dk-wPR"/>
+                                    <constraint firstAttribute="height" constant="30" id="U56-C0-G34"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="clearDismissButtonTapped:" destination="37P-Tf-cu2" eventType="touchUpInside" id="1NT-jT-C2r"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="548-Ke-OKO"/>
                         <color key="backgroundColor" name="customBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="GP1-U4-PdQ" firstAttribute="top" secondItem="TeT-Mg-dV2" secondAttribute="bottom" constant="8" symbolic="YES" id="MKO-QT-nOq"/>
                             <constraint firstItem="GP1-U4-PdQ" firstAttribute="leading" secondItem="548-Ke-OKO" secondAttribute="leading" id="O46-pp-b14"/>
+                            <constraint firstItem="muc-cH-3Fv" firstAttribute="centerX" secondItem="KdG-0H-jCP" secondAttribute="centerX" id="O5m-DB-hzf"/>
                             <constraint firstItem="GP1-U4-PdQ" firstAttribute="trailing" secondItem="548-Ke-OKO" secondAttribute="trailing" id="Pea-eD-S8m"/>
                             <constraint firstItem="TeT-Mg-dV2" firstAttribute="top" secondItem="548-Ke-OKO" secondAttribute="top" constant="20" id="QyZ-9u-oK7"/>
+                            <constraint firstItem="muc-cH-3Fv" firstAttribute="top" secondItem="548-Ke-OKO" secondAttribute="top" constant="14" id="Rmx-Ie-Pd7"/>
                             <constraint firstAttribute="bottom" secondItem="GP1-U4-PdQ" secondAttribute="bottom" id="lPn-Y5-p7w"/>
                             <constraint firstItem="TeT-Mg-dV2" firstAttribute="centerX" secondItem="KdG-0H-jCP" secondAttribute="centerX" id="yU8-RX-Dcb"/>
                         </constraints>

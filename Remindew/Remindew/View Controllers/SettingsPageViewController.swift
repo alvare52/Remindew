@@ -9,6 +9,11 @@
 import UIKit
 
 class SettingsPageViewController: UIViewController {
+    
+    @IBAction func clearDismissButtonTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     @IBOutlet var tableView: UITableView!
         
