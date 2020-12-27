@@ -277,6 +277,14 @@ class PlantsTableViewController: UITableViewController {
                 detailVC.plant = fetchedResultsController.object(at: indexPath)
             }
         }
+        
+        // SettingsPageViewController
+        if segue.identifier == "ShowSettingsSegue" {
+            print("ShowSettingsSegue")
+            if let settingsVC = segue.destination as? SettingsPageViewController {
+                settingsVC.totalPlantCount = fetchedResultsController.fetchedObjects?.count ?? 0
+            }
+        }
     }
 }
 

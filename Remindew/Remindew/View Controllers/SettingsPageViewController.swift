@@ -8,24 +8,38 @@
 
 import UIKit
 
-class SettingsPageViewController: UIViewController {
+class SettingsPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: - Actions
+    
+    /// Clear button that sits over progressView (notch) and dismiss view controller when tapped
     @IBAction func clearDismissButtonTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
-
+    // MARK: - Outlets
+    
     @IBOutlet var tableView: UITableView!
-        
+    
+    // MARK: - Properties
+    
+    /// String that shows how many total plants there are and how many pending notifications there are
+    var totalPlantCount = 0
+    var totalNotificationsCount = 0
+    var stats: String {
+        return "\n\nPlants: \(totalPlantCount)"
+    }
+    
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor.customBackgroundColor
     }
-}
-
-extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - Table View
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -52,7 +66,7 @@ extension SettingsPageViewController: UITableViewDelegate, UITableViewDataSource
         case 2:
             return "Clicking on a search result will replace species with common name of selected result"
         case 3:
-            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource. By using Trefle you accept and agree to abide by its terms and conditions."
+            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource. By using Trefle you accept and agree to abide by its terms and conditions." + stats
         default:
             return ""
         }
