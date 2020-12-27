@@ -122,6 +122,12 @@ class PlantController {
     func updateInNotepad(notepad: NotePad,
                          plant: Plant) {
         
+        var remakeNotifications = true
+        if plant.mainTitle == notepad.mainTitle && plant.mainMessage == notepad.mainMessage {
+            print("mainTitle and mainMessage are same as before, so DONT update reminders")
+            remakeNotifications = false
+        }
+        
         plant.scientificName = notepad.scientificName
         plant.notes = notepad.notes
         plant.mainTitle = notepad.mainTitle
@@ -130,13 +136,14 @@ class PlantController {
         plant.location = notepad.location
         
         // TODO: check here if Title and Message are different?
-        
-        // remove pending notifications for this plant first
-        print("removing")
-        removeAllRequestsForPlant(plant: plant)
-        // then create brand new ones
-        print("adding new ones, \(String(describing: plant.frequency?.count))")
-        addRequestsForPlant(plant: plant)
+        if remakeNotifications {
+            // remove pending notifications for this plant first (if it needs to change title or message)
+            print("removing")
+            removeAllRequestsForPlant(plant: plant)
+            // then create brand new ones
+            print("adding new ones, \(String(describing: plant.frequency?.count))")
+            addRequestsForPlant(plant: plant)
+        }
         
         savePlant()
     }
