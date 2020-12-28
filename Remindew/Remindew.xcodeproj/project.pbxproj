@@ -21,6 +21,7 @@
 		1B09884023EA97BD000033FA /* PlantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B09883F23EA97BD000033FA /* PlantController.swift */; };
 		1B2A55AE25979F6A004C98D9 /* NotepadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55AD25979F6A004C98D9 /* NotepadViewController.swift */; };
 		1B2A55B32599665B004C98D9 /* AppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55B22599665A004C98D9 /* AppearanceViewController.swift */; };
+		1B2A55CA259A96B2004C98D9 /* CustomizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55C9259A96B1004C98D9 /* CustomizationView.swift */; };
 		1BAA3FD925798BCA0076CE91 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */; };
 		1BAA3FDE257AA2FD0076CE91 /* APIStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */; };
 		1BAA3FE325808FFA0076CE91 /* PlantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */; };
@@ -69,6 +70,7 @@
 		1B09883F23EA97BD000033FA /* PlantController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantController.swift; sourceTree = "<group>"; };
 		1B2A55AD25979F6A004C98D9 /* NotepadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotepadViewController.swift; sourceTree = "<group>"; };
 		1B2A55B22599665A004C98D9 /* AppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewController.swift; sourceTree = "<group>"; };
+		1B2A55C9259A96B1004C98D9 /* CustomizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizationView.swift; sourceTree = "<group>"; };
 		1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructs.swift; sourceTree = "<group>"; };
 		1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */,
 				1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */,
 				1BEB002D258EEE34008701D2 /* SettingsTableViewCell.swift */,
+				1B2A55C9259A96B1004C98D9 /* CustomizationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			files = (
 				1B2A55AE25979F6A004C98D9 /* NotepadViewController.swift in Sources */,
 				1BEB0029258EE4B2008701D2 /* SettingsPageViewController.swift in Sources */,
+				1B2A55CA259A96B2004C98D9 /* CustomizationView.swift in Sources */,
 				1B09883223EA928D000033FA /* Plants.xcdatamodeld in Sources */,
 				1B0987F223EA61DF000033FA /* AppDelegate.swift in Sources */,
 				1BAA3FDE257AA2FD0076CE91 /* APIStructs.swift in Sources */,

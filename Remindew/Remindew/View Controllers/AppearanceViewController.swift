@@ -44,6 +44,12 @@ class AppearanceViewController: UIViewController {
         return tempImageView
     }()
     
+    var plantCustomizationView: CustomizationView = {
+        let view = CustomizationView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     var plantController: PlantController?
     
     /// Holds plant that will be passed in and displayed
@@ -115,6 +121,12 @@ class AppearanceViewController: UIViewController {
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: standardMargin).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -standardMargin).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        
+        contentView.addSubview(plantCustomizationView)
+        plantCustomizationView.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
+        plantCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        plantCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        plantCustomizationView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: CGFloat(0.2)).isActive = true
         
     }
     /*
