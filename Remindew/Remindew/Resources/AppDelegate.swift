@@ -51,7 +51,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound, .badge])
+        // .alert deprecated in ios14
+        //completionHandler([.alert, .sound, .badge])
+        // .list is to show in lock screen, .banner is to show like normal banners.
+        completionHandler([.banner, .sound, .badge])
+
         // check watering status of all plants by sending notification to observer (PlantTableViewController)
         // Step 4
         NotificationCenter.default.post(name: .checkWateringStatus, object: self)
