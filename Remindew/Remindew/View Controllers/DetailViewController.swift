@@ -54,6 +54,7 @@ class DetailViewController: UIViewController {
         }
     }
     
+    /// Takes user to screen with larger image view and photo/visual options
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
         AudioServicesPlaySystemSound(SystemSoundID(1104))
@@ -63,6 +64,7 @@ class DetailViewController: UIViewController {
         if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
             appearanceVC.modalPresentationStyle = .automatic
             appearanceVC.view.backgroundColor = .orange
+            appearanceVC.mainImage = imageView.image
             present(appearanceVC, animated: true, completion: nil)
         }
 //        // dismiss keyboards so they don't stay up when library is loading
