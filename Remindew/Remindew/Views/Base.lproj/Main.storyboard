@@ -297,6 +297,21 @@
             </objects>
             <point key="canvasLocation" x="1548" y="102"/>
         </scene>
+        <!--Appearance View Controller-->
+        <scene sceneID="COR-3K-DG0">
+            <objects>
+                <viewController storyboardIdentifier="AppearanceViewControllerID" id="Ae2-et-fYP" customClass="AppearanceViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="V8b-ZV-QOp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="GPH-Ll-odN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kcy-Me-V46" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1546" y="785"/>
+        </scene>
         <!--Notepad View Controller-->
         <scene sceneID="XNW-DU-GQi">
             <objects>

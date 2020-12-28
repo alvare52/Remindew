@@ -58,10 +58,17 @@ class DetailViewController: UIViewController {
         print("CameraButton tapped")
         AudioServicesPlaySystemSound(SystemSoundID(1104))
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        // dismiss keyboards so they don't stay up when library is loading
-        nicknameTextField.resignFirstResponder()
-        speciesTextField.resignFirstResponder()
-        presentPhotoActionSheet()
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
+            appearanceVC.modalPresentationStyle = .automatic
+            appearanceVC.view.backgroundColor = .orange
+            present(appearanceVC, animated: true, completion: nil)
+        }
+//        // dismiss keyboards so they don't stay up when library is loading
+//        nicknameTextField.resignFirstResponder()
+//        speciesTextField.resignFirstResponder()
+//        presentPhotoActionSheet()
     }
         
     @IBAction func plantButtonTapped(_ sender: UIButton) {
