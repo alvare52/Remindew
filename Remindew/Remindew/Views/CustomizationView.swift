@@ -24,6 +24,16 @@ class CustomizationView: UIView {
         return label
     }()
     
+    /// Displays the icon image for this action/plant
+    var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .lightGray
+        imageView.tintColor = .leafGreen
+        imageView.image = UIImage(systemName: "leaf.fill")
+        return imageView
+    }()
+    
     // MARK: - View Life Cycle
     
     // uses this one
@@ -49,5 +59,14 @@ class CustomizationView: UIView {
         plantNameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CGFloat(0.5)).isActive = true
         plantNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: CGFloat(0.5)).isActive = true
         plantNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(10)).isActive = true
+        
+        // Icon image view
+        addSubview(iconImageView)
+        iconImageView.topAnchor.constraint(equalTo: plantNameLabel.topAnchor).isActive = true
+        iconImageView.leadingAnchor.constraint(equalTo: plantNameLabel.trailingAnchor).isActive = true
+        iconImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
+        iconImageView.bottomAnchor.constraint(equalTo: plantNameLabel.bottomAnchor).isActive = true
+//        iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(10)).isActive = true
+        
     }
 }
