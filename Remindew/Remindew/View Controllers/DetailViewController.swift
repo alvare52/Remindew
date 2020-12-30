@@ -131,15 +131,6 @@ class DetailViewController: UIViewController {
         return formatter
     }
     
-    /// Last Watered Text View / Button title
-    var dateFormatter2: DateFormatter {
-        let formatter = DateFormatter()
-//            formatter.dateFormat = "EEEE MMM d, h:mm a"
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter
-    }
-    
     /// Loading indicator displayed while searching for a plant
     let spinner = UIActivityIndicatorView(style: .large)
         

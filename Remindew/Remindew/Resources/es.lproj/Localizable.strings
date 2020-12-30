@@ -39,6 +39,7 @@
 
 // MARK: - L
 "Last Watered:\n" = "Última Regada:\n";
+"Last: " = "Última: ";
 // MARK: - M
 "Missing Nickname" = "No Sobrenombre";
 "Missing Species Name" = "No Especie";

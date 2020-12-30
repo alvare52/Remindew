@@ -134,7 +134,7 @@ class NotepadViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = "Notes"
         textView.font = .systemFont(ofSize: 14)
-        textView.backgroundColor = .white
+        textView.backgroundColor = .lightModeBackgroundGray
         textView.contentMode = .left
         return textView
     }()
@@ -146,6 +146,13 @@ class NotepadViewController: UIViewController {
         didSet {
             updateViews()
         }
+    }
+    
+    /// Last Watered Label
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE MM/dd/yy, h:mm a"
+        return formatter
     }
     
     /// Standard padding for left and right sides
@@ -164,6 +171,11 @@ class NotepadViewController: UIViewController {
             actionTextfield.text = plant.mainAction
             locationTextfield.text = plant.location
             notesTextView.text = plant.notes
+            if let lastDate = plant.lastDateWatered {
+                lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(dateFormatter.string(from: lastDate))"
+            } else {
+                lastDateLabel.text = "Brand New Plant"
+            }
         }
         
         // ADD Mode

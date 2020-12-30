@@ -138,6 +138,9 @@ extension UIColor {
     /// Light Gray for disabled button:. R: 28, G: 28, B: 30
     static let disabledGray = UIColor(red: 28.0 / 255.0, green: 28.0 / 255.0, blue: 30.0 / 255.0, alpha: 1.0)
     
+    /// Off-white used for background of main page in light mode. R: 242, G: 242, B: 247
+    static let lightModeBackgroundGray = UIColor(red: 242.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0)
+    
     /// Black/Off-White used for main background color: Black (0,0,0) - Off-White  (242,242,247)
     static let customBackgroundColor = UIColor.init(named: "customBackgroundColor")
     
