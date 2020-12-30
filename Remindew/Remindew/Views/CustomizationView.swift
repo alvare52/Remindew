@@ -17,7 +17,7 @@ class CustomizationView: UIView {
     var plantNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .orange
+        label.textColor = UIColor.colorsArray[0]
         label.backgroundColor = .white
         label.text = "Leaf Erikson"
         label.font = .boldSystemFont(ofSize: 25)
@@ -29,7 +29,7 @@ class CustomizationView: UIView {
         let imageView = UIButton()//UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .white
-        imageView.tintColor = .leafGreen
+        imageView.tintColor = UIColor.colorsArray[0]
 //        imageView.image = UIImage(systemName: "leaf.fill")
         imageView.setImage(UIImage(systemName: "leaf.fill"), for: .normal)
 //        imageView.contentMode = .scaleAspectFit
@@ -103,11 +103,12 @@ class CustomizationView: UIView {
     }
     
     @objc private func changeColor() {
+        localColorsCount += 1
         if localColorsCount == UIColor.colorsArray.count { localColorsCount = 0 }
         colorChangeButton.backgroundColor = UIColor.colorsArray[localColorsCount]
         plantNameLabel.textColor = UIColor.colorsArray[localColorsCount]
         iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
-        localColorsCount += 1
+//        localColorsCount += 1
     }
     
     @objc private func changeIcon() {
