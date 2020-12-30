@@ -33,9 +33,9 @@ class NotepadViewController: UIViewController {
     let lastDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Last: Friday 12/25/20, 10:00 a. m."
+        label.text = "Brand New Plant"
         label.textColor = .waterBlue
-        label.backgroundColor = .yellow
+        label.backgroundColor = .white
         label.textAlignment = .left
         label.numberOfLines = 1
         label.contentMode = .bottom
@@ -63,6 +63,31 @@ class NotepadViewController: UIViewController {
         scienceTextfield.backgroundColor = .white
         scienceTextfield.contentVerticalAlignment = .bottom
         return scienceTextfield
+    }()
+    
+    /// Location textfield
+    let locationTextfield: UITextField = {
+        let textfield = UITextField()
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.placeholder = "Location"
+        textfield.contentVerticalAlignment = .bottom
+        return textfield
+    }()
+    
+    /// Thin gray line thats under locationTextfield
+    let locationLine: UIView = {
+        let lineBreak = UIView()
+        lineBreak.translatesAutoresizingMaskIntoConstraints = false
+        return lineBreak
+    }()
+    
+    /// Action  textfield
+    let actionTextfield: UITextField = {
+        let textfield = UITextField()
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.placeholder = "Water"
+        textfield.contentVerticalAlignment = .bottom
+        return textfield
     }()
     
     /// Notification bubble view (88 pts height), holds title and message textfields
@@ -153,37 +178,13 @@ class NotepadViewController: UIViewController {
         return lineBreak
     }()
     
-    /// Location textfield
-    let locationTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Location"
-        textfield.contentVerticalAlignment = .bottom
-        return textfield
-    }()
-    
-    /// Thin gray line thats under locationTextfield
-    let locationLine: UIView = {
-        let lineBreak = UIView()
-        lineBreak.translatesAutoresizingMaskIntoConstraints = false
-        return lineBreak
-    }()
-    
-    /// Action  textfield
-    let actionTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Water"
-        textfield.contentVerticalAlignment = .bottom
-        return textfield
-    }()
-    
     /// Textview for any notes
     let notesTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = "Notes"
         textView.font = .systemFont(ofSize: 14)
+        textView.layer.cornerRadius = 15
         textView.backgroundColor = .lightModeBackgroundGray
         textView.contentMode = .left
         return textView
@@ -314,7 +315,7 @@ class NotepadViewController: UIViewController {
         
         // Scientific Line
         contentView.addSubview(scientificLine)
-        scientificLine.topAnchor.constraint(equalTo: scientificNameTextfield.bottomAnchor).isActive = true
+        scientificLine.topAnchor.constraint(equalTo: scientificNameTextfield.bottomAnchor, constant: 2).isActive = true
         scientificLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         scientificLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         scientificLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
@@ -329,7 +330,7 @@ class NotepadViewController: UIViewController {
         
         // Location Line
         contentView.addSubview(locationLine)
-        locationLine.topAnchor.constraint(equalTo: locationTextfield.bottomAnchor).isActive = true
+        locationLine.topAnchor.constraint(equalTo: locationTextfield.bottomAnchor, constant: 2).isActive = true
         locationLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         locationLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         locationLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
