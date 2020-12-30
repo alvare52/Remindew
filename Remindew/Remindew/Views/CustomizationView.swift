@@ -18,7 +18,7 @@ class CustomizationView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
-        label.backgroundColor = .yellow
+        label.backgroundColor = .white
         label.text = "Leaf Erikson"
         label.font = .boldSystemFont(ofSize: 25)
         return label
@@ -28,7 +28,7 @@ class CustomizationView: UIView {
     var iconImageButton: UIButton = {
         let imageView = UIButton()//UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .yellow
+        imageView.backgroundColor = .white
         imageView.tintColor = .leafGreen
 //        imageView.image = UIImage(systemName: "leaf.fill")
         imageView.setImage(UIImage(systemName: "leaf.fill"), for: .normal)

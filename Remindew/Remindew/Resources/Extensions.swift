@@ -102,6 +102,11 @@ extension UIButton {
 
 extension UIColor {
     
+    static let creamPink: UIColor = UIColor(red: 253.0 / 255.0, green: 168.0 / 255.0, blue: 149.0 / 255.0, alpha: 1.0)
+    static let mintGreen: UIColor = UIColor(red: 120.0 / 255.0, green: 190.0 / 255.0, blue: 170.0 / 255.0, alpha: 1.0)
+    static let butterYellow: UIColor = UIColor(red: 241.0 / 255.0, green: 195.0 / 255.0, blue: 116.0 / 255.0, alpha: 1.0)
+    static let eggshellWhite: UIColor = UIColor(red: 220.0 / 255.0, green: 220.0 / 255.0, blue: 200.0 / 255.0, alpha: 1.0)
+    
     ///
     static let lightLeafGreen = UIColor(red: 104.0 / 255.0, green: 174.0 / 255.0, blue: 120.0 / 255.0, alpha: 1.0)
     
@@ -171,7 +176,7 @@ extension UIColor {
     }
     
     /// Colors used with colorIndex to set custom color
-    static let colorsArray = [UIColor.mixedBlueGreen, UIColor.waterBlue, UIColor.systemRed, UIColor.systemYellow, UIColor.systemGreen, UIColor.systemBlue, UIColor.systemPurple, UIColor.systemIndigo, UIColor.systemPink, UIColor.darkGray]
+    static let colorsArray = [.mixedBlueGreen, .waterBlue, UIColor.systemRed, UIColor.systemOrange, UIColor.systemYellow, UIColor.systemGreen, UIColor.systemBlue, UIColor.systemIndigo, UIColor.systemPurple, UIColor.systemPink, UIColor.systemTeal, UIColor.darkGray, UIColor.brown, .creamPink, .butterYellow, .mintGreen, .eggshellWhite]
 }
     
 // MARK: - UIImage
