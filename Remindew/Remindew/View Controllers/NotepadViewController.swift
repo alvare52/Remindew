@@ -87,6 +87,7 @@ class NotepadViewController: UIViewController {
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Water"
         textfield.contentVerticalAlignment = .bottom
+        textfield.textColor = .waterBlue
         return textfield
     }()
     
@@ -267,11 +268,18 @@ class NotepadViewController: UIViewController {
         }
         
     }
+    
+    // MARK: - View Life Cycle
         
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubViews()
         updateViews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        notesTextView.becomeFirstResponder()
     }
     
     // TODO: alert if user tries to leave without saving?
