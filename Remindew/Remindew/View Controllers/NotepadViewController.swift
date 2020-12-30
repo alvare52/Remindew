@@ -81,16 +81,30 @@ class NotepadViewController: UIViewController {
         imageView.layer.cornerRadius = 5
         imageView.backgroundColor = .white
         imageView.image = UIImage.logoImage
+        imageView.contentMode = .scaleAspectFit
         return imageView
+    }()
+    
+    /// Displays name of app in notification view
+    let appNameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14, weight: .light)
+        label.textColor = .white
+        label.textAlignment = .left
+        label.text = "REMINDEW"
+        return label
     }()
     
     /// Displays how many minutes ago notification was sent (purely visual)
     let timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .lightGray
+        label.textColor = .white
         label.font = .systemFont(ofSize: 14, weight: .light)
-        label.backgroundColor = .orange
+//        label.backgroundColor = .orange
+        label.text = "16m ago"
+        label.textAlignment = .right
         return label
     }()
     
@@ -358,6 +372,25 @@ class NotepadViewController: UIViewController {
         noticiationView.heightAnchor.constraint(equalToConstant: 88).isActive = true
         noticiationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         noticiationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        
+        // Small Icon ImageView
+        noticiationView.addSubview(smallIconImageView)
+        smallIconImageView.topAnchor.constraint(equalTo: noticiationView.topAnchor, constant: 12).isActive = true
+        smallIconImageView.leadingAnchor.constraint(equalTo: noticiationView.leadingAnchor, constant: 12).isActive = true
+        smallIconImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        smallIconImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        // App Name Label
+        noticiationView.addSubview(appNameLabel)
+        appNameLabel.centerYAnchor.constraint(equalTo: smallIconImageView.centerYAnchor).isActive = true
+        appNameLabel.leadingAnchor.constraint(equalTo: smallIconImageView.trailingAnchor, constant: 8).isActive = true
+        appNameLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        // Time Label
+        noticiationView.addSubview(timeLabel)
+        timeLabel.centerYAnchor.constraint(equalTo: smallIconImageView.centerYAnchor).isActive = true
+        timeLabel.trailingAnchor.constraint(equalTo: noticiationView.trailingAnchor, constant: -16).isActive = true
+        timeLabel.widthAnchor.constraint(equalTo: saveButton.widthAnchor).isActive = true
         
         // Notes Textview
         contentView.addSubview(notesTextView)
