@@ -126,7 +126,7 @@ class AppearanceViewController: UIViewController {
         plantCustomizationView.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
         plantCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         plantCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        plantCustomizationView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: CGFloat(0.2)).isActive = true
+        plantCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
     }
     /*

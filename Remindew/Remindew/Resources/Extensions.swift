@@ -169,6 +169,9 @@ extension UIColor {
             UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .light
         }
     }
+    
+    /// Colors used with colorIndex to set custom color
+    static let colorsArray = [UIColor.mixedBlueGreen, UIColor.waterBlue, UIColor.systemRed, UIColor.systemYellow, UIColor.systemGreen, UIColor.systemBlue, UIColor.systemPurple, UIColor.systemIndigo, UIColor.systemPink, UIColor.darkGray]
 }
     
 // MARK: - UIImage
