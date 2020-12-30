@@ -350,10 +350,11 @@ class PlantController {
         print("returnPlantNotificationIdentifiers")
         var result = [String]()
         
-        for i in 1...7 {
-            result.append("\(i)\(plant.identifier!)")
+        for day in plant.frequency! {
+            result.append("\(day)\(plant.identifier!)")
         }
         
+        print("all notes for plant to remove = \(result)")
         return result
     }
         
