@@ -106,8 +106,8 @@ class NotepadViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
         imageView.backgroundColor = .white
-        imageView.image = UIImage.logoImage
-        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage.smallAppIconImage
+        imageView.clipsToBounds = true
         return imageView
     }()
     

@@ -18,7 +18,7 @@ class CustomizationView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
-        label.backgroundColor = .white
+        label.backgroundColor = .yellow
         label.text = "Leaf Erikson"
         label.font = .boldSystemFont(ofSize: 25)
         return label
@@ -28,7 +28,7 @@ class CustomizationView: UIView {
     var iconImageButton: UIButton = {
         let imageView = UIButton()//UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .yellow
         imageView.tintColor = .leafGreen
 //        imageView.image = UIImage(systemName: "leaf.fill")
         imageView.setImage(UIImage(systemName: "leaf.fill"), for: .normal)
@@ -92,7 +92,7 @@ class CustomizationView: UIView {
         // Icon image view
         addSubview(iconImageButton)
 //        iconImageView.topAnchor.constraint(equalTo: plantNameLabel.topAnchor).isActive = true
-        iconImageButton.trailingAnchor.constraint(equalTo: colorChangeButton.leadingAnchor, constant: -16).isActive = true
+        iconImageButton.trailingAnchor.constraint(equalTo: colorChangeButton.leadingAnchor, constant: -20).isActive = true
         iconImageButton.heightAnchor.constraint(equalTo: plantNameLabel.heightAnchor).isActive = true
         iconImageButton.widthAnchor.constraint(equalTo: iconImageButton.heightAnchor).isActive = true
         iconImageButton.centerYAnchor.constraint(equalTo: plantNameLabel.centerYAnchor).isActive = true

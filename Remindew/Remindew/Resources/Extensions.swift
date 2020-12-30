@@ -179,10 +179,16 @@ extension UIColor {
 extension UIImage {
     
     /// Icons used for actions
-    static let iconArray = [UIImage(systemName: "leaf.fill"), UIImage(systemName: "drop.fill"), UIImage(systemName: "ant.fill"), UIImage(systemName: "sparkle")]
+    static let iconArray = [UIImage(systemName: "drop.fill"), UIImage(systemName: "scissors"), UIImage(systemName: "ant.fill"), UIImage(systemName: "sparkles"), UIImage(systemName: "rotate.right.fill"), UIImage(systemName: "cross.fill"), UIImage(systemName: "circle.fill"), UIImage(systemName: "arrow.up.bin.fill")]
+    
+    /// Icons used for plants
+    static let plantIconArray = [UIImage(systemName: "leaf.fill")]
     
     /// App icon image to use throughout app when a default image is needed. UIImage(named: "plantslogoclear1024x1024")!
     static let logoImage = UIImage(named: "plantslogoclear1024x1024")!
+    
+    /// 60x60 version of app icon (clear background). UIImage(named: "plantslogoclear60x60")
+    static let smallAppIconImage = UIImage(named: "plantslogo60x60")
     
     /// Takes in a UIImageView and gives the bottom half a clear/black gradient with the given opacity.
     /// - Parameter imageView: the UIImageView we want to give a bottom half gradient (imageView needs a frame)
