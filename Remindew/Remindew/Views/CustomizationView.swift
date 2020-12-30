@@ -18,7 +18,7 @@ class CustomizationView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
-        label.backgroundColor = .white
+        label.backgroundColor = .lightGray
         label.text = "Leaf Erikson"
         label.font = .boldSystemFont(ofSize: 25)
         return label
@@ -28,7 +28,7 @@ class CustomizationView: UIView {
     var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .lightGray
         imageView.tintColor = .leafGreen
         imageView.image = UIImage(systemName: "leaf.fill")
         imageView.contentMode = .scaleAspectFit
@@ -39,7 +39,7 @@ class CustomizationView: UIView {
     let colorChangeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .leafGreen
+        button.backgroundColor = .lightGray
         return button
     }()
     
@@ -73,27 +73,29 @@ class CustomizationView: UIView {
         // Plant name label
         addSubview(plantNameLabel)
         plantNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        plantNameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CGFloat(0.5)).isActive = true
+        plantNameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CGFloat(0.7)).isActive = true
         plantNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: CGFloat(0.5)).isActive = true
-        plantNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(10)).isActive = true
-        
-        // Icon image view
-        addSubview(iconImageView)
-        iconImageView.topAnchor.constraint(equalTo: plantNameLabel.topAnchor).isActive = true
-        iconImageView.leadingAnchor.constraint(equalTo: plantNameLabel.trailingAnchor).isActive = true
-        iconImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
-        iconImageView.bottomAnchor.constraint(equalTo: plantNameLabel.bottomAnchor).isActive = true
-//        iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(10)).isActive = true
+        plantNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
         // Color Change Button
         addSubview(colorChangeButton)
 //        colorChangeButton.topAnchor.constraint(equalTo: plantNameLabel.topAnchor).isActive = true
         colorChangeButton.centerYAnchor.constraint(equalTo: plantNameLabel.centerYAnchor).isActive = true
-        colorChangeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        colorChangeButton.heightAnchor.constraint(equalTo: iconImageView.widthAnchor).isActive = true
+        colorChangeButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        colorChangeButton.heightAnchor.constraint(equalTo: plantNameLabel.heightAnchor).isActive = true
         colorChangeButton.widthAnchor.constraint(equalTo: colorChangeButton.heightAnchor).isActive = true
-        colorChangeButton.layer.cornerRadius = 19//buttonCornerRadius
+        colorChangeButton.layer.cornerRadius = 15//buttonCornerRadius
         colorChangeButton.addTarget(self, action: #selector(changeColor), for: .touchUpInside)
+        
+        // Icon image view
+        addSubview(iconImageView)
+//        iconImageView.topAnchor.constraint(equalTo: plantNameLabel.topAnchor).isActive = true
+        iconImageView.trailingAnchor.constraint(equalTo: colorChangeButton.leadingAnchor, constant: -16).isActive = true
+        iconImageView.heightAnchor.constraint(equalTo: plantNameLabel.heightAnchor).isActive = true
+        iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor).isActive = true
+        iconImageView.centerYAnchor.constraint(equalTo: plantNameLabel.centerYAnchor).isActive = true
+//        iconImageView.bottomAnchor.constraint(equalTo: plantNameLabel.bottomAnchor).isActive = true
+//        iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(10)).isActive = true
         
     }
     
