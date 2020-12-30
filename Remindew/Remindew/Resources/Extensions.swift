@@ -178,6 +178,9 @@ extension UIColor {
 
 extension UIImage {
     
+    /// Icons used for actions
+    static let iconArray = [UIImage(systemName: "leaf.fill"), UIImage(systemName: "drop.fill"), UIImage(systemName: "ant.fill"), UIImage(systemName: "sparkle")]
+    
     /// App icon image to use throughout app when a default image is needed. UIImage(named: "plantslogoclear1024x1024")!
     static let logoImage = UIImage(named: "plantslogoclear1024x1024")!
     

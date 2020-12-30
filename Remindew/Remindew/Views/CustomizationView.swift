@@ -18,20 +18,21 @@ class CustomizationView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
-        label.backgroundColor = .lightGray
+        label.backgroundColor = .white
         label.text = "Leaf Erikson"
         label.font = .boldSystemFont(ofSize: 25)
         return label
     }()
     
     /// Displays the icon image for this action/plant
-    var iconImageView: UIImageView = {
-        let imageView = UIImageView()
+    var iconImageButton: UIButton = {
+        let imageView = UIButton()//UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .lightGray
+        imageView.backgroundColor = .white
         imageView.tintColor = .leafGreen
-        imageView.image = UIImage(systemName: "leaf.fill")
-        imageView.contentMode = .scaleAspectFit
+//        imageView.image = UIImage(systemName: "leaf.fill")
+        imageView.setImage(UIImage(systemName: "leaf.fill"), for: .normal)
+//        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -39,12 +40,13 @@ class CustomizationView: UIView {
     let colorChangeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .lightGray
+        button.backgroundColor = UIColor.colorsArray[0]
         return button
     }()
     
     let localColorsArray: [UIColor] = [UIColor.systemRed, UIColor.systemBlue, UIColor.systemGreen]
     var localColorsCount = 0
+    var localIconCount = 0
     
     // MARK: - View Life Cycle
     
@@ -88,14 +90,15 @@ class CustomizationView: UIView {
         colorChangeButton.addTarget(self, action: #selector(changeColor), for: .touchUpInside)
         
         // Icon image view
-        addSubview(iconImageView)
+        addSubview(iconImageButton)
 //        iconImageView.topAnchor.constraint(equalTo: plantNameLabel.topAnchor).isActive = true
-        iconImageView.trailingAnchor.constraint(equalTo: colorChangeButton.leadingAnchor, constant: -16).isActive = true
-        iconImageView.heightAnchor.constraint(equalTo: plantNameLabel.heightAnchor).isActive = true
-        iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor).isActive = true
-        iconImageView.centerYAnchor.constraint(equalTo: plantNameLabel.centerYAnchor).isActive = true
+        iconImageButton.trailingAnchor.constraint(equalTo: colorChangeButton.leadingAnchor, constant: -16).isActive = true
+        iconImageButton.heightAnchor.constraint(equalTo: plantNameLabel.heightAnchor).isActive = true
+        iconImageButton.widthAnchor.constraint(equalTo: iconImageButton.heightAnchor).isActive = true
+        iconImageButton.centerYAnchor.constraint(equalTo: plantNameLabel.centerYAnchor).isActive = true
 //        iconImageView.bottomAnchor.constraint(equalTo: plantNameLabel.bottomAnchor).isActive = true
 //        iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(10)).isActive = true
+        iconImageButton.addTarget(self, action: #selector(changeIcon), for: .touchUpInside)
         
     }
     
@@ -103,7 +106,15 @@ class CustomizationView: UIView {
         if localColorsCount == UIColor.colorsArray.count { localColorsCount = 0 }
         colorChangeButton.backgroundColor = UIColor.colorsArray[localColorsCount]
         plantNameLabel.textColor = UIColor.colorsArray[localColorsCount]
-        iconImageView.tintColor = UIColor.colorsArray[localColorsCount]
+        iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
         localColorsCount += 1
+    }
+    
+    @objc private func changeIcon() {
+        if localIconCount == UIImage.iconArray.count {
+            localIconCount = 0
+        }
+        iconImageButton.setImage(UIImage.iconArray[localIconCount], for: .normal)
+        localIconCount += 1
     }
 }
