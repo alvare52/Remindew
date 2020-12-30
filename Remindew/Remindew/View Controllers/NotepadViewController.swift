@@ -35,6 +35,7 @@ class NotepadViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Last: Friday 12/25/20, 10:00 a. m."
         label.textColor = .waterBlue
+        label.backgroundColor = .yellow
         label.textAlignment = .left
         label.numberOfLines = 1
         label.contentMode = .bottom
@@ -64,11 +65,40 @@ class NotepadViewController: UIViewController {
         return scienceTextfield
     }()
     
+    /// Notification bubble view (88 pts height), holds title and message textfields
+    let noticiationView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 15
+        view.backgroundColor = .darkGray
+        return view
+    }()
+    
+    /// Displays small app icon image in top left corner of notification view
+    let smallIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 5
+        imageView.backgroundColor = .white
+        imageView.image = UIImage.logoImage
+        return imageView
+    }()
+    
+    /// Displays how many minutes ago notification was sent (purely visual)
+    let timeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .lightGray
+        label.font = .systemFont(ofSize: 14, weight: .light)
+        label.backgroundColor = .orange
+        return label
+    }()
+    
     let reminderTitleTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Reminder Title"
-        textfield.backgroundColor = .white
+        textfield.backgroundColor = .red
         textfield.contentVerticalAlignment = .bottom
         return textfield
     }()
@@ -77,7 +107,7 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Reminder Message"
-        textfield.backgroundColor = .white
+        textfield.backgroundColor = .blue
         textfield.contentVerticalAlignment = .bottom
         return textfield
     }()
@@ -270,39 +300,39 @@ class NotepadViewController: UIViewController {
         scientificLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         scientificLine.backgroundColor = .lightGray
         
-        // Reminder Title ("Time to water your plant") Textfield
-        contentView.addSubview(reminderTitleTextfield)
-        reminderTitleTextfield.topAnchor.constraint(equalTo: scientificLine.bottomAnchor).isActive = true
-        reminderTitleTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        reminderTitleTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        reminderTitleTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-        // Title Line
-        contentView.addSubview(titleLine)
-        titleLine.topAnchor.constraint(equalTo: reminderTitleTextfield.bottomAnchor).isActive = true
-        titleLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        titleLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        titleLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        titleLine.backgroundColor = .lightGray
-
-        // Reminder Message Textfield
-        contentView.addSubview(reminderMessageTextfield)
-        reminderMessageTextfield.topAnchor.constraint(equalTo: titleLine.bottomAnchor).isActive = true
-        reminderMessageTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        reminderMessageTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        reminderMessageTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-        // Message Line
-        contentView.addSubview(messageLine)
-        messageLine.topAnchor.constraint(equalTo: reminderMessageTextfield.bottomAnchor).isActive = true
-        messageLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        messageLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        messageLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        messageLine.backgroundColor = .lightGray
+//        // Reminder Title ("Time to water your plant") Textfield
+//        contentView.addSubview(reminderTitleTextfield)
+//        reminderTitleTextfield.topAnchor.constraint(equalTo: scientificLine.bottomAnchor).isActive = true
+//        reminderTitleTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        reminderTitleTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        reminderTitleTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+//
+//        // Title Line
+//        contentView.addSubview(titleLine)
+//        titleLine.topAnchor.constraint(equalTo: reminderTitleTextfield.bottomAnchor).isActive = true
+//        titleLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        titleLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        titleLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+//        titleLine.backgroundColor = .lightGray
+//
+//        // Reminder Message Textfield
+//        contentView.addSubview(reminderMessageTextfield)
+//        reminderMessageTextfield.topAnchor.constraint(equalTo: titleLine.bottomAnchor).isActive = true
+//        reminderMessageTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        reminderMessageTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        reminderMessageTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+//
+//        // Message Line
+//        contentView.addSubview(messageLine)
+//        messageLine.topAnchor.constraint(equalTo: reminderMessageTextfield.bottomAnchor).isActive = true
+//        messageLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        messageLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        messageLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+//        messageLine.backgroundColor = .lightGray
         
         // Location Textfield
         contentView.addSubview(locationTextfield)
-        locationTextfield.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+        locationTextfield.topAnchor.constraint(equalTo: scientificLine.bottomAnchor).isActive = true
         locationTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         locationTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
         locationTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
@@ -317,14 +347,21 @@ class NotepadViewController: UIViewController {
         
         // Action Name ("Water")
         contentView.addSubview(actionTextfield)
-        actionTextfield.topAnchor.constraint(equalTo: messageLine.bottomAnchor).isActive = true
+        actionTextfield.topAnchor.constraint(equalTo: scientificLine.bottomAnchor).isActive = true
         actionTextfield.leadingAnchor.constraint(equalTo: locationTextfield.trailingAnchor).isActive = true
         actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
         actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
+        // Notification View
+        contentView.addSubview(noticiationView)
+        noticiationView.topAnchor.constraint(equalTo: locationLine.bottomAnchor, constant: 2).isActive = true
+        noticiationView.heightAnchor.constraint(equalToConstant: 88).isActive = true
+        noticiationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        noticiationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        
         // Notes Textview
         contentView.addSubview(notesTextView)
-        notesTextView.topAnchor.constraint(equalTo: locationLine.bottomAnchor).isActive = true
+        notesTextView.topAnchor.constraint(equalTo: noticiationView.bottomAnchor).isActive = true
         notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
