@@ -14,8 +14,22 @@
         <attribute name="scientificName" attributeType="String"/>
         <attribute name="species" attributeType="String"/>
         <attribute name="water_schedule" attributeType="Date" defaultDateTimeInterval="605272080" usesScalarValueType="NO"/>
+        <relationship name="reminders" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Reminder" inverseName="plant" inverseEntity="Reminder"/>
+    </entity>
+    <entity name="Reminder" representedClassName="Reminder" syncable="YES" codeGenerationType="class">
+        <attribute name="actionMessage" optional="YES" attributeType="String"/>
+        <attribute name="actionName" attributeType="String"/>
+        <attribute name="actionTitle" optional="YES" attributeType="String"/>
+        <attribute name="alarmDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="colorIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="frequency" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="iconIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="plant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Plant" inverseName="reminders" inverseEntity="Plant"/>
     </entity>
     <elements>
-        <element name="Plant" positionX="36" positionY="171" width="128" height="238"/>
+        <element name="Plant" positionX="36" positionY="171" width="128" height="253"/>
+        <element name="Reminder" positionX="38.640625" positionY="471.1640625" width="125.78515625" height="193"/>
     </elements>
 </model>

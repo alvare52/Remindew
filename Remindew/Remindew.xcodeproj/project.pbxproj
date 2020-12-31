@@ -22,6 +22,7 @@
 		1B2A55AE25979F6A004C98D9 /* NotepadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55AD25979F6A004C98D9 /* NotepadViewController.swift */; };
 		1B2A55B32599665B004C98D9 /* AppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55B22599665A004C98D9 /* AppearanceViewController.swift */; };
 		1B2A55CA259A96B2004C98D9 /* CustomizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55C9259A96B1004C98D9 /* CustomizationView.swift */; };
+		1B2A55CF259E2161004C98D9 /* Reminder+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55CE259E2160004C98D9 /* Reminder+Convenience.swift */; };
 		1BAA3FD925798BCA0076CE91 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */; };
 		1BAA3FDE257AA2FD0076CE91 /* APIStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */; };
 		1BAA3FE325808FFA0076CE91 /* PlantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */; };
@@ -71,6 +72,7 @@
 		1B2A55AD25979F6A004C98D9 /* NotepadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotepadViewController.swift; sourceTree = "<group>"; };
 		1B2A55B22599665A004C98D9 /* AppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewController.swift; sourceTree = "<group>"; };
 		1B2A55C9259A96B1004C98D9 /* CustomizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizationView.swift; sourceTree = "<group>"; };
+		1B2A55CE259E2160004C98D9 /* Reminder+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+Convenience.swift"; sourceTree = "<group>"; };
 		1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructs.swift; sourceTree = "<group>"; };
 		1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTableViewCell.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				1B09883B23EA9475000033FA /* PlantRepresentation.swift */,
 				1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */,
 				1BAA3FED25898B910076CE91 /* Key.swift */,
+				1B2A55CE259E2160004C98D9 /* Reminder+Convenience.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				1BAA3FE325808FFA0076CE91 /* PlantsTableViewCell.swift in Sources */,
 				1BEB002E258EEE35008701D2 /* SettingsTableViewCell.swift in Sources */,
 				1B2A55B32599665B004C98D9 /* AppearanceViewController.swift in Sources */,
+				1B2A55CF259E2161004C98D9 /* Reminder+Convenience.swift in Sources */,
 				1B09882923EA640E000033FA /* PlantsTableViewController.swift in Sources */,
 				1BAA3FEE25898B9A0076CE91 /* Key.swift in Sources */,
 				1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */,
