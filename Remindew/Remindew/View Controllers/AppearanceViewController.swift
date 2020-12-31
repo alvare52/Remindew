@@ -50,6 +50,33 @@ class AppearanceViewController: UIViewController {
         return view
     }()
     
+    /// Button used to present Camera
+    let takePhotoButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Take Photo", for: .normal)
+        button.backgroundColor = .red
+        return button
+    }()
+    
+    /// Button used to present Image Picker
+    let choosePhotoButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Choose Photo", for: .normal)
+        button.backgroundColor = .green
+        return button
+    }()
+    
+    /// Button used to save current photo to library
+    let savePhotoButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Save Photo", for: .normal)
+        button.backgroundColor = .blue
+        return button
+    }()
+    
     var plantController: PlantController?
     
     /// Holds plant that will be passed in and displayed
@@ -98,6 +125,18 @@ class AppearanceViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc private func takePhotoTapped() {
+        print("take photo")
+    }
+    
+    @objc private func choosePhotoTapped() {
+        print("choose photo")
+    }
+    
+    @objc private func savePhotoTapped() {
+        print("save photo")
+    }
+    
     /// Lays out all views needed
     private func setupSubViews() {
         
@@ -116,17 +155,47 @@ class AppearanceViewController: UIViewController {
 //        saveButton.heightAnchor.constraint(equalTo: saveButton.widthAnchor, multiplier: 0.5).isActive = true
 //        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
+        // Image View
         contentView.addSubview(imageView)
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: standardMargin).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -standardMargin).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         
+        // Plant Customization View
         contentView.addSubview(plantCustomizationView)
         plantCustomizationView.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
         plantCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         plantCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         plantCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        // Take Photo Button
+        contentView.addSubview(takePhotoButton)
+        takePhotoButton.topAnchor.constraint(equalTo: plantCustomizationView.bottomAnchor, constant: 8).isActive = true
+        takePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        takePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        takePhotoButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        takePhotoButton.layer.cornerRadius = 20
+        takePhotoButton.addTarget(self, action: #selector(takePhotoTapped), for: .touchUpInside)
+        
+        // Choose Photo Button
+        contentView.addSubview(choosePhotoButton)
+        choosePhotoButton.topAnchor.constraint(equalTo: takePhotoButton.bottomAnchor, constant: 8).isActive = true
+        choosePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        choosePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        choosePhotoButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        choosePhotoButton.layer.cornerRadius = 20
+        choosePhotoButton.addTarget(self, action: #selector(choosePhotoTapped), for: .touchUpInside)
+
+
+        // Save Photo Button
+        contentView.addSubview(savePhotoButton)
+        savePhotoButton.topAnchor.constraint(equalTo: choosePhotoButton.bottomAnchor, constant: 8).isActive = true
+        savePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        savePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        savePhotoButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        savePhotoButton.layer.cornerRadius = 20
+        savePhotoButton.addTarget(self, action: #selector(savePhotoTapped), for: .touchUpInside)
         
     }
     /*
