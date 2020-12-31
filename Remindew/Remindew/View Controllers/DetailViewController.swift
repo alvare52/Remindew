@@ -63,7 +63,6 @@ class DetailViewController: UIViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
             appearanceVC.modalPresentationStyle = .automatic
-            appearanceVC.view.backgroundColor = .orange
             appearanceVC.mainImage = imageView.image
             present(appearanceVC, animated: true, completion: nil)
         }

@@ -39,12 +39,20 @@ class AppearanceViewController: UIViewController {
         let tempImageView = UIImageView()
         tempImageView.translatesAutoresizingMaskIntoConstraints = false
         tempImageView.contentMode = .scaleAspectFit
-        tempImageView.backgroundColor = .blue
+        tempImageView.backgroundColor = .clear
         tempImageView.image = UIImage(named: "RemindewDefaultImage")
         return tempImageView
     }()
     
-    var plantCustomizationView: CustomizationView = {
+    /// Displays customization options for Plant
+    let plantCustomizationView: CustomizationView = {
+        let view = CustomizationView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    /// Displays customization options for Main Action ("Water", etc)
+    let actionCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -55,7 +63,7 @@ class AppearanceViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Take Photo", for: .normal)
-        button.backgroundColor = .red
+        button.backgroundColor = .mixedBlueGreen
         return button
     }()
     
@@ -64,7 +72,7 @@ class AppearanceViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Choose Photo", for: .normal)
-        button.backgroundColor = .green
+        button.backgroundColor = .mixedBlueGreen
         return button
     }()
     
@@ -73,7 +81,7 @@ class AppearanceViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Save Photo", for: .normal)
-        button.backgroundColor = .blue
+        button.backgroundColor = .mixedBlueGreen
         return button
     }()
     
@@ -140,6 +148,8 @@ class AppearanceViewController: UIViewController {
     /// Lays out all views needed
     private func setupSubViews() {
         
+        view.backgroundColor = .clear
+        
         // Content View
         view.addSubview(contentView)
         contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: standardMargin).isActive = true
@@ -169,9 +179,16 @@ class AppearanceViewController: UIViewController {
         plantCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         plantCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
+        // Main Action Customization View
+        contentView.addSubview(actionCustomizationView)
+        actionCustomizationView.topAnchor.constraint(equalTo: plantCustomizationView.bottomAnchor).isActive = true
+        actionCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        actionCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        actionCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
         // Take Photo Button
         contentView.addSubview(takePhotoButton)
-        takePhotoButton.topAnchor.constraint(equalTo: plantCustomizationView.bottomAnchor, constant: 8).isActive = true
+        takePhotoButton.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor, constant: 8).isActive = true
         takePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         takePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         takePhotoButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
