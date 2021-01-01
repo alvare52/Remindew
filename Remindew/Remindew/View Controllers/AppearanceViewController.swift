@@ -17,8 +17,16 @@ class AppearanceViewController: UIViewController {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
 //        contentView.layer.cornerRadius = 15
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .black
         return contentView
+    }()
+    
+    /// View bahind option buttons/views
+    let optionsBackgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
     }()
     
     /// Save button to save changes and dismiss view controller
@@ -117,14 +125,14 @@ class AppearanceViewController: UIViewController {
         
         imageView.image = mainImage
         
-        // EDIT/DETAIL Mode
-        if let plant = plant {
-        }
-        
-        // ADD Mode
-        else {
-            
-        }
+//        // EDIT/DETAIL Mode
+//        if let plant = plant {
+//        }
+//
+//        // ADD Mode
+//        else {
+//
+//        }
     }
     
     /// Saves contents and dismisses view controller
@@ -148,7 +156,7 @@ class AppearanceViewController: UIViewController {
     /// Lays out all views needed
     private func setupSubViews() {
         
-        view.backgroundColor = .clear
+        view.backgroundColor = .black
         
         // Content View
         view.addSubview(contentView)
@@ -171,6 +179,13 @@ class AppearanceViewController: UIViewController {
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: standardMargin).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -standardMargin).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
+        
+        // Options View
+        contentView.addSubview(optionsBackgroundView)
+        optionsBackgroundView.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
+        optionsBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        optionsBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        optionsBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
         // Plant Customization View
         contentView.addSubview(plantCustomizationView)
