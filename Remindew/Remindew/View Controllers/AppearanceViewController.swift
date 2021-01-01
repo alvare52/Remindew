@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class AppearanceViewController: UIViewController {
     
@@ -141,14 +142,74 @@ class AppearanceViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Brings up camera (if permitted) to let user take a photo of their plant
     @objc private func takePhotoTapped() {
         print("take photo")
+        
+        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        switch cameraAuthorizationStatus {
+        case .notDetermined, .denied, .restricted:
+            makeCameraUsagePermissionAlert()
+            return
+        case .authorized:
+            print("Authorized camera in takePhoto")
+        default:
+            print("Default in takePhoto")
+        }
+        
+        // check if we have access to Camera (if not, present an alert with option to go to Settings). Just in case
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            print("Error: camera is unavailable")
+            makeCameraUsagePermissionAlert()
+            return
+        }
+        
+        let viewController = UIImagePickerController()
+        
+        viewController.sourceType = .camera
+//        viewController.allowsEditing = true
+        viewController.delegate = self
+        present(viewController, animated: true)
     }
     
+    /// Lets user choose an image from their photo library (no permission required)
     @objc private func choosePhotoTapped() {
-        print("choose photo")
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+            print("Error: the photo library is unavailable")
+            return
+        }
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+//        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
     }
     
+    /// Presents an alert for when a user did not usage of their camera and lets them go to Settings to change it (will restart app though)
+    private func makeCameraUsagePermissionAlert() {
+    
+        // add two options
+        let title = NSLocalizedString("Camera Access Denied",
+                                      comment: "Title for camera usage not allowed")
+        let message = NSLocalizedString("Please allow camera usage by going to Settings and turning Camera access on", comment: "Error message for when camera access is not allowed")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // handler could select the textfield it needs or change textview text??
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            print("selected OK option")
+        }
+        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
+        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
+            // take user to Settings app
+            print("selected Settings option")
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        }
+        alertController.addAction(alertAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+  
     @objc private func savePhotoTapped() {
         print("save photo")
     }
@@ -240,4 +301,25 @@ class AppearanceViewController: UIViewController {
     }
     */
 
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
+/// For accessing the photo library
+extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("Picked Image")
+        
+        // .editedImage instead? (used to say .originalImage)
+        if let image = info[.originalImage] as? UIImage {
+            imageView.image = image
+        }
+        picker.dismiss(animated: true)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("Cancel")
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
