@@ -72,6 +72,36 @@
             </objects>
             <point key="canvasLocation" x="873.91304347826099" y="-596.65178571428567"/>
         </scene>
+        <!--Search View Controller-->
+        <scene sceneID="hS1-tP-Gb4">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewControllerID" id="o9g-S9-Gcu" customClass="SearchViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qdf-4j-0hf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="o1I-L8-HIL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xgc-Iu-95k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1599" y="-583"/>
+        </scene>
+        <!--Reminder View Controller-->
+        <scene sceneID="r0c-23-d6Q">
+            <objects>
+                <viewController storyboardIdentifier="ReminderViewControllerID" id="iUJ-VF-iSf" customClass="ReminderViewController" customModule="Remindew" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="72U-WI-rak">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fXF-zf-9b3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ga-lu-QPc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2451" y="-597"/>
+        </scene>
         <!--Remindew-->
         <scene sceneID="ZGE-a2-4t6">
             <objects>
@@ -273,7 +303,11 @@
                                     <action selector="notesButtonTapped:" destination="egV-2b-yvb" id="OM8-Mp-tWh"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="70H-0c-oGJ"/>
+                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="70H-0c-oGJ">
+                                <connections>
+                                    <action selector="searchButtonTapped:" destination="egV-2b-yvb" id="Cq8-Eu-ELT"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
                         </rightBarButtonItems>
                     </navigationItem>

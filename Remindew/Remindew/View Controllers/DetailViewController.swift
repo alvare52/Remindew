@@ -71,7 +71,19 @@ class DetailViewController: UIViewController {
 //        speciesTextField.resignFirstResponder()
 //        presentPhotoActionSheet()
     }
+    @IBAction func searchButtonTapped(_ sender: UIBarButtonItem) {
+        print("search button tapped")
         
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
+            reminderVC.modalPresentationStyle = .automatic
+//         reminderVC.plantController = plantController
+//         reminderVC.plant = plant
+//         reminderVC.notepadDelegate = self
+            present(reminderVC, animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
         // first check if notifications are enabled (alerts, badges, and sounds)
