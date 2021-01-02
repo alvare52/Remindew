@@ -183,6 +183,28 @@ class PlantController {
         }
     }
     
+    // MARK: - Reminders CRUD
+    
+    /// Creates a Reminder and adds it to plant.reminders
+    func addReminderToPlant(reminder: Reminder, plant: Plant) {
+        plant.addToReminders(reminder)
+        savePlant()
+    }
+        
+    /// Removes reminder from plant.reminders, deletes reminder from core data then saves or resets if there's an error
+    func deleteReminderFromPlant(reminder: Reminder, plant: Plant) {
+        plant.removeFromReminders(reminder)
+        CoreDataStack.shared.mainContext.delete(reminder)
+        do {
+            try CoreDataStack.shared.mainContext.save()
+        } catch {
+            CoreDataStack.shared.mainContext.reset() // UN-deletes
+            NSLog("Error saving managed object context (reminder): \(error)")
+        }
+    }
+    
+    // MARK: - Helpers
+    
     /// Uses selected days (mandatory) to set the plant's NEXT date for watering
     func returnWateringSchedule(plantDate: Date, days: [Int16]) -> Date {
         print("returnWateringSchedule")

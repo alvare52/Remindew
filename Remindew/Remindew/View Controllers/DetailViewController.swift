@@ -77,9 +77,8 @@ class DetailViewController: UIViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
             reminderVC.modalPresentationStyle = .automatic
-//         reminderVC.plantController = plantController
-//         reminderVC.plant = plant
-//         reminderVC.notepadDelegate = self
+            reminderVC.plantController = plantController
+            reminderVC.plant = plant
             present(reminderVC, animated: true, completion: nil)
         }
     }

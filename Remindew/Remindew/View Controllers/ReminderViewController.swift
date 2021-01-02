@@ -10,21 +10,51 @@ import UIKit
 
 class ReminderViewController: UIViewController {
 
+    // MARK: - Properties
+    
+    /// Holds plantController that will be passed in to save plant with reminder
+    var plantController: PlantController?
+    
+    /// Holds plant that will be passed in and displayed
+    var plant: Plant? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .creamPink
+        setupSubviews()
+        updateViews()
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupSubviews() {
+        
     }
-    */
-
+    
+    
+    private func updateViews() {
+        
+        guard isViewLoaded else { return }
+        
+        // EDIT/DETAIL Mode
+        if let plant = plant {
+//            let newReminder = Reminder(actionName: "Pesticide", alarmDate: Date(), frequency: Int16(7))
+//            newReminder.actionMessage = "time to add pesticide to Leaf Erikson"
+//            newReminder.actionTitle = "Pesticide Time"
+//            plant.addToReminders(newReminder)
+            
+//            print("plant.reminders = \(plant.reminders?.allObjects ?? [])")
+//            let reminders = plant.reminders as! Set<Reminder>
+//            let reminder = reminders.first(where: {$0.actionName == "Pesticide"})
+        }
+        
+        // ADD Mode
+        else {
+            
+        }
+    }
 }
