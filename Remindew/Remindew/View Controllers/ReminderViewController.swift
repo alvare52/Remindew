@@ -30,6 +30,7 @@ class ReminderViewController: UIViewController {
         label.textAlignment = .left
         label.numberOfLines = 1
         label.contentMode = .bottom
+        label.font = .systemFont(ofSize: 16)
         return label
     }()
     
@@ -88,6 +89,7 @@ class ReminderViewController: UIViewController {
         let tempSwitch = UISwitch()
         tempSwitch.translatesAutoresizingMaskIntoConstraints = false
         tempSwitch.onTintColor = .mixedBlueGreen
+        tempSwitch.isOn = true
 //        tempSwitch.backgroundColor = .yellow
         return tempSwitch
     }()
@@ -197,6 +199,13 @@ class ReminderViewController: UIViewController {
         }
     }
     
+    /// Holds reminder that will be passed in when clicking on a cell
+    var reminder: Reminder? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -210,14 +219,16 @@ class ReminderViewController: UIViewController {
     @objc func saveButtonTapped() {
         print("Save button tapped")
     
-//        // We came from EDIT mode, so we can safely update the plant here
-//        if let plant = plant {
-//
-//        }
-//        // if we DON'T have a plant
-//        else {
-//
-//        }
+        // We came from EDIT mode, so we can safely update the plant here
+        if let plant = plant {
+            // if plant has no reminders yet (came from "empty" cell)
+            
+            // if editing a reminder we selected
+        }
+        // if we DON'T have a plant
+        else {
+
+        }
         
     }
     
@@ -346,21 +357,43 @@ class ReminderViewController: UIViewController {
         
         guard isViewLoaded else { return }
         
-//        // EDIT/DETAIL Mode
-//        if let plant = plant {
-////            let newReminder = Reminder(actionName: "Pesticide", alarmDate: Date(), frequency: Int16(7))
-////            newReminder.actionMessage = "time to add pesticide to Leaf Erikson"
-////            newReminder.actionTitle = "Pesticide Time"
-////            plant.addToReminders(newReminder)
-//
-////            print("plant.reminders = \(plant.reminders?.allObjects ?? [])")
-////            let reminders = plant.reminders as! Set<Reminder>
-////            let reminder = reminders.first(where: {$0.actionName == "Pesticide"})
-//        }
-//
-//        // ADD Mode
-//        else {
-//
-//        }
+        // EDIT/DETAIL Mode
+        if let plant = plant {
+            
+            // EDIT reminder
+            if let reminder = reminder {
+                actionCustomizationView.plantNameLabel.text = reminder.actionName
+                datePicker.date = reminder.alarmDate ?? Date()
+                isDisabledSwitch.isOn = reminder.isDisabled
+                frequencyTextfield.text = "\(reminder.frequency)"
+                if let lastDate = reminder.lastDate {
+                    lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(dateFormatter.string(from: lastDate))"
+                } else {
+                    lastDateLabel.text = "Brand New Plant"
+                }
+            }
+            
+            // ADD reminder
+            else {
+                actionCustomizationView.plantNameLabel.isEnabled = true
+//                let newReminder = Reminder(actionName: act,
+//                    alarmDate: <#T##Date#>,
+//                    frequency: <#T##Int16#>)
+            }
+            
+//            let newReminder = Reminder(actionName: "Pesticide", alarmDate: Date(), frequency: Int16(7))
+//            newReminder.actionMessage = "time to add pesticide to Leaf Erikson"
+//            newReminder.actionTitle = "Pesticide Time"
+//            plant.addToReminders(newReminder)
+
+//            print("plant.reminders = \(plant.reminders?.allObjects ?? [])")
+//            let reminders = plant.reminders as! Set<Reminder>
+//            let reminder = reminders.first(where: {$0.actionName == "Pesticide"})
+        }
+
+        // ADD Mode
+        else {
+
+        }
     }
 }

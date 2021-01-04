@@ -13,7 +13,7 @@ class NotificationView: UIView {
     
     // MARK: - Properties
     
-    /// Notification bubble view (88 pts height), holds title and message textfields
+    /// Notification bubble view (80 pts height), holds title and message textfields
     let notificationView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false

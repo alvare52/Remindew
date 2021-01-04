@@ -14,13 +14,14 @@ class CustomizationView: UIView {
     // MARK: - Properties
     
     /// Displays plant name in it's preferred color
-    var plantNameLabel: UILabel = {
-        let label = UILabel()
+    var plantNameLabel: UITextField = {
+        let label = UITextField()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.colorsArray[0]
         label.backgroundColor = .white
         label.text = "Leaf Erikson"
         label.font = .boldSystemFont(ofSize: 25)
+        label.isEnabled = false
         return label
     }()
     
