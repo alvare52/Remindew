@@ -51,6 +51,7 @@ class ReminderViewController: UIViewController {
     let actionCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.plantNameLabel.isEnabled = true
         return view
     }()
     
@@ -224,6 +225,25 @@ class ReminderViewController: UIViewController {
             // if plant has no reminders yet (came from "empty" cell)
             
             // if editing a reminder we selected
+            guard let actionName = actionCustomizationView.plantNameLabel.text else {
+                print("no name for action")
+                return
+            }
+            guard let frequencyString = frequencyTextfield.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString) else {
+                print("no text in frequency textfield")
+                return
+            }
+            
+            let newReminder = Reminder(actionName: actionName,
+                                       alarmDate: datePicker.date,
+                                       frequency: frequency)
+            newReminder.actionTitle = notificationBubble.reminderTitleTextfield.text
+            newReminder.actionMessage = notificationBubble.reminderMessageTextfield.text
+            newReminder.notes = notesTextView.text
+            newReminder.isDisabled = !isDisabledSwitch.isOn
+            plantController?.addReminderToPlant(reminder: newReminder, plant: plant)
+//            let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
+//            print("remindersArray = \(remindersArray)")
         }
         // if we DON'T have a plant
         else {
@@ -356,13 +376,20 @@ class ReminderViewController: UIViewController {
     private func updateViews() {
         
         guard isViewLoaded else { return }
-        
+                
         // EDIT/DETAIL Mode
         if let plant = plant {
+            print("reminder in edit mode = \(plant.reminders)")
+
+            
+            let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
+            print("remindersArray = \(remindersArray)")
             
             // EDIT reminder
             if let reminder = reminder {
                 actionCustomizationView.plantNameLabel.text = reminder.actionName
+                notificationBubble.reminderTitleTextfield.text = reminder.actionTitle
+                notificationBubble.reminderMessageTextfield.text = reminder.actionMessage
                 datePicker.date = reminder.alarmDate ?? Date()
                 isDisabledSwitch.isOn = reminder.isDisabled
                 frequencyTextfield.text = "\(reminder.frequency)"
@@ -375,10 +402,7 @@ class ReminderViewController: UIViewController {
             
             // ADD reminder
             else {
-                actionCustomizationView.plantNameLabel.isEnabled = true
-//                let newReminder = Reminder(actionName: act,
-//                    alarmDate: <#T##Date#>,
-//                    frequency: <#T##Int16#>)
+                
             }
             
 //            let newReminder = Reminder(actionName: "Pesticide", alarmDate: Date(), frequency: Int16(7))

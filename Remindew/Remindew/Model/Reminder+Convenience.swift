@@ -20,6 +20,7 @@ extension Reminder {
                                         colorIndex: Int16 = Int16(0),
                                         iconIndex: Int16 = Int16(0),
                                         isDisabled: Bool = false,
+                                        notes: String = "",
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.actionName = actionName
@@ -32,6 +33,7 @@ extension Reminder {
         self.colorIndex = colorIndex
         self.iconIndex = iconIndex
         self.isDisabled = isDisabled
+        self.notes = notes
     }
 }
 
