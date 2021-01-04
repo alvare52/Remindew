@@ -60,8 +60,36 @@ class ReminderViewController: UIViewController {
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = .mixedBlueGreen
         picker.minimumDate = Date()
-        picker.backgroundColor = .orange
+//        picker.backgroundColor = .orange
         return picker
+    }()
+    
+    /// Textfield for entering day frequency
+    let frequencyTextfield: UITextField = {
+        let textfield = UITextField()
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+//        textfield.backgroundColor = .blue
+        textfield.keyboardType = .numberPad
+        textfield.text = "7"
+        return textfield
+    }()
+    
+    /// Label following frequencyTextfield that says "Days"
+    let daysLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = NSLocalizedString("days", comment: "days label after frequency number")
+//        label.backgroundColor = .lightGray
+        return label
+    }()
+    
+    /// Switch to toggle isDisabled for Reminder
+    let isDisabledSwitch: UISwitch = {
+        let tempSwitch = UISwitch()
+        tempSwitch.translatesAutoresizingMaskIntoConstraints = false
+        tempSwitch.onTintColor = .mixedBlueGreen
+//        tempSwitch.backgroundColor = .yellow
+        return tempSwitch
     }()
     
     /// Notification bubble view (88 pts height), holds title and message textfields
@@ -110,7 +138,7 @@ class ReminderViewController: UIViewController {
     let reminderTitleTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Reminder Title"
+        textfield.text = "Reminder Title"
         textfield.backgroundColor = .clear
         textfield.textColor = .white
         textfield.font = .systemFont(ofSize: 14, weight: .semibold)
@@ -122,7 +150,7 @@ class ReminderViewController: UIViewController {
     let reminderMessageTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Reminder Message"
+        textfield.text = "Reminder Message"
         textfield.font = .systemFont(ofSize: 14)
         textfield.textColor = .white
         textfield.backgroundColor = .clear
@@ -224,6 +252,28 @@ class ReminderViewController: UIViewController {
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
         datePicker.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        // Frequency TextField
+        contentView.addSubview(frequencyTextfield)
+        frequencyTextfield.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
+        frequencyTextfield.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor).isActive = true
+        frequencyTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.1).isActive = true
+        frequencyTextfield.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
+        
+        // Days Label
+        contentView.addSubview(daysLabel)
+        daysLabel.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
+        daysLabel.leadingAnchor.constraint(equalTo: frequencyTextfield.trailingAnchor).isActive = true
+        daysLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15).isActive = true
+        daysLabel.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
+        
+        // isDisabled Switch
+        contentView.addSubview(isDisabledSwitch)
+        isDisabledSwitch.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
+        isDisabledSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        isDisabledSwitch.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        isDisabledSwitch.heightAnchor.constraint(equalToConstant: 31).isActive = true
+        isDisabledSwitch.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
         
         // Notification View
         contentView.addSubview(notificationView)
