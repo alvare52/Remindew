@@ -159,6 +159,12 @@ class ReminderViewController: UIViewController {
         return textfield
     }()
     
+    let notificationBubble: NotificationView = {
+        let view = NotificationView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     /// Textview for any notes
     let notesTextView: UITextView = {
         let textView = UITextView()
@@ -204,14 +210,14 @@ class ReminderViewController: UIViewController {
     @objc func saveButtonTapped() {
         print("Save button tapped")
     
-        // We came from EDIT mode, so we can safely update the plant here
-        if let plant = plant {
-           
-        }
-        // if we DON'T have a plant
-        else {
-           
-        }
+//        // We came from EDIT mode, so we can safely update the plant here
+//        if let plant = plant {
+//
+//        }
+//        // if we DON'T have a plant
+//        else {
+//
+//        }
         
     }
     
@@ -275,48 +281,61 @@ class ReminderViewController: UIViewController {
         isDisabledSwitch.heightAnchor.constraint(equalToConstant: 31).isActive = true
         isDisabledSwitch.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
         
-        // Notification View
-        contentView.addSubview(notificationView)
-        notificationView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 4).isActive = true
-        notificationView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        notificationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        notificationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        // Main Action Customization View
+//        contentView.addSubview(actionCustomizationView)
+//        actionCustomizationView.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
+//        actionCustomizationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        actionCustomizationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        actionCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        // Small Icon ImageView
-        notificationView.addSubview(smallIconImageView)
-        smallIconImageView.topAnchor.constraint(equalTo: notificationView.topAnchor, constant: 10).isActive = true
-        smallIconImageView.leadingAnchor.constraint(equalTo: notificationView.leadingAnchor, constant: 12).isActive = true
-        smallIconImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        smallIconImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        
-        // App Name Label
-        notificationView.addSubview(appNameLabel)
-        appNameLabel.centerYAnchor.constraint(equalTo: smallIconImageView.centerYAnchor).isActive = true
-        appNameLabel.leadingAnchor.constraint(equalTo: smallIconImageView.trailingAnchor, constant: 8).isActive = true
-        appNameLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        // Time Label
-        notificationView.addSubview(timeLabel)
-        timeLabel.centerYAnchor.constraint(equalTo: smallIconImageView.centerYAnchor).isActive = true
-        timeLabel.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor, constant: -16).isActive = true
-        timeLabel.widthAnchor.constraint(equalTo: saveButton.widthAnchor).isActive = true
-        
-        // Reminder Title ("Time to water your plant") Textfield
-        notificationView.addSubview(reminderTitleTextfield)
-        reminderTitleTextfield.topAnchor.constraint(equalTo: smallIconImageView.bottomAnchor, constant: 4).isActive = true
-        reminderTitleTextfield.leadingAnchor.constraint(equalTo: smallIconImageView.leadingAnchor).isActive = true
-        reminderTitleTextfield.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor,
-                                                         constant: -16).isActive = true
-        
-        // Reminder Message Textfield
-        notificationView.addSubview(reminderMessageTextfield)
-        reminderMessageTextfield.topAnchor.constraint(equalTo: reminderTitleTextfield.bottomAnchor).isActive = true
-        reminderMessageTextfield.leadingAnchor.constraint(equalTo: reminderTitleTextfield.leadingAnchor).isActive = true
-        reminderMessageTextfield.trailingAnchor.constraint(equalTo: reminderTitleTextfield.trailingAnchor).isActive = true
+        // Notification Bubble
+        contentView.addSubview(notificationBubble)
+        notificationBubble.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 4).isActive = true
+        notificationBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        notificationBubble.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        notificationBubble.heightAnchor.constraint(equalToConstant: 80).isActive = true
+//        // Notification View
+//        contentView.addSubview(notificationView)
+//        notificationView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 4).isActive = true
+//        notificationView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+//        notificationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+//        notificationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//
+//        // Small Icon ImageView
+//        notificationView.addSubview(smallIconImageView)
+//        smallIconImageView.topAnchor.constraint(equalTo: notificationView.topAnchor, constant: 10).isActive = true
+//        smallIconImageView.leadingAnchor.constraint(equalTo: notificationView.leadingAnchor, constant: 12).isActive = true
+//        smallIconImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        smallIconImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+//
+//        // App Name Label
+//        notificationView.addSubview(appNameLabel)
+//        appNameLabel.centerYAnchor.constraint(equalTo: smallIconImageView.centerYAnchor).isActive = true
+//        appNameLabel.leadingAnchor.constraint(equalTo: smallIconImageView.trailingAnchor, constant: 8).isActive = true
+//        appNameLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
+//
+//        // Time Label
+//        notificationView.addSubview(timeLabel)
+//        timeLabel.centerYAnchor.constraint(equalTo: smallIconImageView.centerYAnchor).isActive = true
+//        timeLabel.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor, constant: -16).isActive = true
+//        timeLabel.widthAnchor.constraint(equalTo: saveButton.widthAnchor).isActive = true
+//
+//        // Reminder Title ("Time to water your plant") Textfield
+//        notificationView.addSubview(reminderTitleTextfield)
+//        reminderTitleTextfield.topAnchor.constraint(equalTo: smallIconImageView.bottomAnchor, constant: 4).isActive = true
+//        reminderTitleTextfield.leadingAnchor.constraint(equalTo: smallIconImageView.leadingAnchor).isActive = true
+//        reminderTitleTextfield.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor,
+//                                                         constant: -16).isActive = true
+//
+//        // Reminder Message Textfield
+//        notificationView.addSubview(reminderMessageTextfield)
+//        reminderMessageTextfield.topAnchor.constraint(equalTo: reminderTitleTextfield.bottomAnchor).isActive = true
+//        reminderMessageTextfield.leadingAnchor.constraint(equalTo: reminderTitleTextfield.leadingAnchor).isActive = true
+//        reminderMessageTextfield.trailingAnchor.constraint(equalTo: reminderTitleTextfield.trailingAnchor).isActive = true
         
         // Notes Textview
         contentView.addSubview(notesTextView)
-        notesTextView.topAnchor.constraint(equalTo: notificationView.bottomAnchor, constant: 4).isActive = true
+        notesTextView.topAnchor.constraint(equalTo: notificationBubble.bottomAnchor, constant: 4).isActive = true
         notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
@@ -327,21 +346,21 @@ class ReminderViewController: UIViewController {
         
         guard isViewLoaded else { return }
         
-        // EDIT/DETAIL Mode
-        if let plant = plant {
-//            let newReminder = Reminder(actionName: "Pesticide", alarmDate: Date(), frequency: Int16(7))
-//            newReminder.actionMessage = "time to add pesticide to Leaf Erikson"
-//            newReminder.actionTitle = "Pesticide Time"
-//            plant.addToReminders(newReminder)
-            
-//            print("plant.reminders = \(plant.reminders?.allObjects ?? [])")
-//            let reminders = plant.reminders as! Set<Reminder>
-//            let reminder = reminders.first(where: {$0.actionName == "Pesticide"})
-        }
-        
-        // ADD Mode
-        else {
-            
-        }
+//        // EDIT/DETAIL Mode
+//        if let plant = plant {
+////            let newReminder = Reminder(actionName: "Pesticide", alarmDate: Date(), frequency: Int16(7))
+////            newReminder.actionMessage = "time to add pesticide to Leaf Erikson"
+////            newReminder.actionTitle = "Pesticide Time"
+////            plant.addToReminders(newReminder)
+//
+////            print("plant.reminders = \(plant.reminders?.allObjects ?? [])")
+////            let reminders = plant.reminders as! Set<Reminder>
+////            let reminder = reminders.first(where: {$0.actionName == "Pesticide"})
+//        }
+//
+//        // ADD Mode
+//        else {
+//
+//        }
     }
 }

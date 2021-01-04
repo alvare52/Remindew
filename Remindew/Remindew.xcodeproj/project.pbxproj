@@ -25,6 +25,7 @@
 		1B2A55CF259E2161004C98D9 /* Reminder+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55CE259E2160004C98D9 /* Reminder+Convenience.swift */; };
 		1B2A55D425A0F7DA004C98D9 /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55D325A0F7D9004C98D9 /* ReminderViewController.swift */; };
 		1B2A55D925A0F814004C98D9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55D825A0F814004C98D9 /* SearchViewController.swift */; };
+		1B2A55DE25A37BBB004C98D9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2A55DD25A37BBA004C98D9 /* NotificationView.swift */; };
 		1BAA3FD925798BCA0076CE91 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */; };
 		1BAA3FDE257AA2FD0076CE91 /* APIStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */; };
 		1BAA3FE325808FFA0076CE91 /* PlantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */; };
@@ -77,6 +78,7 @@
 		1B2A55CE259E2160004C98D9 /* Reminder+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+Convenience.swift"; sourceTree = "<group>"; };
 		1B2A55D325A0F7D9004C98D9 /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		1B2A55D825A0F814004C98D9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		1B2A55DD25A37BBA004C98D9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		1BAA3FDD257AA2FC0076CE91 /* APIStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIStructs.swift; sourceTree = "<group>"; };
 		1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTableViewCell.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */,
 				1BEB002D258EEE34008701D2 /* SettingsTableViewCell.swift */,
 				1B2A55C9259A96B1004C98D9 /* CustomizationView.swift */,
+				1B2A55DD25A37BBA004C98D9 /* NotificationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				1B2A55D425A0F7DA004C98D9 /* ReminderViewController.swift in Sources */,
 				1B09882B23EA643E000033FA /* DetailViewController.swift in Sources */,
 				1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */,
+				1B2A55DE25A37BBB004C98D9 /* NotificationView.swift in Sources */,
 				1BED79D62568A3E9004241F4 /* Extensions.swift in Sources */,
 				1B0987F423EA61DF000033FA /* SceneDelegate.swift in Sources */,
 				1B2A55D925A0F814004C98D9 /* SearchViewController.swift in Sources */,
