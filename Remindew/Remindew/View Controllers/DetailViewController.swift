@@ -74,12 +74,20 @@ class DetailViewController: UIViewController {
     @IBAction func searchButtonTapped(_ sender: UIBarButtonItem) {
         print("search button tapped")
         
+//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
+//            reminderVC.modalPresentationStyle = .automatic
+//            reminderVC.plantController = plantController
+//            reminderVC.plant = plant
+//            present(reminderVC, animated: true, completion: nil)
+//        }
+        
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
-            reminderVC.modalPresentationStyle = .automatic
-            reminderVC.plantController = plantController
-            reminderVC.plant = plant
-            present(reminderVC, animated: true, completion: nil)
+        if let searchVC = storyboard.instantiateViewController(identifier: "SearchViewControllerID") as? SearchViewController {
+            searchVC.modalPresentationStyle = .automatic
+            searchVC.plantController = plantController
+//            reminderVC.plant = plant
+            present(searchVC, animated: true, completion: nil)
         }
     }
     
