@@ -659,13 +659,10 @@ extension DetailViewController: UITextFieldDelegate {
         // only do the following when in "add mode"
         if let _ = plant { return }
         if textField == nicknameTextField {
-//            textView.text = NSLocalizedString("Please enter a nickname for your plant",
-//                                              comment: "textview instructions for nickname")
         }
         
         else if textField == speciesTextField {
-//            textView.text = NSLocalizedString("Species example: \"Rose\"\nPress \"search\" to search",
-//                                              comment: "textview instructions for species/search")
+
         }
     }
 
@@ -685,16 +682,16 @@ extension DetailViewController: UITextFieldDelegate {
             }
             
             guard let unwrappedTerm = speciesTextField.text, !unwrappedTerm.isEmpty else { return true }
-                    
+            
             // get rid of any spaces in search term
             let term = unwrappedTerm.replacingOccurrences(of: " ", with: "")
             
             // show tableview
             resultsTableView.isHidden = false
-            
+
             // start animating spinner
             spinner.startAnimating()
-            
+
             // check if we need a new token first
             if plantController?.newTempTokenIsNeeded() == true {
                 print("new token needed, fetching one first")
@@ -716,20 +713,20 @@ extension DetailViewController: UITextFieldDelegate {
                     }
                 })
             }
-            
+
             // No new token needed
             else {
                 print("No token needed, searching")
                 performPlantSearch(term)
             }
         }
-        
+
         // Clicked "Return" in nickname textfield
         if textField == nicknameTextField {
             // go to next textfield (species)
             speciesTextField.becomeFirstResponder()
         }
-        
+
         return true
     }
 }
@@ -768,27 +765,27 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         // Cast as a custom tableview cell (after I make one)
         guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
-    
+
         let plantResult = plantSearchResults[indexPath.row]//plantController?.plantSearchResults[indexPath.row]
-        
+
         // common name
         resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? "No common name"
-        
+
         // scientific name
         resultCell.scientificNameLabel.text = plantResult.scientificName ?? "No scientific name"
-        
+
         resultCell.spinner.startAnimating()
         // image
         // store returned UUID? for task for later
         let token = plantController?.loadImage(plantResult.imageUrl) { result in
             do {
-                
+
                 // extract result (UIImage)
                 let image = try result.get()
-                
+
                 // if we get an image, display in cell's image view on main queue
                 DispatchQueue.main.async {
                     resultCell.plantImageView?.image = image
@@ -804,7 +801,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        
+
         // use UUID? we just made to now cancel the load for it
         resultCell.onReuse = {
             // when cell is reused, try to cancel the task it started here
@@ -813,10 +810,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 self.plantController?.cancelLoad(token)
             }
         }
-        
+
         return resultCell
     }
-    
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 
         let plantResultCell = tableView.cellForRow(at: indexPath) as? SearchResultTableViewCell
