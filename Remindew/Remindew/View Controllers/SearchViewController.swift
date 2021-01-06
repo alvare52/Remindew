@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol SelectedResultDelegate {
+    /// Passes back PlantSearchResult that's selected in SearchViewController
+    func didSelectResult(searchResult: PlantSearchResult)
+}
+
 class SearchViewController: UIViewController {
     
 //    /// Searchbar that takes in species/plant name
