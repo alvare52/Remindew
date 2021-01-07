@@ -41,6 +41,8 @@ class SearchViewController: UIViewController {
         }
     }
     
+    var resultDelegate: SelectedResultDelegate?
+    
     /// Loading indicator displayed while searching for a plant
     let spinner = UIActivityIndicatorView(style: .large)
     
