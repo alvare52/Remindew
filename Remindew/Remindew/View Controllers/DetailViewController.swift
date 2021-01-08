@@ -86,6 +86,7 @@ class DetailViewController: UIViewController {
         if let searchVC = storyboard.instantiateViewController(identifier: "SearchViewControllerID") as? SearchViewController {
             searchVC.modalPresentationStyle = .automatic
             searchVC.plantController = plantController
+            searchVC.resultDelegate = self
 //            reminderVC.plant = plant
             present(searchVC, animated: true, completion: nil)
         }
@@ -849,5 +850,11 @@ extension DetailViewController: NotepadDelegate {
     func didMakeNotepadWithPlant(notepad: NotePad, plant: Plant) {
         self.notePad = notepad
         self.plant = plant
+    }
+}
+
+extension DetailViewController: SelectedResultDelegate {
+    func didSelectResult(searchResult: PlantSearchResult) {
+        print("searchResult passed back = \(searchResult)")
     }
 }
