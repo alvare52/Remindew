@@ -235,6 +235,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 //        let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
 //        imageView.image = plantResultCell?.plantImageView.image
 //
+        let plantResult = plantSearchResults[indexPath.row]
+        resultDelegate?.didSelectResult(searchResult: plantResult)
         // if we DO want it to put common name selected into species field
         if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && plantResultCell?.commonNameLabel.text != "No common name"{
             //speciesTextField.text = plantResultCell?.commonNameLabel.text
