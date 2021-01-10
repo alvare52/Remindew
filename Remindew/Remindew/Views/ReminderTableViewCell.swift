@@ -98,6 +98,11 @@ class ReminderTableViewCell: UITableViewCell {
         alarmDateLabel.text = "Jan 21, 2021"
     }
     
+    ///
+    @objc private func completeButtonTapped() {
+        print("complete tapped")
+    }
+    
     /// Sets up all custom views
     private func setUpSubviews() {
         
@@ -115,6 +120,8 @@ class ReminderTableViewCell: UITableViewCell {
         completeButton.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         completeButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
         completeButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.15).isActive = true
+        completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
+        completeButton.isHidden = true
         
         // Name Label
         containerView.addSubview(reminderLabel)
