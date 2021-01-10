@@ -14,7 +14,7 @@ class ReminderTableViewCell: UITableViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
+//        view.backgroundColor = .yellow
         return view
     }()
     
@@ -22,7 +22,9 @@ class ReminderTableViewCell: UITableViewCell {
     let reminderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .orange
+//        label.backgroundColor = .orange
+        label.font = .boldSystemFont(ofSize: 25)
+        label.textColor = .systemPurple
         return label
     }()
     
@@ -31,6 +33,7 @@ class ReminderTableViewCell: UITableViewCell {
         let progress = UIProgressView()
         progress.translatesAutoresizingMaskIntoConstraints = false
         progress.tintColor = .mintGreen
+        progress.progress = 0.5
         return progress
     }()
     
@@ -38,7 +41,9 @@ class ReminderTableViewCell: UITableViewCell {
     let alarmDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .green
+//        label.backgroundColor = .green
+        label.font = .boldSystemFont(ofSize: 17)
+        label.textColor = .lightGray
         return label
     }()
     
@@ -46,15 +51,20 @@ class ReminderTableViewCell: UITableViewCell {
     let timeLeftLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .blue
+//        label.backgroundColor = .blue
+        label.text = "18 days left"
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .lightGray
         return label
     }()
     
     /// Button to complete reminder action to set new reminder
     let completeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = .red
+//        button.backgroundColor = .brown
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "ant.fill"), for: .normal)
+        button.tintColor = .systemPurple
         return button
     }()
     
@@ -67,6 +77,14 @@ class ReminderTableViewCell: UITableViewCell {
             updateViews()
         }
     }
+    
+    /// Jan 10, 2021
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+//        formatter.dateFormat = "MMM d, yyyy"
+        formatter.dateStyle = .medium
+        return formatter
+    }
         
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -76,17 +94,20 @@ class ReminderTableViewCell: UITableViewCell {
     private func updateViews() {
         guard let reminder = reminder else { return }
         reminderLabel.text = reminder.actionName
+//        alarmDateLabel.text = dateFormatter.string(from: reminder.alarmDate ?? Date())
+        alarmDateLabel.text = "Jan 21, 2021"
     }
     
     /// Sets up all custom views
     private func setUpSubviews() {
+        
         
         // Container View
         addSubview(containerView)
         containerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         // Complete Button
         containerView.addSubview(completeButton)
@@ -98,25 +119,31 @@ class ReminderTableViewCell: UITableViewCell {
         // Name Label
         containerView.addSubview(reminderLabel)
         reminderLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
-        reminderLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 4).isActive = true
-        reminderLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.5).isActive = true
+        reminderLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8).isActive = true
+        reminderLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.45).isActive = true
+//        reminderLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.8).isActive = true
         
         // Progress View
         containerView.addSubview(progressView)
         progressView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
-        progressView.topAnchor.constraint(equalTo: reminderLabel.bottomAnchor).isActive = true
+        progressView.topAnchor.constraint(equalTo: reminderLabel.bottomAnchor, constant: 4).isActive = true
         progressView.widthAnchor.constraint(equalTo: reminderLabel.widthAnchor).isActive = true
         
         // Alarm Date Label
         containerView.addSubview(alarmDateLabel)
-        alarmDateLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 4).isActive = true
-        alarmDateLabel.leadingAnchor.constraint(equalTo: reminderLabel.trailingAnchor).isActive = true
-        alarmDateLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.35).isActive = true
+        alarmDateLabel.topAnchor.constraint(equalTo: reminderLabel.topAnchor).isActive = true
+        alarmDateLabel.bottomAnchor.constraint(equalTo: reminderLabel.bottomAnchor).isActive = true
+        alarmDateLabel.leadingAnchor.constraint(equalTo: reminderLabel.trailingAnchor, constant: 16).isActive = true
+//        alarmDateLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.35).isActive = true
+        alarmDateLabel.trailingAnchor.constraint(equalTo: completeButton.leadingAnchor).isActive = true
+//        alarmDateLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
         // Time Left Label
         containerView.addSubview(timeLeftLabel)
-        timeLeftLabel.topAnchor.constraint(equalTo: alarmDateLabel.bottomAnchor).isActive = true
-        timeLeftLabel.leadingAnchor.constraint(equalTo: progressView.trailingAnchor).isActive = true
+//        timeLeftLabel.topAnchor.constraint(equalTo: alarmDateLabel.bottomAnchor).isActive = true
+//        timeLeftLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor).isActive = true
+        timeLeftLabel.bottomAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 4).isActive = true
+        timeLeftLabel.leadingAnchor.constraint(equalTo: alarmDateLabel.leadingAnchor).isActive = true
         timeLeftLabel.widthAnchor.constraint(equalTo: alarmDateLabel.widthAnchor).isActive = true
         
     }

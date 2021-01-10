@@ -135,6 +135,11 @@ class DetailViewController: UIViewController {
         }
     }
     
+    /// Holds array of Reminders to belong to self.plant?
+    var reminders: [Reminder] = [Reminder(actionName: "Rotate", alarmDate: Date(), frequency: Int16(5)),
+                                 Reminder(actionName: "Burn", alarmDate: Date(), frequency: Int16(6)),
+                                 Reminder(actionName: "Harvest", alarmDate: Date(), frequency: Int16(7))]
+       
     /// Holds scientificName grabbed from plant species search
     var fetchedScientificName = ""
     
@@ -172,7 +177,7 @@ class DetailViewController: UIViewController {
         
         resultsTableView.delegate = self
         resultsTableView.dataSource = self
-        resultsTableView.isHidden = true
+//        resultsTableView.isHidden = true
         
         // makes imageView a circle
         imageView.layer.masksToBounds = false
@@ -766,75 +771,87 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return plantSearchResults.count//(plantController?.plantSearchResults.count)!
+        return reminders.count//plantSearchResults.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
+    // NEW
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        // Cast as a custom tableview cell (after I make one)
-        guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
+        guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? ReminderTableViewCell else { return UITableViewCell() }
 
-        let plantResult = plantSearchResults[indexPath.row]//plantController?.plantSearchResults[indexPath.row]
-
-        // common name
-        resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? "No common name"
-
-        // scientific name
-        resultCell.scientificNameLabel.text = plantResult.scientificName ?? "No scientific name"
-
-        resultCell.spinner.startAnimating()
-        // image
-        // store returned UUID? for task for later
-        let token = plantController?.loadImage(plantResult.imageUrl) { result in
-            do {
-
-                // extract result (UIImage)
-                let image = try result.get()
-
-                // if we get an image, display in cell's image view on main queue
-                DispatchQueue.main.async {
-                    resultCell.plantImageView?.image = image
-                    resultCell.spinner.stopAnimating()
-                }
-            } catch {
-                // do something if there's an error
-                // set image to default picture?
-                print("Error in result of loadImage in cellForRowAt")
-                DispatchQueue.main.async {
-                    resultCell.plantImageView?.image = .logoImage
-                    resultCell.spinner.stopAnimating()
-                }
-            }
-        }
-
-        // use UUID? we just made to now cancel the load for it
-        resultCell.onReuse = {
-            // when cell is reused, try to cancel the task it started here
-            if let token = token {
-                resultCell.spinner.stopAnimating()
-                self.plantController?.cancelLoad(token)
-            }
-        }
+        resultCell.reminder = reminders[indexPath.row]
 
         return resultCell
     }
+    
+    // OLD, DELETE LATER
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        // Cast as a custom tableview cell (after I make one)
+//        guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
+//
+//        let plantResult = plantSearchResults[indexPath.row]//plantController?.plantSearchResults[indexPath.row]
+//
+//        // common name
+//        resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? "No common name"
+//
+//        // scientific name
+//        resultCell.scientificNameLabel.text = plantResult.scientificName ?? "No scientific name"
+//
+//        resultCell.spinner.startAnimating()
+//        // image
+//        // store returned UUID? for task for later
+//        let token = plantController?.loadImage(plantResult.imageUrl) { result in
+//            do {
+//
+//                // extract result (UIImage)
+//                let image = try result.get()
+//
+//                // if we get an image, display in cell's image view on main queue
+//                DispatchQueue.main.async {
+//                    resultCell.plantImageView?.image = image
+//                    resultCell.spinner.stopAnimating()
+//                }
+//            } catch {
+//                // do something if there's an error
+//                // set image to default picture?
+//                print("Error in result of loadImage in cellForRowAt")
+//                DispatchQueue.main.async {
+//                    resultCell.plantImageView?.image = .logoImage
+//                    resultCell.spinner.stopAnimating()
+//                }
+//            }
+//        }
+//
+//        // use UUID? we just made to now cancel the load for it
+//        resultCell.onReuse = {
+//            // when cell is reused, try to cancel the task it started here
+//            if let token = token {
+//                resultCell.spinner.stopAnimating()
+//                self.plantController?.cancelLoad(token)
+//            }
+//        }
+//
+//        return resultCell
+//    }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 
-        let plantResultCell = tableView.cellForRow(at: indexPath) as? SearchResultTableViewCell
-        let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
-        imageView.image = plantResultCell?.plantImageView.image
-        
-        // if we DO want it to put common name selected into species field
-        if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && plantResultCell?.commonNameLabel.text != "No common name"{
-            speciesTextField.text = plantResultCell?.commonNameLabel.text
-        }
-        
-        fetchedScientificName = scientificName
+        let plantResultCell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell
+        print("tapped on \(plantResultCell)")
+//        let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
+//        imageView.image = plantResultCell?.plantImageView.image
+//
+//        // if we DO want it to put common name selected into species field
+//        if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && plantResultCell?.commonNameLabel.text != "No common name"{
+//            speciesTextField.text = plantResultCell?.commonNameLabel.text
+//        }
+//
+//        fetchedScientificName = scientificName
     }
 }
 
@@ -854,6 +871,7 @@ extension DetailViewController: NotepadDelegate {
 }
 
 extension DetailViewController: SelectedResultDelegate {
+    // TODO: needs to also pass back imageView.image
     func didSelectResult(searchResult: PlantSearchResult) {
         print("searchResult passed back = \(searchResult)")
     }
