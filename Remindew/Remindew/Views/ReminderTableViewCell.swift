@@ -10,6 +10,7 @@ import UIKit
 
 class ReminderTableViewCell: UITableViewCell {
     
+    /// Contains all subviews
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +61,7 @@ class ReminderTableViewCell: UITableViewCell {
     /// 8 pt padding
     var standardMargin: CGFloat = CGFloat(8.0)
     
+    /// Holds Reminder that is displayed
     var reminder: Reminder? {
         didSet {
             updateViews()
@@ -128,19 +130,3 @@ class ReminderTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 }
-
-
-//class ReminderTableViewCell: UITableViewCell {
-//
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-//
-//}
