@@ -162,7 +162,10 @@ class DetailViewController: UIViewController {
         
 //        UINavigationBar.appearance().barTintColor = UIColor.customBackgroundColor
 //        UINavigationBar.appearance().isTranslucent = false
-                
+        
+        let backButton = UIBarButtonItem(title: NSLocalizedString("Back", comment: "back button"))
+        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        
         resultsTableView.backgroundView = spinner
         spinner.color = .leafGreen
         

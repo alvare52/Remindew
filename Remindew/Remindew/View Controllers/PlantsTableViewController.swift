@@ -95,8 +95,6 @@ class PlantsTableViewController: UITableViewController {
         
         UIColor().updateToDarkOrLightTheme()
         
-        navigationController?.navigationItem.backButtonTitle = NSLocalizedString("Back", comment: "back button title")
-        
         // refresh control
         tableView.refreshControl = refreshWheel
         refreshWheel.tintColor = .mixedBlueGreen
