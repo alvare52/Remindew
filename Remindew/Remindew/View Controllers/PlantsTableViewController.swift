@@ -227,7 +227,7 @@ class PlantsTableViewController: UITableViewController {
         plantsThatNeedWaterCount = count
         
         // update date label since it needs to be updated at least once a day to display correct date
-        dateLabel.title = dateFormatter2.string(from: Date()).capitalized
+        dateLabel.title = dateFormatter2.string(from: Date())
         
         // stop refresh animation (starts refreshing when its called)
         refreshWheel.endRefreshing()

@@ -335,12 +335,16 @@
                                     <action selector="cameraButtonTapped:" destination="egV-2b-yvb" id="8GQ-VQ-8kf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="bell" catalog="system" id="70H-0c-oGJ">
+                            <barButtonItem image="magnifyingglass.circle" catalog="system" id="70H-0c-oGJ">
                                 <connections>
                                     <action selector="searchButtonTapped:" destination="egV-2b-yvb" id="Cq8-Eu-ELT"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="nTd-PE-hrc"/>
+                            <barButtonItem image="bell.circle" catalog="system" id="nTd-PE-hrc">
+                                <connections>
+                                    <action selector="reminderButtonTapped:" destination="egV-2b-yvb" id="SX3-Ob-uk8"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -355,14 +359,16 @@
                         <outlet property="nicknameTextField" destination="yRG-nk-QcH" id="6Ik-za-ueG"/>
                         <outlet property="notesButtonLabel" destination="mPY-9k-kkA" id="xPI-Eh-lpV"/>
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
+                        <outlet property="reminderButtonLabel" destination="nTd-PE-hrc" id="U26-Lx-hyt"/>
                         <outlet property="resultsTableView" destination="p9v-0H-cvy" id="hcc-G3-nmQ"/>
+                        <outlet property="searchButtonLabel" destination="70H-0c-oGJ" id="omo-a7-ROQ"/>
                         <outlet property="speciesTextField" destination="ucM-Fj-27g" id="p73-rD-hQY"/>
                         <outlet property="waterPlantButton" destination="PZL-BI-0Bw" id="PWN-E2-9ML"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjs-sh-Ez5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1547.8260869565217" y="101.78571428571428"/>
+            <point key="canvasLocation" x="1516" y="102"/>
         </scene>
         <!--Appearance View Controller-->
         <scene sceneID="COR-3K-DG0">
@@ -425,9 +431,9 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="RemindewDefaultImage" width="1000" height="667"/>
-        <image name="bell" catalog="system" width="128" height="124"/>
+        <image name="bell.circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <namedColor name="customBackgroundColor">

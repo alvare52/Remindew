@@ -26,6 +26,8 @@ class DetailViewController: UIViewController {
     @IBOutlet var resultsTableView: UITableView!
     @IBOutlet var dayProgressView: UIProgressView!
     @IBOutlet var notesButtonLabel: UIBarButtonItem!
+    @IBOutlet var searchButtonLabel: UIBarButtonItem!
+    @IBOutlet var reminderButtonLabel: UIBarButtonItem!
     
     // MARK: - Actions
     @IBAction func notesButtonTapped(_ sender: UIBarButtonItem) {
@@ -71,6 +73,13 @@ class DetailViewController: UIViewController {
 //        speciesTextField.resignFirstResponder()
 //        presentPhotoActionSheet()
     }
+    
+    @IBAction func reminderButtonTapped(_ sender: UIBarButtonItem) {
+        print("reminder button tapped")
+        reminderButtonLabel.tintColor = .clear
+        reminderButtonLabel.isEnabled = false
+    }
+    
     @IBAction func searchButtonTapped(_ sender: UIBarButtonItem) {
         print("search button tapped")
         
@@ -246,7 +255,7 @@ class DetailViewController: UIViewController {
     func updateViews() {
         
         // update date label at least once a day so it displays correct date
-        dateLabel.title = dateFormatter.string(from: Date()).capitalized
+        dateLabel.title = dateFormatter.string(from: Date())
         
         // will crash if view isn't loaded yet
         guard isViewLoaded else {return}
