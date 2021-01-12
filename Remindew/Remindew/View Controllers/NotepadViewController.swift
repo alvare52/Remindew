@@ -87,6 +87,7 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Water"
+        textfield.text = NSLocalizedString("Water", comment: "water, default main action")
         textfield.contentVerticalAlignment = .bottom
         textfield.textColor = .waterBlue
         return textfield
@@ -139,6 +140,7 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Reminder Title"
+        textfield.text = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
         textfield.backgroundColor = .clear
         textfield.textColor = .white
         textfield.font = .systemFont(ofSize: 14, weight: .semibold)
@@ -151,6 +153,7 @@ class NotepadViewController: UIViewController {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.placeholder = "Reminder Message"
+        textfield.text = NSLocalizedString("One of your plants needs water", comment: "Message for notification")
         textfield.font = .systemFont(ofSize: 14)
         textfield.textColor = .white
         textfield.backgroundColor = .clear
@@ -233,7 +236,7 @@ class NotepadViewController: UIViewController {
         
         // ADD Mode
         else {
-            actionTextfield.text = "water"
+            actionTextfield.text = NSLocalizedString("Water", comment: "water, default main action")
         }
     }
     
@@ -244,7 +247,7 @@ class NotepadViewController: UIViewController {
         let notepad = NotePad(notes: notesTextView.text,
                               mainTitle: reminderTitleTextfield.text ?? "",
                               mainMessage: reminderMessageTextfield.text ?? "",
-                              mainAction: actionTextfield.text ?? "water",
+                              mainAction: actionTextfield.text ?? NSLocalizedString("Water", comment: "water, default main action"),
                               location: locationTextfield.text ?? "",
                               scientificName: scientificNameTextfield.text ?? "")
         
@@ -410,9 +413,9 @@ class NotepadViewController: UIViewController {
 
 struct NotePad {
     var notes: String = ""
-    var mainTitle: String = ""
-    var mainMessage: String = ""
-    var mainAction: String = ""
+    var mainTitle: String = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
+    var mainMessage: String = NSLocalizedString("One of your plants needs water", comment: "Message for notification")
+    var mainAction: String = NSLocalizedString("Water", comment: "water, default main action")
     var location: String = ""
     var scientificName: String = ""
 }
