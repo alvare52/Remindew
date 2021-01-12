@@ -335,11 +335,6 @@
                                     <action selector="cameraButtonTapped:" destination="egV-2b-yvb" id="8GQ-VQ-8kf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="magnifyingglass.circle" catalog="system" id="70H-0c-oGJ">
-                                <connections>
-                                    <action selector="searchButtonTapped:" destination="egV-2b-yvb" id="Cq8-Eu-ELT"/>
-                                </connections>
-                            </barButtonItem>
                             <barButtonItem image="bell.circle" catalog="system" id="nTd-PE-hrc">
                                 <connections>
                                     <action selector="reminderButtonTapped:" destination="egV-2b-yvb" id="SX3-Ob-uk8"/>
@@ -361,7 +356,6 @@
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
                         <outlet property="reminderButtonLabel" destination="nTd-PE-hrc" id="U26-Lx-hyt"/>
                         <outlet property="resultsTableView" destination="p9v-0H-cvy" id="hcc-G3-nmQ"/>
-                        <outlet property="searchButtonLabel" destination="70H-0c-oGJ" id="omo-a7-ROQ"/>
                         <outlet property="speciesTextField" destination="ucM-Fj-27g" id="p73-rD-hQY"/>
                         <outlet property="waterPlantButton" destination="PZL-BI-0Bw" id="PWN-E2-9ML"/>
                     </connections>
@@ -433,7 +427,6 @@
         <image name="RemindewDefaultImage" width="1000" height="667"/>
         <image name="bell.circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
-        <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <namedColor name="customBackgroundColor">

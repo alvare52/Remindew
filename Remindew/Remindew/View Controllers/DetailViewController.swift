@@ -26,7 +26,6 @@ class DetailViewController: UIViewController {
     @IBOutlet var resultsTableView: UITableView!
     @IBOutlet var dayProgressView: UIProgressView!
     @IBOutlet var notesButtonLabel: UIBarButtonItem!
-    @IBOutlet var searchButtonLabel: UIBarButtonItem!
     @IBOutlet var reminderButtonLabel: UIBarButtonItem!
     
     // MARK: - Properties
@@ -120,29 +119,15 @@ class DetailViewController: UIViewController {
 //        presentPhotoActionSheet()
     }
     
+    /// Takes user to Add Reminder Screen to create a Reminder
     @IBAction func reminderButtonTapped(_ sender: UIBarButtonItem) {
         print("reminder button tapped")
-        reminderButtonLabel.tintColor = .clear
-        reminderButtonLabel.isEnabled = false
-    }
-    
-    @IBAction func searchButtonTapped(_ sender: UIBarButtonItem) {
-        print("search button tapped")
-        
-//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
-//            reminderVC.modalPresentationStyle = .automatic
-//            reminderVC.plantController = plantController
-//            reminderVC.plant = plant
-//            present(reminderVC, animated: true, completion: nil)
-//        }
-        
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        if let searchVC = storyboard.instantiateViewController(identifier: "SearchViewControllerID") as? SearchViewController {
-            searchVC.modalPresentationStyle = .automatic
-            searchVC.plantController = plantController
-            searchVC.resultDelegate = self
-            present(searchVC, animated: true, completion: nil)
+        if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
+            reminderVC.modalPresentationStyle = .automatic
+            reminderVC.plantController = plantController
+            reminderVC.plant = plant
+            present(reminderVC, animated: true, completion: nil)
         }
     }
     
@@ -868,16 +853,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 
         let reminderCell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell
-        print("tapped on \(reminderCell)")
-//        let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
-//        imageView.image = plantResultCell?.plantImageView.image
-//
-//        // if we DO want it to put common name selected into species field
-//        if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && plantResultCell?.commonNameLabel.text != "No common name"{
-//            speciesTextField.text = plantResultCell?.commonNameLabel.text
-//        }
-//
-//        fetchedScientificName = scientificName
+        print("tapped on \(reminderCell?.reminder)")
     }
 }
 
