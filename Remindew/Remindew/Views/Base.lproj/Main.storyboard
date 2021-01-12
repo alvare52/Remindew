@@ -164,7 +164,6 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Remindew" id="EK6-Ws-JkZ">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="bnw-Rq-Ig2"/>
                         <leftBarButtonItems>
                             <barButtonItem title="Item" image="ellipsis.circle" catalog="system" id="9ch-Ko-LFh">
                                 <connections>
@@ -326,21 +325,22 @@
                     <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw">
                         <barButtonItem key="backBarButtonItem" id="XUW-mL-cLo"/>
                         <rightBarButtonItems>
+                            <barButtonItem title="Notes" image="note.text" catalog="system" id="mPY-9k-kkA">
+                                <connections>
+                                    <action selector="notesButtonTapped:" destination="egV-2b-yvb" id="OM8-Mp-tWh"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="photo" catalog="system" id="Zuh-eX-2UT">
                                 <connections>
                                     <action selector="cameraButtonTapped:" destination="egV-2b-yvb" id="8GQ-VQ-8kf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Notes" image="text.bubble" catalog="system" id="mPY-9k-kkA">
-                                <connections>
-                                    <action selector="notesButtonTapped:" destination="egV-2b-yvb" id="OM8-Mp-tWh"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="70H-0c-oGJ">
+                            <barButtonItem image="bell" catalog="system" id="70H-0c-oGJ">
                                 <connections>
                                     <action selector="searchButtonTapped:" destination="egV-2b-yvb" id="Cq8-Eu-ELT"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="nTd-PE-hrc"/>
                             <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -362,7 +362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjs-sh-Ez5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1548" y="102"/>
+            <point key="canvasLocation" x="1547.8260869565217" y="101.78571428571428"/>
         </scene>
         <!--Appearance View Controller-->
         <scene sceneID="COR-3K-DG0">
@@ -425,10 +425,11 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="RemindewDefaultImage" width="1000" height="667"/>
+        <image name="bell" catalog="system" width="128" height="124"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="photo" catalog="system" width="128" height="93"/>
-        <image name="text.bubble" catalog="system" width="128" height="110"/>
         <namedColor name="customBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

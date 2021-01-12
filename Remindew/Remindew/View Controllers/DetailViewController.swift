@@ -167,10 +167,11 @@ class DetailViewController: UIViewController {
 //        UINavigationBar.appearance().barTintColor = UIColor.customBackgroundColor
 //        UINavigationBar.appearance().isTranslucent = false
         
-        // import SVG version instead later?
-        if #available(iOS 14.0, *) {
-            notesButtonLabel.image = UIImage(systemName: "note.text")
-        }
+//        // import SVG version instead later?
+//        if #available(iOS 14.0, *) {
+//            notesButtonLabel.image = UIImage(systemName: "note.text")
+//        }
+        
         
         resultsTableView.backgroundView = spinner
         spinner.color = .leafGreen
