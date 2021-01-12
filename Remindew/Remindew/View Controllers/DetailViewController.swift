@@ -867,8 +867,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 
-        let plantResultCell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell
-        print("tapped on \(plantResultCell)")
+        let reminderCell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell
+        print("tapped on \(reminderCell)")
 //        let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
 //        imageView.image = plantResultCell?.plantImageView.image
 //
@@ -902,6 +902,13 @@ extension DetailViewController: SelectedResultDelegate {
     func didSelectResult(searchResult: PlantSearchResult, image: UIImage?) {
         
         self.plantSearchResult = searchResult
+        
+        // if we DO want it to put common name selected into species field
+        if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && searchResult.commonName != nil {
+            speciesTextField.text = searchResult.commonName
+        }
+        
+        // only replace the imageView.image if we passed back a searchResult that had an imageUrl and an image loaded
         if searchResult.imageUrl != nil && image != nil {
             self.imageView.image = image
         }
