@@ -48,10 +48,17 @@ class SearchViewController: UIViewController {
     
     /// plantController passed in from DetailVC
     var plantController: PlantController?
+    
+    /// Passed in when we come from DetailVC (hitting "search" in it's speciesTextfield)
+    var passedInSearchTerm: String? {
+        didSet {
+            updateViews()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("viewDidLoad SearchVC")
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
@@ -59,9 +66,68 @@ class SearchViewController: UIViewController {
         tableView.backgroundView = spinner
         spinner.color = .leafGreen
         tableView.isHidden = true
-                
+        
+        tableView.separatorInset = .zero
+        tableView.layoutMargins = .zero
+        tableView.keyboardDismissMode = .onDrag
+        
         updateViews()
         // Do any additional setup after loading the view.
+    }
+        
+    /// User (or DetailVewController) pressed "search"
+    func didTapSearch() {
+        
+        print("didTapSearch")
+
+        // dismiss keyboard (if it's still up)
+        searchBar.resignFirstResponder()
+        
+        // if there's still a search going on, exit out
+        if spinner.isAnimating {
+            print("still spinning")
+            return
+        }
+        
+        guard let unwrappedTerm = searchBar.text, !unwrappedTerm.isEmpty else { return }
+        
+        // get rid of any spaces in search term
+        let term = unwrappedTerm.replacingOccurrences(of: " ", with: "")
+        
+        // show tableview
+        tableView.isHidden = false
+
+        // start animating spinner
+        spinner.startAnimating()
+
+        // check if we need a new token first
+        if plantController?.newTempTokenIsNeeded() == true {
+            print("new token needed, fetching one first")
+            plantController?.signToken(completion: { (result) in
+                do {
+                    let message = try result.get()
+                    DispatchQueue.main.async {
+                        print("success in signToken: \(message)")
+                        self.performPlantSearch(term)
+                    }
+                } catch {
+                    if let error = error as? NetworkError {
+                        print("error in detailVC when signing token")
+                        DispatchQueue.main.async {
+                            self.spinner.stopAnimating()
+                            self.handleNetworkErrors(error)
+                        }
+                    }
+                }
+            })
+        }
+
+        // No new token needed
+        else {
+            print("No token needed, searching")
+            performPlantSearch(term)
+        }
+        
     }
     
     // MARK: - Networking
@@ -154,7 +220,10 @@ class SearchViewController: UIViewController {
 //    }
     
     private func updateViews() {
-        
+        print("updateViews")
+        guard isViewLoaded else { return }
+        searchBar.text = passedInSearchTerm
+        didTapSearch()
     }
 
     /*
@@ -250,6 +319,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        didTapSearch()
+        return
         
         // Clicked "Search" in searchbar
         if searchBar == self.searchBar {

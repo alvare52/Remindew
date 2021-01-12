@@ -96,7 +96,6 @@ class DetailViewController: UIViewController {
             searchVC.modalPresentationStyle = .automatic
             searchVC.plantController = plantController
             searchVC.resultDelegate = self
-//            reminderVC.plant = plant
             present(searchVC, animated: true, completion: nil)
         }
     }
@@ -175,19 +174,15 @@ class DetailViewController: UIViewController {
         
 //        UINavigationBar.appearance().barTintColor = UIColor.customBackgroundColor
 //        UINavigationBar.appearance().isTranslucent = false
-        
-//        // import SVG version instead later?
-//        if #available(iOS 14.0, *) {
-//            notesButtonLabel.image = UIImage(systemName: "note.text")
-//        }
-        
-        
+                
         resultsTableView.backgroundView = spinner
         spinner.color = .leafGreen
         
         resultsTableView.delegate = self
         resultsTableView.dataSource = self
 //        resultsTableView.isHidden = true
+        resultsTableView.separatorInset = .zero
+        resultsTableView.layoutMargins = .zero
         
         // makes imageView a circle
         imageView.layer.masksToBounds = false
@@ -418,6 +413,20 @@ class DetailViewController: UIViewController {
         let randomInt = Int.random(in: 0..<randomNicknames.count)
         print("randomInt = \(randomInt)")
         nicknameTextField.text = randomNicknames[randomInt]
+    }
+    
+    /// Presents SearchViewController when hitting "search" in species textfield and passes in search term and starts search
+    private func presentSearchViewController() {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let searchVC = storyboard.instantiateViewController(identifier: "SearchViewControllerID") as? SearchViewController {
+            searchVC.modalPresentationStyle = .automatic
+            searchVC.plantController = plantController
+            searchVC.resultDelegate = self
+            
+            searchVC.passedInSearchTerm = self.speciesTextField.text
+            
+            present(searchVC, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Photos
@@ -698,6 +707,10 @@ extension DetailViewController: UITextFieldDelegate {
 
             // dismiss keyboard
             textField.resignFirstResponder()
+            
+            // NEW
+            presentSearchViewController()
+            return true
             
             // if there's still a search going on, exit out
             if spinner.isAnimating {
