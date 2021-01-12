@@ -29,6 +29,52 @@ class DetailViewController: UIViewController {
     @IBOutlet var searchButtonLabel: UIBarButtonItem!
     @IBOutlet var reminderButtonLabel: UIBarButtonItem!
     
+    // MARK: - Properties
+    
+    var plantController: PlantController?
+    
+    var plant: Plant? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    /// Holds what we get back from notepad vc
+    var notePad: NotePad?
+    
+    /// Holds PlantSearchResult we get back from search vc
+    var plantSearchResult: PlantSearchResult?
+    
+    /// Holds the PlantSearchResult array we get in network call
+    var plantSearchResults: [PlantSearchResult] = [] {
+        didSet {
+            resultsTableView.reloadData()
+        }
+    }
+    
+    /// Holds array of Reminders to belong to self.plant?
+    var reminders: [Reminder] = [Reminder(actionName: "Rotate", alarmDate: Date(), frequency: Int16(5)),
+                                 Reminder(actionName: "Burn", alarmDate: Date(), frequency: Int16(6)),
+                                 Reminder(actionName: "Harvest", alarmDate: Date(), frequency: Int16(7))]
+       
+    /// Holds scientificName grabbed from plant species search
+    var fetchedScientificName = ""
+    
+    /// Array of random plant nicknames for when a user doesn't want to create their own
+    let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
+                                    "Entty", "Lily", "Greenman", "Bud Dwyer",
+                                    "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
+    
+    /// Nav bar date: Sun 11/29
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE MM/d"
+        return formatter
+    }
+    
+    /// Loading indicator displayed while searching for a plant
+    let spinner = UIActivityIndicatorView(style: .large)
+    
     // MARK: - Actions
     @IBAction func notesButtonTapped(_ sender: UIBarButtonItem) {
         print("notesButtonTapped")
@@ -122,49 +168,6 @@ class DetailViewController: UIViewController {
             }
         }
     }
-    
-    // MARK: - Properties
-    
-    var plantController: PlantController?
-    
-    var plant: Plant? {
-        didSet {
-            updateViews()
-        }
-    }
-    
-    /// Holds what we get back from notepad vc
-    var notePad: NotePad?
-    
-    /// Holds the PlantSearchResult array we get in network call
-    var plantSearchResults: [PlantSearchResult] = [] {
-        didSet {
-            resultsTableView.reloadData()
-        }
-    }
-    
-    /// Holds array of Reminders to belong to self.plant?
-    var reminders: [Reminder] = [Reminder(actionName: "Rotate", alarmDate: Date(), frequency: Int16(5)),
-                                 Reminder(actionName: "Burn", alarmDate: Date(), frequency: Int16(6)),
-                                 Reminder(actionName: "Harvest", alarmDate: Date(), frequency: Int16(7))]
-       
-    /// Holds scientificName grabbed from plant species search
-    var fetchedScientificName = ""
-    
-    /// Array of random plant nicknames for when a user doesn't want to create their own
-    let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
-                                    "Entty", "Lily", "Greenman", "Bud Dwyer",
-                                    "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
-    
-    /// Nav bar date: Sun 11/29
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE MM/d"
-        return formatter
-    }
-    
-    /// Loading indicator displayed while searching for a plant
-    let spinner = UIActivityIndicatorView(style: .large)
         
     // MARK: - View Life Cycle
     
@@ -364,7 +367,7 @@ class DetailViewController: UIViewController {
                                    species: species.capitalized,
                                    water_schedule: datePicker.date,
                                    frequency: daySelectorOutlet.returnDaysSelected(),
-                                   scientificName: emptyNotepad.scientificName,
+                                   scientificName: plantSearchResult?.scientificName ?? emptyNotepad.scientificName,
                                    notepad: emptyNotepad,
                                    plant: existingPlant)
             // save image
@@ -379,7 +382,7 @@ class DetailViewController: UIViewController {
         // If there is NO plant (ADD)
         else {
             
-            var emptyNotepad = NotePad()
+            var emptyNotepad = NotePad(scientificName: plantSearchResult?.scientificName ?? "")
             if let fullNotepad = notePad {
                 emptyNotepad = fullNotepad
             }
@@ -894,8 +897,13 @@ extension DetailViewController: NotepadDelegate {
 }
 
 extension DetailViewController: SelectedResultDelegate {
-    // TODO: needs to also pass back imageView.image
-    func didSelectResult(searchResult: PlantSearchResult) {
-        print("searchResult passed back = \(searchResult)")
+    
+    /// When user taps a cell in SearchVC, it passes back the PlantSearchResult and the image inside the cell's plantImageView
+    func didSelectResult(searchResult: PlantSearchResult, image: UIImage?) {
+        
+        self.plantSearchResult = searchResult
+        if searchResult.imageUrl != nil && image != nil {
+            self.imageView.image = image
+        }
     }
 }

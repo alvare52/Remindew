@@ -10,7 +10,7 @@ import UIKit
 
 protocol SelectedResultDelegate {
     /// Passes back PlantSearchResult that's selected in SearchViewController
-    func didSelectResult(searchResult: PlantSearchResult)
+    func didSelectResult(searchResult: PlantSearchResult, image: UIImage?)
 }
 
 class SearchViewController: UIViewController {
@@ -305,7 +305,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 //        imageView.image = plantResultCell?.plantImageView.image
 //
         let plantResult = plantSearchResults[indexPath.row]
-        resultDelegate?.didSelectResult(searchResult: plantResult)
+        resultDelegate?.didSelectResult(searchResult: plantResult, image: plantResultCell?.plantImageView.image)
         // if we DO want it to put common name selected into species field
         if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && plantResultCell?.commonNameLabel.text != "No common name"{
             //speciesTextField.text = plantResultCell?.commonNameLabel.text
