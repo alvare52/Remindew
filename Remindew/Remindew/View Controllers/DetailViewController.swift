@@ -256,7 +256,7 @@ class DetailViewController: UIViewController {
                 imageView.image = image
             }
         
-            plantButton.setTitle(NSLocalizedString("Save Changes", comment: "Save changes made to plant"), for: .normal)
+            plantButton.setTitle(NSLocalizedString("Save", comment: "Done button"), for: .normal)
             
             // Title says how many times a week plant needs water
             if plant.frequency!.count == 7 {
@@ -785,14 +785,13 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reminders.count//plantSearchResults.count
+        return reminders.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
-    // NEW
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? ReminderTableViewCell else { return UITableViewCell() }
@@ -802,61 +801,17 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return resultCell
     }
     
-    // OLD, DELETE LATER
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        // Cast as a custom tableview cell (after I make one)
-//        guard let resultCell = resultsTableView.dequeueReusableCell(withIdentifier: "ResultsCell", for: indexPath) as? SearchResultTableViewCell else { return UITableViewCell() }
-//
-//        let plantResult = plantSearchResults[indexPath.row]//plantController?.plantSearchResults[indexPath.row]
-//
-//        // common name
-//        resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? "No common name"
-//
-//        // scientific name
-//        resultCell.scientificNameLabel.text = plantResult.scientificName ?? "No scientific name"
-//
-//        resultCell.spinner.startAnimating()
-//        // image
-//        // store returned UUID? for task for later
-//        let token = plantController?.loadImage(plantResult.imageUrl) { result in
-//            do {
-//
-//                // extract result (UIImage)
-//                let image = try result.get()
-//
-//                // if we get an image, display in cell's image view on main queue
-//                DispatchQueue.main.async {
-//                    resultCell.plantImageView?.image = image
-//                    resultCell.spinner.stopAnimating()
-//                }
-//            } catch {
-//                // do something if there's an error
-//                // set image to default picture?
-//                print("Error in result of loadImage in cellForRowAt")
-//                DispatchQueue.main.async {
-//                    resultCell.plantImageView?.image = .logoImage
-//                    resultCell.spinner.stopAnimating()
-//                }
-//            }
-//        }
-//
-//        // use UUID? we just made to now cancel the load for it
-//        resultCell.onReuse = {
-//            // when cell is reused, try to cancel the task it started here
-//            if let token = token {
-//                resultCell.spinner.stopAnimating()
-//                self.plantController?.cancelLoad(token)
-//            }
-//        }
-//
-//        return resultCell
-//    }
-        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 
-        let reminderCell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell
-        print("tapped on \(reminderCell?.reminder)")
+        let reminderCell = tableView.cellForRow(at: indexPath) as? ReminderTableViewCell        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
+            reminderVC.modalPresentationStyle = .automatic
+            reminderVC.plantController = plantController
+            reminderVC.plant = plant
+            reminderVC.reminder = reminderCell?.reminder
+            present(reminderVC, animated: true, completion: nil)
+        }
     }
 }
 
