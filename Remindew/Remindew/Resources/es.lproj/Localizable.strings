@@ -9,6 +9,7 @@
 
 // MARK: - A
 "Add New Plant" = "Añadir Nueva Planta";
+"Add New Reminder" = "Añadir Recordatorio";
 "Add Plant" = "Añadir Planta";
 "Add Plant Image" = "Añadir Imagen de Planta";
 // MARK: - B
@@ -67,7 +68,7 @@
 
 // MARK: - R
 "Random" = "Azar";
-
+"Reminder" = "Recordatorio";
 // MARK: - S
 "Sat" = "Sáb";
 "Save" = "Guardar";

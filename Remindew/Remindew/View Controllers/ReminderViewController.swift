@@ -24,13 +24,13 @@ class ReminderViewController: UIViewController {
     let lastDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Brand New Plant"
+        label.text = NSLocalizedString("Add New Reminder", comment: "title for add reminder screen")
         label.textColor = .waterBlue
         label.backgroundColor = .white
         label.textAlignment = .left
         label.numberOfLines = 1
         label.contentMode = .bottom
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 15)
         return label
     }()
     
@@ -52,6 +52,7 @@ class ReminderViewController: UIViewController {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.plantNameLabel.isEnabled = true
+        view.plantNameLabel.text = NSLocalizedString("Reminder", comment: "Name of reminder type")
         return view
     }()
     
@@ -214,6 +215,10 @@ class ReminderViewController: UIViewController {
         setupSubviews()
         updateViews()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     /// Saves contents and dismisses view controller
@@ -402,7 +407,7 @@ class ReminderViewController: UIViewController {
             
             // ADD reminder
             else {
-                
+                actionCustomizationView.plantNameLabel.becomeFirstResponder()
             }
             
 //            let newReminder = Reminder(actionName: "Pesticide", alarmDate: Date(), frequency: Int16(7))

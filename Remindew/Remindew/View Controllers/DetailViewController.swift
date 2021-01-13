@@ -210,6 +210,7 @@ class DetailViewController: UIViewController {
         nicknameTextField.autocorrectionType = .no
         speciesTextField.autocorrectionType = .no
         
+        // ?
         datePicker.contentHorizontalAlignment = .right
 
         updateViews()
@@ -276,13 +277,17 @@ class DetailViewController: UIViewController {
             fetchedScientificName = plant.scientificName ?? ""
             waterPlantButton.isHidden = false
             
+            // unhide reminder button (keep hidden if reminder count has reached limit)
+            reminderButtonLabel.tintColor = .mixedBlueGreen
+            reminderButtonLabel.isEnabled = true
+            
             // plant DOES need to be watered
             if plant.needsWatering {
                 waterPlantButton.setTitle(plant.mainAction, for: .normal)
-                // old
-//                waterPlantButton.setTitle(NSLocalizedString("Water Plant", comment: "button to water plant"), for: .normal)
                 waterPlantButton.isEnabled = true
+                waterPlantButton.performFlare()
             }
+            
             // plant does NOT need to be watered
             else {
                 waterPlantButton.isHidden = true
@@ -297,12 +302,13 @@ class DetailViewController: UIViewController {
             nicknameTextField.text = ""
             speciesTextField.text = ""
             waterPlantButton.isHidden = true
-//            textView.text = "Please enter a plant nickname, species, and select reminder days"
+            
+            // hide reminderButton
+            reminderButtonLabel.isEnabled = false
+            reminderButtonLabel.tintColor = .clear
+            
+            plantButton.performFlare()
         }
-        
-        plantButton.performFlare()
-        // start 0.5 seconds later?
-        waterPlantButton.performFlare()
     }
     
     /// Creates or Edits a plant

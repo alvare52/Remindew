@@ -39,7 +39,7 @@ class NotepadViewController: UIViewController {
         label.textAlignment = .left
         label.numberOfLines = 1
         label.contentMode = .bottom
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 15)
         return label
     }()
     
