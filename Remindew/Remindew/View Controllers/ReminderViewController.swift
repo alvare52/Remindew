@@ -252,7 +252,7 @@ class ReminderViewController: UIViewController {
         }
         // if we DON'T have a plant
         else {
-
+            fatalError("Arrived at Reminder screen without a plant first")
         }
         
     }
@@ -384,28 +384,29 @@ class ReminderViewController: UIViewController {
                 
         // EDIT/DETAIL Mode
         if let plant = plant {
-            print("reminder in edit mode = \(plant.reminders)")
+            print("reminder in edit mode = \(String(describing: plant.reminders))")
 
             
             let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
             print("remindersArray = \(remindersArray)")
             
-            // EDIT reminder
+            // EDIT REMINDER WE CLICKED ON (from tableView cell)
             if let reminder = reminder {
                 actionCustomizationView.plantNameLabel.text = reminder.actionName
                 notificationBubble.reminderTitleTextfield.text = reminder.actionTitle
                 notificationBubble.reminderMessageTextfield.text = reminder.actionMessage
                 datePicker.date = reminder.alarmDate ?? Date()
-                isDisabledSwitch.isOn = reminder.isDisabled
+                isDisabledSwitch.isOn = !reminder.isDisabled
                 frequencyTextfield.text = "\(reminder.frequency)"
+                notesTextView.text = reminder.notes
                 if let lastDate = reminder.lastDate {
                     lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(dateFormatter.string(from: lastDate))"
                 } else {
-                    lastDateLabel.text = "Brand New Plant"
+                    lastDateLabel.text = NSLocalizedString("Brand New Plant", comment: "Brand new plant title")
                 }
             }
             
-            // ADD reminder
+            // ADD NEW REMINDER (from Reminder button icon)
             else {
                 actionCustomizationView.plantNameLabel.becomeFirstResponder()
             }
@@ -420,9 +421,9 @@ class ReminderViewController: UIViewController {
 //            let reminder = reminders.first(where: {$0.actionName == "Pesticide"})
         }
 
-        // ADD Mode
+        // ADD Mode (this shouldn't be possible right now)
         else {
-
+            fatalError("Arrived at Reminder screen without a plant in updateViews")
         }
     }
 }

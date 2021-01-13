@@ -52,9 +52,19 @@ class DetailViewController: UIViewController {
     }
     
     /// Holds array of Reminders to belong to self.plant?
-    var reminders: [Reminder] = [Reminder(actionName: "Rotate", alarmDate: Date(), frequency: Int16(5)),
-                                 Reminder(actionName: "Burn", alarmDate: Date(), frequency: Int16(6)),
-                                 Reminder(actionName: "Harvest", alarmDate: Date(), frequency: Int16(7))]
+    
+    var reminders: [Reminder] {
+        if let plant = plant {
+            return plant.reminders?.allObjects as! Array<Reminder>
+        }
+        // Return empty array if no plant (ADD Mode)
+//        resultsTableView.isHidden = true
+        return []
+    }
+    
+//    var reminders: [Reminder] = [Reminder(actionName: "Rotate", alarmDate: Date(), frequency: Int16(5)),
+//                                 Reminder(actionName: "Burn", alarmDate: Date(), frequency: Int16(6)),
+//                                 Reminder(actionName: "Harvest", alarmDate: Date(), frequency: Int16(7))]
        
     /// Holds scientificName grabbed from plant species search
     var fetchedScientificName = ""
