@@ -94,8 +94,9 @@ class ReminderTableViewCell: UITableViewCell {
     private func updateViews() {
         guard let reminder = reminder else { return }
         reminderLabel.text = reminder.actionName
-//        alarmDateLabel.text = dateFormatter.string(from: reminder.alarmDate ?? Date())
-        alarmDateLabel.text = "Jan 21, 2021"
+        alarmDateLabel.text = dateFormatter.string(from: reminder.alarmDate ?? Date())
+        progressView.progressTintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
+        timeLeftLabel.text = "\(Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0))" + " days left"
     }
     
     ///
