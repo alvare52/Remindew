@@ -92,11 +92,27 @@ class ReminderTableViewCell: UITableViewCell {
     }
     
     private func updateViews() {
+        // START
+//        let startDate = Date()
+        
         guard let reminder = reminder else { return }
         reminderLabel.text = reminder.actionName
         alarmDateLabel.text = dateFormatter.string(from: reminder.alarmDate ?? Date())
         progressView.progressTintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
+        
+//        let daysLeftInt16 = Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0)
         timeLeftLabel.text = "\(Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0))" + " days left"
+        
+     
+        // Randomly slows down simulator and clicking on plant doesn't do anything (pinch zoom bug?)
+//        let modded = daysLeftInt16 % reminder.frequency
+//        let progressFloat = 1.0 - (Float(modded) / Float(reminder.frequency))
+//        progressView.progress = progressFloat
+//        reminderLabel.text = "\(progressFloat)"
+        
+        // END
+//        let finishDate = Date()
+//        print("Execution time: \(finishDate.timeIntervalSince(startDate))")
     }
     
     ///

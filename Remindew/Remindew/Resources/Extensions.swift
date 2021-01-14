@@ -298,3 +298,23 @@ extension UIImage {
         return newImage!
     }
 }
+
+// MARK: - Date
+
+extension Date {
+    
+    /// Returns a percentage that represents how close an end date is using the frequency of the alarm and the next date it will go off
+    static func returnProgress(frequency: Int16, endDate: Date) {
+        
+//        let progressFloat = Float(1) - (Float(daysLeftFloat) / Float(reminder.frequency) )
+//        progressView.progress = Float(1) - (Float(daysLeftFloat) / Float(reminder.frequency) )
+//        timeLeftLabel.text = "\(Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0))" + " days left"
+        
+//        let daysLeft = 17
+//        let freq = 7
+//        let testResult = 1.0 - (Double((daysLeft % freq)) / Double(freq))
+//        print(testResult)
+        
+        let daysLeft = endDate.timeIntervalSinceNow / 864000.0
+    }
+}
