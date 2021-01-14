@@ -25,7 +25,7 @@ class ReminderViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("Add New Reminder", comment: "title for add reminder screen")
-        label.textColor = .waterBlue
+        label.textColor = .mixedBlueGreen
         label.backgroundColor = .white
         label.textAlignment = .left
         label.numberOfLines = 1
@@ -90,7 +90,7 @@ class ReminderViewController: UIViewController {
     let isDisabledSwitch: UISwitch = {
         let tempSwitch = UISwitch()
         tempSwitch.translatesAutoresizingMaskIntoConstraints = false
-        tempSwitch.onTintColor = .mixedBlueGreen
+//        tempSwitch.onTintColor = .mixedBlueGreen
         tempSwitch.isOn = true
 //        tempSwitch.backgroundColor = .yellow
         return tempSwitch
@@ -213,6 +213,8 @@ class ReminderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
+        actionCustomizationView.datePicker = datePicker
+        actionCustomizationView.notificationSwitch = isDisabledSwitch
         updateViews()
         // Do any additional setup after loading the view.
     }

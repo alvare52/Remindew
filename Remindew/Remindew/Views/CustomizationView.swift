@@ -109,6 +109,8 @@ class CustomizationView: UIView {
         colorChangeButton.backgroundColor = UIColor.colorsArray[localColorsCount]
         plantNameLabel.textColor = UIColor.colorsArray[localColorsCount]
         iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
+        // NEW
+        applyColorsToDatePickerAndSwitch()
 //        localColorsCount += 1
     }
     
@@ -118,5 +120,16 @@ class CustomizationView: UIView {
         }
         iconImageButton.setImage(UIImage.iconArray[localIconCount], for: .normal)
         localIconCount += 1
+    }
+    
+    // NEW
+    weak var datePicker: UIDatePicker?
+    weak var notificationSwitch: UISwitch?
+    
+    // Changes colors of passed in ui elements (for ReminderViewController only)
+    func applyColorsToDatePickerAndSwitch() {
+        guard let datePicker = datePicker, let notificationSwitch = notificationSwitch else { return }
+        datePicker.tintColor = UIColor.colorsArray[localColorsCount]
+        notificationSwitch.onTintColor = UIColor.colorsArray[localColorsCount]
     }
 }
