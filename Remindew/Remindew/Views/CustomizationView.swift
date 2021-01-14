@@ -46,7 +46,13 @@ class CustomizationView: UIView {
     }()
     
     let localColorsArray: [UIColor] = [UIColor.systemRed, UIColor.systemBlue, UIColor.systemGreen]
-    var localColorsCount = 0
+    var localColorsCount = 0 {
+        didSet {
+            plantNameLabel.textColor = UIColor.colorsArray[localColorsCount]
+            iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
+            colorChangeButton.backgroundColor = UIColor.colorsArray[localColorsCount]
+        }
+    }
     var localIconCount = 0
     
     // MARK: - View Life Cycle

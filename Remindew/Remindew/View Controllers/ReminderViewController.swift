@@ -63,7 +63,6 @@ class ReminderViewController: UIViewController {
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = .mixedBlueGreen
         picker.minimumDate = Date()
-//        picker.backgroundColor = .orange
         return picker
     }()
     
@@ -71,7 +70,6 @@ class ReminderViewController: UIViewController {
     let frequencyTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-//        textfield.backgroundColor = .blue
         textfield.keyboardType = .numberPad
         textfield.text = "7"
         return textfield
@@ -82,7 +80,6 @@ class ReminderViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("days", comment: "days label after frequency number")
-//        label.backgroundColor = .lightGray
         return label
     }()
     
@@ -90,9 +87,8 @@ class ReminderViewController: UIViewController {
     let isDisabledSwitch: UISwitch = {
         let tempSwitch = UISwitch()
         tempSwitch.translatesAutoresizingMaskIntoConstraints = false
-//        tempSwitch.onTintColor = .mixedBlueGreen
+        tempSwitch.onTintColor = .mixedBlueGreen
         tempSwitch.isOn = true
-//        tempSwitch.backgroundColor = .yellow
         return tempSwitch
     }()
     
@@ -133,7 +129,6 @@ class ReminderViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = .systemFont(ofSize: 12, weight: .light)
-//        label.backgroundColor = .orange
         label.text = "16m ago"
         label.textAlignment = .right
         return label
@@ -142,7 +137,7 @@ class ReminderViewController: UIViewController {
     let reminderTitleTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.text = "Reminder Title"
+        textfield.text = "Custom Reminder Title"
         textfield.backgroundColor = .clear
         textfield.textColor = .white
         textfield.font = .systemFont(ofSize: 14, weight: .semibold)
@@ -154,7 +149,7 @@ class ReminderViewController: UIViewController {
     let reminderMessageTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.text = "Reminder Message"
+        textfield.text = "Custom Reminder Message"
         textfield.font = .systemFont(ofSize: 14)
         textfield.textColor = .white
         textfield.backgroundColor = .clear
@@ -213,10 +208,12 @@ class ReminderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
+        
+        // pass in datePicker and isDisabledSwitch so their color can be updated too
         actionCustomizationView.datePicker = datePicker
         actionCustomizationView.notificationSwitch = isDisabledSwitch
+        
         updateViews()
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -233,10 +230,12 @@ class ReminderViewController: UIViewController {
             
             // if editing a reminder we selected
             guard let actionName = actionCustomizationView.plantNameLabel.text else {
+                // TODO: Error alert for no name
                 print("no name for action")
                 return
             }
             guard let frequencyString = frequencyTextfield.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString) else {
+                // TODO: Error alert for invalid or missing frequency number
                 print("no text in frequency textfield")
                 return
             }
@@ -248,6 +247,7 @@ class ReminderViewController: UIViewController {
             newReminder.actionMessage = notificationBubble.reminderMessageTextfield.text
             newReminder.notes = notesTextView.text
             newReminder.isDisabled = !isDisabledSwitch.isOn
+            newReminder.colorIndex = Int16(actionCustomizationView.localColorsCount)
             plantController?.addReminderToPlant(reminder: newReminder, plant: plant)
 //            let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
 //            print("remindersArray = \(remindersArray)")
@@ -401,6 +401,15 @@ class ReminderViewController: UIViewController {
                 isDisabledSwitch.isOn = !reminder.isDisabled
                 frequencyTextfield.text = "\(reminder.frequency)"
                 notesTextView.text = reminder.notes
+                // colors
+                let reminderColor = UIColor.colorsArray[Int(reminder.colorIndex)]
+                actionCustomizationView.localColorsCount = Int(reminder.colorIndex)
+                isDisabledSwitch.onTintColor = reminderColor
+                datePicker.tintColor = reminderColor
+//                actionCustomizationView.plantNameLabel.textColor = reminderColor
+//                actionCustomizationView.iconImageButton.tintColor = reminderColor
+//                actionCustomizationView.colorChangeButton.backgroundColor = reminderColor
+                
                 if let lastDate = reminder.lastDate {
                     lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(dateFormatter.string(from: lastDate))"
                 } else {

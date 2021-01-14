@@ -97,6 +97,7 @@ class ReminderTableViewCell: UITableViewCell {
         
         guard let reminder = reminder else { return }
         reminderLabel.text = reminder.actionName
+        reminderLabel.textColor = UIColor.colorsArray[Int(reminder.colorIndex)]
         alarmDateLabel.text = dateFormatter.string(from: reminder.alarmDate ?? Date())
         progressView.progressTintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
         
