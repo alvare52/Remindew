@@ -137,6 +137,7 @@ class DetailViewController: UIViewController {
             reminderVC.modalPresentationStyle = .automatic
             reminderVC.plantController = plantController
             reminderVC.plant = plant
+            reminderVC.reminderDelegate = self
             present(reminderVC, animated: true, completion: nil)
         }
     }
@@ -862,5 +863,12 @@ extension DetailViewController: SelectedResultDelegate {
         if searchResult.imageUrl != nil && image != nil {
             self.imageView.image = image
         }
+    }
+}
+
+extension DetailViewController: ReminderDelegate {
+    
+    func didAddReminder() {
+        resultsTableView.reloadData()
     }
 }

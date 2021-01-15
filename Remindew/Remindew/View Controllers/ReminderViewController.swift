@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ReminderDelegate {
+    /// notify DetailViewController to update table view when reminder is added or updated
+    func didAddReminder()
+}
+
 class ReminderViewController: UIViewController {
 
     // MARK: - Properties
@@ -203,6 +208,9 @@ class ReminderViewController: UIViewController {
         }
     }
     
+    /// Tells DetailViewControlle to update its table view when a reminder is added or updated
+    var reminderDelegate: ReminderDelegate?
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -234,7 +242,8 @@ class ReminderViewController: UIViewController {
                 print("no name for action")
                 return
             }
-            guard let frequencyString = frequencyTextfield.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString) else {
+            // make sure frequency is a number and greater than 0
+            guard let frequencyString = frequencyTextfield.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString), frequency > 0 else {
                 // TODO: Error alert for invalid or missing frequency number
                 print("no text in frequency textfield")
                 return
@@ -256,7 +265,9 @@ class ReminderViewController: UIViewController {
         else {
             fatalError("Arrived at Reminder screen without a plant first")
         }
-        
+        // update table view in DetailViewController
+        reminderDelegate?.didAddReminder()
+        dismiss(animated: true, completion: nil)
     }
     
     private func setupSubviews() {
