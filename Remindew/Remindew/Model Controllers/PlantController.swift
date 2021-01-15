@@ -185,12 +185,28 @@ class PlantController {
     
     // MARK: - Reminders CRUD
     
-    /// Creates a Reminder and adds it to plant.reminders
-    func addReminderToPlant(reminder: Reminder, plant: Plant) {
-        plant.addToReminders(reminder)
+    /// Creates new Reminder with given paramters and adds it to given Plant then saves to main context
+    func addNewReminderToPlant(plant: Plant, actionName: String, alarmDate: Date, frequency: Int16, actionTitle: String, actionMessage: String, notes: String, isEnabled: Bool, colorIndex: Int16, iconIndex: Int16) {
+        
+        let reminderToAdd = Reminder(actionName: actionName,
+                                     alarmDate: alarmDate,
+                                     frequency: frequency,
+                                     actionTitle: actionTitle,
+                                     actionMessage: actionMessage,
+                                     colorIndex: colorIndex,
+                                     iconIndex: iconIndex,
+                                     isEnabled: isEnabled,
+                                     notes: notes)
+        
+        plant.addToReminders(reminderToAdd)
         savePlant()
     }
+    
+    /// Takes in an existing Reminder, edits it, and then saves to main context
+    func editReminder() {
         
+    }
+    
     /// Removes reminder from plant.reminders, deletes reminder from core data then saves or resets if there's an error
     func deleteReminderFromPlant(reminder: Reminder, plant: Plant) {
         plant.removeFromReminders(reminder)

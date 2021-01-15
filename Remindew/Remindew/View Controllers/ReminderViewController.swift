@@ -89,7 +89,7 @@ class ReminderViewController: UIViewController {
     }()
     
     /// Switch to toggle isDisabled for Reminder
-    let isDisabledSwitch: UISwitch = {
+    let isEnabledSwitch: UISwitch = {
         let tempSwitch = UISwitch()
         tempSwitch.translatesAutoresizingMaskIntoConstraints = false
         tempSwitch.onTintColor = .mixedBlueGreen
@@ -219,7 +219,7 @@ class ReminderViewController: UIViewController {
         
         // pass in datePicker and isDisabledSwitch so their color can be updated too
         actionCustomizationView.datePicker = datePicker
-        actionCustomizationView.notificationSwitch = isDisabledSwitch
+        actionCustomizationView.notificationSwitch = isEnabledSwitch
         
         updateViews()
     }
@@ -234,6 +234,7 @@ class ReminderViewController: UIViewController {
     
         // We came from EDIT mode, so we can safely update the plant here
         if let plant = plant {
+            
             // if plant has no reminders yet (came from "empty" cell)
             
             // if editing a reminder we selected
@@ -249,19 +250,33 @@ class ReminderViewController: UIViewController {
                 return
             }
             
-            let newReminder = Reminder(actionName: actionName,
-                                       alarmDate: datePicker.date,
-                                       frequency: frequency)
-            newReminder.actionTitle = notificationBubble.reminderTitleTextfield.text
-            newReminder.actionMessage = notificationBubble.reminderMessageTextfield.text
-            newReminder.notes = notesTextView.text
-            newReminder.isDisabled = !isDisabledSwitch.isOn
-            newReminder.colorIndex = Int16(actionCustomizationView.localColorsCount)
-            newReminder.iconIndex = Int16(actionCustomizationView.localIconCount)
-            plantController?.addReminderToPlant(reminder: newReminder, plant: plant)
-//            let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
-//            print("remindersArray = \(remindersArray)")
+            // EDIT Reminder
+            if let reminder = reminder {
+                // plantController?.editReminder(...)
+            }
+            
+            // ADD Reminder
+            else {
+                // plantController?.addNewReminder(..)
+                
+                // TODO: unwrap title and message textfields and give default values instead of "" ?
+                // NEW
+                plantController?.addNewReminderToPlant(plant: plant,
+                                                       actionName: actionName,
+                                                       alarmDate: datePicker.date,
+                                                       frequency: frequency,
+                                                       actionTitle: notificationBubble.reminderTitleTextfield.text ?? "",
+                                                       actionMessage: notificationBubble.reminderMessageTextfield.text ?? "",
+                                                       notes: notesTextView.text,
+                                                       isEnabled: isEnabledSwitch.isOn,
+                                                       colorIndex: Int16(actionCustomizationView.localColorsCount),
+                                                       iconIndex: Int16(actionCustomizationView.localIconCount))
+                
+    //            let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
+    //            print("remindersArray = \(remindersArray)")
+            }
         }
+        
         // if we DON'T have a plant
         else {
             fatalError("Arrived at Reminder screen without a plant first")
@@ -324,12 +339,12 @@ class ReminderViewController: UIViewController {
         daysLabel.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
         
         // isDisabled Switch
-        contentView.addSubview(isDisabledSwitch)
-        isDisabledSwitch.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
-        isDisabledSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        isDisabledSwitch.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        isDisabledSwitch.heightAnchor.constraint(equalToConstant: 31).isActive = true
-        isDisabledSwitch.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
+        contentView.addSubview(isEnabledSwitch)
+        isEnabledSwitch.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
+        isEnabledSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        isEnabledSwitch.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        isEnabledSwitch.heightAnchor.constraint(equalToConstant: 31).isActive = true
+        isEnabledSwitch.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
         
 //        // Main Action Customization View
 //        contentView.addSubview(actionCustomizationView)
@@ -410,14 +425,14 @@ class ReminderViewController: UIViewController {
                 notificationBubble.reminderTitleTextfield.text = reminder.actionTitle
                 notificationBubble.reminderMessageTextfield.text = reminder.actionMessage
                 datePicker.date = reminder.alarmDate ?? Date()
-                isDisabledSwitch.isOn = !reminder.isDisabled
+                isEnabledSwitch.isOn = reminder.isEnabled
                 frequencyTextfield.text = "\(reminder.frequency)"
                 notesTextView.text = reminder.notes
                 // colors
                 let reminderColor = UIColor.colorsArray[Int(reminder.colorIndex)]
                 actionCustomizationView.localColorsCount = Int(reminder.colorIndex)
                 actionCustomizationView.localIconCount = Int(reminder.iconIndex)
-                isDisabledSwitch.onTintColor = reminderColor
+                isEnabledSwitch.onTintColor = reminderColor
                 datePicker.tintColor = reminderColor
 
                 

@@ -19,7 +19,7 @@ extension Reminder {
                                         lastDate: Date? = nil,
                                         colorIndex: Int16 = Int16(0),
                                         iconIndex: Int16 = Int16(0),
-                                        isDisabled: Bool = false,
+                                        isEnabled: Bool = true,
                                         notes: String = "",
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
@@ -32,7 +32,7 @@ extension Reminder {
         self.lastDate = lastDate
         self.colorIndex = colorIndex
         self.iconIndex = iconIndex
-        self.isDisabled = isDisabled
+        self.isEnabled = isEnabled
         self.notes = notes
     }
 }
