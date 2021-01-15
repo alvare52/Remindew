@@ -301,20 +301,42 @@ extension UIImage {
 
 // MARK: - Date
 
-extension Date {
+extension DateFormatter {
     
-    /// Returns a percentage that represents how close an end date is using the frequency of the alarm and the next date it will go off
-    static func returnProgress(frequency: Int16, endDate: Date) {
-        
-//        let progressFloat = Float(1) - (Float(daysLeftFloat) / Float(reminder.frequency) )
-//        progressView.progress = Float(1) - (Float(daysLeftFloat) / Float(reminder.frequency) )
-//        timeLeftLabel.text = "\(Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0))" + " days left"
-        
-//        let daysLeft = 17
-//        let freq = 7
-//        let testResult = 1.0 - (Double((daysLeft % freq)) / Double(freq))
-//        print(testResult)
-        
-        let daysLeft = endDate.timeIntervalSinceNow / 864000.0
-    }
+    /// Navigation Bar Date Label for PlantTableViewController and DetailViewController
+    /// ENG: Friday 01/15 SPA: viernes 01/15
+    /// dateFormat = "EEEE MM/d"
+    static let navBarDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE MM/d"
+        return formatter
+    }()
+    
+    
+    /// Last Watered Date Label for NotepadViewController and ReminderViewController
+    /// ENG: Friday 01/15/21, 10:47 AM SPA: viernes 01/15/21, 10:47 a. m.
+    /// dateFormat = "EEEE MM/dd/yy, h:mm a"
+    static let lastWateredDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE MM/dd/yy, h:mm a"
+        return formatter
+    }()
+    
+    /// Time Label for PlantTableViewCell
+    /// ENG: 10:00 AM SPA: 10:00 a. m.
+    /// timeStyle = .short
+    static let timeOnlyDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
+    /// Alarm Date Label for ReminderTableViewCell
+    /// ENG: Jan 10, 2021 SPA: ene 10, 2021
+    /// dateStyle = .medium
+    static let dateOnlyDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
 }

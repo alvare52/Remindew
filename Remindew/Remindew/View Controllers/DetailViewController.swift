@@ -52,7 +52,6 @@ class DetailViewController: UIViewController {
     }
     
     /// Holds array of Reminders to belong to self.plant?
-    
     var reminders: [Reminder] {
         
         if let plant = plant {
@@ -63,10 +62,6 @@ class DetailViewController: UIViewController {
         return []
     }
     
-//    var reminders: [Reminder] = [Reminder(actionName: "Rotate", alarmDate: Date(), frequency: Int16(5)),
-//                                 Reminder(actionName: "Burn", alarmDate: Date(), frequency: Int16(6)),
-//                                 Reminder(actionName: "Harvest", alarmDate: Date(), frequency: Int16(7))]
-       
     /// Holds scientificName grabbed from plant species search
     var fetchedScientificName = ""
     
@@ -74,14 +69,7 @@ class DetailViewController: UIViewController {
     let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
                                     "Entty", "Lily", "Greenman", "Bud Dwyer",
                                     "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
-    
-    /// Nav bar date: Sun 11/29
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE MM/d"
-        return formatter
-    }
-    
+        
     /// Loading indicator displayed while searching for a plant
     let spinner = UIActivityIndicatorView(style: .large)
     
@@ -193,7 +181,7 @@ class DetailViewController: UIViewController {
         imageView.clipsToBounds = true
         UIImage.applyLowerPortionGradient(imageView: imageView)
         
-        dateLabel.title = dateFormatter.string(from: Date()).capitalized
+        dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
         // Lets button be disabled with a custom color
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
         
@@ -254,7 +242,7 @@ class DetailViewController: UIViewController {
     func updateViews() {
         
         // update date label at least once a day so it displays correct date
-        dateLabel.title = dateFormatter.string(from: Date())
+        dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
         
         // will crash if view isn't loaded yet
         guard isViewLoaded else {return}

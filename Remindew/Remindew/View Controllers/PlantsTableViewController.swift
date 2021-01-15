@@ -37,6 +37,7 @@ class PlantsTableViewController: UITableViewController {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         performSegue(withIdentifier: "AddPlantSegue", sender: self)
     }
+    
     // MARK: - Properties
     
     /// Fetches Plant objects from storage
@@ -65,15 +66,6 @@ class PlantsTableViewController: UITableViewController {
         return frc
     }()
     
-    // TODO: Make this global to use in detailVC?
-    /// Date formatter for nav bar button
-    var dateFormatter2: DateFormatter {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "EEEE MM/d"
-            return formatter
-    }
-    
-    var timer: Timer?
     let plantController = PlantController()
     let calendar = Calendar.current
     private var observer: NSObjectProtocol?
@@ -112,8 +104,9 @@ class PlantsTableViewController: UITableViewController {
                                                name: .updateSortDescriptors,
                                                object: nil)
         
-        // capitalized so it does it in Spanish too
-        dateLabel.title = dateFormatter2.string(from: Date()).capitalized
+        // give nav bar its date
+        dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())//dateFormatter2.string(from: Date())
+        // starts as disabled and this lets it keep its mixedBlueGreen color
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
                 
         // Add observer so we can know when the app comes back in the foreground
@@ -227,7 +220,7 @@ class PlantsTableViewController: UITableViewController {
         plantsThatNeedWaterCount = count
         
         // update date label since it needs to be updated at least once a day to display correct date
-        dateLabel.title = dateFormatter2.string(from: Date())
+        dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
         
         // stop refresh animation (starts refreshing when its called)
         refreshWheel.endRefreshing()

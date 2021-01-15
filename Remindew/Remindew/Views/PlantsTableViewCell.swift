@@ -37,14 +37,7 @@ class PlantsTableViewCell: UITableViewCell {
             updateView()
         }
     }
-    
-    /// Date formatter for timeLabel
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter
-    }
-    
+        
     /// Sets the cells views when it is passed in a plant
     private func updateView() {
         guard let plant = plant else { return }
@@ -55,7 +48,7 @@ class PlantsTableViewCell: UITableViewCell {
         let daysString = returnDaysString(plant: plant)
         
         nicknameLabel.text = nickname
-        timeLabel.text = "\(dateFormatter.string(from: plant.water_schedule ?? temp))"
+        timeLabel.text = "\(DateFormatter.timeOnlyDateFormatter.string(from: plant.water_schedule ?? temp))"
         speciesLabel.text = species
         daysLabel.text = "\(daysString)"
         

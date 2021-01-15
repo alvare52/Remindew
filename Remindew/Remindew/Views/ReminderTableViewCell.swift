@@ -78,14 +78,6 @@ class ReminderTableViewCell: UITableViewCell {
         }
     }
     
-    /// Jan 10, 2021
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-//        formatter.dateFormat = "MMM d, yyyy"
-        formatter.dateStyle = .medium
-        return formatter
-    }
-        
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpSubviews()
@@ -98,7 +90,7 @@ class ReminderTableViewCell: UITableViewCell {
         guard let reminder = reminder else { return }
         reminderLabel.text = reminder.actionName
         reminderLabel.textColor = UIColor.colorsArray[Int(reminder.colorIndex)]
-        alarmDateLabel.text = dateFormatter.string(from: reminder.alarmDate ?? Date())
+        alarmDateLabel.text = DateFormatter.dateOnlyDateFormatter.string(from: reminder.alarmDate ?? Date())
         progressView.progressTintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
         
 //        let daysLeftInt16 = Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0)

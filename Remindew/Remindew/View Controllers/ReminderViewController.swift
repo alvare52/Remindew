@@ -181,13 +181,6 @@ class ReminderViewController: UIViewController {
         return textView
     }()
     
-    /// Last Watered Label
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE MM/dd/yy, h:mm a"
-        return formatter
-    }
-    
     /// Standard padding for left and right sides
     let standardMargin: CGFloat = 20.0
     
@@ -442,7 +435,7 @@ class ReminderViewController: UIViewController {
 
                 
                 if let lastDate = reminder.lastDate {
-                    lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(dateFormatter.string(from: lastDate))"
+                    lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(DateFormatter.lastWateredDateFormatter.string(from: lastDate))"
                 } else {
                     lastDateLabel.text = NSLocalizedString("Brand New Plant", comment: "Brand new plant title")
                 }

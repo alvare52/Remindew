@@ -391,11 +391,8 @@ class PlantController {
             print("lastToken = nil")
         }
         if let lastDate = UserDefaults.standard.object(forKey: .lastDateTokenGrabbed) as? Date {
-            let formatter = DateFormatter()
-            formatter.timeStyle = .medium
-            formatter.dateStyle = .medium
-            print("currDate = \(formatter.string(from: Date()))")
-            print("lastDate = \(formatter.string(from: lastDate))")
+            print("currDate = \(DateFormatter.lastWateredDateFormatter.string(from: Date()))")
+            print("lastDate = \(DateFormatter.lastWateredDateFormatter.string(from: lastDate))")
         } else {
             print("lastDate = nil")
         }
