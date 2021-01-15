@@ -232,12 +232,10 @@ class ReminderViewController: UIViewController {
     @objc func saveButtonTapped() {
         print("Save button tapped")
     
-        // We came from EDIT mode, so we can safely update the plant here
+        // We came from EDIT mode, so we can safely update the plant here (currently can only add/edit reminders to existing plants)
         if let plant = plant {
             
-            // if plant has no reminders yet (came from "empty" cell)
-            
-            // if editing a reminder we selected
+            // make sure reminder has an actionName
             guard let actionName = actionCustomizationView.plantNameLabel.text else {
                 // TODO: Error alert for no name
                 print("no name for action")
@@ -250,17 +248,24 @@ class ReminderViewController: UIViewController {
                 return
             }
             
+            // TODO: unwrap title and message textfields and give default values instead of "" ?
+            
             // EDIT Reminder
-            if let reminder = reminder {
-                // plantController?.editReminder(...)
+            if let existingReminder = reminder {
+                plantController?.editReminder(reminder: existingReminder,
+                                              actionName: actionName,
+                                              alarmDate: datePicker.date,
+                                              frequency: frequency,
+                                              actionTitle: notificationBubble.reminderTitleTextfield.text ?? "",
+                                              actionMessage: notificationBubble.reminderMessageTextfield.text ?? "",
+                                              notes: notesTextView.text,
+                                              isEnabled: isEnabledSwitch.isOn,
+                                              colorIndex: Int16(actionCustomizationView.localColorsCount),
+                                              iconIndex: Int16(actionCustomizationView.localIconCount))
             }
             
             // ADD Reminder
             else {
-                // plantController?.addNewReminder(..)
-                
-                // TODO: unwrap title and message textfields and give default values instead of "" ?
-                // NEW
                 plantController?.addNewReminderToPlant(plant: plant,
                                                        actionName: actionName,
                                                        alarmDate: datePicker.date,

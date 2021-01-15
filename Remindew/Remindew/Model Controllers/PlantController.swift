@@ -203,13 +203,33 @@ class PlantController {
     }
     
     /// Takes in an existing Reminder, edits it, and then saves to main context
-    func editReminder() {
+    func editReminder(reminder: Reminder, actionName: String, alarmDate: Date, frequency: Int16, actionTitle: String, actionMessage: String, notes: String, isEnabled: Bool, colorIndex: Int16, iconIndex: Int16) {
         
+        reminder.actionName = actionName
+        reminder.alarmDate = alarmDate
+        reminder.frequency = frequency
+        reminder.actionTitle = actionTitle
+        reminder.actionMessage = actionMessage
+        reminder.notes = notes
+        reminder.isEnabled = isEnabled
+        reminder.colorIndex = colorIndex
+        reminder.iconIndex = iconIndex
+        
+        // check if we should remove Notification then remove
+        // add new Notification if we need to
+        
+        savePlant()
     }
     
     /// Removes reminder from plant.reminders, deletes reminder from core data then saves or resets if there's an error
     func deleteReminderFromPlant(reminder: Reminder, plant: Plant) {
+        
+        // remove Reminder from Plant
         plant.removeFromReminders(reminder)
+        
+        // remove Reminder's Notification
+        // TODO: deleteNotificationForReminder(...)
+        
         CoreDataStack.shared.mainContext.delete(reminder)
         do {
             try CoreDataStack.shared.mainContext.save()

@@ -54,6 +54,7 @@ class DetailViewController: UIViewController {
     /// Holds array of Reminders to belong to self.plant?
     
     var reminders: [Reminder] {
+        
         if let plant = plant {
             return plant.reminders?.allObjects as! Array<Reminder>
         }
@@ -827,6 +828,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             reminderVC.plantController = plantController
             reminderVC.plant = plant
             reminderVC.reminder = reminderCell?.reminder
+            reminderVC.reminderDelegate = self
             present(reminderVC, animated: true, completion: nil)
         }
     }
