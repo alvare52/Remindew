@@ -257,6 +257,7 @@ class ReminderViewController: UIViewController {
             newReminder.notes = notesTextView.text
             newReminder.isDisabled = !isDisabledSwitch.isOn
             newReminder.colorIndex = Int16(actionCustomizationView.localColorsCount)
+            newReminder.iconIndex = Int16(actionCustomizationView.localIconCount)
             plantController?.addReminderToPlant(reminder: newReminder, plant: plant)
 //            let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
 //            print("remindersArray = \(remindersArray)")
@@ -415,11 +416,10 @@ class ReminderViewController: UIViewController {
                 // colors
                 let reminderColor = UIColor.colorsArray[Int(reminder.colorIndex)]
                 actionCustomizationView.localColorsCount = Int(reminder.colorIndex)
+                actionCustomizationView.localIconCount = Int(reminder.iconIndex)
                 isDisabledSwitch.onTintColor = reminderColor
                 datePicker.tintColor = reminderColor
-//                actionCustomizationView.plantNameLabel.textColor = reminderColor
-//                actionCustomizationView.iconImageButton.tintColor = reminderColor
-//                actionCustomizationView.colorChangeButton.backgroundColor = reminderColor
+
                 
                 if let lastDate = reminder.lastDate {
                     lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(dateFormatter.string(from: lastDate))"

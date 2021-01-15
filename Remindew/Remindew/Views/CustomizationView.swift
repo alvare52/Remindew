@@ -22,6 +22,7 @@ class CustomizationView: UIView {
         label.text = "Leaf Erikson"
         label.font = .boldSystemFont(ofSize: 25)
         label.isEnabled = false
+        label.autocorrectionType = .no
         return label
     }()
     
@@ -31,9 +32,7 @@ class CustomizationView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .white
         imageView.tintColor = UIColor.colorsArray[0]
-//        imageView.image = UIImage(systemName: "leaf.fill")
-        imageView.setImage(UIImage(systemName: "leaf.fill"), for: .normal)
-//        imageView.contentMode = .scaleAspectFit
+        imageView.setImage(UIImage.iconArray[0], for: .normal)
         return imageView
     }()
     
@@ -45,15 +44,25 @@ class CustomizationView: UIView {
         return button
     }()
     
-    let localColorsArray: [UIColor] = [UIColor.systemRed, UIColor.systemBlue, UIColor.systemGreen]
     var localColorsCount = 0 {
         didSet {
+            if localColorsCount == UIColor.colorsArray.count {
+                localColorsCount = 0
+            }
             plantNameLabel.textColor = UIColor.colorsArray[localColorsCount]
             iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
             colorChangeButton.backgroundColor = UIColor.colorsArray[localColorsCount]
         }
     }
-    var localIconCount = 0
+    
+    var localIconCount = 0 {
+        didSet {
+            if localIconCount == UIImage.iconArray.count {
+                localIconCount = 0
+            }
+            iconImageButton.setImage(UIImage.iconArray[localIconCount], for: .normal)
+        }
+    }
     
     // MARK: - View Life Cycle
     
@@ -110,22 +119,18 @@ class CustomizationView: UIView {
     }
     
     @objc private func changeColor() {
+        
         localColorsCount += 1
-        if localColorsCount == UIColor.colorsArray.count { localColorsCount = 0 }
         colorChangeButton.backgroundColor = UIColor.colorsArray[localColorsCount]
         plantNameLabel.textColor = UIColor.colorsArray[localColorsCount]
         iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
-        // NEW
+        // update colors for passed in UIDatePicker and UISwitch
         applyColorsToDatePickerAndSwitch()
-//        localColorsCount += 1
     }
     
     @objc private func changeIcon() {
-        if localIconCount == UIImage.iconArray.count {
-            localIconCount = 0
-        }
-        iconImageButton.setImage(UIImage.iconArray[localIconCount], for: .normal)
         localIconCount += 1
+        iconImageButton.setImage(UIImage.iconArray[localIconCount], for: .normal)
     }
     
     // NEW
