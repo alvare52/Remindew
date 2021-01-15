@@ -63,7 +63,7 @@ class ReminderTableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
 //        button.backgroundColor = .brown
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "ant.fill"), for: .normal)
+        button.setImage(UIImage.iconArray[0], for: .normal)
         button.tintColor = .systemPurple
         return button
     }()
@@ -84,8 +84,6 @@ class ReminderTableViewCell: UITableViewCell {
     }
     
     private func updateViews() {
-        // START
-//        let startDate = Date()
         
         guard let reminder = reminder else { return }
         reminderLabel.text = reminder.actionName
@@ -93,24 +91,36 @@ class ReminderTableViewCell: UITableViewCell {
         alarmDateLabel.text = DateFormatter.dateOnlyDateFormatter.string(from: reminder.alarmDate ?? Date())
         progressView.progressTintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
         
-//        let daysLeftInt16 = Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0)
+        completeButton.setImage(UIImage.iconArray[Int(reminder.iconIndex)], for: .normal)
+        completeButton.tintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
+        
+        let daysLeft = reminder.alarmDate!.timeIntervalSinceNow / 86400.0
         timeLeftLabel.text = "\(Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0))" + " days left"
         
-     
-        // Randomly slows down simulator and clicking on plant doesn't do anything (pinch zoom bug?)
-//        let modded = daysLeftInt16 % reminder.frequency
-//        let progressFloat = 1.0 - (Float(modded) / Float(reminder.frequency))
-//        progressView.progress = progressFloat
-//        reminderLabel.text = "\(progressFloat)"
-        
-        // END
-//        let finishDate = Date()
-//        print("Execution time: \(finishDate.timeIntervalSince(startDate))")
+        // NEW (only works on new reminders with dateCreated property)
+        if let dateCreated = reminder.dateCreated {
+            let total = reminder.alarmDate!.timeIntervalSince(dateCreated) / 86400.0 // 5.999
+            progressView.progress = Float((total - daysLeft) / total)
+            
+            if daysLeft < 1 {
+                alarmDateLabel.text = "Today"
+                timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
+                if daysLeft <= 0 {
+                    alarmDateLabel.text = "Tap button"
+                    timeLeftLabel.text = "to complete"
+                    completeButton.isHidden = false
+                }
+            }
+//            alarmDateLabel.text = "t = \(total)"
+//            timeLeftLabel.text = "d = \(daysLeft)"
+//            reminderLabel.text = "\(Float((total - daysLeft) / total))"
+        }
     }
     
     ///
     @objc private func completeButtonTapped() {
         print("complete tapped")
+        completeButton.isHidden = true
     }
     
     /// Sets up all custom views

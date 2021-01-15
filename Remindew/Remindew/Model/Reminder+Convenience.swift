@@ -21,6 +21,7 @@ extension Reminder {
                                         iconIndex: Int16 = Int16(0),
                                         isEnabled: Bool = true,
                                         notes: String = "",
+                                        dateCreated: Date = Date(),
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.actionName = actionName
@@ -34,6 +35,7 @@ extension Reminder {
         self.iconIndex = iconIndex
         self.isEnabled = isEnabled
         self.notes = notes
+        self.dateCreated = dateCreated
     }
 }
 

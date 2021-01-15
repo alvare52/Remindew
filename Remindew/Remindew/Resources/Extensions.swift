@@ -312,7 +312,6 @@ extension DateFormatter {
         return formatter
     }()
     
-    
     /// Last Watered Date Label for NotepadViewController and ReminderViewController
     /// ENG: Friday 01/15/21, 10:47 AM SPA: viernes 01/15/21, 10:47 a. m.
     /// dateFormat = "EEEE MM/dd/yy, h:mm a"

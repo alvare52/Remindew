@@ -68,6 +68,7 @@ class ReminderViewController: UIViewController {
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = .mixedBlueGreen
         picker.minimumDate = Date()
+        // TODO: minimumTime? (shouldn't be able to pick a time earlier in the day)
         return picker
     }()
     

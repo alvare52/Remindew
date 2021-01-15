@@ -22,6 +22,7 @@
         <attribute name="actionTitle" optional="YES" attributeType="String"/>
         <attribute name="alarmDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="colorIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="frequency" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="iconIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -32,6 +33,6 @@
     </entity>
     <elements>
         <element name="Plant" positionX="36" positionY="171" width="128" height="253"/>
-        <element name="Reminder" positionX="38.640625" positionY="471.1640625" width="125.78515625" height="223"/>
+        <element name="Reminder" positionX="38.640625" positionY="471.1640625" width="125.78515625" height="238"/>
     </elements>
 </model>
