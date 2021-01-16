@@ -140,17 +140,17 @@ class PlantsTableViewController: UITableViewController {
     private func deletionWarningAlert(plant: Plant) {
         guard let plantNickname = plant.nickname else { return }
         let title = NSLocalizedString("Delete Plant",
-                                      comment: "Title for no nickname in textfield")
+                                      comment: "Title Plant Deletion Alert")
         let message = NSLocalizedString("Would you like to delete ",
                                         comment: "Message for when nickname is missing in textfield") + "\(plantNickname)?" + "\n" + NSLocalizedString("This can not be undone.", comment: "Deletion can't be undone")
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 
         // Cancel
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "User generated name"), style: .default)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel Plant Deletion Option"), style: .default)
         
         // Delete
-        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: "Randomly generated name"), style: .destructive) { _ in
+        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete Plant Option"), style: .destructive) { _ in
             self.plantController.deletePlant(plant: plant)
             self.checkIfPlantsNeedWatering()
         }
