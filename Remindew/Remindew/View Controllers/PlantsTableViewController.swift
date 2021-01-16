@@ -134,6 +134,32 @@ class PlantsTableViewController: UITableViewController {
         checkIfPlantsNeedWatering()
     }
     
+    // MARK: - Helpers
+    
+    /// Presents an alert asking user if they're sure if they want to delete the plant they swiped on
+    private func deletionWarningAlert(plant: Plant) {
+        guard let plantNickname = plant.nickname else { return }
+        let title = NSLocalizedString("Delete Plant",
+                                      comment: "Title for no nickname in textfield")
+        let message = NSLocalizedString("Would you like to delete ",
+                                        comment: "Message for when nickname is missing in textfield") + "\(plantNickname)?" + "\n" + NSLocalizedString("This can not be undone.", comment: "Deletion can't be undone")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                
+        // Cancel
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "User generated name"), style: .default)
+        
+        // Delete
+        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: "Randomly generated name"), style: .destructive) { _ in
+            self.plantController.deletePlant(plant: plant)
+            self.checkIfPlantsNeedWatering()
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     /// When sort setting is set, run this to update the table view's sort descriptor
     @objc func updateSorting() {
         print("upateSorting")
@@ -256,11 +282,7 @@ class PlantsTableViewController: UITableViewController {
         // Delete
         let delete = UIContextualAction(style: .destructive, title: "") { (action, view, completion) in
             print("Deleted \(plant.nickname!)")
-        
-            // delete logic
-            self.plantController.deletePlant(plant: plant)
-            self.checkIfPlantsNeedWatering()
-            
+            self.deletionWarningAlert(plant: plant)
             completion(true)
         }
         delete.image = UIImage(systemName: "trash.fill")
