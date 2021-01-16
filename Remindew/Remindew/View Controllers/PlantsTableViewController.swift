@@ -248,17 +248,48 @@ class PlantsTableViewController: UITableViewController {
         return cell
     }
     
-    /// Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // TODO: some of this should be done inside the plantController.deletePlant() method in PlantController
-            let plant = fetchedResultsController.object(at: indexPath)
-            UIImage.deleteImage("userPlant\(plant.identifier!)")
-            plantController.removeAllRequestsForPlant(plant: plant)
-            plantController.deletePlant(plant: plant)
-            checkIfPlantsNeedWatering() // to update badge/count
+    /// Give cell 2 options when swiping from right to left (silence notification and delete)
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let plant = fetchedResultsController.object(at: indexPath)
+        
+        // Delete
+        let delete = UIContextualAction(style: .destructive, title: "") { (action, view, completion) in
+            print("Deleted \(plant.nickname!)")
+        
+            // delete logic
+            self.plantController.deletePlant(plant: plant)
+            self.checkIfPlantsNeedWatering()
+            
+            completion(true)
         }
-    }
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        // TODO: not done yet, needs custom edit method
+        // Silence
+        let silence = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
+            print("Silenced \(plant.nickname!)")
+            // Silence logic
+            completion(false)
+        }
+        silence.image = UIImage(systemName: "bell.slash.fill")
+        silence.backgroundColor = .lightGray
+        
+        let config = UISwipeActionsConfiguration(actions: [delete, silence])
+        config.performsFirstActionWithFullSwipe = false
+        
+        return config
+        }
+    
+    /// Override to support editing the table view.
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            // TODO: some of this should be done inside the plantController.deletePlant() method in PlantController
+//            let plant = fetchedResultsController.object(at: indexPath)
+//            plantController.deletePlant(plant: plant)
+//            checkIfPlantsNeedWatering() // to update badge/count
+//        }
+//    }
 
     // MARK: - Navigation
 

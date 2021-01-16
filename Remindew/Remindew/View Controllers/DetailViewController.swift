@@ -821,21 +821,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-//    // swipe to delete
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            let reminderToDelete = reminders[indexPath.row]//fetchedResultsController.object(at: indexPath)
-////            UIImage.deleteImage("userPlant\(plant.identifier!)")
-////            plantController.removeAllRequestsForPlant(plant: plant)
-////            plantController.deletePlant(plant: plant)
-//            guard let plant = plant else { return }
-//            plantController?.deleteReminderFromPlant(reminder: reminderToDelete, plant: plant)
-//            resultsTableView.deleteRows(at: [indexPath], with: .fade)
-////            resultsTableView.reloadData()
-////            checkIfPlantsNeedWatering() // to update badge/count
-//        }
-//    }
-    
     /// Give cell 2 options when swiping from right to left (silence notification and delete)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         

@@ -165,6 +165,14 @@ class PlantController {
     
     /// Deletes plant and then saves or resets if there's an error
     func deletePlant(plant: Plant) {
+        
+        // delete image
+        UIImage.deleteImage("userPlant\(plant.identifier!)")
+        // delete all notifications for plant
+        removeAllRequestsForPlant(plant: plant)
+        // TODO: delete all reminder notifications
+        // ...
+        
         CoreDataStack.shared.mainContext.delete(plant)
         do {
             try CoreDataStack.shared.mainContext.save()
