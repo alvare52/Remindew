@@ -102,24 +102,26 @@ class ReminderTableViewCell: UITableViewCell {
             let total = reminder.alarmDate!.timeIntervalSince(dateCreated) / 86400.0 // 5.999
             progressView.progress = Float((total - daysLeft) / total)
             
+            // goes off today
             if daysLeft < 1 {
                 alarmDateLabel.text = "Today"
                 timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
+                // has already passed
                 if daysLeft <= 0 {
                     alarmDateLabel.text = "Tap button"
                     timeLeftLabel.text = "to complete"
                     completeButton.isHidden = false
                 }
             }
-//            alarmDateLabel.text = "t = \(total)"
-//            timeLeftLabel.text = "d = \(daysLeft)"
-//            reminderLabel.text = "\(Float((total - daysLeft) / total))"
         }
     }
     
-    ///
+    /// Sets new alarmDate for Reminder, sets new lastDate value, and hides completeButton
     @objc private func completeButtonTapped() {
         print("complete tapped")
+        // set lastDate
+        // make new alarmDate (and notification)
+        // hide complete button
         completeButton.isHidden = true
     }
     

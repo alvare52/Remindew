@@ -820,6 +820,52 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             present(reminderVC, animated: true, completion: nil)
         }
     }
+    
+//    // swipe to delete
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            let reminderToDelete = reminders[indexPath.row]//fetchedResultsController.object(at: indexPath)
+////            UIImage.deleteImage("userPlant\(plant.identifier!)")
+////            plantController.removeAllRequestsForPlant(plant: plant)
+////            plantController.deletePlant(plant: plant)
+//            guard let plant = plant else { return }
+//            plantController?.deleteReminderFromPlant(reminder: reminderToDelete, plant: plant)
+//            resultsTableView.deleteRows(at: [indexPath], with: .fade)
+////            resultsTableView.reloadData()
+////            checkIfPlantsNeedWatering() // to update badge/count
+//        }
+//    }
+    
+    /// Give cell 2 options when swiping from right to left (silence notification and delete)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let reminder = reminders[indexPath.row]
+        
+        // Delete
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
+            print("Deleted \(reminder.actionName!)")
+            if let plant = self.plant {
+                self.plantController?.deleteReminderFromPlant(reminder: reminder, plant: plant)
+                self.resultsTableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            completion(true)
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        // TODO: not done yet, needs custom edit method
+        // Silence
+        let silence = UIContextualAction(style: .normal, title: "\(reminder.actionName!)") { (action, view, completion) in
+            print("Silenced \(reminder.actionName!)")
+            completion(false)
+        }
+        silence.image = UIImage(systemName: "bell.slash.fill")
+        silence.backgroundColor = .lightGray
+        
+        let config = UISwipeActionsConfiguration(actions: [delete, silence])
+        config.performsFirstActionWithFullSwipe = false
+        
+        return config
+        }
 }
 
 // MARK: - NotepadDelegate

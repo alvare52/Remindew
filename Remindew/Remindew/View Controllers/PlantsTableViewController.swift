@@ -251,6 +251,7 @@ class PlantsTableViewController: UITableViewController {
     /// Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            // TODO: some of this should be done inside the plantController.deletePlant() method in PlantController
             let plant = fetchedResultsController.object(at: indexPath)
             UIImage.deleteImage("userPlant\(plant.identifier!)")
             plantController.removeAllRequestsForPlant(plant: plant)
