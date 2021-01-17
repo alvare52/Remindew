@@ -94,24 +94,60 @@ class ReminderTableViewCell: UITableViewCell {
         completeButton.setImage(UIImage.iconArray[Int(reminder.iconIndex)], for: .normal)
         completeButton.tintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
         
-        let daysLeft = reminder.alarmDate!.timeIntervalSinceNow / 86400.0
-        timeLeftLabel.text = "\(Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0))" + " days left"
+        // NEW
+        updateProgressView(reminder: reminder)
+        
+        // OLD, delete later
+//        let daysLeft = reminder.alarmDate!.timeIntervalSinceNow / 86400.0
+//        timeLeftLabel.text = "\(Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0))" + " days left"
+        
         
         // NEW (only works on new reminders with dateCreated property)
-        if let dateCreated = reminder.dateCreated {
-            let total = reminder.alarmDate!.timeIntervalSince(dateCreated) / 86400.0 // 5.999
-            progressView.progress = Float((total - daysLeft) / total)
+//        if let dateCreated = reminder.dateCreated {
+//            let total = reminder.alarmDate!.timeIntervalSince(dateCreated) / 86400.0 // 5.999
+//            progressView.progress = Float((total - daysLeft) / total)
+//
+//            // goes off today
+//            if daysLeft < 1 {
+//                alarmDateLabel.text = "Today"
+//                timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
+//                // has already passed
+//                if daysLeft <= 0 {
+//                    alarmDateLabel.text = "Tap button"
+//                    timeLeftLabel.text = "to complete"
+//                    completeButton.isHidden = false
+//                }
+//            }
+//        }
+    }
+    
+    /// Takes in a Reminder and updates the progressView based on the Reminder's lastDate or dateCreated
+    func updateProgressView(reminder: Reminder) {
+        
+        // assume that this is a new reminder
+        var totalProgress = reminder.alarmDate!.timeIntervalSince(reminder.dateCreated!) / 86400.0
+        let daysLeft = reminder.alarmDate!.timeIntervalSinceNow / 86400.0
+        timeLeftLabel.text = "\(Int(daysLeft))" + " days left"
+        
+        // if it is NOT a new reminder, use the lastDate instead of dateCreated for total time
+        if let lastDate = reminder.lastDate {
+            totalProgress = reminder.alarmDate!.timeIntervalSince(lastDate) / 86400.0
+        }
+        
+        // total time (start to finish) - days that are left / total time again
+        progressView.progress = Float((totalProgress - daysLeft) / totalProgress)
+        
+        // goes off today
+        if daysLeft < 1 {
+            // TODO: BUG - technically shows up on next day if less than 24 hours are left
+            alarmDateLabel.text = "Today"
+            timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
             
-            // goes off today
-            if daysLeft < 1 {
-                alarmDateLabel.text = "Today"
-                timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
-                // has already passed
-                if daysLeft <= 0 {
-                    alarmDateLabel.text = "Tap button"
-                    timeLeftLabel.text = "to complete"
-                    completeButton.isHidden = false
-                }
+            // has already passed
+            if daysLeft <= 0 {
+                alarmDateLabel.text = "Tap button"
+                timeLeftLabel.text = "to complete"
+                completeButton.isHidden = false
             }
         }
     }

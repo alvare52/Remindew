@@ -434,11 +434,15 @@ class ReminderViewController: UIViewController {
                 isEnabledSwitch.onTintColor = reminderColor
                 datePicker.tintColor = reminderColor
 
-                
+                // if reminder has been completed at least once, display lastDate
                 if let lastDate = reminder.lastDate {
                     lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(DateFormatter.lastWateredDateFormatter.string(from: lastDate))"
-                } else {
-                    lastDateLabel.text = NSLocalizedString("Brand New Plant", comment: "Brand new plant title")
+                }
+                
+                // use dateCreated as a fall back if reminder hasn't been completed yet (new reminder)
+                else {
+                    lastDateLabel.text = NSLocalizedString("Made: ", comment: "date created label") +
+                        "\(DateFormatter.lastWateredDateFormatter.string(from: reminder.dateCreated!))"
                 }
             }
             

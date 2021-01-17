@@ -22,7 +22,7 @@
         <attribute name="actionTitle" optional="YES" attributeType="String"/>
         <attribute name="alarmDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="colorIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="frequency" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="iconIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

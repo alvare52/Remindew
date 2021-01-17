@@ -45,6 +45,7 @@
 "Last Watered:\n" = "Última Regada:\n";
 "Last: " = "Última: ";
 // MARK: - M
+"Made: " = "Hecho: ";
 "Missing Nickname" = "No Sobrenombre";
 "Missing Species Name" = "No Especie";
 "Missing Watering Days" = "No Días de Riego";
