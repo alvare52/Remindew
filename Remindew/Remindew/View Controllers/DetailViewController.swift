@@ -617,6 +617,31 @@ class DetailViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    /// Presents an alert asking user if they're sure if they want to delete the plant they swiped on
+    private func deletionWarningAlert(reminder: Reminder, plant: Plant, indexPath: IndexPath) {
+        
+        guard let reminderName = reminder.actionName else { return }
+        let title = NSLocalizedString("Delete Plant",
+                                      comment: "Title Plant Deletion Alert")
+        let message = NSLocalizedString("Would you like to delete ",
+                                        comment: "Message for when nickname is missing in textfield") + "\(reminderName)?" + "\n" + NSLocalizedString("This can not be undone.", comment: "Deletion can't be undone")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                
+        // Cancel
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel Plant Deletion Option"), style: .default)
+        
+        // Delete
+        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete Plant Option"), style: .destructive) { _ in
+            self.plantController?.deleteReminderFromPlant(reminder: reminder, plant: plant)
+            self.resultsTableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     // MARK: - Networking
     
     /// Presents custom alerts for given network error
@@ -830,8 +855,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
             print("Deleted \(reminder.actionName!)")
             if let plant = self.plant {
-                self.plantController?.deleteReminderFromPlant(reminder: reminder, plant: plant)
-                self.resultsTableView.deleteRows(at: [indexPath], with: .fade)
+                self.deletionWarningAlert(reminder: reminder, plant: plant, indexPath: indexPath)
+//                self.plantController?.deleteReminderFromPlant(reminder: reminder, plant: plant)
+//                self.resultsTableView.deleteRows(at: [indexPath], with: .fade)
             }
             completion(true)
         }
