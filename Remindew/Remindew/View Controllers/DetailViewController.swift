@@ -621,8 +621,8 @@ class DetailViewController: UIViewController {
     private func deletionWarningAlert(reminder: Reminder, plant: Plant, indexPath: IndexPath) {
         
         guard let reminderName = reminder.actionName else { return }
-        let title = NSLocalizedString("Delete Plant",
-                                      comment: "Title Plant Deletion Alert")
+        let title = NSLocalizedString("Delete Reminder",
+                                      comment: "Title Reminder Deletion Alert")
         let message = NSLocalizedString("Would you like to delete ",
                                         comment: "Message for when nickname is missing in textfield") + "\(reminderName)?" + "\n" + NSLocalizedString("This can not be undone.", comment: "Deletion can't be undone")
         
