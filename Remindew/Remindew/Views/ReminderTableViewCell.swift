@@ -78,6 +78,9 @@ class ReminderTableViewCell: UITableViewCell {
         }
     }
     
+    /// Holds PlantController that's passed in from DetailViewController to update reminders
+    var plantController: PlantController?
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpSubviews()
@@ -96,29 +99,6 @@ class ReminderTableViewCell: UITableViewCell {
         
         // NEW
         updateProgressView(reminder: reminder)
-        
-        // OLD, delete later
-//        let daysLeft = reminder.alarmDate!.timeIntervalSinceNow / 86400.0
-//        timeLeftLabel.text = "\(Int(reminder.alarmDate!.timeIntervalSinceNow / 86400.0))" + " days left"
-        
-        
-        // NEW (only works on new reminders with dateCreated property)
-//        if let dateCreated = reminder.dateCreated {
-//            let total = reminder.alarmDate!.timeIntervalSince(dateCreated) / 86400.0 // 5.999
-//            progressView.progress = Float((total - daysLeft) / total)
-//
-//            // goes off today
-//            if daysLeft < 1 {
-//                alarmDateLabel.text = "Today"
-//                timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
-//                // has already passed
-//                if daysLeft <= 0 {
-//                    alarmDateLabel.text = "Tap button"
-//                    timeLeftLabel.text = "to complete"
-//                    completeButton.isHidden = false
-//                }
-//            }
-//        }
     }
     
     /// Takes in a Reminder and updates the progressView based on the Reminder's lastDate or dateCreated
@@ -156,9 +136,14 @@ class ReminderTableViewCell: UITableViewCell {
     @objc private func completeButtonTapped() {
         print("complete tapped")
         // set lastDate
-        // make new alarmDate (and notification)
+        guard let reminder = reminder else { return }
+        
+        // update lastDate with time action was completed and set new alarmDate
+        plantController?.updateReminderDates(reminder: reminder)
         // hide complete button
         completeButton.isHidden = true
+        // update progress
+        updateProgressView(reminder: reminder)
     }
     
     /// Sets up all custom views

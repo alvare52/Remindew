@@ -229,6 +229,14 @@ class PlantController {
         savePlant()
     }
     
+    /// Edits Reminder's lastDate and alarmDate (for when completing task and updating new alarmDate)
+    func updateReminderDates(reminder: Reminder) {
+        
+        reminder.lastDate = Date()
+        reminder.alarmDate = reminder.alarmDate?.addingTimeInterval(86400 * Double(reminder.frequency))
+        savePlant()
+    }
+    
     /// Removes reminder from plant.reminders, deletes reminder from core data then saves or resets if there's an error
     func deleteReminderFromPlant(reminder: Reminder, plant: Plant) {
         
