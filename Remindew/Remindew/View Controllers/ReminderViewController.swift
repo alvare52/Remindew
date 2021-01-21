@@ -225,6 +225,8 @@ class ReminderViewController: UIViewController {
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
         print("Save button tapped")
+        
+        // TODO: make sure edited alarmDate is not less than previous alarmDate
     
         // We came from EDIT mode, so we can safely update the plant here (currently can only add/edit reminders to existing plants)
         if let plant = plant {

@@ -128,6 +128,8 @@ class ReminderTableViewCell: UITableViewCell {
                 alarmDateLabel.text = "Tap button"
                 timeLeftLabel.text = "to complete"
                 completeButton.isHidden = false
+            } else {
+                completeButton.isHidden = true
             }
         }
     }
@@ -142,8 +144,9 @@ class ReminderTableViewCell: UITableViewCell {
         plantController?.updateReminderDates(reminder: reminder)
         // hide complete button
         completeButton.isHidden = true
-        // update progress
-        updateProgressView(reminder: reminder)
+        // update
+        updateViews()
+//        updateProgressView(reminder: reminder)
     }
     
     /// Sets up all custom views
