@@ -55,7 +55,11 @@ class DetailViewController: UIViewController {
     var reminders: [Reminder] {
         
         if let plant = plant {
-            return plant.reminders?.allObjects as! Array<Reminder>
+            let resultsArray = plant.reminders?.allObjects as! Array<Reminder>
+            return resultsArray.sorted(by: { lhs, rhs in
+                // sort array by which date is the soonest
+                return lhs.alarmDate! < rhs.alarmDate!
+            })
         }
         // Return empty array if no plant (ADD Mode)
 //        resultsTableView.isHidden = true

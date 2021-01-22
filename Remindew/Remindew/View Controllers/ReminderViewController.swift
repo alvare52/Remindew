@@ -217,17 +217,11 @@ class ReminderViewController: UIViewController {
         
         updateViews()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
+        
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
         print("Save button tapped")
-        
-        // TODO: make sure edited alarmDate is not less than previous alarmDate
-    
+            
         // We came from EDIT mode, so we can safely update the plant here (currently can only add/edit reminders to existing plants)
         if let plant = plant {
             
@@ -248,6 +242,7 @@ class ReminderViewController: UIViewController {
             
             // EDIT Reminder
             if let existingReminder = reminder {
+                
                 plantController?.editReminder(reminder: existingReminder,
                                               actionName: actionName,
                                               alarmDate: datePicker.date,
@@ -272,9 +267,6 @@ class ReminderViewController: UIViewController {
                                                        isEnabled: isEnabledSwitch.isOn,
                                                        colorIndex: Int16(actionCustomizationView.localColorsCount),
                                                        iconIndex: Int16(actionCustomizationView.localIconCount))
-                
-    //            let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
-    //            print("remindersArray = \(remindersArray)")
             }
         }
         
