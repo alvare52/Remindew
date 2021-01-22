@@ -9,6 +9,12 @@
 import UIKit
 import AVFoundation
 
+protocol AppearanceDelegate {
+    
+    /// Passes back an image picked from AppearanceViewController
+    func didSelectAppearanceObjects(image: UIImage?)
+}
+
 class AppearanceViewController: UIViewController {
     
     // MARK: - Properties
@@ -109,6 +115,9 @@ class AppearanceViewController: UIViewController {
         }
     }
     
+    /// Tells DetailViewController to update its imageView
+    var appearanceDelegate: AppearanceDelegate?
+    
     /// Standard padding for left and right sides
     let standardMargin: CGFloat = 20.0
 
@@ -118,6 +127,11 @@ class AppearanceViewController: UIViewController {
         updateViews()
         // Do any additional setup after loading the view.
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        appearanceDelegate?.didSelectAppearanceObjects(image: imageView.image)
+//    }
     
     /// Updates all views when plant is passed in
     private func updateViews() {
@@ -314,6 +328,7 @@ extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigatio
         // .editedImage instead? (used to say .originalImage)
         if let image = info[.originalImage] as? UIImage {
             imageView.image = image
+            appearanceDelegate?.didSelectAppearanceObjects(image: image)
         }
         picker.dismiss(animated: true)
     }

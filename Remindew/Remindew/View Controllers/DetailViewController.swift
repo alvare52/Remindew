@@ -58,6 +58,7 @@ class DetailViewController: UIViewController {
             let resultsArray = plant.reminders?.allObjects as! Array<Reminder>
             return resultsArray.sorted(by: { lhs, rhs in
                 // sort array by which date is the soonest
+                // TODO: add setting to sort by reminder name instead?
                 return lhs.alarmDate! < rhs.alarmDate!
             })
         }
@@ -114,6 +115,7 @@ class DetailViewController: UIViewController {
         if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
             appearanceVC.modalPresentationStyle = .automatic
             appearanceVC.mainImage = imageView.image
+            appearanceVC.appearanceDelegate = self
             present(appearanceVC, animated: true, completion: nil)
         }
 //        // dismiss keyboards so they don't stay up when library is loading
@@ -899,6 +901,8 @@ extension DetailViewController: NotepadDelegate {
     }
 }
 
+// MARK: - SelectedResultDelegate
+
 extension DetailViewController: SelectedResultDelegate {
     
     /// When user taps a cell in SearchVC, it passes back the PlantSearchResult and the image inside the cell's plantImageView
@@ -917,6 +921,17 @@ extension DetailViewController: SelectedResultDelegate {
         }
     }
 }
+
+// MARK: - AppearanceDelegate
+
+extension DetailViewController: AppearanceDelegate {
+    
+    func didSelectAppearanceObjects(image: UIImage?) {
+        imageView.image = image
+    }
+}
+
+// MARK: - ReminderDelegate
 
 extension DetailViewController: ReminderDelegate {
     
