@@ -107,7 +107,12 @@ class ReminderTableViewCell: UITableViewCell {
         // assume that this is a new reminder
         var totalProgress = reminder.alarmDate!.timeIntervalSince(reminder.dateCreated!) / 86400.0
         let daysLeft = reminder.alarmDate!.timeIntervalSinceNow / 86400.0
+        
+        // TODO: needs localization
         timeLeftLabel.text = "\(Int(daysLeft))" + " days left"
+        if Int(daysLeft) == 1 {
+            timeLeftLabel.text = "\(Int(daysLeft))" + " day left"
+        }
         
         // if it is NOT a new reminder, use the lastDate instead of dateCreated for total time
         if let lastDate = reminder.lastDate {
@@ -120,6 +125,7 @@ class ReminderTableViewCell: UITableViewCell {
         // goes off today
         if daysLeft < 1 {
             // TODO: BUG - technically shows up on next day if less than 24 hours are left
+            // use Date Components to check in here instead
             alarmDateLabel.text = "Today"
             timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
             
