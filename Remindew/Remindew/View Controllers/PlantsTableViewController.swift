@@ -224,7 +224,6 @@ class PlantsTableViewController: UITableViewController {
                     lastDay = 100
                 }
                 
-                // TODO: needs to check day, NOT weekday. Checking weekday makes once a week plants not update properly
                 // as it's still the same day. check if last date watered day and hour against today
                 if plantHour <= currentHour && plantMinute <= currentMinute && !plant.needsWatering && lastDay != currentDay {
                     // first time this goes off, set plant needsWatering to true

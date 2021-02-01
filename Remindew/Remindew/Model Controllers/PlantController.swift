@@ -518,6 +518,30 @@ class PlantController {
         checkPendingNotes()
     }
     
+    /// Creates a Notification using a Reminder's UUID and a Plant's UUID
+    func makeReminderNotificationForPlant(reminder: Reminder, plant: Plant) {
+        
+        let identifier = "\(reminder.identifier!)\(plant.identifier!)"
+        
+        // create notification
+    }
+    
+    /// Updates a Reminder's Notification by deleting old pending one and creating a new one
+    func updateReminderNotificationForPlant(reminder: Reminder, plant: Plant) {
+        
+    }
+    
+    /// Deletes a Reminder's Notification using the identifier made from its UUID and it's Plant's UUID
+    func deleteReminderNotificationForPlant(reminder: Reminder, plant: Plant) {
+        let identifier = "\(reminder.identifier!)\(plant.identifier!)"
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+    }
+    
+    /// Deletes ALL Reminder Notifications for given Plant
+    func deleteAllReminderNotificationsForPlant(plant: Plant) {
+        // for reminder in plant.reminders, deleteReminderNotificationForPlant()
+    }
+    
     /// Prints out total amount of notifications that are pending
     func checkPendingNotes() {
         print("checkPendingNotes")

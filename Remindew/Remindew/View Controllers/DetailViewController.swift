@@ -70,11 +70,6 @@ class DetailViewController: UIViewController {
     /// Holds scientificName grabbed from plant species search
     var fetchedScientificName = ""
     
-    /// Array of random plant nicknames for when a user doesn't want to create their own
-    let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
-                                    "Entty", "Lily", "Greenman", "Bud Dwyer",
-                                    "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
-        
     /// Loading indicator displayed while searching for a plant
     let spinner = UIActivityIndicatorView(style: .large)
     
@@ -413,9 +408,9 @@ class DetailViewController: UIViewController {
     
     /// Enters a random nickname in nickname textfield so user doesn't have to make up their own
     private func chooseRandomNickname() {
-        let randomInt = Int.random(in: 0..<randomNicknames.count)
+        let randomInt = Int.random(in: 0..<String.randomNicknames.count)
         print("randomInt = \(randomInt)")
-        nicknameTextField.text = randomNicknames[randomInt]
+        nicknameTextField.text = String.randomNicknames[randomInt]
     }
     
     /// Presents SearchViewController when hitting "search" in species textfield and passes in search term and starts search

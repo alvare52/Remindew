@@ -53,6 +53,11 @@ extension String {
     
     /// Array of NSLocalizedStrings just for label purposes
     static let dayInitials = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
+    
+    /// Array of random plant nicknames for when a user doesn't want to create their own
+    static let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
+                                            "Leshy", "Lily", "Greenman", "Bud Dwyer", "Treebeard",
+                                    "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
 }
 
 // MARK: - UIView
