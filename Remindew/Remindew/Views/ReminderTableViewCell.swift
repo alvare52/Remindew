@@ -122,11 +122,19 @@ class ReminderTableViewCell: UITableViewCell {
         // total time (start to finish) - days that are left / total time again
         progressView.progress = Float((totalProgress - daysLeft) / totalProgress)
         
-        // goes off today
+        // goes off in 24 hours (either today or tomorrow)
         if daysLeft < 1 {
-            // TODO: BUG - technically shows up on next day if less than 24 hours are left
-            // use Date Components to check in here instead
-            alarmDateLabel.text = "Today"
+            
+            let currentDayComps = Calendar.current.dateComponents([.day], from: Date())
+            let currentDay = currentDayComps.day!
+            
+            let reminderDayComps = Calendar.current.dateComponents([.day], from: reminder.alarmDate!)
+            let alarmDateDay = reminderDayComps.day!
+            
+            let todayString = NSLocalizedString("Today", comment: "today")
+            let tomorrowString = NSLocalizedString("Tomorrow", comment: "tomorrow")
+            
+            alarmDateLabel.text = currentDay == alarmDateDay ? todayString : tomorrowString
             timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
             
             // has already passed
