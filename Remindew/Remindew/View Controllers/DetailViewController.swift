@@ -846,6 +846,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             reminderVC.reminderDelegate = self
             present(reminderVC, animated: true, completion: nil)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     /// Give cell 2 options when swiping from right to left (silence notification and delete)
