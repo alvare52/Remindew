@@ -38,34 +38,3 @@ extension Reminder {
         self.dateCreated = dateCreated
     }
 }
-
-///// Creating a new managed object in Core Data
-//@discardableResult convenience init(nickname: String,
-//                                    species: String,
-//                                    water_schedule: Date,
-//                                    frequency: [Int16],
-//                                    needsWatering: Bool = false,
-//                                    lastDateWatered: Date? = nil,
-//                                    scientificName: String = "",
-//                                    notes: String = "",
-//                                    mainTitle: String = "",
-//                                    mainMessage: String = "",
-//                                    mainAction: String = "",
-//                                    location: String = "",
-//                                    identifier: UUID = UUID(),
-//                                    context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-//    self.init(context: context)
-//    self.nickname = nickname
-//    self.species = species
-//    self.water_schedule = water_schedule
-//    self.frequency = frequency
-//    self.needsWatering = needsWatering
-//    self.lastDateWatered = lastDateWatered
-//    self.scientificName = scientificName
-//    self.notes = notes
-//    self.mainTitle = mainTitle
-//    self.mainMessage = mainMessage
-//    self.mainAction = mainAction
-//    self.location = location
-//    self.identifier = identifier
-//}

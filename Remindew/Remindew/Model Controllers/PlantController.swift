@@ -207,6 +207,7 @@ class PlantController {
                                      notes: notes)
         
         plant.addToReminders(reminderToAdd)
+        createNotificationForReminder(plant: plant, reminder: reminderToAdd)
         savePlant()
     }
     
@@ -518,12 +519,62 @@ class PlantController {
         checkPendingNotes()
     }
     
+    /// Checks if notifications are allowed then creates notification for given Reminder
+    func createNotificationForReminder(plant: Plant, reminder: Reminder) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            switch granted {
+            case true:
+                print("PERMISSION GRANTED")
+                DispatchQueue.main.async {
+                    print("ASYNC: Attempting to add all requests")
+                    self.makeReminderNotificationForPlant(reminder: reminder, plant: plant)
+                }
+            case false:
+                print("permission NOT granted, please allow notifications")
+                return
+            }
+        }
+    }
+    
     /// Creates a Notification using a Reminder's UUID and a Plant's UUID
     func makeReminderNotificationForPlant(reminder: Reminder, plant: Plant) {
         
         let identifier = "\(reminder.identifier!)\(plant.identifier!)"
         
-        // create notification
+        // content
+        let content = UNMutableNotificationContent()
+        content.sound = .default
+        
+        // title
+        var title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
+        // only use custom title if it's not nil and its not an empty string
+        if reminder.actionTitle != nil && reminder.actionTitle != "" {
+            title = reminder.actionTitle!
+        }
+        content.title = "\(title)"
+        
+        // message
+        var message = "\(plant.nickname!) " + NSLocalizedString("needs water.", comment: "plant.nickname needs water.")
+        // only use custom message if it's not nil and its not an empty string
+        if reminder.actionMessage != nil && reminder.actionMessage != "" {
+            message = reminder.actionMessage!
+        }
+        content.body = message
+        
+        // badge
+        content.badge = 1
+
+        // trigger
+        let dateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: reminder.alarmDate!)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComps, repeats: false)
+
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                NSLog("Error adding reminder notification: \(error)")
+            }
+        }
     }
     
     /// Updates a Reminder's Notification by deleting old pending one and creating a new one
