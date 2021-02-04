@@ -214,6 +214,12 @@ class PlantController {
     /// Takes in an existing Reminder, edits it, and then saves to main context
     func editReminder(reminder: Reminder, actionName: String, alarmDate: Date, frequency: Int16, actionTitle: String, actionMessage: String, notes: String, isEnabled: Bool, colorIndex: Int16, iconIndex: Int16) {
         
+        // check if we need to update notification
+        let shouldUpdateNotification = checkIfReminderNeedsNewNotification(reminder: reminder,
+                                                                           newDate: alarmDate,
+                                                                           newTitle: actionTitle,
+                                                                           newMessage: actionMessage)
+        
         reminder.actionName = actionName
         reminder.alarmDate = alarmDate
         reminder.frequency = frequency
@@ -224,8 +230,10 @@ class PlantController {
         reminder.colorIndex = colorIndex
         reminder.iconIndex = iconIndex
         
-        // check if we should remove Notification then remove
-        // add new Notification if we need to
+        // only update notification if title, message, or date have been changed
+        if shouldUpdateNotification {
+            updateNotificationForReminder(reminder: reminder)
+        }
         
         savePlant()
     }
@@ -577,15 +585,29 @@ class PlantController {
         }
     }
     
-    /// Updates a Reminder's Notification by deleting old pending one and creating a new one
-    func updateReminderNotificationForPlant(reminder: Reminder, plant: Plant) {
+    /// Checks if a Reminder's Notification needs to be changed
+    func checkIfReminderNeedsNewNotification(reminder: Reminder, newDate: Date, newTitle: String, newMessage: String) -> Bool {
         
+        guard let oldTitle = reminder.actionTitle, let oldMessage = reminder.actionMessage, let oldDate = reminder.alarmDate else {
+            return false
+        }
+        
+        // make sure title, message, or date are not the same
+        guard newTitle != oldTitle || newMessage != oldMessage || newDate != oldDate else { return false }
+        
+        return true
+    }
+    
+    /// Updates notification for given Reminder by first deleting it and creating new one
+    func updateNotificationForReminder(reminder: Reminder) {
+        deleteReminderNotificationForPlant(reminder: reminder, plant: reminder.plant!)
+        createNotificationForReminder(plant: reminder.plant!, reminder: reminder)
     }
     
     /// Deletes a Reminder's Notification using the identifier made from its UUID and it's Plant's UUID
     func deleteReminderNotificationForPlant(reminder: Reminder, plant: Plant) {
-        let identifier = "\(reminder.identifier!)\(plant.identifier!)"
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        print("deleteReminderNotificationForPlant")
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(reminder.identifier!)\(plant.identifier!)"])
     }
     
     /// Deletes ALL Reminder Notifications for given Plant
