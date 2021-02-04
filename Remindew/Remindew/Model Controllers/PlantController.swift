@@ -243,6 +243,9 @@ class PlantController {
         
         reminder.lastDate = Date()
         reminder.alarmDate = reminder.alarmDate?.addingTimeInterval(86400 * Double(reminder.frequency))
+        // create new notification? (and delete old just in case)
+        deleteReminderNotificationForPlant(reminder: reminder, plant: reminder.plant!)
+        createNotificationForReminder(plant: reminder.plant!, reminder: reminder)
         savePlant()
     }
     

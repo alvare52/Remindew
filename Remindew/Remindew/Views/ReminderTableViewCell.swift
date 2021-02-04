@@ -97,7 +97,6 @@ class ReminderTableViewCell: UITableViewCell {
         completeButton.setImage(UIImage.iconArray[Int(reminder.iconIndex)], for: .normal)
         completeButton.tintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
         
-        // NEW
         updateProgressView(reminder: reminder)
     }
     
@@ -141,6 +140,7 @@ class ReminderTableViewCell: UITableViewCell {
             if daysLeft <= 0 {
                 alarmDateLabel.text = "Tap button"
                 timeLeftLabel.text = "to complete"
+                progressView.progress = 1.0
                 completeButton.isHidden = false
             } else {
                 completeButton.isHidden = true
@@ -158,9 +158,8 @@ class ReminderTableViewCell: UITableViewCell {
         plantController?.updateReminderDates(reminder: reminder)
         // hide complete button
         completeButton.isHidden = true
-        // update
+        // update views
         updateViews()
-//        updateProgressView(reminder: reminder)
     }
     
     /// Sets up all custom views
