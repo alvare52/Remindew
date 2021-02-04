@@ -67,7 +67,7 @@ class ReminderViewController: UIViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = .mixedBlueGreen
-        picker.minimumDate = Date()
+//        picker.minimumDate = Date()
         // TODO: minimumTime? (shouldn't be able to pick a time earlier in the day)
         return picker
     }()
@@ -231,6 +231,7 @@ class ReminderViewController: UIViewController {
                 print("no name for action")
                 return
             }
+            
             // make sure frequency is a number and greater than 0
             guard let frequencyString = frequencyTextfield.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString), frequency > 0 else {
                 // TODO: Error alert for invalid or missing frequency number
@@ -417,7 +418,7 @@ class ReminderViewController: UIViewController {
                 actionCustomizationView.plantNameLabel.text = reminder.actionName
                 notificationBubble.reminderTitleTextfield.text = reminder.actionTitle
                 notificationBubble.reminderMessageTextfield.text = reminder.actionMessage
-                datePicker.date = reminder.alarmDate ?? Date()
+                datePicker.date = reminder.alarmDate!// ?? Date()
                 isEnabledSwitch.isOn = reminder.isEnabled
                 frequencyTextfield.text = "\(reminder.frequency)"
                 notesTextView.text = reminder.notes
@@ -453,11 +454,6 @@ class ReminderViewController: UIViewController {
 //            print("plant.reminders = \(plant.reminders?.allObjects ?? [])")
 //            let reminders = plant.reminders as! Set<Reminder>
 //            let reminder = reminders.first(where: {$0.actionName == "Pesticide"})
-        }
-
-        // ADD Mode (this shouldn't be possible right now)
-        else {
-            fatalError("Arrived at Reminder screen without a plant in updateViews")
         }
     }
 }
