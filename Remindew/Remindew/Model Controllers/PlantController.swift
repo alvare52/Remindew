@@ -527,7 +527,11 @@ class PlantController {
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notesToRemove)
         
-        checkPendingNotes()
+        UNUserNotificationCenter.checkPendingNotes { result in
+            DispatchQueue.main.async {
+                print("Pending Notifications = \(result)")
+            }
+        }
     }
     
     /// Checks if notifications are allowed then creates notification for given Reminder
@@ -616,18 +620,6 @@ class PlantController {
     /// Deletes ALL Reminder Notifications for given Plant
     func deleteAllReminderNotificationsForPlant(plant: Plant) {
         // for reminder in plant.reminders, deleteReminderNotificationForPlant()
-    }
-    
-    /// Prints out total amount of notifications that are pending
-    func checkPendingNotes() {
-        print("checkPendingNotes")
-        // check all pending ones to make sure?
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (notes) in
-            DispatchQueue.main.async {
-//                print("pending notes count = \(notes.count), notes = \(notes)")
-                print("pending count = \(notes.count)")
-            }
-        }
     }
     
     // MARK: - Network Calls

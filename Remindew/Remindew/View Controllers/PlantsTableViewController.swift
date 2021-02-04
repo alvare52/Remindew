@@ -27,7 +27,6 @@ class PlantsTableViewController: UITableViewController {
         // Bring up settings tab??? disconnect this maybe?
         print("settingsBarButtonTapped")
         plantController.printLastTokenAndDate()
-        plantController.checkPendingNotes()
         performSegue(withIdentifier: "ShowSettingsSegue", sender: self)
     }
     
@@ -301,17 +300,7 @@ class PlantsTableViewController: UITableViewController {
         config.performsFirstActionWithFullSwipe = false
         
         return config
-        }
-    
-    /// Override to support editing the table view.
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            // TODO: some of this should be done inside the plantController.deletePlant() method in PlantController
-//            let plant = fetchedResultsController.object(at: indexPath)
-//            plantController.deletePlant(plant: plant)
-//            checkIfPlantsNeedWatering() // to update badge/count
-//        }
-//    }
+    }
 
     // MARK: - Navigation
 

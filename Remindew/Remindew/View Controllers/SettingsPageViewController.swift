@@ -27,7 +27,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     var totalPlantCount = 0
     var totalNotificationsCount = 0
     var stats: String {
-        return "\n\nPlants: \(totalPlantCount)"
+        return "\n\nPlants: \(totalPlantCount)  Notifications: \(totalNotificationsCount)"
     }
     
     // MARK: - View Life Cycle
@@ -37,6 +37,16 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor.customBackgroundColor
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UNUserNotificationCenter.checkPendingNotes { result in
+            DispatchQueue.main.async {
+                self.totalNotificationsCount = result
+                self.tableView.reloadData()
+            }
+        }
     }
     
     // MARK: - Table View
@@ -66,7 +76,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 2:
             return "Clicking on a search result will replace species with common name of selected result"
         case 3:
-            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource. By using Trefle you accept and agree to abide by its terms and conditions." + stats
+            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource." + stats
         default:
             return ""
         }
