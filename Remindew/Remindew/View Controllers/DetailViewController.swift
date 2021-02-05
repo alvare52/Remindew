@@ -161,8 +161,11 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
-//        UINavigationBar.appearance().barTintColor = UIColor.customBackgroundColor
-//        UINavigationBar.appearance().isTranslucent = false
+        // Listen for a notification coming in while app is in the foreground to update detail screen
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshReminders),
+                                               name: .checkWateringStatus,
+                                               object: nil)
         
         let backButton = UIBarButtonItem(title: NSLocalizedString("Back", comment: "back button"))
         navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
@@ -404,6 +407,14 @@ class DetailViewController: UIViewController {
 
         // Go back to main screen
         navigationController?.popViewController(animated: true)
+    }
+    
+    /// Refreshes all Plant reminders when a notification goes off while on the Detail screen
+    @objc func refreshReminders() {
+        print("refreshReminders called, reloading tableview")
+        resultsTableView.reloadData()
+        // TODO: also check if the plant shown needs to be watered by checking its watering status
+        // checkWateringStatus(plant: Plant)
     }
     
     /// Enters a random nickname in nickname textfield so user doesn't have to make up their own
