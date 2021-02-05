@@ -96,6 +96,7 @@ class PlantController {
                 scientificName: String,
                 notepad: NotePad,
                 plant: Plant) {
+        
         plant.nickname = nickname
         plant.species = species
         plant.water_schedule = water_schedule
@@ -168,10 +169,12 @@ class PlantController {
         
         // delete image
         UIImage.deleteImage("userPlant\(plant.identifier!)")
+        
         // delete all notifications for plant
         removeAllRequestsForPlant(plant: plant)
-        // TODO: delete all reminder notifications
-        // ...
+        
+        // delete ALL reminder notifications for plant
+        deleteAllReminderNotificationsForPlant(plant: plant)
         
         CoreDataStack.shared.mainContext.delete(plant)
         do {
@@ -256,7 +259,7 @@ class PlantController {
         plant.removeFromReminders(reminder)
         
         // remove Reminder's Notification
-        // TODO: deleteNotificationForReminder(...)
+        deleteReminderNotificationForPlant(reminder: reminder, plant: plant)
         
         CoreDataStack.shared.mainContext.delete(reminder)
         do {
@@ -433,8 +436,8 @@ class PlantController {
         print("returnPlantNotificationIdentifiers")
         var result = [String]()
         
-        for day in plant.frequency! {
-            result.append("\(day)\(plant.identifier!)")
+        for i in 1...7 {
+            result.append("\(i)\(plant.identifier!)")
         }
         
         print("all notes for plant to remove = \(result)")
@@ -613,13 +616,16 @@ class PlantController {
     
     /// Deletes a Reminder's Notification using the identifier made from its UUID and it's Plant's UUID
     func deleteReminderNotificationForPlant(reminder: Reminder, plant: Plant) {
-        print("deleteReminderNotificationForPlant")
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(reminder.identifier!)\(plant.identifier!)"])
     }
     
     /// Deletes ALL Reminder Notifications for given Plant
     func deleteAllReminderNotificationsForPlant(plant: Plant) {
         // for reminder in plant.reminders, deleteReminderNotificationForPlant()
+        let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
+        for reminder in remindersArray {
+            deleteReminderNotificationForPlant(reminder: reminder, plant: plant)
+        }
     }
     
     // MARK: - Network Calls
