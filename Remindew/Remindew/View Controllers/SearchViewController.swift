@@ -14,22 +14,7 @@ protocol SelectedResultDelegate {
 }
 
 class SearchViewController: UIViewController {
-    
-//    /// Searchbar that takes in species/plant name
-//    let searchBar: UISearchBar = {
-//        let bar = UISearchBar()
-//        bar.translatesAutoresizingMaskIntoConstraints = false
-//        bar.backgroundColor = .green
-//        return bar
-//    }()
-//
-//    /// TableView that displays search results
-//    let tableView: UITableView = {
-//        let table = UITableView()
-//        table.translatesAutoresizingMaskIntoConstraints = false
-//        table.backgroundColor = .systemPink
-//        return table
-//    }()
+
     @IBOutlet var searchBar: UISearchBar!
     
     @IBOutlet var tableView: UITableView!
@@ -58,10 +43,13 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad SearchVC")
+        
         tableView.dataSource = self
         tableView.delegate = self
+        
         searchBar.delegate = self
+        searchBar.placeholder = NSLocalizedString("Search by plant name, species, etc", comment: "")
+        searchBar.tintColor = .mixedBlueGreen
         
         tableView.backgroundView = spinner
         spinner.color = .leafGreen
@@ -201,41 +189,12 @@ class SearchViewController: UIViewController {
         })
     }
     
-//    private func setupSubviews() {
-//        view.backgroundColor = .yellow
-//        
-//        // Searchbar
-//        view.addSubview(searchBar)
-//        searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-//        searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-//        searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-//        
-//        // TableView
-//        view.addSubview(tableView)
-//        tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
-//        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-//        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-////        tableView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.5).isActive = true
-//        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-//    }
-    
     private func updateViews() {
         print("updateViews")
         guard isViewLoaded else { return }
         searchBar.text = passedInSearchTerm
         didTapSearch()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {

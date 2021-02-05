@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oFs-kp-lXA">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -81,11 +80,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="flp-bo-wgZ">
-                                <rect key="frame" x="0.0" y="64" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nsI-bc-s1b">
-                                <rect key="frame" x="20" y="120" width="374" height="722"/>
+                                <rect key="frame" x="20" y="100" width="374" height="742"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchResultCell" id="ZHa-JE-YyW" customClass="SearchResultTableViewCell" customModule="Remindew" customModuleProvider="target">
@@ -107,7 +106,7 @@
                             <constraint firstItem="nsI-bc-s1b" firstAttribute="trailing" secondItem="o1I-L8-HIL" secondAttribute="trailing" constant="-20" id="Hb4-bX-Ph5"/>
                             <constraint firstItem="nsI-bc-s1b" firstAttribute="top" secondItem="flp-bo-wgZ" secondAttribute="bottom" id="Mt0-ey-IFc"/>
                             <constraint firstItem="nsI-bc-s1b" firstAttribute="leading" secondItem="o1I-L8-HIL" secondAttribute="leading" constant="20" id="cYL-uN-zCQ"/>
-                            <constraint firstItem="flp-bo-wgZ" firstAttribute="top" secondItem="o1I-L8-HIL" secondAttribute="top" constant="20" id="pAp-AI-aG4"/>
+                            <constraint firstItem="flp-bo-wgZ" firstAttribute="top" secondItem="o1I-L8-HIL" secondAttribute="top" id="pAp-AI-aG4"/>
                             <constraint firstItem="nsI-bc-s1b" firstAttribute="bottom" secondItem="o1I-L8-HIL" secondAttribute="bottom" constant="-20" id="ubW-8y-oSh"/>
                         </constraints>
                     </view>
