@@ -417,13 +417,6 @@ class DetailViewController: UIViewController {
         // checkWateringStatus(plant: Plant)
     }
     
-    /// Enters a random nickname in nickname textfield so user doesn't have to make up their own
-    private func chooseRandomNickname() {
-        let randomInt = Int.random(in: 0..<String.randomNicknames.count)
-        print("randomInt = \(randomInt)")
-        nicknameTextField.text = String.randomNicknames[randomInt]
-    }
-    
     /// Presents SearchViewController when hitting "search" in species textfield and passes in search term and starts search
     private func presentSearchViewController() {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -574,8 +567,9 @@ class DetailViewController: UIViewController {
         let alertAction = UIAlertAction(title: NSLocalizedString("Custom", comment: "User generated name"), style: .default) { _ in
             self.nicknameTextField.becomeFirstResponder()
         }
+        
         let randomAction = UIAlertAction(title: NSLocalizedString("Random", comment: "Randomly generated name"), style: .default) { _ in
-            self.chooseRandomNickname()
+            String.chooseRandomNickname(textField: self.nicknameTextField)
             self.nicknameTextField.becomeFirstResponder()
         }
         

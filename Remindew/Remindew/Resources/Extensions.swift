@@ -56,8 +56,14 @@ extension String {
     
     /// Array of random plant nicknames for when a user doesn't want to create their own
     static let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
-                                            "Leshy", "Lily", "Greenman", "Bud Dwyer", "Treebeard",
-                                    "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
+                                            "Lily", "Leshy", "Greenman", "Bud Dwyer", "Treebeard",
+                                            "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
+    
+    /// Enters a random nickname into given textfield so user doesn't have to make up their own
+    static func chooseRandomNickname(textField: UITextField) {
+        let randomInt = Int.random(in: 0..<String.randomNicknames.count)
+        textField.text = String.randomNicknames[randomInt]
+    }
 }
 
 // MARK: - UIView
