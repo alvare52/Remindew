@@ -241,19 +241,19 @@ class AppearanceViewController: UIViewController {
     /// Lays out all views needed
     private func setupSubViews() {
                 
-        view.backgroundColor = .clear
+        view.backgroundColor = .white
         view.layer.cornerRadius = 15
         
         // Content View
         view.addSubview(contentView)
-        contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: standardMargin).isActive = true
+        contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         // Image View
         contentView.addSubview(imageView)
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: standardMargin).isActive = true
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: standardMargin).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -standardMargin).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
