@@ -23,8 +23,9 @@ class AppearanceViewController: UIViewController {
     let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.layer.cornerRadius = 15
-        contentView.backgroundColor = .black
+//        contentView.backgroundColor = UIColor(red: 28.0 / 255.0, green: 28.0 / 255.0, blue: 30.0 / 255.0, alpha: 0.2)
+        contentView.backgroundColor = .customBackgroundColor
+        contentView.layer.cornerRadius = 15
         return contentView
     }()
     
@@ -32,6 +33,8 @@ class AppearanceViewController: UIViewController {
     let optionsBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 15
         view.backgroundColor = .white
         return view
     }()
@@ -63,6 +66,7 @@ class AppearanceViewController: UIViewController {
     let plantCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = .blue
         return view
     }()
     
@@ -70,6 +74,7 @@ class AppearanceViewController: UIViewController {
     let actionCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = .red
         return view
     }()
     
@@ -77,8 +82,11 @@ class AppearanceViewController: UIViewController {
     let takePhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Take Photo", for: .normal)
-        button.backgroundColor = .mixedBlueGreen
+        button.setTitle("  Take Photo", for: .normal)
+        button.setImage(UIImage(systemName: "camera"), for: .normal)
+        button.contentHorizontalAlignment = .leading
+        button.tintColor = .lightGray
+        button.setTitleColor(.darkGray, for: .normal)
         return button
     }()
     
@@ -86,8 +94,11 @@ class AppearanceViewController: UIViewController {
     let choosePhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Choose Photo", for: .normal)
-        button.backgroundColor = .mixedBlueGreen
+        button.setTitle("  Choose Photo", for: .normal)
+        button.setImage(UIImage(systemName: "photo"), for: .normal)
+        button.contentHorizontalAlignment = .leading
+        button.tintColor = .lightGray
+        button.setTitleColor(.darkGray, for: .normal)
         return button
     }()
     
@@ -95,8 +106,13 @@ class AppearanceViewController: UIViewController {
     let savePhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Save Photo", for: .normal)
-        button.backgroundColor = .mixedBlueGreen
+        button.setTitle("  Save Photo", for: .normal)
+        button.setImage(UIImage(systemName: "photo.on.rectangle"), for: .normal)
+        button.contentHorizontalAlignment = .leading
+        button.tintColor = .lightGray
+        button.setTitleColor(.darkGray, for: .normal)
+        button.setTitleColor(.darkGray, for: .highlighted)
+        button.isSelected = true
         return button
     }()
     
@@ -230,8 +246,9 @@ class AppearanceViewController: UIViewController {
     
     /// Lays out all views needed
     private func setupSubViews() {
-        
-        view.backgroundColor = .black
+                
+        view.backgroundColor = .clear
+        view.layer.cornerRadius = 15
         
         // Content View
         view.addSubview(contentView)
