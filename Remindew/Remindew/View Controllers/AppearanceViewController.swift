@@ -23,7 +23,6 @@ class AppearanceViewController: UIViewController {
     let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.backgroundColor = UIColor(red: 28.0 / 255.0, green: 28.0 / 255.0, blue: 30.0 / 255.0, alpha: 0.2)
         contentView.backgroundColor = .customBackgroundColor
         contentView.layer.cornerRadius = 15
         return contentView
@@ -47,7 +46,6 @@ class AppearanceViewController: UIViewController {
         tempButton.tintColor = .mixedBlueGreen
         tempButton.setTitle("Save", for: .normal)
         tempButton.titleLabel?.font = .systemFont(ofSize: 18)
-//        tempButton.contentHorizontalAlignment = .right
         tempButton.layer.cornerRadius = 0
         return tempButton
     }()
@@ -66,7 +64,6 @@ class AppearanceViewController: UIViewController {
     let plantCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = .blue
         return view
     }()
     
@@ -74,7 +71,6 @@ class AppearanceViewController: UIViewController {
     let actionCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = .red
         return view
     }()
     
@@ -111,8 +107,6 @@ class AppearanceViewController: UIViewController {
         button.contentHorizontalAlignment = .leading
         button.tintColor = .lightGray
         button.setTitleColor(.darkGray, for: .normal)
-        button.setTitleColor(.darkGray, for: .highlighted)
-        button.isSelected = true
         return button
     }()
     
@@ -256,14 +250,6 @@ class AppearanceViewController: UIViewController {
         contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-//        // Done/Save Button
-//        contentView.addSubview(saveButton)
-//        saveButton.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-//        saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        saveButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: CGFloat(0.2)).isActive = true
-//        saveButton.heightAnchor.constraint(equalTo: saveButton.widthAnchor, multiplier: 0.5).isActive = true
-//        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
         // Image View
         contentView.addSubview(imageView)
