@@ -29,8 +29,10 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     /// String that shows how many total plants there are and how many pending notifications there are
     var totalPlantCount = 0
     var totalNotificationsCount = 0
+    var totalLocationsCount = 0
+    
     var stats: String {
-        return "\n\nPlants: \(totalPlantCount)  Notifications: \(totalNotificationsCount)"
+        return "\n\nPlants: \(totalPlantCount)  Reminders: \(totalNotificationsCount)  Sections: \(totalLocationsCount)"
     }
     
     // MARK: - View Life Cycle

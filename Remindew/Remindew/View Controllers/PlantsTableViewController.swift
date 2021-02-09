@@ -347,6 +347,7 @@ class PlantsTableViewController: UITableViewController {
             print("ShowSettingsSegue")
             if let settingsVC = segue.destination as? SettingsPageViewController {
                 settingsVC.totalPlantCount = fetchedResultsController.fetchedObjects?.count ?? 0
+                settingsVC.totalLocationsCount = fetchedResultsController.sectionIndexTitles.count
             }
         }
     }
