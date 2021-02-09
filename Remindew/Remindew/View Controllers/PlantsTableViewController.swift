@@ -53,12 +53,20 @@ class PlantsTableViewController: UITableViewController {
             sortKey = "species"
         }
         
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
+        // TODO: change sorting setting to just disable/allow sections? (updateSorting needs to be changed as well)
+        // old
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
+        // NEW
+        // sort by sectionn first, then species/nickname
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "location", ascending: true),
+                                        NSSortDescriptor(key: sortKey, ascending: true)]
+
 
         let context = CoreDataStack.shared.mainContext
+        // sectionNameKeyPath used to be sortKey, now should be location
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,
-                                             sectionNameKeyPath: sortKey,
+                                             sectionNameKeyPath: "location",
                                              cacheName: nil)
         frc.delegate = self
         try! frc.performFetch() // do it and crash if you have to
@@ -173,7 +181,8 @@ class PlantsTableViewController: UITableViewController {
         }
         
         // set sort descriptors
-        fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
+        fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "location", ascending: true),
+                                                                 NSSortDescriptor(key: sortKey, ascending: true)]
         
         // try to perform fetch
         do {
@@ -256,11 +265,25 @@ class PlantsTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sectionInfo = fetchedResultsController.sections?[section] else {
+            return nil
+        }
+        // TODO: should check for sortKey here?
+        return sectionInfo.name.capitalized
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
+        view.tintColor = .customBackgroundColor
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = .darkGray
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 125
     }
