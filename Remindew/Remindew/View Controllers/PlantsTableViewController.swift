@@ -54,16 +54,12 @@ class PlantsTableViewController: UITableViewController {
         }
         
         // TODO: change sorting setting to just disable/allow sections? (updateSorting needs to be changed as well)
-        // old
-//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
-        // NEW
-        // sort by sectionn first, then species/nickname
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "location", ascending: true),
                                         NSSortDescriptor(key: sortKey, ascending: true)]
 
 
         let context = CoreDataStack.shared.mainContext
-        // sectionNameKeyPath used to be sortKey, now should be location
+
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: context,
                                              sectionNameKeyPath: "location",

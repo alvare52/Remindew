@@ -10,6 +10,9 @@ import UIKit
 
 class SettingsPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // TODO: add setting to disable sections in Sorting settings section?
+    // TODO: add setting to display plant type as primary name instead of nickname? Remove sort by species/name setting?
+    
     // MARK: - Actions
     
     /// Clear button that sits over progressView (notch) and dismiss view controller when tapped
@@ -72,9 +75,9 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 0:
             return "Toggle between Light or Dark Theme"
         case 1:
-            return "Sort by nickname or species"
+            return "Sort by nickname or plant type"
         case 2:
-            return "Clicking on a search result will replace species with common name of selected result"
+            return "Clicking on a search result will replace plant type name with common name of selected result"
         case 3:
             return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource." + stats
         default:
@@ -109,7 +112,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // SORTING
         if indexPath.section == 1 {
-            settingCell.settingLabel.text = "Sort by species"
+            settingCell.settingLabel.text = "Sort by plant type"
             settingCell.optionSwitch.isHidden = false
             settingCell.customSetting = .sortPlantsBySpecies
             settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .sortPlantsBySpecies)
@@ -117,7 +120,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // SEARCHING
         if indexPath.section == 2 {
-            settingCell.settingLabel.text = "Replace species with search result"
+            settingCell.settingLabel.text = "Replace type with search result"
             settingCell.optionSwitch.isHidden = false
             settingCell.customSetting = .resultFillsSpeciesTextfield
             settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield)
