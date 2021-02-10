@@ -217,6 +217,16 @@ class ReminderViewController: UIViewController {
         
         updateViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if reminder != nil {
+            notesTextView.becomeFirstResponder()
+        } else {
+            actionCustomizationView.plantNameLabel.becomeFirstResponder()
+        }
+    }
         
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
@@ -271,10 +281,6 @@ class ReminderViewController: UIViewController {
             }
         }
         
-        // if we DON'T have a plant
-        else {
-            fatalError("Arrived at Reminder screen without a plant first")
-        }
         // update table view in DetailViewController
         reminderDelegate?.didAddReminder()
         dismiss(animated: true, completion: nil)
@@ -422,7 +428,7 @@ class ReminderViewController: UIViewController {
                 isEnabledSwitch.isOn = reminder.isEnabled
                 frequencyTextfield.text = "\(reminder.frequency)"
                 notesTextView.text = reminder.notes
-                // colors
+                
                 let reminderColor = UIColor.colorsArray[Int(reminder.colorIndex)]
                 actionCustomizationView.localColorsCount = Int(reminder.colorIndex)
                 actionCustomizationView.localIconCount = Int(reminder.iconIndex)
@@ -440,20 +446,6 @@ class ReminderViewController: UIViewController {
                         "\(DateFormatter.lastWateredDateFormatter.string(from: reminder.dateCreated!))"
                 }
             }
-            
-            // ADD NEW REMINDER (from Reminder button icon)
-            else {
-                actionCustomizationView.plantNameLabel.becomeFirstResponder()
-            }
-            
-//            let newReminder = Reminder(actionName: "Pesticide", alarmDate: Date(), frequency: Int16(7))
-//            newReminder.actionMessage = "time to add pesticide to Leaf Erikson"
-//            newReminder.actionTitle = "Pesticide Time"
-//            plant.addToReminders(newReminder)
-
-//            print("plant.reminders = \(plant.reminders?.allObjects ?? [])")
-//            let reminders = plant.reminders as! Set<Reminder>
-//            let reminder = reminders.first(where: {$0.actionName == "Pesticide"})
         }
     }
 }
