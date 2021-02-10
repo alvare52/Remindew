@@ -38,8 +38,11 @@ class DetailViewController: UIViewController {
         }
     }
     
-    /// Holds what we get back from notepad vc
+    /// Holds what we get back from NotepadViewController
     var notePad: NotePad?
+    
+    /// Holds what we get back from AppearanceViewController
+    var appearanceOptions: AppearanceOptions?
     
     /// Holds PlantSearchResult we get back from search vc
     var plantSearchResult: PlantSearchResult?
@@ -929,6 +932,10 @@ extension DetailViewController: AppearanceDelegate {
     
     func didSelectAppearanceObjects(image: UIImage?) {
         imageView.image = image
+    }
+    
+    func didSelectColorsAndIcons(appearanceOptions: AppearanceOptions) {
+        self.appearanceOptions = appearanceOptions
     }
 }
 

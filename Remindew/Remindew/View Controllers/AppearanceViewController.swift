@@ -13,6 +13,9 @@ protocol AppearanceDelegate {
     
     /// Passes back an image picked from AppearanceViewController
     func didSelectAppearanceObjects(image: UIImage?)
+    
+    /// Passes back customization options
+    func didSelectColorsAndIcons(appearanceOptions: AppearanceOptions)
 }
 
 class AppearanceViewController: UIViewController {
@@ -138,10 +141,17 @@ class AppearanceViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        appearanceDelegate?.didSelectAppearanceObjects(image: imageView.image)
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // pass back selected appearance options to DetailViewController when view is going to disappear
+        let appearanceOptions = AppearanceOptions(plantIconIndex: Int16(plantCustomizationView.localIconCount),
+                                                  plantColorIndex: Int16(plantCustomizationView.localColorsCount),
+                                                  actionIconIndex: Int16(actionCustomizationView.localIconCount),
+                                                  actionColorIndex: Int16(actionCustomizationView.localColorsCount))
+        
+        appearanceDelegate?.didSelectColorsAndIcons(appearanceOptions: appearanceOptions)
+    }
     
     /// Updates all views when plant is passed in
     private func updateViews() {
@@ -308,16 +318,6 @@ class AppearanceViewController: UIViewController {
         savePhotoButton.addTarget(self, action: #selector(savePhotoTapped), for: .touchUpInside)
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
@@ -340,4 +340,13 @@ extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigatio
         print("Cancel")
         picker.dismiss(animated: true, completion: nil)
     }
+}
+
+/// Holds 4 options for plant appearance (plantIconIndex, plantColorIndex, actionIconIndex, actionColorIndex)
+struct AppearanceOptions {
+    /// used for UIImage.plantIconArray
+    var plantIconIndex: Int16 = 0
+    var plantColorIndex: Int16 = 0
+    var actionIconIndex: Int16 = 0
+    var actionColorIndex: Int16 = 1
 }
