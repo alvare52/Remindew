@@ -31,8 +31,9 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     var totalNotificationsCount = 0
     var totalLocationsCount = 0
     
+    /// Returns a String that contains total amount of Plants, Pending Notifications, Locations, and current app version
     var stats: String {
-        return "\n\nPlants: \(totalPlantCount)  Reminders: \(totalNotificationsCount)  Sections: \(totalLocationsCount)"
+        return "\n\nUser Stats: \(totalPlantCount) Plants, \(totalNotificationsCount) Reminders, \(totalLocationsCount) Locations" + "\nv\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
     }
     
     // MARK: - View Life Cycle
@@ -67,6 +68,8 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             return "SEARCHING"
         case 3:
             return "SEARCHES POWERED BY TREFLE"
+        case 4:
+            return "DEFAULT IMAGE"
         default:
             return ""
         }
@@ -81,14 +84,16 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 2:
             return "Clicking on a search result will replace plant type name with common name of selected result"
         case 3:
-            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource." + stats
+            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource."
+        case 4:
+            return "Images provided by Richard Alfonzo" + stats
         default:
             return ""
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,6 +139,12 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             settingCell.settingLabel.textColor = .link
         }
         
+        // IMAGES PROVIDED BY RICHARD ALFONZO
+        if indexPath.section == 4 {
+            settingCell.settingLabel.text = "Richard Alfonzo Photography"
+            settingCell.settingLabel.textColor = .link
+        }
+        
         return settingCell
     }
     
@@ -141,9 +152,16 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                 
         let selectedCell = tableView.cellForRow(at: indexPath) as? SettingsTableViewCell
         print("Selected Cell = \(selectedCell?.settingLabel.text ?? "title")")
-        // if link cell is selected, go to Trefle API home page
+        
+        // if Trefle API cell is selected, go to Trefle API home page
         if indexPath.section == 3 {
             guard let url = URL(string: "https://trefle.io/") else { return }
+            UIApplication.shared.open(url)
+        }
+        
+        // if Richard Alfonzo Photography cell is selected, go to Richard Alfonzo Photography home page
+        if indexPath.section == 4 {
+            guard let url = URL(string: "https://rnalfonzo.smugmug.com") else { return }
             UIApplication.shared.open(url)
         }
     }
