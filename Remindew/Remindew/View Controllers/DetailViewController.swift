@@ -206,9 +206,9 @@ class DetailViewController: UIViewController {
         speciesTextField.returnKeyType = .search
         speciesTextField.attributedPlaceholder = NSAttributedString(string: "Type of plant",
                                                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        plantButton.backgroundColor = .mixedBlueGreen
+        plantButton.backgroundColor = UIColor.colorsArray[0]
         plantButton.layer.cornerRadius = plantButton.frame.height / 2
-        waterPlantButton.backgroundColor = .waterBlue
+        waterPlantButton.backgroundColor = UIColor.colorsArray[1]
         waterPlantButton.layer.cornerRadius = waterPlantButton.frame.height / 2
             
         nicknameTextField.autocorrectionType = .no
@@ -278,12 +278,14 @@ class DetailViewController: UIViewController {
             speciesTextField.text = plant.species
             datePicker.date = plant.water_schedule!
             daySelectorOutlet.selectDays((plant.frequency)!)
-            fetchedScientificName = plant.scientificName ?? ""
             waterPlantButton.isHidden = false
             
             // unhide reminder button (keep hidden if reminder count has reached limit)
             reminderButtonLabel.tintColor = .mixedBlueGreen
             reminderButtonLabel.isEnabled = true
+            
+            plantButton.backgroundColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
+            waterPlantButton.backgroundColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
             
             // plant DOES need to be watered
             if plant.needsWatering {
@@ -352,23 +354,23 @@ class DetailViewController: UIViewController {
             print("Image in imageView is NOT default one")
             imageToSave = imageView.image ?? .logoImage
         }
-        
-        // make empty AppearanceOptions struct, and assign the one we were passed back (if we had one passed back)
-        var emptyAppearanceOptions = AppearanceOptions()
-        if let fullAppearanceOptions = appearanceOptions {
-            print("USING OPTIONS WE WERE PASSED BACK")
-            emptyAppearanceOptions = fullAppearanceOptions
-        } else {
-            print("USING EMPTY APPEARANCE OPTIONS INSTEAD")
-        }
-        print("appearanceOptions = \(emptyAppearanceOptions)")
-        
+                
         // If there IS a plant, update (EDIT)
         if let existingPlant = plant {
                 
             var emptyNotepad = NotePad()
             if let fullNotepad = notePad {
                 emptyNotepad = fullNotepad
+            }
+            
+            var selectedAppearanceOptions = AppearanceOptions(plantIconIndex: existingPlant.plantIconIndex,
+                                                              plantColorIndex: existingPlant.plantColorIndex,
+                                                              actionIconIndex: existingPlant.actionIconIndex,
+                                                              actionColorIndex: existingPlant.actionColorIndex)
+            
+            // if we got some new ones from AVC, use those instead
+            if let fullAppearanceOptions = appearanceOptions {
+                selectedAppearanceOptions = fullAppearanceOptions
             }
                         
             plantController?.update(nickname: nickname.capitalized,
@@ -377,7 +379,7 @@ class DetailViewController: UIViewController {
                                    frequency: daySelectorOutlet.returnDaysSelected(),
                                    scientificName: plantSearchResult?.scientificName ?? emptyNotepad.scientificName,
                                    notepad: emptyNotepad,
-                                   appearanceOptions: emptyAppearanceOptions,
+                                   appearanceOptions: selectedAppearanceOptions,
                                    plant: existingPlant)
             // save image
             let imageName = "userPlant\(existingPlant.identifier!)"
@@ -394,6 +396,11 @@ class DetailViewController: UIViewController {
             var emptyNotepad = NotePad(scientificName: plantSearchResult?.scientificName ?? "")
             if let fullNotepad = notePad {
                 emptyNotepad = fullNotepad
+            }
+            
+            var emptyAppearanceOptions = AppearanceOptions()
+            if let fullAppearanceOptions = appearanceOptions {
+                emptyAppearanceOptions = fullAppearanceOptions
             }
             
             let plant = plantController?.createPlant(nickname: nickname.capitalized,
@@ -945,6 +952,8 @@ extension DetailViewController: AppearanceDelegate {
     
     func didSelectColorsAndIcons(appearanceOptions: AppearanceOptions) {
         self.appearanceOptions = appearanceOptions
+        plantButton.backgroundColor = UIColor.colorsArray[Int(appearanceOptions.plantColorIndex)]
+        waterPlantButton.backgroundColor = UIColor.colorsArray[Int(appearanceOptions.actionColorIndex)]
     }
 }
 

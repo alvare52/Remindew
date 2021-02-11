@@ -25,7 +25,7 @@ extension Plant {
                                         mainAction: String = "",
                                         location: String = "",
                                         identifier: UUID = UUID(),
-                                        plantIconIndex: Int16 = 0,
+                                        plantIconIndex: Int16 = 8,
                                         plantColorIndex: Int16 = 0,
                                         actionIconIndex: Int16 = 0,
                                         actionColorIndex: Int16 = 1,
