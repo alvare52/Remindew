@@ -114,6 +114,7 @@ class DetailViewController: UIViewController {
             appearanceVC.modalPresentationStyle = .automatic
             appearanceVC.mainImage = imageView.image
             appearanceVC.appearanceDelegate = self
+            appearanceVC.plant = plant
             present(appearanceVC, animated: true, completion: nil)
         }
 //        // dismiss keyboards so they don't stay up when library is loading

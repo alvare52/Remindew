@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Plant" representedClassName="Plant" syncable="YES" codeGenerationType="class">
+        <attribute name="actionColorIndex" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="actionIconIndex" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="frequency" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Int16]"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="lastDateWatered" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -11,6 +13,8 @@
         <attribute name="needsWatering" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="nickname" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="plantColorIndex" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="plantIconIndex" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="scientificName" attributeType="String"/>
         <attribute name="species" attributeType="String"/>
         <attribute name="water_schedule" attributeType="Date" defaultDateTimeInterval="605272080" usesScalarValueType="NO"/>
@@ -32,7 +36,7 @@
         <relationship name="plant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Plant" inverseName="reminders" inverseEntity="Plant"/>
     </entity>
     <elements>
-        <element name="Plant" positionX="36" positionY="171" width="128" height="253"/>
+        <element name="Plant" positionX="36" positionY="171" width="128" height="313"/>
         <element name="Reminder" positionX="38.640625" positionY="471.1640625" width="125.78515625" height="238"/>
     </elements>
 </model>

@@ -160,14 +160,23 @@ class AppearanceViewController: UIViewController {
         
         imageView.image = mainImage
         
-//        // EDIT/DETAIL Mode
-//        if let plant = plant {
-//        }
-//
-//        // ADD Mode
-//        else {
-//
-//        }
+        // EDIT/DETAIL Mode
+        if let plant = plant {
+            print("edit mode AVC")
+            plantCustomizationView.localIconCount = Int(plant.plantIconIndex)
+            plantCustomizationView.localColorsCount = Int(plant.plantColorIndex)
+            actionCustomizationView.localIconCount = Int(plant.actionIconIndex)
+            actionCustomizationView.localColorsCount = Int(plant.actionColorIndex)
+        }
+
+        // ADD Mode
+        else {
+            print("add mode AVC")
+            plantCustomizationView.localIconCount = 8
+            plantCustomizationView.localColorsCount = 0
+            actionCustomizationView.localIconCount = 0
+            actionCustomizationView.localColorsCount = 1
+        }
     }
     
     /// Saves contents and dismisses view controller

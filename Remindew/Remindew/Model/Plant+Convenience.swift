@@ -25,6 +25,10 @@ extension Plant {
                                         mainAction: String = "",
                                         location: String = "",
                                         identifier: UUID = UUID(),
+                                        plantIconIndex: Int16 = 0,
+                                        plantColorIndex: Int16 = 0,
+                                        actionIconIndex: Int16 = 0,
+                                        actionColorIndex: Int16 = 1,
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.nickname = nickname
@@ -40,6 +44,10 @@ extension Plant {
         self.mainAction = mainAction
         self.location = location
         self.identifier = identifier
+        self.plantIconIndex = plantIconIndex
+        self.plantColorIndex = plantColorIndex
+        self.actionIconIndex = actionIconIndex
+        self.actionColorIndex = actionColorIndex
     }
 }
 
