@@ -51,12 +51,14 @@ class PlantsTableViewCell: UITableViewCell {
         timeLabel.text = "\(DateFormatter.timeOnlyDateFormatter.string(from: plant.water_schedule ?? temp))"
         speciesLabel.text = species
         daysLabel.text = "\(daysString)"
+                
+        nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
         
         if plant.needsWatering {
             plantImageView?.image = UIImage(named: "planticonwater")
         } else {
             plantImageView?.image = UIImage(named: "planticonleaf")
-        }
+        }        
     }
     
     /// Returns a string of all days selected separated by a space (to dispaly in table view cell)

@@ -206,6 +206,9 @@ extension UIImage {
     /// 60x60 version of app icon (clear background). UIImage(named: "plantslogoclear60x60")
     static let smallAppIconImage = UIImage(named: "plantslogo60x60")
     
+    /// Image used when no photo is given
+    static let defaultImage = UIImage(named: "RemindewDefaultImage")
+    
     /// Takes in a UIImageView and gives the bottom half a clear/black gradient with the given opacity.
     /// - Parameter imageView: the UIImageView we want to give a bottom half gradient (imageView needs a frame)
     /// - Parameter opacity: the amount of transparency we want for the applied gradient
