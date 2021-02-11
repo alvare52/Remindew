@@ -241,7 +241,7 @@ class NotepadViewController: UIViewController {
                               mainTitle: reminderTitleTextfield.text ?? "",
                               mainMessage: reminderMessageTextfield.text ?? "",
                               mainAction: actionTextfield.text ?? NSLocalizedString("Water", comment: "water, default main action"),
-                              location: locationTextfield.text ?? "",
+                              location: locationTextfield.text?.capitalized ?? "",
                               scientificName: scientificNameTextfield.text ?? "")
         
        
@@ -255,10 +255,9 @@ class NotepadViewController: UIViewController {
             dismiss(animated: true, completion: nil)
             return
         }
+        
         // if we DON'T have a plant
         else {
-            // Delegate 3
-            // pass back notepad we have now
             notepadDelegate?.didMakeNotepad(notepad: notepad)
             dismiss(animated: true, completion: nil)
             return
