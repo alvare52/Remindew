@@ -64,7 +64,7 @@ class PlantController {
     // MARK: - Create, Read, Update, Delete, Save plants
     
     /// Create a plant and then save it
-    func createPlant(nickname: String, species: String, date: Date, frequency: [Int16], scientificName: String, notepad: NotePad) -> Plant {
+    func createPlant(nickname: String, species: String, date: Date, frequency: [Int16], scientificName: String, notepad: NotePad, appearanceOptions: AppearanceOptions) -> Plant {
         print("createPlant")
         let plant = Plant(nickname: nickname,
                           species: species,
@@ -75,15 +75,18 @@ class PlantController {
                           mainTitle: notepad.mainTitle,
                           mainMessage: notepad.mainMessage,
                           mainAction: notepad.mainAction,
-                          location: notepad.location)
+                          location: notepad.location,
+                          plantIconIndex: appearanceOptions.plantIconIndex,
+                          plantColorIndex: appearanceOptions.plantColorIndex,
+                          actionIconIndex: appearanceOptions.actionIconIndex,
+                          actionColorIndex: appearanceOptions.actionColorIndex)
+        
         print("plant schedule: \(String(describing: plant.water_schedule))")
         print("plant frequency: \(String(describing: plant.frequency))")
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
-        
-//        makeAllRequestsForPlant(plant: plant)
+
         addRequestsForPlant(plant: plant)
         
-        // if notes are disable, dont make plant???
+        // if notifications are disabled, dont make plant???
         savePlant()
         return plant
     }
@@ -95,6 +98,7 @@ class PlantController {
                 frequency: [Int16],
                 scientificName: String,
                 notepad: NotePad,
+                appearanceOptions: AppearanceOptions,
                 plant: Plant) {
         
         plant.nickname = nickname
@@ -108,6 +112,11 @@ class PlantController {
         plant.mainMessage = notepad.mainMessage
         plant.mainAction = notepad.mainAction
         plant.location = notepad.location
+        
+        plant.plantIconIndex = appearanceOptions.plantIconIndex
+        plant.plantColorIndex = appearanceOptions.plantColorIndex
+        plant.actionIconIndex = appearanceOptions.actionIconIndex
+        plant.actionColorIndex = appearanceOptions.actionColorIndex
         
         // remove pending notifications for this plant first
         print("removing")

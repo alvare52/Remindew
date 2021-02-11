@@ -354,7 +354,7 @@ extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigatio
 /// Holds 4 options for plant appearance (plantIconIndex, plantColorIndex, actionIconIndex, actionColorIndex)
 struct AppearanceOptions {
     /// used for UIImage.plantIconArray
-    var plantIconIndex: Int16 = 0
+    var plantIconIndex: Int16 = 8
     var plantColorIndex: Int16 = 0
     var actionIconIndex: Int16 = 0
     var actionColorIndex: Int16 = 1

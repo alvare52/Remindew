@@ -117,10 +117,6 @@ class DetailViewController: UIViewController {
             appearanceVC.plant = plant
             present(appearanceVC, animated: true, completion: nil)
         }
-//        // dismiss keyboards so they don't stay up when library is loading
-//        nicknameTextField.resignFirstResponder()
-//        speciesTextField.resignFirstResponder()
-//        presentPhotoActionSheet()
     }
     
     /// Takes user to Add Reminder Screen to create a Reminder
@@ -357,6 +353,16 @@ class DetailViewController: UIViewController {
             imageToSave = imageView.image ?? .logoImage
         }
         
+        // make empty AppearanceOptions struct, and assign the one we were passed back (if we had one passed back)
+        var emptyAppearanceOptions = AppearanceOptions()
+        if let fullAppearanceOptions = appearanceOptions {
+            print("USING OPTIONS WE WERE PASSED BACK")
+            emptyAppearanceOptions = fullAppearanceOptions
+        } else {
+            print("USING EMPTY APPEARANCE OPTIONS INSTEAD")
+        }
+        print("appearanceOptions = \(emptyAppearanceOptions)")
+        
         // If there IS a plant, update (EDIT)
         if let existingPlant = plant {
                 
@@ -364,13 +370,14 @@ class DetailViewController: UIViewController {
             if let fullNotepad = notePad {
                 emptyNotepad = fullNotepad
             }
-            
+                        
             plantController?.update(nickname: nickname.capitalized,
                                    species: species.capitalized,
                                    water_schedule: datePicker.date,
                                    frequency: daySelectorOutlet.returnDaysSelected(),
                                    scientificName: plantSearchResult?.scientificName ?? emptyNotepad.scientificName,
                                    notepad: emptyNotepad,
+                                   appearanceOptions: emptyAppearanceOptions,
                                    plant: existingPlant)
             // save image
             let imageName = "userPlant\(existingPlant.identifier!)"
@@ -394,7 +401,8 @@ class DetailViewController: UIViewController {
                                         date: datePicker.date,
                                         frequency: daySelectorOutlet.returnDaysSelected(),
                                         scientificName: emptyNotepad.scientificName,
-                                        notepad: emptyNotepad)
+                                        notepad: emptyNotepad,
+                                        appearanceOptions: emptyAppearanceOptions)
             // save image
             let imageName = "userPlant\(plant!.identifier!)"
             
