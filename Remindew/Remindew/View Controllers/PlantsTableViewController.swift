@@ -292,6 +292,30 @@ class PlantsTableViewController: UITableViewController {
         return cell
     }
     
+    // Right swipe for quick water/complete main action
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let plant = fetchedResultsController.object(at: indexPath)
+
+        // TODO: needs to say "Brand New Plant" if lastDateWatered is nil
+        let lastCompletedDate = DateFormatter.lastWateredDateFormatter.string(from: plant.lastDateWatered ?? Date())
+        
+        // Complete task
+        let completeTask = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
+            print("Completed \(plant.mainAction ?? "water") \(plant.nickname!)")
+            // Water/Complete logic
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            completion(true)
+        }
+        completeTask.image = plant.needsWatering ? UIImage.iconArray[Int(plant.actionIconIndex)] : UIImage(systemName: "alarm")
+        completeTask.title = plant.needsWatering ? "\(plant.mainAction ?? "Water")" : "\(lastCompletedDate)"
+        completeTask.backgroundColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+
+        let config = UISwipeActionsConfiguration(actions: [completeTask])
+        config.performsFirstActionWithFullSwipe = plant.needsWatering ? true : false
+                
+        return config
+    }
+    
     /// Give cell 2 options when swiping from right to left (silence notification and delete)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
@@ -315,22 +339,8 @@ class PlantsTableViewController: UITableViewController {
         silence.image = plant.isEnabled ? UIImage(systemName: "bell.slash.fill") : UIImage(systemName: "bell.fill")
         silence.backgroundColor = .lightGray
         
-        // Complete task
-        let completeTask = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
-            print("Completed \(plant.mainAction ?? "water") \(plant.nickname!)")
-            // Water/Complete logic
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            completion(true)
-        }
-        completeTask.image = UIImage.iconArray[Int(plant.actionIconIndex)]
-        completeTask.backgroundColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
-
-        // only include completeTask if plant cell needs watering/completion
-        var config = UISwipeActionsConfiguration(actions: [delete, silence])
-        if plant.needsWatering {
-            config = UISwipeActionsConfiguration(actions: [completeTask, silence, delete])
-        }
-        config.performsFirstActionWithFullSwipe = plant.needsWatering ? true : false
+        let config = UISwipeActionsConfiguration(actions: [delete, silence])
+        config.performsFirstActionWithFullSwipe = false
                 
         return config
     }
