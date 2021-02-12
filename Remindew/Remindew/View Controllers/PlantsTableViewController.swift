@@ -305,20 +305,33 @@ class PlantsTableViewController: UITableViewController {
         }
         delete.image = UIImage(systemName: "trash.fill")
         
-        // TODO: not done yet, needs custom edit method
         // Silence
         let silence = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
             print("Silenced \(plant.nickname!)")
-            // Silence logic
             self.plantController.togglePlantNotifications(plant: plant)
-            completion(false)
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            completion(true)
         }
         silence.image = plant.isEnabled ? UIImage(systemName: "bell.slash.fill") : UIImage(systemName: "bell.fill")
         silence.backgroundColor = .lightGray
         
-        let config = UISwipeActionsConfiguration(actions: [delete, silence])
-        config.performsFirstActionWithFullSwipe = false
-        
+        // Complete task
+        let completeTask = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
+            print("Completed \(plant.mainAction ?? "water") \(plant.nickname!)")
+            // Water/Complete logic
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            completion(true)
+        }
+        completeTask.image = UIImage.iconArray[Int(plant.actionIconIndex)]
+        completeTask.backgroundColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+
+        // only include completeTask if plant cell needs watering/completion
+        var config = UISwipeActionsConfiguration(actions: [delete, silence])
+        if plant.needsWatering {
+            config = UISwipeActionsConfiguration(actions: [completeTask, silence, delete])
+        }
+        config.performsFirstActionWithFullSwipe = plant.needsWatering ? true : false
+                
         return config
     }
 
@@ -385,7 +398,7 @@ extension PlantsTableViewController: NSFetchedResultsControllerDelegate {
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         case .update:
             guard let indexPath = indexPath else { return }
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            tableView.reloadRows(at: [indexPath], with: .right)
         case .move:
             guard let oldIndexPath = indexPath,
                 let newIndexPath = newIndexPath else { return }

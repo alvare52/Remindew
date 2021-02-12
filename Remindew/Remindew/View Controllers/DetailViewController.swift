@@ -893,7 +893,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             print("Silenced \(reminder.actionName!)")
             if let plant = self.plant {
                 self.plantController?.toggleReminderNotification(plant: plant, reminder: reminder)
-                self.resultsTableView.reloadData()
+                self.resultsTableView.reloadRows(at: [indexPath], with: .right)
             }
             completion(false)
         }
