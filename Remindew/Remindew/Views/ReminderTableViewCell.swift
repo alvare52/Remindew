@@ -96,6 +96,9 @@ class ReminderTableViewCell: UITableViewCell {
         
         completeButton.setImage(UIImage.iconArray[Int(reminder.iconIndex)], for: .normal)
         completeButton.tintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
+                
+        reminderLabel.alpha = reminder.isEnabled ? 1.0 : 0.3
+        progressView.alpha = reminder.isEnabled ? 1.0 : 0.3
         
         updateProgressView(reminder: reminder)
     }

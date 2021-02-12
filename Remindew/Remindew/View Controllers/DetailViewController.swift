@@ -883,20 +883,21 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             print("Deleted \(reminder.actionName!)")
             if let plant = self.plant {
                 self.deletionWarningAlert(reminder: reminder, plant: plant, indexPath: indexPath)
-//                self.plantController?.deleteReminderFromPlant(reminder: reminder, plant: plant)
-//                self.resultsTableView.deleteRows(at: [indexPath], with: .fade)
             }
             completion(true)
         }
         delete.image = UIImage(systemName: "trash.fill")
-        
-        // TODO: not done yet, needs custom edit method
+            
         // Silence
         let silence = UIContextualAction(style: .normal, title: "\(reminder.actionName!)") { (action, view, completion) in
             print("Silenced \(reminder.actionName!)")
+            if let plant = self.plant {
+                self.plantController?.toggleReminderNotification(plant: plant, reminder: reminder)
+                self.resultsTableView.reloadData()
+            }
             completion(false)
         }
-        silence.image = UIImage(systemName: "bell.slash.fill")
+        silence.image = reminder.isEnabled ? UIImage(systemName: "bell.slash.fill") : UIImage(systemName: "bell.fill")
         silence.backgroundColor = .lightGray
         
         let config = UISwipeActionsConfiguration(actions: [delete, silence])

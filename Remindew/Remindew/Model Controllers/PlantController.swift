@@ -61,7 +61,7 @@ class PlantController {
     var plantSearchResults: [PlantSearchResult] = []
     var tempToken: TempToken?
     
-    // MARK: - Create, Read, Update, Delete, Save plants
+    // MARK: - Plant CRUD
     
     /// Create a plant and then save it
     func createPlant(nickname: String, species: String, date: Date, frequency: [Int16], scientificName: String, notepad: NotePad, appearanceOptions: AppearanceOptions) -> Plant {
@@ -269,6 +269,23 @@ class PlantController {
         // create new notification? (and delete old just in case)
         deleteReminderNotificationForPlant(reminder: reminder, plant: reminder.plant!)
         createNotificationForReminder(plant: reminder.plant!, reminder: reminder)
+        savePlant()
+    }
+        
+    /// Updates and saves reminder's isEnabled property. Deletes notifications if set to false or enables notifications if set to true
+    func toggleReminderNotification(plant: Plant, reminder: Reminder) {
+        
+        // toggle isEnabled (Reminders always start with isEnabled = true)
+        reminder.isEnabled.toggle()
+        
+        // delete reminder notification either way just in case
+        deleteReminderNotificationForPlant(reminder: reminder, plant: plant)
+        
+        // only create notifications if isEnabled is being set back to true
+        if reminder.isEnabled {
+            createNotificationForReminder(plant: plant, reminder: reminder)
+        }
+        
         savePlant()
     }
     
@@ -652,9 +669,9 @@ class PlantController {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(reminder.identifier!)\(plant.identifier!)"])
     }
     
-    /// Deletes ALL Reminder Notifications for given Plant
+    /// Deletes ALL Reminder Notifications for given Plant (called when Plant is deleted)
     func deleteAllReminderNotificationsForPlant(plant: Plant) {
-        // for reminder in plant.reminders, deleteReminderNotificationForPlant()
+        
         let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
         for reminder in remindersArray {
             deleteReminderNotificationForPlant(reminder: reminder, plant: plant)
