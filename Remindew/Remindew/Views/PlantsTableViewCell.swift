@@ -52,13 +52,20 @@ class PlantsTableViewCell: UITableViewCell {
         speciesLabel.text = species
         daysLabel.text = "\(daysString)"
                 
-        nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
+        // TODO: Setting to use plant color for this?
+//        nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
+        
+        if plant.isEnabled {
+            nicknameLabel.alpha = 1.0
+        } else {
+            nicknameLabel.alpha = 0.3
+        }
         
         if plant.needsWatering {
             plantImageView?.image = UIImage(named: "planticonwater")
         } else {
             plantImageView?.image = UIImage(named: "planticonleaf")
-        }        
+        }
     }
     
     /// Returns a string of all days selected separated by a space (to dispaly in table view cell)

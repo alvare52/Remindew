@@ -22,6 +22,7 @@ extension Reminder {
                                         isEnabled: Bool = true,
                                         notes: String = "",
                                         dateCreated: Date = Date(),
+                                        needsCompletion: Bool = false,
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.actionName = actionName
@@ -36,5 +37,6 @@ extension Reminder {
         self.isEnabled = isEnabled
         self.notes = notes
         self.dateCreated = dateCreated
+        self.needsCompletion = needsCompletion
     }
 }

@@ -5,6 +5,7 @@
         <attribute name="actionIconIndex" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="frequency" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Int16]"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isEnabled" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastDateWatered" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="mainAction" optional="YES" attributeType="String"/>
@@ -30,13 +31,14 @@
         <attribute name="frequency" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="iconIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="isEnabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isEnabled" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="needsCompletion" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <relationship name="plant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Plant" inverseName="reminders" inverseEntity="Plant"/>
     </entity>
     <elements>
-        <element name="Plant" positionX="36" positionY="171" width="128" height="313"/>
-        <element name="Reminder" positionX="38.640625" positionY="471.1640625" width="125.78515625" height="238"/>
+        <element name="Plant" positionX="36" positionY="171" width="128" height="328"/>
+        <element name="Reminder" positionX="38.640625" positionY="471.1640625" width="125.78515625" height="253"/>
     </elements>
 </model>
