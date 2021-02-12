@@ -65,7 +65,7 @@ class PlantController {
     
     /// Create a plant and then save it
     func createPlant(nickname: String, species: String, date: Date, frequency: [Int16], scientificName: String, notepad: NotePad, appearanceOptions: AppearanceOptions) -> Plant {
-        print("createPlant")
+        
         let plant = Plant(nickname: nickname,
                           species: species,
                           water_schedule: date,
@@ -80,10 +80,7 @@ class PlantController {
                           plantColorIndex: appearanceOptions.plantColorIndex,
                           actionIconIndex: appearanceOptions.actionIconIndex,
                           actionColorIndex: appearanceOptions.actionColorIndex)
-        
-        print("plant schedule: \(String(describing: plant.water_schedule))")
-        print("plant frequency: \(String(describing: plant.frequency))")
-
+     
         addRequestsForPlant(plant: plant)
         
         // if notifications are disabled, dont make plant???
@@ -119,10 +116,9 @@ class PlantController {
         plant.actionColorIndex = appearanceOptions.actionColorIndex
         
         // remove pending notifications for this plant first
-        print("removing")
         removeAllRequestsForPlant(plant: plant)
+        
         // then create brand new ones
-        print("adding new ones, \(String(describing: plant.frequency?.count))")
         addRequestsForPlant(plant: plant)
         
         savePlant()
@@ -134,7 +130,6 @@ class PlantController {
         
         var remakeNotifications = true
         if plant.mainTitle == notepad.mainTitle && plant.mainMessage == notepad.mainMessage {
-            print("mainTitle and mainMessage are same as before, so DONT update reminders")
             remakeNotifications = false
         }
         
@@ -145,13 +140,11 @@ class PlantController {
         plant.mainAction = notepad.mainAction
         plant.location = notepad.location
         
-        // TODO: check here if Title and Message are different?
+        // check here if Title and Message are different?
         if remakeNotifications {
             // remove pending notifications for this plant first (if it needs to change title or message)
-            print("removing")
             removeAllRequestsForPlant(plant: plant)
             // then create brand new ones
-            print("adding new ones, \(String(describing: plant.frequency?.count))")
             addRequestsForPlant(plant: plant)
         }
         
@@ -535,6 +528,12 @@ class PlantController {
     func addRequestsForPlant(plant: Plant) {
         print("addRequestsForPlant")
         
+        // only add notifications if plant.isEnabled
+        guard plant.isEnabled else {
+            print("exiting out of addRequestsForPlant because plant.isEnabled is \(plant.isEnabled)")
+            return
+        }
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             switch granted {
             case true:
@@ -566,6 +565,13 @@ class PlantController {
     
     /// Checks if notifications are allowed then creates notification for given Reminder
     func createNotificationForReminder(plant: Plant, reminder: Reminder) {
+        
+        // only create notifications is reminder.isEnabled is true
+        guard reminder.isEnabled else {
+            print("exiting out of createNotificationsForReminder because reminder.isEnabled is \(reminder.isEnabled)")
+            return
+        }
+        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             switch granted {
             case true:
