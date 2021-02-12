@@ -310,9 +310,10 @@ class PlantsTableViewController: UITableViewController {
         let silence = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
             print("Silenced \(plant.nickname!)")
             // Silence logic
+            self.plantController.togglePlantNotifications(plant: plant)
             completion(false)
         }
-        silence.image = UIImage(systemName: "bell.slash.fill")
+        silence.image = plant.isEnabled ? UIImage(systemName: "bell.slash.fill") : UIImage(systemName: "bell.fill")
         silence.backgroundColor = .lightGray
         
         let config = UISwipeActionsConfiguration(actions: [delete, silence])

@@ -173,6 +173,24 @@ class PlantController {
         savePlant()
     }
     
+    /// Updates and saves plant's isEnabled property. Deletes notifications if set to false, enables notifications if set to true
+    func togglePlantNotifications(plant: Plant) {
+        
+        // toggle isEnabled (plants always start with isEnabled = true)
+        plant.isEnabled.toggle()
+        
+        // delete plant's main notifications either way just in case
+        removeAllRequestsForPlant(plant: plant)
+        
+        // only create notifications if isEnabled is being set back to true
+        if plant.isEnabled {
+            addRequestsForPlant(plant: plant)
+        }
+    
+        // save
+        savePlant()
+    }
+    
     /// Deletes plant and then saves or resets if there's an error
     func deletePlant(plant: Plant) {
         
@@ -466,7 +484,7 @@ class PlantController {
         return dateComps
     }
     
-    /// Adds notification requests for all days the plant needs to be watered
+    /// Adds notification requests for all days the plant needs to be watered (called inside of addRequestsForPlant)
     func makeAllRequestsForPlant(plant: Plant) {
         print("makeAllRequestsForPlant")
         
@@ -513,7 +531,7 @@ class PlantController {
         }
     }
     
-    /// Checks to see if notifications are allowed first, then adds all requests
+    /// Checks to see if notifications are allowed first, then adds all requests (by calling makeAllRequestsForPlant)
     func addRequestsForPlant(plant: Plant) {
         print("addRequestsForPlant")
         
