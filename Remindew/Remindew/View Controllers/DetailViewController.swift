@@ -161,6 +161,9 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
+        view.backgroundColor = .customCellColor
+        resultsTableView.backgroundColor = .customCellColor
+        
         // Listen for a notification coming in while app is in the foreground to update detail screen
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(refreshReminders),
