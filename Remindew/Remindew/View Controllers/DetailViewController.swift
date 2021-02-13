@@ -111,17 +111,17 @@ class DetailViewController: UIViewController {
     /// Takes user to screen with larger image view and photo/visual options
     @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
         print("CameraButton tapped")
-        AudioServicesPlaySystemSound(SystemSoundID(1104))
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
-            appearanceVC.modalPresentationStyle = .automatic
-            appearanceVC.mainImage = imageView.image
-            appearanceVC.appearanceDelegate = self
-            appearanceVC.plant = plant
-            present(appearanceVC, animated: true, completion: nil)
-        }
+//        AudioServicesPlaySystemSound(SystemSoundID(1104))
+//        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+//
+//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
+//            appearanceVC.modalPresentationStyle = .automatic
+//            appearanceVC.mainImage = imageView.image
+//            appearanceVC.appearanceDelegate = self
+//            appearanceVC.plant = plant
+//            present(appearanceVC, animated: true, completion: nil)
+//        }
     }
     
     /// Takes user to Add Reminder Screen to create a Reminder
@@ -157,6 +157,22 @@ class DetailViewController: UIViewController {
                     self.makeNotificationsPermissionAlert()
                 }
             }
+        }
+    }
+    
+    /// Tapping on imageView presents AppearanceViewController
+    @objc private func tappedOnImageView() {
+        print("Tapped on imageView")
+        AudioServicesPlaySystemSound(SystemSoundID(1104))
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
+            appearanceVC.modalPresentationStyle = .automatic
+            appearanceVC.mainImage = imageView.image
+            appearanceVC.appearanceDelegate = self
+            appearanceVC.plant = plant
+            present(appearanceVC, animated: true, completion: nil)
         }
     }
         
@@ -197,12 +213,7 @@ class DetailViewController: UIViewController {
         // Lets button be disabled with a custom color
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
         
-        // Hides Keyboard when tapping outside of it
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
-        
-        // so you can still click on the table view
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        addTouchGestures()
         
         nicknameTextField.borderStyle = .none
         nicknameTextField.delegate = self
@@ -453,6 +464,29 @@ class DetailViewController: UIViewController {
         resultsTableView.reloadData()
         // TODO: also check if the plant shown needs to be watered by checking its watering status
         // checkWateringStatus(plant: Plant)
+    }
+    
+    /// Adds up swipe and down swipe gesture recognizers to dismiss keyboard and tap gesture on imageView to present AppearanceViewController
+    private func addTouchGestures() {
+        
+        // Hides Keyboard when swiping up
+        let swipe = UISwipeGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        // so you can still click on the table view
+        swipe.cancelsTouchesInView = false
+        swipe.direction = .up
+        view.addGestureRecognizer(swipe)
+        
+        // Hides Keyboard when swiping down
+        let downSwipe = UISwipeGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        // so you can still click on the table view
+        downSwipe.cancelsTouchesInView = false
+        downSwipe.direction = .down
+        view.addGestureRecognizer(downSwipe)
+        
+        // Tap Gesture Recognizer for imageView
+        let tapOnImageView = UITapGestureRecognizer(target: self, action: #selector(tappedOnImageView))
+        imageView.addGestureRecognizer(tapOnImageView)
+        imageView.isUserInteractionEnabled = true
     }
     
     /// Presents SearchViewController when hitting "search" in species textfield and passes in search term and starts search
