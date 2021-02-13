@@ -329,12 +329,13 @@
                                     <action selector="notesButtonTapped:" destination="egV-2b-yvb" id="OM8-Mp-tWh"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem image="photo" catalog="system" id="aUm-Vv-L4D"/>
+                            <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
                             <barButtonItem image="bell.circle" catalog="system" id="nTd-PE-hrc">
                                 <connections>
                                     <action selector="reminderButtonTapped:" destination="egV-2b-yvb" id="SX3-Ob-uk8"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -421,6 +422,7 @@
         <image name="bell.circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <namedColor name="customBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

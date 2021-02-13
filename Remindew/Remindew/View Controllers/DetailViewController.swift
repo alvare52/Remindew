@@ -136,12 +136,7 @@ class DetailViewController: UIViewController {
     }
     
     /// Tapping on imageView presents AppearanceViewController
-    @objc private func tappedOnImageView() {
-        print("Tapped on imageView")
-        
-        resultsTableView.reloadData()
-        return
-            
+    @objc private func tappedOnImageView() {                    
         AudioServicesPlaySystemSound(SystemSoundID(1104))
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         
