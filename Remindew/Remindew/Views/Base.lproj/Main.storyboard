@@ -350,6 +350,7 @@
                         <outlet property="plantButton" destination="Jc8-md-hGl" id="dfq-tJ-MmY"/>
                         <outlet property="reminderButtonLabel" destination="nTd-PE-hrc" id="U26-Lx-hyt"/>
                         <outlet property="resultsTableView" destination="p9v-0H-cvy" id="hcc-G3-nmQ"/>
+                        <outlet property="spacerButton" destination="aUm-Vv-L4D" id="NbK-B5-wXq"/>
                         <outlet property="speciesTextField" destination="ucM-Fj-27g" id="p73-rD-hQY"/>
                         <outlet property="waterPlantButton" destination="PZL-BI-0Bw" id="PWN-E2-9ML"/>
                     </connections>

@@ -26,6 +26,7 @@ class DetailViewController: UIViewController {
     @IBOutlet var dayProgressView: UIProgressView!
     @IBOutlet var notesButtonLabel: UIBarButtonItem!
     @IBOutlet var reminderButtonLabel: UIBarButtonItem!
+    @IBOutlet var spacerButton: UIBarButtonItem!
     
     // MARK: - Properties
     
@@ -158,6 +159,9 @@ class DetailViewController: UIViewController {
         
         view.backgroundColor = .customCellColor
         resultsTableView.backgroundColor = .customCellColor
+        
+        spacerButton.tintColor = .clear
+        spacerButton.isEnabled = false
         
         // Listen for a notification coming in while app is in the foreground to update detail screen
         NotificationCenter.default.addObserver(self,
