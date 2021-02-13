@@ -34,6 +34,8 @@ class DetailViewController: UIViewController {
     
     var plant: Plant? {
         didSet {
+            
+            sortReminders()
             updateViews()
         }
     }
@@ -54,21 +56,24 @@ class DetailViewController: UIViewController {
         }
     }
     
-    /// Holds array of Reminders to belong to self.plant?
-    var reminders: [Reminder] {
-        
-        if let plant = plant {
-            let resultsArray = plant.reminders?.allObjects as! Array<Reminder>
-            return resultsArray.sorted(by: { lhs, rhs in
-                // sort array by which date is the soonest
-                // TODO: add setting to sort by reminder name instead?
-                return lhs.alarmDate! < rhs.alarmDate!
-            })
-        }
-        // Return empty array if no plant (ADD Mode)
-//        resultsTableView.isHidden = true
-        return []
-    }
+    /// Holds array of Reminders that belong to self.plant (starts empty)
+    var reminders: [Reminder] = []
+    
+//    /// Holds array of Reminders to belong to self.plant?
+//    var reminders: [Reminder] {
+//
+//        if let plant = plant {
+//            let resultsArray = plant.reminders?.allObjects as! Array<Reminder>
+//            return resultsArray.sorted(by: { lhs, rhs in
+//                // sort array by which date is the soonest
+//                // TODO: add setting to sort by reminder name instead?
+//                return lhs.alarmDate! < rhs.alarmDate!
+//            })
+//        }
+//        // Return empty array if no plant (ADD Mode)
+////        resultsTableView.isHidden = true
+//        return []
+//    }
     
     /// Holds scientificName grabbed from plant species search
     var fetchedScientificName = ""
@@ -431,6 +436,17 @@ class DetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    private func sortReminders() {
+        if let plant = plant {
+            let resultsArray = plant.reminders?.allObjects as! Array<Reminder>
+            reminders = resultsArray.sorted(by: { lhs, rhs in
+                // sort array by which date is the soonest
+                // TODO: add setting to sort by reminder name instead?
+                return lhs.alarmDate! < rhs.alarmDate!
+            })
+        }
+    }
+    
     /// Refreshes all Plant reminders when a notification goes off while on the Detail screen
     @objc func refreshReminders() {
         print("refreshReminders called, reloading tableview")
@@ -761,6 +777,7 @@ extension DetailViewController: UITextFieldDelegate {
             // NEW
             presentSearchViewController()
             return true
+            // TODO: Remove everything after this
             
             // if there's still a search going on, exit out
             if spinner.isAnimating {
@@ -886,9 +903,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             completion(true)
         }
         
-        var lastCompletedString = DateFormatter.lastWateredDateFormatter.string(from: reminder.lastDate ?? Date())
+        var lastCompletedString = NSLocalizedString("Last: ", comment: "last time completed") + "\n" + DateFormatter.shortTimeAndDateFormatter.string(from: reminder.lastDate ?? Date())
         if reminder.lastDate == nil {
-            lastCompletedString = NSLocalizedString("New Reminder", comment: "reminder that hasn't been completed yet")
+            lastCompletedString = NSLocalizedString("Made: ", comment: "date created label") + "\n" +
+                "\(DateFormatter.shortTimeAndDateFormatter.string(from: reminder.dateCreated!))"
         }
         
         lastDatePanel.title = lastCompletedString

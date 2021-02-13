@@ -313,7 +313,7 @@ class PlantsTableViewController: UITableViewController {
         }
         
         completeTask.image = plant.needsWatering ? UIImage.iconArray[Int(plant.actionIconIndex)] : UIImage(systemName: "clock.arrow.circlepath")
-        completeTask.title = plant.needsWatering ? "\(plant.mainAction ?? "Water")" : "\(lastCompletedString)"
+        completeTask.title = plant.needsWatering ? "\(plant.mainAction ?? "Water")" : lastCompletedString
         completeTask.backgroundColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
 
         let config = UISwipeActionsConfiguration(actions: [completeTask])

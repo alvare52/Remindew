@@ -352,6 +352,16 @@ extension DateFormatter {
         formatter.dateStyle = .medium
         return formatter
     }()
+    
+    /// Reminder Cell Right Swipe Action
+    /// ENG:  SPA:
+    /// dateStyle = .short, timeStyle  = .short
+    static let shortTimeAndDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }()
 }
 
 extension UNUserNotificationCenter {
