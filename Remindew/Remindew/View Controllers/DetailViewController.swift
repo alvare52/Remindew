@@ -876,9 +876,31 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // TODO: add leading swipe action that only shows last date (maybe date created?)
+    // Right swipe actions
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let reminder = reminders[indexPath.row]
+        
+        // Last Date
+        let lastDatePanel = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
+            completion(true)
+        }
+        
+        var lastCompletedString = DateFormatter.lastWateredDateFormatter.string(from: reminder.lastDate ?? Date())
+        if reminder.lastDate == nil {
+            lastCompletedString = NSLocalizedString("New Reminder", comment: "reminder that hasn't been completed yet")
+        }
+        
+        lastDatePanel.title = lastCompletedString
+        lastDatePanel.backgroundColor = UIColor.colorsArray[Int(reminder.colorIndex)]
+
+        let config = UISwipeActionsConfiguration(actions: [lastDatePanel])
+        config.performsFirstActionWithFullSwipe = false
+                
+        return config
+    }
     
-    /// Give cell 2 options when swiping from right to left (silence notification and delete)
+    // Left swipe actions
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let reminder = reminders[indexPath.row]

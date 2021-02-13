@@ -294,6 +294,7 @@ class PlantsTableViewController: UITableViewController {
     
     // Right swipe to complete main action / show lastWatered date
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let plant = fetchedResultsController.object(at: indexPath)
         
         // Complete task
