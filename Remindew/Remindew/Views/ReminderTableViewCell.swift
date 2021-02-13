@@ -78,6 +78,9 @@ class ReminderTableViewCell: UITableViewCell {
         }
     }
     
+    /// Holds delegate we get from DetailViewController (we tell it to reload its tableview)
+    var reminderDelegate: ReminderDelegate?
+    
     /// Holds PlantController that's passed in from DetailViewController to update reminders
     var plantController: PlantController?
     
@@ -161,6 +164,7 @@ class ReminderTableViewCell: UITableViewCell {
         completeButton.isHidden = true
         // update views
         updateViews()
+        reminderDelegate?.didAddOrUpdateReminder()
     }
     
     /// Sets up all custom views

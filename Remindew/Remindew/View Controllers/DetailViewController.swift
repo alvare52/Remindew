@@ -33,8 +33,6 @@ class DetailViewController: UIViewController {
     
     var plant: Plant? {
         didSet {
-            
-            sortReminders()
             updateViews()
         }
     }
@@ -54,25 +52,19 @@ class DetailViewController: UIViewController {
             resultsTableView.reloadData()
         }
     }
-    
-    /// Holds array of Reminders that belong to self.plant (starts empty)
-    var reminders: [Reminder] = []
-    
-//    /// Holds array of Reminders to belong to self.plant?
-//    var reminders: [Reminder] {
-//
-//        if let plant = plant {
-//            let resultsArray = plant.reminders?.allObjects as! Array<Reminder>
-//            return resultsArray.sorted(by: { lhs, rhs in
-//                // sort array by which date is the soonest
-//                // TODO: add setting to sort by reminder name instead?
-//                return lhs.alarmDate! < rhs.alarmDate!
-//            })
-//        }
-//        // Return empty array if no plant (ADD Mode)
-////        resultsTableView.isHidden = true
-//        return []
-//    }
+        
+    /// Holds array of Reminders to belong to self.plant?
+    var reminders: [Reminder] {
+        
+        // Edit Mode
+        if let plant = plant {
+            var resultsArray = plant.reminders?.allObjects as! Array<Reminder>
+            resultsArray.sort() { $0.alarmDate! < $1.alarmDate! }
+            return resultsArray
+        }
+        // Add Mode
+        return []
+    }
     
     /// Holds scientificName grabbed from plant species search
     var fetchedScientificName = ""
@@ -146,6 +138,10 @@ class DetailViewController: UIViewController {
     /// Tapping on imageView presents AppearanceViewController
     @objc private func tappedOnImageView() {
         print("Tapped on imageView")
+        
+        resultsTableView.reloadData()
+        return
+            
         AudioServicesPlaySystemSound(SystemSoundID(1104))
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         
@@ -429,18 +425,7 @@ class DetailViewController: UIViewController {
         // Go back to main screen
         navigationController?.popViewController(animated: true)
     }
-    
-    private func sortReminders() {
-        if let plant = plant {
-            let resultsArray = plant.reminders?.allObjects as! Array<Reminder>
-            reminders = resultsArray.sorted(by: { lhs, rhs in
-                // sort array by which date is the soonest
-                // TODO: add setting to sort by reminder name instead?
-                return lhs.alarmDate! < rhs.alarmDate!
-            })
-        }
-    }
-    
+        
     /// Refreshes all Plant reminders when a notification goes off while on the Detail screen
     @objc func refreshReminders() {
         print("refreshReminders called, reloading tableview")
@@ -660,8 +645,7 @@ class DetailViewController: UIViewController {
         // handler could select the textfield it needs or change textview text??
         self.dayProgressView.progress = 0.0
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-//            self.textView.text = NSLocalizedString("Select at least one of the days below",
-//                                                   comment: "Hint on how to set a least one reminder")
+
             UIView.animate(withDuration: 0.275) {
                 self.dayProgressView.setProgress(1.0, animated: true)
             }
@@ -696,6 +680,7 @@ class DetailViewController: UIViewController {
         let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete Plant Option"), style: .destructive) { _ in
             self.plantController?.deleteReminderFromPlant(reminder: reminder, plant: plant)
             self.resultsTableView.deleteRows(at: [indexPath], with: .fade)
+            self.resultsTableView.reloadData()
         }
         
         alertController.addAction(cancelAction)
@@ -891,6 +876,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
 
         reminderCell.reminder = reminders[indexPath.row]
         reminderCell.plantController = plantController
+        reminderCell.reminderDelegate = self
 
         return reminderCell
     }
@@ -910,7 +896,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // Right swipe actions
+    // BUG: swiping on cell that was just completed uses correct index path but needs to reload tableview first
+    // Right swipe actions (last completed date)
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let reminder = reminders[indexPath.row]
@@ -935,7 +922,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         return config
     }
     
-    // Left swipe actions
+    // Left swipe actions (Silence, Delete)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let reminder = reminders[indexPath.row]
@@ -1024,7 +1011,7 @@ extension DetailViewController: AppearanceDelegate {
 
 extension DetailViewController: ReminderDelegate {
     
-    func didAddReminder() {
+    func didAddOrUpdateReminder() {
         resultsTableView.reloadData()
     }
 }

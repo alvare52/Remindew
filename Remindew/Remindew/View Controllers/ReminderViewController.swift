@@ -10,7 +10,7 @@ import UIKit
 
 protocol ReminderDelegate {
     /// notify DetailViewController to update table view when reminder is added or updated
-    func didAddReminder()
+    func didAddOrUpdateReminder()
 }
 
 class ReminderViewController: UIViewController {
@@ -282,7 +282,7 @@ class ReminderViewController: UIViewController {
         }
         
         // update table view in DetailViewController
-        reminderDelegate?.didAddReminder()
+        reminderDelegate?.didAddOrUpdateReminder()
         dismiss(animated: true, completion: nil)
     }
     
