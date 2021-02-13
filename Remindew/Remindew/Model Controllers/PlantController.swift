@@ -151,17 +151,17 @@ class PlantController {
         savePlant()
     }
     
-    /// Called after reminder goes off so it doesn't keep going off
+    /// Update plant's needsWatering status, set lastWateredDate, and save
     func updatePlantWithWatering(plant: Plant, needsWatering: Bool) {
         
         plant.needsWatering = needsWatering
         
-        // if it goes from TRUE to FALSE (water plant button clicked), then update last watered
+        // if it goes from TRUE to FALSE (water plant button / leading swipe), then update last watered
         if needsWatering == false {
             plant.lastDateWatered = Date()
         }
         
-        // if it goes from FALSE to TRUE, then leave last watered alone (checkWateringStatus)
+        // if it goes from FALSE to TRUE, (checkWateringStatus) then leave last watered alone
         
         savePlant()
     }

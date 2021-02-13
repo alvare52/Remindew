@@ -56,9 +56,9 @@ class PlantsTableViewCell: UITableViewCell {
 //        nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
         
         if plant.isEnabled {
-            nicknameLabel.alpha = 1.0
+            nicknameLabel.textColor = .mixedBlueGreen
         } else {
-            nicknameLabel.alpha = 0.3
+            nicknameLabel.textColor = .lightGray
         }
         
         if plant.needsWatering {

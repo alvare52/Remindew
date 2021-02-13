@@ -292,14 +292,16 @@ class PlantsTableViewController: UITableViewController {
         return cell
     }
     
-    // Right swipe for quick water/complete main action
+    // Right swipe to complete main action / show lastWatered date
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let plant = fetchedResultsController.object(at: indexPath)
         
         // Complete task
         let completeTask = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
             print("Completed \(plant.mainAction ?? "water") \(plant.nickname!)")
-            // Water/Complete logic
+            if plant.needsWatering {
+                self.plantController.updatePlantWithWatering(plant: plant, needsWatering: false)
+            }
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
             completion(true)
         }

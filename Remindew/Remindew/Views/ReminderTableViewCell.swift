@@ -90,15 +90,13 @@ class ReminderTableViewCell: UITableViewCell {
         
         guard let reminder = reminder else { return }
         reminderLabel.text = reminder.actionName
-        reminderLabel.textColor = UIColor.colorsArray[Int(reminder.colorIndex)]
         alarmDateLabel.text = DateFormatter.dateOnlyDateFormatter.string(from: reminder.alarmDate ?? Date())
-        progressView.progressTintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
         
         completeButton.setImage(UIImage.iconArray[Int(reminder.iconIndex)], for: .normal)
         completeButton.tintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
                 
-        reminderLabel.alpha = reminder.isEnabled ? 1.0 : 0.3
-        progressView.alpha = reminder.isEnabled ? 1.0 : 0.3
+        reminderLabel.textColor = reminder.isEnabled ? UIColor.colorsArray[Int(reminder.colorIndex)] : .lightGray
+        progressView.progressTintColor = reminder.isEnabled ? UIColor.colorsArray[Int(reminder.colorIndex)] : .lightGray
         
         updateProgressView(reminder: reminder)
     }

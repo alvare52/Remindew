@@ -873,13 +873,15 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // TODO: add leading swipe action that only shows last date (maybe date created?)
+    
     /// Give cell 2 options when swiping from right to left (silence notification and delete)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let reminder = reminders[indexPath.row]
         
         // Delete
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
+        let delete = UIContextualAction(style: .destructive, title: "") { (action, view, completion) in
             print("Deleted \(reminder.actionName!)")
             if let plant = self.plant {
                 self.deletionWarningAlert(reminder: reminder, plant: plant, indexPath: indexPath)
@@ -895,10 +897,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
                 self.plantController?.toggleReminderNotification(plant: plant, reminder: reminder)
                 self.resultsTableView.reloadRows(at: [indexPath], with: .right)
             }
-            completion(false)
+            completion(true)
         }
         silence.image = reminder.isEnabled ? UIImage(systemName: "bell.slash.fill") : UIImage(systemName: "bell.fill")
-        silence.backgroundColor = .lightGray
+        silence.backgroundColor = .systemIndigo
         
         let config = UISwipeActionsConfiguration(actions: [delete, silence])
         config.performsFirstActionWithFullSwipe = false
