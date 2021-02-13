@@ -19,7 +19,7 @@ class CustomizationView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.colorsArray[0]
         label.backgroundColor = .white
-        label.text = "Leaf Erikson"
+        label.text = "Name"
         label.font = .boldSystemFont(ofSize: 25)
         label.isEnabled = false
         label.autocorrectionType = .no

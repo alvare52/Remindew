@@ -163,6 +163,10 @@ class AppearanceViewController: UIViewController {
         // EDIT/DETAIL Mode
         if let plant = plant {
             print("edit mode AVC")
+            
+            plantCustomizationView.plantNameLabel.text = plant.nickname
+            actionCustomizationView.plantNameLabel.text = plant.mainAction
+            
             plantCustomizationView.localIconCount = Int(plant.plantIconIndex)
             plantCustomizationView.localColorsCount = Int(plant.plantColorIndex)
             actionCustomizationView.localIconCount = Int(plant.actionIconIndex)
@@ -172,6 +176,10 @@ class AppearanceViewController: UIViewController {
         // ADD Mode
         else {
             print("add mode AVC")
+            
+            plantCustomizationView.plantNameLabel.text = NSLocalizedString("Nickname", comment: "nickname")
+            actionCustomizationView.plantNameLabel.text = NSLocalizedString("Water", comment: "water")
+            
             plantCustomizationView.localIconCount = 8
             plantCustomizationView.localColorsCount = 0
             actionCustomizationView.localIconCount = 0
