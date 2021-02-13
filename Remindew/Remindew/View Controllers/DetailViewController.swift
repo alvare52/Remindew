@@ -20,7 +20,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var backButton: UINavigationItem!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var waterPlantButton: UIButton!
-    @IBOutlet var cameraButtonLabel: UIBarButtonItem!
     @IBOutlet var daySelectorOutlet: DaySelectionView!
     @IBOutlet var dateLabel: UIBarButtonItem!
     @IBOutlet var resultsTableView: UITableView!
@@ -107,23 +106,7 @@ class DetailViewController: UIViewController {
             navigationController?.popViewController(animated: true)
         }
     }
-    
-    /// Takes user to screen with larger image view and photo/visual options
-    @IBAction func cameraButtonTapped(_ sender: UIBarButtonItem) {
-        print("CameraButton tapped")
-//        AudioServicesPlaySystemSound(SystemSoundID(1104))
-//        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-//
-//        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
-//            appearanceVC.modalPresentationStyle = .automatic
-//            appearanceVC.mainImage = imageView.image
-//            appearanceVC.appearanceDelegate = self
-//            appearanceVC.plant = plant
-//            present(appearanceVC, animated: true, completion: nil)
-//        }
-    }
-    
+        
     /// Takes user to Add Reminder Screen to create a Reminder
     @IBAction func reminderButtonTapped(_ sender: UIBarButtonItem) {
         print("reminder button tapped")
