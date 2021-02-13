@@ -102,17 +102,12 @@ class DetailViewController: UIViewController {
         
     /// Takes user to Add Reminder Screen to create a Reminder
     @IBAction func reminderButtonTapped(_ sender: UIBarButtonItem) {
-        print("reminder button tapped")
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
-            reminderVC.modalPresentationStyle = .automatic
-            reminderVC.plantController = plantController
-            reminderVC.plant = plant
-            reminderVC.reminderDelegate = self
-            present(reminderVC, animated: true, completion: nil)
-        }
+        
+        // if in Edit Mode, go to ReminderViewController. Add Mode, go to SearchViewController
+        plant != nil ? presentReminderViewController() : presentSearchViewController()
     }
-    
+        
+    /// Add/Save plant but first checks if notifications are enabled. Presents alert or add/edits entered plant
     @IBAction func plantButtonTapped(_ sender: UIButton) {
         
         // first check if notifications are enabled (alerts, badges, and sounds)
@@ -177,7 +172,6 @@ class DetailViewController: UIViewController {
         
         resultsTableView.delegate = self
         resultsTableView.dataSource = self
-//        resultsTableView.isHidden = true
         resultsTableView.separatorInset = .zero
         resultsTableView.layoutMargins = .zero
         
@@ -193,11 +187,12 @@ class DetailViewController: UIViewController {
         
         addTouchGestures()
         
+        nicknameTextField.autocorrectionType = .no
         nicknameTextField.borderStyle = .none
         nicknameTextField.delegate = self
         nicknameTextField.attributedPlaceholder = NSAttributedString(string: "Nickname",
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        
+        speciesTextField.autocorrectionType = .no
         speciesTextField.borderStyle = .none
         speciesTextField.delegate = self
         speciesTextField.returnKeyType = .search
@@ -207,13 +202,7 @@ class DetailViewController: UIViewController {
         plantButton.layer.cornerRadius = plantButton.frame.height / 2
         waterPlantButton.backgroundColor = UIColor.colorsArray[1]
         waterPlantButton.layer.cornerRadius = waterPlantButton.frame.height / 2
-            
-        nicknameTextField.autocorrectionType = .no
-        speciesTextField.autocorrectionType = .no
-        
-        // ?
-        datePicker.contentHorizontalAlignment = .right
-
+                    
         updateViews()
     }
         
@@ -230,13 +219,7 @@ class DetailViewController: UIViewController {
             self.dayProgressView.setProgress(1.0, animated: true)
         }
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // hide tableview when this screen disappears
-        resultsTableView.isHidden = true
-    }
-    
+        
     // MARK: - Helpers
     
     /// Update all views depending on if in Edit/Add mode
@@ -277,10 +260,9 @@ class DetailViewController: UIViewController {
             daySelectorOutlet.selectDays((plant.frequency)!)
             waterPlantButton.isHidden = false
             
-            // unhide reminder button (keep hidden if reminder count has reached limit)
-            reminderButtonLabel.tintColor = .mixedBlueGreen
-            reminderButtonLabel.isEnabled = true
-            
+            // unhide reminder button
+            reminderButtonLabel.image = UIImage(systemName: "bell.circle")
+
             plantButton.backgroundColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
             waterPlantButton.backgroundColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
             
@@ -306,9 +288,8 @@ class DetailViewController: UIViewController {
             speciesTextField.text = ""
             waterPlantButton.isHidden = true
             
-            // hide reminderButton
-            reminderButtonLabel.isEnabled = false
-            reminderButtonLabel.tintColor = .clear
+            // change reminderButton to search button
+            reminderButtonLabel.image = UIImage(systemName: "magnifyingglass")
             
             plantButton.performFlare()
         }
@@ -456,16 +437,30 @@ class DetailViewController: UIViewController {
         imageView.isUserInteractionEnabled = true
     }
     
+    /// Modally presents ReminderViewController, passing along plant, plantController, and self as a delegate
+    private func presentReminderViewController() {
+        
+        guard let plant = plant else { return }
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let reminderVC = storyboard.instantiateViewController(identifier: "ReminderViewControllerID") as? ReminderViewController {
+            reminderVC.modalPresentationStyle = .automatic
+            reminderVC.plantController = plantController
+            reminderVC.plant = plant
+            reminderVC.reminderDelegate = self
+            present(reminderVC, animated: true, completion: nil)
+        }
+    }
+    
     /// Presents SearchViewController when hitting "search" in species textfield and passes in search term and starts search
     private func presentSearchViewController() {
+        
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let searchVC = storyboard.instantiateViewController(identifier: "SearchViewControllerID") as? SearchViewController {
             searchVC.modalPresentationStyle = .automatic
             searchVC.plantController = plantController
             searchVC.resultDelegate = self
-            
             searchVC.passedInSearchTerm = self.speciesTextField.text
-            
             present(searchVC, animated: true, completion: nil)
         }
     }
