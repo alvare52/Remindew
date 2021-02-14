@@ -103,6 +103,12 @@ class DetailViewController: UIViewController {
     /// Takes user to Add Reminder Screen to create a Reminder
     @IBAction func reminderButtonTapped(_ sender: UIBarButtonItem) {
         
+        if reminders.count >= 7 {
+            UIAlertController.makeAlert(title: "Reached Reminders Limit",
+                                        message: "You've reached your limit of Reminders",
+                                        vc: self)
+        }
+        
         // if in Edit Mode, go to ReminderViewController. Add Mode, go to SearchViewController
         plant != nil ? presentReminderViewController() : presentSearchViewController()
     }
