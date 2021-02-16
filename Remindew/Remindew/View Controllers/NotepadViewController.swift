@@ -86,7 +86,7 @@ class NotepadViewController: UIViewController {
     let actionTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Water"
+        textfield.placeholder = "Action"
         textfield.text = NSLocalizedString("Water", comment: "water, default main action")
         textfield.contentVerticalAlignment = .bottom
         textfield.textColor = .waterBlue
@@ -94,74 +94,12 @@ class NotepadViewController: UIViewController {
     }()
     
     /// Notification bubble view (88 pts height), holds title and message textfields
-    // TODO: make this a NotificationView
-    let notificationView: UIView = {
-        let view = UIView()
+    let notificationView: NotificationView = {
+        let view = NotificationView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 15
-        view.backgroundColor = .orange
         return view
     }()
-    
-    /// Displays small app icon image in top left corner of notification view
-    let smallIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 5
-        imageView.backgroundColor = .white
-        imageView.image = UIImage.smallAppIconImage
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    /// Displays name of app in notification view
-    let appNameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12, weight: .light)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.text = "REMINDEW"
-        return label
-    }()
-    
-    /// Displays how many minutes ago notification was sent (purely visual)
-    let timeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 12, weight: .light)
-        label.text = "16m ago"
-        label.textAlignment = .right
-        return label
-    }()
-    
-    let reminderTitleTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Reminder Title"
-        textfield.text = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
-        textfield.backgroundColor = .clear
-        textfield.textColor = .white
-        textfield.font = .systemFont(ofSize: 14, weight: .semibold)
-        textfield.contentVerticalAlignment = .bottom
-        textfield.tintColor = .white
-        return textfield
-    }()
-    
-    let reminderMessageTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Reminder Message"
-        textfield.text = NSLocalizedString("One of your plants needs water", comment: "Message for notification")
-        textfield.font = .systemFont(ofSize: 14)
-        textfield.textColor = .white
-        textfield.backgroundColor = .clear
-        textfield.tintColor = .white
-        textfield.contentVerticalAlignment = .top
-        return textfield
-    }()
-        
+
     /// Thin gray line thats under scientificNameTextfield
     let scientificLine: UIView = {
         let lineBreak = UIView()
@@ -215,8 +153,8 @@ class NotepadViewController: UIViewController {
         // EDIT/DETAIL Mode
         if let plant = plant {
             scientificNameTextfield.text = plant.scientificName
-            reminderTitleTextfield.text = plant.mainTitle
-            reminderMessageTextfield.text = plant.mainMessage
+            notificationView.reminderTitleTextfield.text = plant.mainTitle
+            notificationView.reminderMessageTextfield.text = plant.mainMessage
             actionTextfield.text = plant.mainAction
             locationTextfield.text = plant.location
             notesTextView.text = plant.notes
@@ -238,8 +176,8 @@ class NotepadViewController: UIViewController {
         print("Save button tapped")
         
         let notepad = NotePad(notes: notesTextView.text,
-                              mainTitle: reminderTitleTextfield.text ?? "",
-                              mainMessage: reminderMessageTextfield.text ?? "",
+                              mainTitle: notificationView.reminderTitleTextfield.text ?? "",
+                              mainMessage: notificationView.reminderMessageTextfield.text ?? "",
                               mainAction: actionTextfield.text ?? NSLocalizedString("Water", comment: "water, default main action"),
                               location: locationTextfield.text?.capitalized ?? "",
                               scientificName: scientificNameTextfield.text ?? "")
@@ -353,38 +291,6 @@ class NotepadViewController: UIViewController {
         notificationView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         notificationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notificationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        
-        // Small Icon ImageView
-        notificationView.addSubview(smallIconImageView)
-        smallIconImageView.topAnchor.constraint(equalTo: notificationView.topAnchor, constant: 10).isActive = true
-        smallIconImageView.leadingAnchor.constraint(equalTo: notificationView.leadingAnchor, constant: 12).isActive = true
-        smallIconImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        smallIconImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        
-        // App Name Label
-        notificationView.addSubview(appNameLabel)
-        appNameLabel.centerYAnchor.constraint(equalTo: smallIconImageView.centerYAnchor).isActive = true
-        appNameLabel.leadingAnchor.constraint(equalTo: smallIconImageView.trailingAnchor, constant: 8).isActive = true
-        appNameLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        // Time Label
-        notificationView.addSubview(timeLabel)
-        timeLabel.centerYAnchor.constraint(equalTo: smallIconImageView.centerYAnchor).isActive = true
-        timeLabel.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor, constant: -16).isActive = true
-        timeLabel.widthAnchor.constraint(equalTo: saveButton.widthAnchor).isActive = true
-        
-        // Reminder Title ("Time to water your plant") Textfield
-        notificationView.addSubview(reminderTitleTextfield)
-        reminderTitleTextfield.topAnchor.constraint(equalTo: smallIconImageView.bottomAnchor, constant: 4).isActive = true
-        reminderTitleTextfield.leadingAnchor.constraint(equalTo: smallIconImageView.leadingAnchor).isActive = true
-        reminderTitleTextfield.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor,
-                                                         constant: -16).isActive = true
-        
-        // Reminder Message Textfield
-        notificationView.addSubview(reminderMessageTextfield)
-        reminderMessageTextfield.topAnchor.constraint(equalTo: reminderTitleTextfield.bottomAnchor).isActive = true
-        reminderMessageTextfield.leadingAnchor.constraint(equalTo: reminderTitleTextfield.leadingAnchor).isActive = true
-        reminderMessageTextfield.trailingAnchor.constraint(equalTo: reminderTitleTextfield.trailingAnchor).isActive = true
         
         // Notes Textview
         contentView.addSubview(notesTextView)

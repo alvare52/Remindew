@@ -99,64 +99,7 @@ class ReminderViewController: UIViewController {
         tempSwitch.isOn = true
         return tempSwitch
     }()
-    
-    /// Displays small app icon image in top left corner of notification view
-    let smallIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 5
-        imageView.backgroundColor = .white
-        imageView.image = UIImage.smallAppIconImage
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    /// Displays name of app in notification view
-    let appNameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12, weight: .light)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.text = "REMINDEW"
-        return label
-    }()
-    
-    /// Displays how many minutes ago notification was sent (purely visual)
-    let timeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 12, weight: .light)
-        label.text = "16m ago"
-        label.textAlignment = .right
-        return label
-    }()
-    
-    let reminderTitleTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.text = "Custom Reminder Title"
-        textfield.backgroundColor = .clear
-        textfield.textColor = .white
-        textfield.font = .systemFont(ofSize: 14, weight: .semibold)
-        textfield.contentVerticalAlignment = .bottom
-        textfield.tintColor = .white
-        return textfield
-    }()
-    
-    let reminderMessageTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.text = "Custom Reminder Message"
-        textfield.font = .systemFont(ofSize: 14)
-        textfield.textColor = .white
-        textfield.backgroundColor = .clear
-        textfield.tintColor = .white
-        textfield.contentVerticalAlignment = .top
-        return textfield
-    }()
-    
+       
     /// Custom View that looks like Notifications banners
     let notificationBubble: NotificationView = {
         let view = NotificationView()
