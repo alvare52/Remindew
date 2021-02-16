@@ -35,7 +35,7 @@ class NotepadViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Brand New Plant"
         label.textColor = .waterBlue
-        label.backgroundColor = .white
+        label.backgroundColor = .clear
         label.textAlignment = .left
         label.numberOfLines = 1
         label.contentMode = .bottom
@@ -61,7 +61,7 @@ class NotepadViewController: UIViewController {
         scienceTextfield.translatesAutoresizingMaskIntoConstraints = false
         scienceTextfield.font = .italicSystemFont(ofSize: 17)
         scienceTextfield.placeholder = "Scientific name"
-        scienceTextfield.backgroundColor = .white
+        scienceTextfield.backgroundColor = .clear
         scienceTextfield.contentVerticalAlignment = .bottom
         return scienceTextfield
     }()
@@ -130,7 +130,6 @@ class NotepadViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = .systemFont(ofSize: 12, weight: .light)
-//        label.backgroundColor = .orange
         label.text = "16m ago"
         label.textAlignment = .right
         return label
@@ -190,7 +189,7 @@ class NotepadViewController: UIViewController {
         textView.text = "Notes"
         textView.font = .systemFont(ofSize: 14)
         textView.layer.cornerRadius = 15
-        textView.backgroundColor = .lightModeBackgroundGray
+        textView.backgroundColor = .customBackgroundColor
         textView.contentMode = .left
         return textView
     }()
