@@ -171,7 +171,7 @@ class ReminderViewController: UIViewController {
         textView.text = "Notes"
         textView.font = .systemFont(ofSize: 14)
         textView.layer.cornerRadius = 15
-        textView.backgroundColor = .customBackgroundColor//.lightModeBackgroundGray
+        textView.backgroundColor = .secondarySystemBackground
         textView.contentMode = .left
         return textView
     }()

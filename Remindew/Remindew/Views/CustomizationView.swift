@@ -52,7 +52,7 @@ class CustomizationView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
         button.tintColor = UIColor.colorsArray[0]
-        button.setImage(UIImage(systemName: "paintbrush"), for: .normal)
+        button.setImage(UIImage(systemName: "paintbrush.fill"), for: .normal)
         return button
     }()
     
@@ -108,10 +108,10 @@ class CustomizationView: UIView {
         
         // Container View
         addSubview(containerView)
-        containerView.topAnchor.constraint(equalTo: topAnchor, constant: standardPadding).isActive = true
+        containerView.topAnchor.constraint(equalTo: topAnchor, constant: standardPadding/2).isActive = true
         containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -standardPadding).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -standardPadding/2).isActive = true
         
         // Icon image view
         containerView.addSubview(iconImageButton)
