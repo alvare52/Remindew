@@ -37,7 +37,7 @@ class AppearanceViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.cornerRadius = 15
-        view.backgroundColor = .white
+        view.backgroundColor = .customCellColor
         return view
     }()
     
