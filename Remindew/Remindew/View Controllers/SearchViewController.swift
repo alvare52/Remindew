@@ -41,33 +41,38 @@ class SearchViewController: UIViewController {
         }
     }
 
+    /// Setup tableView, searchBar, and then update views
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureTableView()
+        configureSearchBar()
+        updateViews()
+    }
+    
+    /// Sets up tableView
+    private func configureTableView() {
+     
         tableView.dataSource = self
         tableView.delegate = self
-        
-        searchBar.delegate = self
-        searchBar.placeholder = NSLocalizedString("Search by plant name, species, etc", comment: "")
-        searchBar.tintColor = .mixedBlueGreen
-        
-        tableView.backgroundView = spinner
-        spinner.color = .leafGreen
-        tableView.isHidden = true
-        
         tableView.separatorInset = .zero
         tableView.layoutMargins = .zero
         tableView.keyboardDismissMode = .onDrag
-        
-        updateViews()
-        // Do any additional setup after loading the view.
+        tableView.isHidden = true
+        tableView.backgroundView = spinner
+        spinner.color = .leafGreen
+    }
+    
+    /// Sets up searchBar
+    private func configureSearchBar() {
+        searchBar.delegate = self
+        searchBar.placeholder = NSLocalizedString("Search by plant name, species, etc", comment: "")
+        searchBar.tintColor = .mixedBlueGreen
     }
         
     /// User (or DetailVewController) pressed "search"
     func didTapSearch() {
         
-        print("didTapSearch")
-
         // dismiss keyboard (if it's still up)
         searchBar.resignFirstResponder()
         
@@ -115,19 +120,10 @@ class SearchViewController: UIViewController {
             print("No token needed, searching")
             performPlantSearch(term)
         }
-        
     }
     
     // MARK: - Networking
-    
-    /// Makes custom alerts with given title and message for network errors
-    private func makeAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(alertAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
+        
     /// Presents custom alerts for given network error
     func handleNetworkErrors(_ error: NetworkError) {
         switch error {
@@ -136,8 +132,9 @@ class SearchViewController: UIViewController {
         case .noToken:
             print("no token in searchPlants")
         case .invalidURL:
-            makeAlert(title: NSLocalizedString("Invalid Species", comment: ".invalidURL"),
-                      message: NSLocalizedString("Please enter a valid species name", comment: "invalid URL"))
+            UIAlertController.makeAlert(title: NSLocalizedString("Invalid Species", comment: ".invalidURL"),
+                                        message: NSLocalizedString("Please enter a valid species name", comment: "invalid URL"),
+                                        vc: self)
             return
         case .otherError:
             print("other error in searchPlants")
@@ -148,15 +145,18 @@ class SearchViewController: UIViewController {
         case .invalidToken:
             print("personal token invalid when sending to get temp token url")
         case .serverDown:
-            makeAlert(title: NSLocalizedString("Server Maintenance", comment: "Title for Servers down temporarily"),
-                      message: NSLocalizedString("Servers down for maintenance. Please try again later.", comment: "Servers down"))
+            UIAlertController.makeAlert(title: NSLocalizedString("Server Maintenance", comment: "Title for Servers down temporarily"),
+                                        message: NSLocalizedString("Servers down for maintenance. Please try again later.", comment: "Servers down"),
+                                        vc: self)
             return
         default:
             print("default error in searchPlants")
         }
+        
         // Error for all cases that don't have custom ones
-        makeAlert(title: NSLocalizedString("Network Error", comment: "any network error"),
-                  message: NSLocalizedString("Search feature temporarily unavailable", comment: "any network error"))
+        UIAlertController.makeAlert(title: NSLocalizedString("Network Error", comment: "any network error"),
+                                    message: NSLocalizedString("Search feature temporarily unavailable", comment: "any network error"),
+                                    vc: self)
     }
     
     /// Performs a search for plants species (called inside textfield Return)
@@ -169,10 +169,11 @@ class SearchViewController: UIViewController {
                     self.plantSearchResults = plantResults
                     self.spinner.stopAnimating()
                     if plantResults.count == 0 {
-                        self.makeAlert(title: NSLocalizedString("No Results Found",
+                        UIAlertController.makeAlert(title: NSLocalizedString("No Results Found",
                                                                 comment: "no search resutls"),
-                                       message: NSLocalizedString("Please search for another species",
-                                                                  comment: "try another species"))
+                                                    message: NSLocalizedString("Please search for another species",
+                                                                  comment: "try another species"),
+                                                    vc: self)
                     }
                     print("set array to plants we got back")
                 }
@@ -190,9 +191,16 @@ class SearchViewController: UIViewController {
     }
     
     private func updateViews() {
-        print("updateViews")
+        
         guard isViewLoaded else { return }
+        
         searchBar.text = passedInSearchTerm
+        
+        if passedInSearchTerm == nil || passedInSearchTerm == "" {
+            searchBar.becomeFirstResponder()
+            return
+        }
+        
         didTapSearch()
     }
 }
@@ -260,81 +268,23 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 
         let plantResultCell = tableView.cellForRow(at: indexPath) as? SearchResultTableViewCell
-//        let scientificName = plantResultCell?.scientificNameLabel.text ?? ""
-//        imageView.image = plantResultCell?.plantImageView.image
-//
+
         let plantResult = plantSearchResults[indexPath.row]
         resultDelegate?.didSelectResult(searchResult: plantResult, image: plantResultCell?.plantImageView.image)
         // if we DO want it to put common name selected into species field
         if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && plantResultCell?.commonNameLabel.text != "No common name"{
             //speciesTextField.text = plantResultCell?.commonNameLabel.text
         }
-//        
     }
-    
 }
 
 // MARK: - UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         didTapSearch()
-        return
-        
-        // Clicked "Search" in searchbar
-        if searchBar == self.searchBar {
-            print("Return inside speciesTextfield")
-
-            // dismiss keyboard
-            searchBar.resignFirstResponder()
-            
-            // if there's still a search going on, exit out
-            if spinner.isAnimating {
-                print("still spinning")
-                return
-            }
-            
-            guard let unwrappedTerm = searchBar.text, !unwrappedTerm.isEmpty else { return }
-            
-            // get rid of any spaces in search term
-            let term = unwrappedTerm.replacingOccurrences(of: " ", with: "")
-            
-            // show tableview
-            tableView.isHidden = false
-
-            // start animating spinner
-            spinner.startAnimating()
-
-            // check if we need a new token first
-            if plantController?.newTempTokenIsNeeded() == true {
-                print("new token needed, fetching one first")
-                plantController?.signToken(completion: { (result) in
-                    do {
-                        let message = try result.get()
-                        DispatchQueue.main.async {
-                            print("success in signToken: \(message)")
-                            self.performPlantSearch(term)
-                        }
-                    } catch {
-                        if let error = error as? NetworkError {
-                            print("error in detailVC when signing token")
-                            DispatchQueue.main.async {
-                                self.spinner.stopAnimating()
-                                self.handleNetworkErrors(error)
-                            }
-                        }
-                    }
-                })
-            }
-
-            // No new token needed
-            else {
-                print("No token needed, searching")
-                performPlantSearch(term)
-            }
-        }
-
         return
     }
 }
