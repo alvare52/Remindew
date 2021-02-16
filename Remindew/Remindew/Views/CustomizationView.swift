@@ -18,7 +18,6 @@ class CustomizationView: UIView {
         let label = UITextField()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.colorsArray[0]
-        label.backgroundColor = .white
         label.text = "Name"
         label.font = .boldSystemFont(ofSize: 25)
         label.isEnabled = false
@@ -30,7 +29,7 @@ class CustomizationView: UIView {
     var iconImageButton: UIButton = {
         let imageView = UIButton()//UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .customCellColor
         imageView.tintColor = UIColor.colorsArray[0]
         imageView.setImage(UIImage.iconArray[0], for: .normal)
         return imageView
@@ -86,7 +85,8 @@ class CustomizationView: UIView {
     
     /// Layouts all UI elements
     private func setupSubviews() {
-        backgroundColor = .white
+        
+        backgroundColor = .customCellColor
         
         // Plant name label
         addSubview(plantNameLabel)
