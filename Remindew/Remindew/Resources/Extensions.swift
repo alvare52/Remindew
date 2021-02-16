@@ -172,6 +172,9 @@ extension UIColor {
     /// darkGray / White color used for selected days: darkGray (84,84,84) - White (255,255,255)
     static let customSelectedDayColor = UIColor.init(named: "customSelectedDayColor")
     
+    /// Light/Dark Gray color used in DatePicker bar. Also using for Reminder/Notepad UI Components so they match
+    static let customComponentColor = UIColor.init(named: "customComponentColor")
+    
     /// check the value of the "darkThemeOn" UserDefault to then update the app window
     func updateToDarkOrLightTheme() {
         // Dark Theme

@@ -128,7 +128,7 @@ class NotepadViewController: UIViewController {
         textView.text = "Notes"
         textView.font = .systemFont(ofSize: 14)
         textView.layer.cornerRadius = 15
-        textView.backgroundColor = .secondarySystemBackground
+        textView.backgroundColor = .customComponentColor
         textView.contentMode = .left
         return textView
     }()

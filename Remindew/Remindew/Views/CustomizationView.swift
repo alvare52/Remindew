@@ -17,7 +17,7 @@ class CustomizationView: UIView {
     var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .customComponentColor
         view.layer.cornerRadius = 15
         return view
     }()

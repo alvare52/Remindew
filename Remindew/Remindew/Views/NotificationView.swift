@@ -18,7 +18,7 @@ class NotificationView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 15
-        view.backgroundColor = .secondarySystemBackground//.darkGray
+        view.backgroundColor = .customComponentColor//.secondarySystemBackground
         return view
     }()
     
