@@ -94,11 +94,12 @@ class NotepadViewController: UIViewController {
     }()
     
     /// Notification bubble view (88 pts height), holds title and message textfields
+    // TODO: make this a NotificationView
     let notificationView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 15
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .orange
         return view
     }()
     
@@ -189,7 +190,7 @@ class NotepadViewController: UIViewController {
         textView.text = "Notes"
         textView.font = .systemFont(ofSize: 14)
         textView.layer.cornerRadius = 15
-        textView.backgroundColor = .customBackgroundColor
+        textView.backgroundColor = .secondarySystemBackground
         textView.contentMode = .left
         return textView
     }()
