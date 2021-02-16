@@ -68,6 +68,7 @@ class ReminderViewController: UIViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = .mixedBlueGreen
+        // TODO: change "selected" color to be lighter shade of gray "secondarySystemBackground"
 //        picker.minimumDate = Date()
         // TODO: minimumTime? (shouldn't be able to pick a time earlier in the day)
         return picker
@@ -97,15 +98,6 @@ class ReminderViewController: UIViewController {
         tempSwitch.onTintColor = .mixedBlueGreen
         tempSwitch.isOn = true
         return tempSwitch
-    }()
-    
-    /// Notification bubble view (88 pts height), holds title and message textfields
-    let notificationView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 15
-        view.backgroundColor = .darkGray
-        return view
     }()
     
     /// Displays small app icon image in top left corner of notification view
@@ -165,6 +157,7 @@ class ReminderViewController: UIViewController {
         return textfield
     }()
     
+    /// Custom View that looks like Notifications banners
     let notificationBubble: NotificationView = {
         let view = NotificationView()
         view.translatesAutoresizingMaskIntoConstraints = false

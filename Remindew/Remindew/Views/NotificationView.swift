@@ -18,7 +18,7 @@ class NotificationView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 15
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .secondarySystemBackground//.darkGray
         return view
     }()
     
@@ -38,7 +38,7 @@ class NotificationView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12, weight: .light)
-        label.textColor = .white
+        label.textColor = .lightGray
         label.textAlignment = .left
         label.text = "REMINDEW"
         return label
@@ -48,7 +48,7 @@ class NotificationView: UIView {
     let timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
+        label.textColor = .lightGray
         label.font = .systemFont(ofSize: 12, weight: .light)
 //        label.backgroundColor = .orange
         label.text = "16m ago"
@@ -61,10 +61,10 @@ class NotificationView: UIView {
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.text = "Reminder Title"
         textfield.backgroundColor = .clear
-        textfield.textColor = .white
+//        textfield.textColor = .white
         textfield.font = .systemFont(ofSize: 14, weight: .semibold)
         textfield.contentVerticalAlignment = .bottom
-        textfield.tintColor = .white
+//        textfield.tintColor = .white
         return textfield
     }()
     
@@ -73,9 +73,9 @@ class NotificationView: UIView {
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.text = "Reminder Message"
         textfield.font = .systemFont(ofSize: 14)
-        textfield.textColor = .white
+//        textfield.textColor = .white
         textfield.backgroundColor = .clear
-        textfield.tintColor = .white
+//        textfield.tintColor = .white
         textfield.contentVerticalAlignment = .top
         return textfield
     }()

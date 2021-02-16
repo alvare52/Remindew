@@ -13,15 +13,26 @@ class CustomizationView: UIView {
     
     // MARK: - Properties
     
+    /// Holds all other views (rounded rect)
+    var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .secondarySystemBackground
+        view.layer.cornerRadius = 15
+        return view
+    }()
+    
     /// Displays plant name in it's preferred color
     var plantNameLabel: UITextField = {
         let label = UITextField()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.colorsArray[0]
+        label.tintColor = UIColor.colorsArray[0]
         label.text = "Name"
         label.font = .boldSystemFont(ofSize: 25)
         label.isEnabled = false
         label.autocorrectionType = .no
+        label.textAlignment = .center
         return label
     }()
     
@@ -29,7 +40,7 @@ class CustomizationView: UIView {
     var iconImageButton: UIButton = {
         let imageView = UIButton()//UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .customCellColor
+        imageView.backgroundColor = .clear
         imageView.tintColor = UIColor.colorsArray[0]
         imageView.setImage(UIImage.iconArray[0], for: .normal)
         return imageView
@@ -39,26 +50,38 @@ class CustomizationView: UIView {
     let colorChangeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.colorsArray[0]
+        button.backgroundColor = .clear
+        button.tintColor = UIColor.colorsArray[0]
+        button.setImage(UIImage(systemName: "paintbrush"), for: .normal)
         return button
     }()
     
+    /// Padding for rounded view portion (8pts)
+    let standardPadding: CGFloat = 8
+    
     var localColorsCount = 0 {
+        
         didSet {
+            
             if localColorsCount == UIColor.colorsArray.count {
                 localColorsCount = 0
             }
+            
             plantNameLabel.textColor = UIColor.colorsArray[localColorsCount]
+            plantNameLabel.tintColor = UIColor.colorsArray[localColorsCount]
             iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
-            colorChangeButton.backgroundColor = UIColor.colorsArray[localColorsCount]
+            colorChangeButton.tintColor = UIColor.colorsArray[localColorsCount]
         }
     }
     
     var localIconCount = 0 {
+        
         didSet {
+            
             if localIconCount == UIImage.iconArray.count {
                 localIconCount = 0
             }
+            
             iconImageButton.setImage(UIImage.iconArray[localIconCount], for: .normal)
         }
     }
@@ -78,62 +101,55 @@ class CustomizationView: UIView {
         setupSubviews()
     }
     
-    var buttonCornerRadius: CGFloat {
-        print("\((frame.width * 0.1) / 2)")
-        return (frame.width * 0.1) / 2
-    }
-    
     /// Layouts all UI elements
     private func setupSubviews() {
         
         backgroundColor = .customCellColor
         
-        // Plant name label
-        addSubview(plantNameLabel)
-        plantNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        plantNameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CGFloat(0.7)).isActive = true
-        plantNameLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: CGFloat(0.5)).isActive = true
-        plantNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        
-        // Color Change Button
-        addSubview(colorChangeButton)
-//        colorChangeButton.topAnchor.constraint(equalTo: plantNameLabel.topAnchor).isActive = true
-        colorChangeButton.centerYAnchor.constraint(equalTo: plantNameLabel.centerYAnchor).isActive = true
-        colorChangeButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        colorChangeButton.heightAnchor.constraint(equalTo: plantNameLabel.heightAnchor).isActive = true
-        colorChangeButton.widthAnchor.constraint(equalTo: colorChangeButton.heightAnchor).isActive = true
-        colorChangeButton.layer.cornerRadius = 15//buttonCornerRadius
-        colorChangeButton.addTarget(self, action: #selector(changeColor), for: .touchUpInside)
+        // Container View
+        addSubview(containerView)
+        containerView.topAnchor.constraint(equalTo: topAnchor, constant: standardPadding).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -standardPadding).isActive = true
         
         // Icon image view
-        addSubview(iconImageButton)
-//        iconImageView.topAnchor.constraint(equalTo: plantNameLabel.topAnchor).isActive = true
-        iconImageButton.trailingAnchor.constraint(equalTo: colorChangeButton.leadingAnchor, constant: -20).isActive = true
-        iconImageButton.heightAnchor.constraint(equalTo: plantNameLabel.heightAnchor).isActive = true
+        containerView.addSubview(iconImageButton)
+        iconImageButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: standardPadding).isActive = true
+        iconImageButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         iconImageButton.widthAnchor.constraint(equalTo: iconImageButton.heightAnchor).isActive = true
-        iconImageButton.centerYAnchor.constraint(equalTo: plantNameLabel.centerYAnchor).isActive = true
-//        iconImageView.bottomAnchor.constraint(equalTo: plantNameLabel.bottomAnchor).isActive = true
-//        iconImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(10)).isActive = true
+        iconImageButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         iconImageButton.addTarget(self, action: #selector(changeIcon), for: .touchUpInside)
+
+        // Color Change Button
+        containerView.addSubview(colorChangeButton)
+        colorChangeButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        colorChangeButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -standardPadding).isActive = true
+        colorChangeButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+        colorChangeButton.widthAnchor.constraint(equalTo: colorChangeButton.heightAnchor).isActive = true
+        colorChangeButton.addTarget(self, action: #selector(changeColor), for: .touchUpInside)
         
+        // Plant name label
+        containerView.addSubview(plantNameLabel)
+        plantNameLabel.leadingAnchor.constraint(equalTo: iconImageButton.trailingAnchor, constant: standardPadding).isActive = true
+        plantNameLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        plantNameLabel.trailingAnchor.constraint(equalTo: colorChangeButton.leadingAnchor, constant: -standardPadding).isActive = true
+        plantNameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: CGFloat(0.5)).isActive = true
     }
     
     @objc private func changeColor() {
         
         localColorsCount += 1
-        colorChangeButton.backgroundColor = UIColor.colorsArray[localColorsCount]
-        plantNameLabel.textColor = UIColor.colorsArray[localColorsCount]
-        iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
+
         // update colors for passed in UIDatePicker and UISwitch
         applyColorsToDatePickerAndSwitch()
     }
     
     @objc private func changeIcon() {
         localIconCount += 1
-        iconImageButton.setImage(UIImage.iconArray[localIconCount], for: .normal)
     }
     
-    // NEW
+    // Passed in if inside of ReminderViewController to change these
     weak var datePicker: UIDatePicker?
     weak var notificationSwitch: UISwitch?
     
