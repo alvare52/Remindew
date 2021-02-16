@@ -14,7 +14,7 @@ class ReminderTableViewCell: UITableViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .customCellColor
+        view.backgroundColor = .customDetailBackgroundColor//.customCellColor
         return view
     }()
     

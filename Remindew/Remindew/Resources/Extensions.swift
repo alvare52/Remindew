@@ -175,6 +175,9 @@ extension UIColor {
     /// Light/Dark Gray color used in DatePicker bar. Also using for Reminder/Notepad UI Components so they match
     static let customComponentColor = UIColor.init(named: "customComponentColor")
     
+    /// White/Cool Dark Gray for DetailVC background color
+    static let customDetailBackgroundColor = UIColor.init(named: "customDetailBackgroundColor")
+    
     /// check the value of the "darkThemeOn" UserDefault to then update the app window
     func updateToDarkOrLightTheme() {
         // Dark Theme

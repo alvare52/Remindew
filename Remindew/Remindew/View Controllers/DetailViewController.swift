@@ -158,8 +158,8 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
-        view.backgroundColor = .customCellColor
-        resultsTableView.backgroundColor = .customCellColor
+        view.backgroundColor = .customDetailBackgroundColor//.customCellColor
+        resultsTableView.backgroundColor = .customDetailBackgroundColor//.customCellColor
         
         spacerButton.tintColor = .clear
         spacerButton.isEnabled = false
