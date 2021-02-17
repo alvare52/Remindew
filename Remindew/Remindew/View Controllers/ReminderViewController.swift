@@ -244,14 +244,14 @@ class ReminderViewController: UIViewController {
         
         // Date Picker
         contentView.addSubview(datePicker)
-        datePicker.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
+        datePicker.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor, constant: 4).isActive = true
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
         datePicker.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         // Frequency Selector View
         contentView.addSubview(frequencySelectorView)
-        frequencySelectorView.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
+        frequencySelectorView.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor, constant: 4).isActive = true
         frequencySelectorView.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor).isActive = true
         frequencySelectorView.trailingAnchor.constraint(equalTo: actionCustomizationView.trailingAnchor).isActive = true
 //        frequencySelectorView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25).isActive = true
@@ -268,14 +268,14 @@ class ReminderViewController: UIViewController {
         
         // Notification Bubble
         contentView.addSubview(notificationBubble)
-        notificationBubble.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 4).isActive = true
+        notificationBubble.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 8).isActive = true
         notificationBubble.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notificationBubble.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         notificationBubble.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
         // Notes Textview
         contentView.addSubview(notesTextView)
-        notesTextView.topAnchor.constraint(equalTo: notificationBubble.bottomAnchor, constant: 4).isActive = true
+        notesTextView.topAnchor.constraint(equalTo: notificationBubble.bottomAnchor, constant: 8).isActive = true
         notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true

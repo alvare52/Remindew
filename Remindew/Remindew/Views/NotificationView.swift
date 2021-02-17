@@ -33,11 +33,11 @@ class NotificationView: UIView {
         return imageView
     }()
     
-    /// Displays name of app in notification view
+    /// Displays name of app in notification view (REMINDEW)
     let appNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12, weight: .light)
+        label.font = .systemFont(ofSize: 13, weight: .light)
         label.textColor = .lightGray
         label.textAlignment = .left
         label.text = "REMINDEW"
