@@ -60,7 +60,7 @@ class NotepadViewController: UIViewController {
         let scienceTextfield = UITextField()
         scienceTextfield.translatesAutoresizingMaskIntoConstraints = false
         scienceTextfield.font = .italicSystemFont(ofSize: 17)
-        scienceTextfield.placeholder = "Scientific name"
+        scienceTextfield.placeholder = NSLocalizedString("Scientific Name", comment: "scientific name / species of plant")
         scienceTextfield.backgroundColor = .clear
         scienceTextfield.autocorrectionType = .no
         scienceTextfield.contentVerticalAlignment = .bottom
