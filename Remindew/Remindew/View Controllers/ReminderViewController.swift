@@ -68,30 +68,19 @@ class ReminderViewController: UIViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = .mixedBlueGreen
-        // TODO: change "selected" color to be lighter shade of gray "secondarySystemBackground"
 //        picker.minimumDate = Date()
         // TODO: minimumTime? (shouldn't be able to pick a time earlier in the day)
         return picker
     }()
     
-    /// Textfield for entering day frequency
-    let frequencyTextfield: UITextField = {
-        let textfield = UITextField()
-        textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.keyboardType = .numberPad
-        textfield.text = "7"
-        return textfield
+    /// View that holds a textfield and label for entering how often a reminder should go off
+    let frequencySelectorView: FrequencySelectionView = {
+        let view = FrequencySelectionView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
-    /// Label following frequencyTextfield that says "Days"
-    let daysLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = NSLocalizedString("days", comment: "days label after frequency number")
-        return label
-    }()
-    
-    /// Switch to toggle isDisabled for Reminder
+    /// Switch to toggle isDisabled for Reminder (currently not displayed/used)
     let isEnabledSwitch: UISwitch = {
         let tempSwitch = UISwitch()
         tempSwitch.translatesAutoresizingMaskIntoConstraints = false
@@ -179,7 +168,7 @@ class ReminderViewController: UIViewController {
             }
             
             // make sure frequency is a number and greater than 0
-            guard let frequencyString = frequencyTextfield.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString), frequency > 0 else {
+            guard let frequencyString = frequencySelectorView.textField.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString), frequency > 0 else {
                 // TODO: Error alert for invalid or missing frequency number
                 print("no text in frequency textfield")
                 return
@@ -260,27 +249,22 @@ class ReminderViewController: UIViewController {
         datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
         datePicker.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        // Frequency TextField
-        contentView.addSubview(frequencyTextfield)
-        frequencyTextfield.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
-        frequencyTextfield.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor).isActive = true
-        frequencyTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.1).isActive = true
-        frequencyTextfield.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
+        // Frequency Selector View
+        contentView.addSubview(frequencySelectorView)
+        frequencySelectorView.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
+        frequencySelectorView.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor).isActive = true
+        frequencySelectorView.trailingAnchor.constraint(equalTo: actionCustomizationView.trailingAnchor).isActive = true
+//        frequencySelectorView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25).isActive = true
+        frequencySelectorView.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
+        frequencySelectorView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        // Days Label
-        contentView.addSubview(daysLabel)
-        daysLabel.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
-        daysLabel.leadingAnchor.constraint(equalTo: frequencyTextfield.trailingAnchor).isActive = true
-        daysLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.15).isActive = true
-        daysLabel.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
-        
-        // isDisabled Switch
-        contentView.addSubview(isEnabledSwitch)
-        isEnabledSwitch.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
-        isEnabledSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        isEnabledSwitch.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        isEnabledSwitch.heightAnchor.constraint(equalToConstant: 31).isActive = true
-        isEnabledSwitch.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
+//        // isDisabled Switch (not used currently)
+//        contentView.addSubview(isEnabledSwitch)
+//        isEnabledSwitch.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
+//        isEnabledSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+//        isEnabledSwitch.widthAnchor.constraint(equalToConstant: 50).isActive = true
+//        isEnabledSwitch.heightAnchor.constraint(equalToConstant: 31).isActive = true
+//        isEnabledSwitch.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
         
         // Notification Bubble
         contentView.addSubview(notificationBubble)
@@ -317,7 +301,7 @@ class ReminderViewController: UIViewController {
                 notificationBubble.reminderMessageTextfield.text = reminder.actionMessage
                 datePicker.date = reminder.alarmDate!// ?? Date()
                 isEnabledSwitch.isOn = reminder.isEnabled
-                frequencyTextfield.text = "\(reminder.frequency)"
+                frequencySelectorView.textField.text = "\(reminder.frequency)"
                 notesTextView.text = reminder.notes
                 
                 let reminderColor = UIColor.colorsArray[Int(reminder.colorIndex)]

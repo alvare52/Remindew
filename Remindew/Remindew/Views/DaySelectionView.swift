@@ -12,8 +12,6 @@ import AVFoundation
 class DaySelectionView: UIStackView {
 
     // MARK: - Properties
-    /// Array of Strings just for label purposes
-//    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     var buttonArray = [UIButton]()
     let selectedFont: UIFont = UIFont.boldSystemFont(ofSize: 20.0)
