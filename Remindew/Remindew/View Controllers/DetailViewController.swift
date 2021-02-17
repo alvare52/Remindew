@@ -145,6 +145,7 @@ class DetailViewController: UIViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
             appearanceVC.modalPresentationStyle = .automatic
+//            appearanceVC.modalTransitionStyle = .crossDissolve
             appearanceVC.mainImage = imageView.image
             appearanceVC.appearanceDelegate = self
             appearanceVC.plant = plant

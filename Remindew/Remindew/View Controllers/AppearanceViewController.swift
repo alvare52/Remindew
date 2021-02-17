@@ -35,7 +35,6 @@ class AppearanceViewController: UIViewController {
     let optionsBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
         view.layer.cornerRadius = 15
         view.backgroundColor = .customCellColor
         return view
@@ -133,6 +132,9 @@ class AppearanceViewController: UIViewController {
     
     /// Standard padding for left and right sides
     let standardMargin: CGFloat = 20.0
+    
+    /// Height for photo buttons
+    let buttonHeight: CGFloat = 36.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -263,12 +265,13 @@ class AppearanceViewController: UIViewController {
   
     @objc private func savePhotoTapped() {
         print("save photo")
+        dismiss(animated: true, completion: nil)
     }
     
     /// Lays out all views needed
     private func setupSubViews() {
                 
-        view.backgroundColor = .white
+        view.backgroundColor = .customBackgroundColor
         view.layer.cornerRadius = 15
         
         // Content View
@@ -277,6 +280,9 @@ class AppearanceViewController: UIViewController {
         contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+//        contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        contentView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        
         
         // Image View
         contentView.addSubview(imageView)
@@ -290,11 +296,12 @@ class AppearanceViewController: UIViewController {
         optionsBackgroundView.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
         optionsBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         optionsBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        optionsBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+//        optionsBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        optionsBackgroundView.heightAnchor.constraint(equalToConstant: 278).isActive = true
         
         // Plant Customization View
         contentView.addSubview(plantCustomizationView)
-        plantCustomizationView.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
+        plantCustomizationView.topAnchor.constraint(equalTo: optionsBackgroundView.topAnchor, constant: 18).isActive = true
         plantCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         plantCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         plantCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -311,8 +318,7 @@ class AppearanceViewController: UIViewController {
         takePhotoButton.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor, constant: 8).isActive = true
         takePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         takePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        takePhotoButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        takePhotoButton.layer.cornerRadius = 20
+        takePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         takePhotoButton.addTarget(self, action: #selector(takePhotoTapped), for: .touchUpInside)
         
         // Choose Photo Button
@@ -320,8 +326,7 @@ class AppearanceViewController: UIViewController {
         choosePhotoButton.topAnchor.constraint(equalTo: takePhotoButton.bottomAnchor, constant: 8).isActive = true
         choosePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         choosePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        choosePhotoButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        choosePhotoButton.layer.cornerRadius = 20
+        choosePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         choosePhotoButton.addTarget(self, action: #selector(choosePhotoTapped), for: .touchUpInside)
 
 
@@ -330,8 +335,7 @@ class AppearanceViewController: UIViewController {
         savePhotoButton.topAnchor.constraint(equalTo: choosePhotoButton.bottomAnchor, constant: 8).isActive = true
         savePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         savePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        savePhotoButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        savePhotoButton.layer.cornerRadius = 20
+        savePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         savePhotoButton.addTarget(self, action: #selector(savePhotoTapped), for: .touchUpInside)
         
     }
