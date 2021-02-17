@@ -14,7 +14,7 @@ class PlantsTableViewCell: UITableViewCell {
     var containerView: UIView!
     
     /// Displays image from plant's image url (or default image if there is none)
-    var plantImageView: UIImageView!
+    var plantImageView: UIButton!//UIImageView!
     
     /// Displays plant's nickname
     var nicknameLabel: UILabel!
@@ -62,9 +62,17 @@ class PlantsTableViewCell: UITableViewCell {
         }
         
         if plant.needsWatering {
-            plantImageView?.image = UIImage(named: "planticonwater")
+//            plantImageView?.image = UIImage(named: "planticonwater")
+//            plantImageView.setImage(UIImage(named: "planticonwater"), for: .normal)
+            plantImageView.setImage(UIImage.iconArray[Int(plant.actionIconIndex)], for: .normal)
+            plantImageView.tintColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+            plantImageView.isUserInteractionEnabled = false
         } else {
-            plantImageView?.image = UIImage(named: "planticonleaf")
+//            plantImageView?.image = UIImage(named: "planticonleaf")
+//            plantImageView.setImage(UIImage(named: "planticonleaf"), for: .normal)
+            plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
+            plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
+            plantImageView.isUserInteractionEnabled = false
         }
     }
     
@@ -145,14 +153,16 @@ class PlantsTableViewCell: UITableViewCell {
         
     
         // Image View
-        let imageView = UIImageView()
+        let imageView = UIButton(type: .system) //UIImageView()
         containerView.addSubview(imageView)
         self.plantImageView = imageView
         plantImageView.translatesAutoresizingMaskIntoConstraints = false
         plantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: CGFloat(0.0)).isActive = true
-        plantImageView.leadingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
-        plantImageView.trailingAnchor.constraint(equalTo: timeLabel.trailingAnchor).isActive = true
+//        plantImageView.leadingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
+//        plantImageView.trailingAnchor.constraint(equalTo: timeLabel.trailingAnchor).isActive = true
         plantImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: CGFloat(-16.0)).isActive = true
+        plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
+        plantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
         plantImageView.contentMode = .scaleAspectFit
         
         // Species Label
