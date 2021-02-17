@@ -12,6 +12,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     
     // TODO: add setting to disable sections in Sorting settings section?
     // TODO: add setting to display plant type as primary name instead of nickname? Remove sort by species/name setting?
+    // TODO: add setting to use plant image instead of icons?
     
     // MARK: - Actions
     

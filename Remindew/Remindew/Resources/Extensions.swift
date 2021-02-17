@@ -212,6 +212,9 @@ extension UIImage {
     /// 60x60 version of app icon (clear background). UIImage(named: "plantslogoclear60x60")
     static let smallAppIconImage = UIImage(named: "plantslogo60x60")
     
+    /// Psuedo SF Symbol version of leaf/drop icon that uses tintColor (can be used if system button option is not available)
+    static let leafdropIcon = UIImage(named: "planticonleaf")!.withRenderingMode(.alwaysTemplate)
+    
     /// Image used when no photo is given
     static let defaultImage = UIImage(named: "RemindewDefaultImage")
     
