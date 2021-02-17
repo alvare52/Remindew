@@ -45,6 +45,13 @@ class FrequencySelectionView: UIView {
         return label
     }()
     
+    /// Main color to use for all views (.mixedBlueGreen by default)
+    var mainColor: UIColor = .mixedBlueGreen {
+        didSet {
+            updateColors()
+        }
+    }
+    
     // MARK: - View Life Cycle
 
     override init(frame: CGRect) {
@@ -59,8 +66,15 @@ class FrequencySelectionView: UIView {
         setupSubviews()
     }
     
+    /// Updates all UI to use mainColor passed in from ReminderViewController's actionCustomizationView
+    private func updateColors() {
+        everyLabel.textColor = mainColor
+        textField.textColor = mainColor
+        daysLabel.textColor = mainColor
+    }
+    
+    /// Tap into textField whenever view is touched since textField might be too small
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touch")
         textField.becomeFirstResponder()
     }
         

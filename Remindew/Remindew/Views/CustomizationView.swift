@@ -59,6 +59,10 @@ class CustomizationView: UIView {
     /// Padding for rounded view portion (8pts)
     let standardPadding: CGFloat = 8
     
+    // Passed in if inside of ReminderViewController to change these
+    weak var datePicker: UIDatePicker?
+    weak var frequencySelectorView: FrequencySelectionView?
+    
     var localColorsCount = 0 {
         
         didSet {
@@ -149,14 +153,10 @@ class CustomizationView: UIView {
         localIconCount += 1
     }
     
-    // Passed in if inside of ReminderViewController to change these
-    weak var datePicker: UIDatePicker?
-    weak var notificationSwitch: UISwitch?
-    
     // Changes colors of passed in ui elements (for ReminderViewController only)
     func applyColorsToDatePickerAndSwitch() {
-        guard let datePicker = datePicker, let notificationSwitch = notificationSwitch else { return }
+        guard let datePicker = datePicker, let frequencySelectorView = frequencySelectorView else { return }
         datePicker.tintColor = UIColor.colorsArray[localColorsCount]
-        notificationSwitch.onTintColor = UIColor.colorsArray[localColorsCount]
+        frequencySelectorView.mainColor = UIColor.colorsArray[localColorsCount]
     }
 }

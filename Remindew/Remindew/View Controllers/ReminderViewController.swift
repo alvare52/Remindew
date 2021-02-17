@@ -137,9 +137,9 @@ class ReminderViewController: UIViewController {
         super.viewDidLoad()
         setupSubviews()
         
-        // pass in datePicker and isDisabledSwitch so their color can be updated too
+        // pass in datePicker and frequencySelectorView so their color can be updated too
         actionCustomizationView.datePicker = datePicker
-        actionCustomizationView.notificationSwitch = isEnabledSwitch
+        actionCustomizationView.frequencySelectorView = frequencySelectorView
         updateViews()
     }
     
@@ -307,7 +307,8 @@ class ReminderViewController: UIViewController {
                 let reminderColor = UIColor.colorsArray[Int(reminder.colorIndex)]
                 actionCustomizationView.localColorsCount = Int(reminder.colorIndex)
                 actionCustomizationView.localIconCount = Int(reminder.iconIndex)
-                isEnabledSwitch.onTintColor = reminderColor
+//                isEnabledSwitch.onTintColor = reminderColor
+                frequencySelectorView.mainColor = reminderColor
                 datePicker.tintColor = reminderColor
 
                 // if reminder has been completed at least once, display lastDate
