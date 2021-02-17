@@ -19,6 +19,7 @@ class FrequencySelectionView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("Every", comment: "days label after frequency number")
         label.backgroundColor = .clear
+        label.textAlignment = .center
         label.textColor = .mixedBlueGreen
         return label
     }()
@@ -28,10 +29,11 @@ class FrequencySelectionView: UIView {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.keyboardType = .numberPad
-        textField.text = "7"
+        textField.text = "14"
         textField.backgroundColor = .clear
-//        textField.textAlignment = .center
+        textField.textAlignment = .center
         textField.textColor = .mixedBlueGreen
+        textField.tintColor = .mixedBlueGreen
         return textField
     }()
         
@@ -41,6 +43,7 @@ class FrequencySelectionView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("days", comment: "days label after frequency number")
         label.backgroundColor = .clear
+        label.textAlignment = .center
         label.textColor = .mixedBlueGreen
         return label
     }()
@@ -70,6 +73,7 @@ class FrequencySelectionView: UIView {
     private func updateColors() {
         everyLabel.textColor = mainColor
         textField.textColor = mainColor
+        textField.tintColor = mainColor
         daysLabel.textColor = mainColor
     }
     
@@ -89,20 +93,20 @@ class FrequencySelectionView: UIView {
         addSubview(everyLabel)
         everyLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         everyLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4).isActive = true
-        everyLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4).isActive = true
+        everyLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.33).isActive = true
         everyLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         // Text Field
         addSubview(textField)
         textField.topAnchor.constraint(equalTo: topAnchor).isActive = true
         textField.leadingAnchor.constraint(equalTo: everyLabel.trailingAnchor).isActive = true
-        textField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.15).isActive = true
+        textField.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.33).isActive = true
         textField.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         // Days Label
         addSubview(daysLabel)
         daysLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        daysLabel.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: 2).isActive = true
+        daysLabel.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: -4).isActive = true
         daysLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         daysLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }

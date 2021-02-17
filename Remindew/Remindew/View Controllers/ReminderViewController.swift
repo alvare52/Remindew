@@ -281,7 +281,6 @@ class ReminderViewController: UIViewController {
         notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
-    
     private func updateViews() {
         
         guard isViewLoaded else { return }
