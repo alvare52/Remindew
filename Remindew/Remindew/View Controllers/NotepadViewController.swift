@@ -89,7 +89,7 @@ class NotepadViewController: UIViewController {
     let actionTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Action"
+        textfield.placeholder = NSLocalizedString("Action", comment: "main action for plant")
         textfield.text = NSLocalizedString("Water", comment: "water, default main action")
         textfield.contentVerticalAlignment = .bottom
         textfield.textColor = .waterBlue
@@ -109,21 +109,7 @@ class NotepadViewController: UIViewController {
         lineBreak.translatesAutoresizingMaskIntoConstraints = false
         return lineBreak
     }()
-    
-    /// Thin gray line thats under reminderTitleTextfield
-    let titleLine: UIView = {
-        let lineBreak = UIView()
-        lineBreak.translatesAutoresizingMaskIntoConstraints = false
-        return lineBreak
-    }()
-    
-    /// Thin gray line thats under reminderMessageTextfield
-    let messageLine: UIView = {
-        let lineBreak = UIView()
-        lineBreak.translatesAutoresizingMaskIntoConstraints = false
-        return lineBreak
-    }()
-    
+        
     /// Textview for any notes
     let notesTextView: UITextView = {
         let textView = UITextView()
@@ -251,19 +237,19 @@ class NotepadViewController: UIViewController {
         lastDateLabel.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor).isActive = true
         lastDateLabel.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
-        // Location Textfield
-        contentView.addSubview(locationTextfield)
-        locationTextfield.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
-        locationTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        locationTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
-        locationTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
         // Action Name ("Water")
         contentView.addSubview(actionTextfield)
         actionTextfield.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
-        actionTextfield.leadingAnchor.constraint(equalTo: locationTextfield.trailingAnchor).isActive = true
-        actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
+        actionTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
         actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+        
+        // Location Textfield
+        contentView.addSubview(locationTextfield)
+        locationTextfield.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
+        locationTextfield.leadingAnchor.constraint(equalTo: actionTextfield.trailingAnchor).isActive = true
+        locationTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
+        locationTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
         // Location Line
         contentView.addSubview(locationLine)
