@@ -38,7 +38,7 @@ class CustomizationView: UIView {
     
     /// Displays the icon image for this action/plant
     var iconImageButton: UIButton = {
-        let imageView = UIButton()//UIImageView()
+        let imageView = UIButton(type: .system)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
         imageView.tintColor = UIColor.colorsArray[0]
@@ -86,7 +86,9 @@ class CustomizationView: UIView {
                 localIconCount = 0
             }
             
+            iconImageButton.tintColor = UIColor.colorsArray[localColorsCount]
             iconImageButton.setImage(UIImage.iconArray[localIconCount], for: .normal)
+            
         }
     }
     
