@@ -46,6 +46,7 @@
 // MARK: - L
 "Last Watered:\n" = "Última Regada:\n";
 "Last: " = "Última: ";
+"Location" = "Ubicación";
 // MARK: - M
 "Made: " = "Hecho: ";
 "Missing Nickname" = "No Sobrenombre";

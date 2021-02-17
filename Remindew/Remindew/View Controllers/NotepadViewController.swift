@@ -62,7 +62,9 @@ class NotepadViewController: UIViewController {
         scienceTextfield.font = .italicSystemFont(ofSize: 17)
         scienceTextfield.placeholder = "Scientific name"
         scienceTextfield.backgroundColor = .clear
+        scienceTextfield.autocorrectionType = .no
         scienceTextfield.contentVerticalAlignment = .bottom
+        scienceTextfield.tintColor = .mixedBlueGreen
         return scienceTextfield
     }()
     
@@ -70,8 +72,9 @@ class NotepadViewController: UIViewController {
     let locationTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.placeholder = "Location"
+        textfield.placeholder = NSLocalizedString("Location", comment: "where is the plant located")
         textfield.contentVerticalAlignment = .bottom
+        textfield.tintColor = .mixedBlueGreen
         return textfield
     }()
     
@@ -248,46 +251,46 @@ class NotepadViewController: UIViewController {
         lastDateLabel.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor).isActive = true
         lastDateLabel.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
+        // Location Textfield
+        contentView.addSubview(locationTextfield)
+        locationTextfield.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
+        locationTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        locationTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
+        locationTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+        
+        // Action Name ("Water")
+        contentView.addSubview(actionTextfield)
+        actionTextfield.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
+        actionTextfield.leadingAnchor.constraint(equalTo: locationTextfield.trailingAnchor).isActive = true
+        actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
+        actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
+        
+        // Location Line
+        contentView.addSubview(locationLine)
+        locationLine.topAnchor.constraint(equalTo: locationTextfield.bottomAnchor, constant: 4).isActive = true
+        locationLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        locationLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        locationLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        locationLine.backgroundColor = .lightGray
+        
         // Scientific Name Textfield
         contentView.addSubview(scientificNameTextfield)
-        scientificNameTextfield.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
+        scientificNameTextfield.topAnchor.constraint(equalTo: locationLine.bottomAnchor).isActive = true
         scientificNameTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         scientificNameTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         scientificNameTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
         
         // Scientific Line
         contentView.addSubview(scientificLine)
-        scientificLine.topAnchor.constraint(equalTo: scientificNameTextfield.bottomAnchor, constant: 2).isActive = true
+        scientificLine.topAnchor.constraint(equalTo: scientificNameTextfield.bottomAnchor, constant: 4).isActive = true
         scientificLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         scientificLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         scientificLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         scientificLine.backgroundColor = .lightGray
                 
-        // Location Textfield
-        contentView.addSubview(locationTextfield)
-        locationTextfield.topAnchor.constraint(equalTo: scientificLine.bottomAnchor).isActive = true
-        locationTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        locationTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
-        locationTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-        // Location Line
-        contentView.addSubview(locationLine)
-        locationLine.topAnchor.constraint(equalTo: locationTextfield.bottomAnchor, constant: 2).isActive = true
-        locationLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        locationLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        locationLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        locationLine.backgroundColor = .lightGray
-        
-        // Action Name ("Water")
-        contentView.addSubview(actionTextfield)
-        actionTextfield.topAnchor.constraint(equalTo: scientificLine.bottomAnchor).isActive = true
-        actionTextfield.leadingAnchor.constraint(equalTo: locationTextfield.trailingAnchor).isActive = true
-        actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3).isActive = true
-        actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
         // Notification View
         contentView.addSubview(notificationView)
-        notificationView.topAnchor.constraint(equalTo: locationLine.bottomAnchor, constant: 4).isActive = true
+        notificationView.topAnchor.constraint(equalTo: scientificLine.bottomAnchor, constant: 4).isActive = true
         notificationView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         notificationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notificationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
