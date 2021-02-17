@@ -49,7 +49,7 @@ class NotepadViewController: UIViewController {
         tempButton.translatesAutoresizingMaskIntoConstraints = false
         tempButton.backgroundColor = .clear
         tempButton.tintColor = .mixedBlueGreen
-        tempButton.setTitle("Save", for: .normal)
+        tempButton.setTitle(NSLocalizedString("Save", comment: "Done button"), for: .normal)
         tempButton.titleLabel?.font = .systemFont(ofSize: 18)
         tempButton.contentHorizontalAlignment = .right
         tempButton.layer.cornerRadius = 0

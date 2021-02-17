@@ -252,7 +252,7 @@ class ReminderViewController: UIViewController {
         // Frequency Selector View
         contentView.addSubview(frequencySelectorView)
         frequencySelectorView.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor, constant: 4).isActive = true
-        frequencySelectorView.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor).isActive = true
+        frequencySelectorView.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: 3).isActive = true
         frequencySelectorView.trailingAnchor.constraint(equalTo: actionCustomizationView.trailingAnchor).isActive = true
 //        frequencySelectorView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25).isActive = true
         frequencySelectorView.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
