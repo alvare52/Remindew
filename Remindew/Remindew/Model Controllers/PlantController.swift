@@ -11,21 +11,6 @@ import CoreData
 import UserNotifications
 import UIKit
 
-/// Custom Errors to provide better error messages
-enum NetworkError: Error {
-    case noAuth
-    case badAuth
-    case otherError
-    case badData
-    case noDecode
-    case noEncode
-    case noToken
-    case invalidURL
-    case noData
-    case invalidToken
-    case serverDown
-}
-
 class PlantController {
     
     // MARK: - Properties

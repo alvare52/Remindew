@@ -42,3 +42,18 @@ struct TempToken: Decodable {
     /// Date (in String form) of when temporary token will expire (typically 24 hours)
     let expiration: String?
 }
+
+/// Custom Errors to provide better error messages
+enum NetworkError: Error {
+    case noAuth
+    case badAuth
+    case otherError
+    case badData
+    case noDecode
+    case noEncode
+    case noToken
+    case invalidURL
+    case noData
+    case invalidToken
+    case serverDown
+}
