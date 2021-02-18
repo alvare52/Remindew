@@ -175,10 +175,8 @@ class PlantController {
         // delete plant's main notifications either way just in case
         removeAllRequestsForPlant(plant: plant)
         
-        // only create notifications if isEnabled is being set back to true
-        if plant.isEnabled {
-            addRequestsForPlant(plant: plant)
-        }
+        // this method only creates title, message and sound if isEnabled but badges stay regardless
+        addRequestsForPlant(plant: plant)
     
         // save
         savePlant()
@@ -505,32 +503,39 @@ class PlantController {
 
             // content
             let content = UNMutableNotificationContent()
-            // TODO: use custom sound later?
-            content.sound = .default
             
-            // title
-            var title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
-            // only use custom title if it's not nil and its not an empty string
-            if plant.mainTitle != nil && plant.mainTitle != "" {
-                title = plant.mainTitle!
+            // only make sound, title, and message if plant.isEnabled so we still get badges if disabled
+            if plant.isEnabled {
+                
+                // 1. Sound
+                // TODO: use custom sound later?
+                content.sound = .default
+                
+                // 2. Title
+                var title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
+                // only use custom title if it's not nil and its not an empty string
+                if plant.mainTitle != nil && plant.mainTitle != "" {
+                    title = plant.mainTitle!
+                }
+                content.title = "\(title)"
+
+                // 3. Message
+                var message = "\(plant.nickname!) " + NSLocalizedString("needs water.", comment: "plant.nickname needs water.")
+                // only use custom message if it's not nil and its not an empty string
+                if plant.mainMessage != nil && plant.mainMessage != "" {
+                    message = plant.mainMessage!
+                }
+                content.body = message
             }
-            content.title = "\(title)"
             
-            // message
-            var message = "\(plant.nickname!) " + NSLocalizedString("needs water.", comment: "plant.nickname needs water.")
-            // only use custom message if it's not nil and its not an empty string
-            if plant.mainMessage != nil && plant.mainMessage != "" {
-                message = plant.mainMessage!
-            }
-            content.body = message
-            
-            // badge
+            // 4. Badge
             content.badge = 1
 
-            // trigger
+            // 5. Trigger
             let date = makeDateCompsForSchedule(weekday: day, time: plant.water_schedule!)
             let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
 
+            // 6. Request
             let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
             
             UNUserNotificationCenter.current().add(request) { (error) in
@@ -544,12 +549,6 @@ class PlantController {
     /// Checks to see if notifications are allowed first, then adds all requests (by calling makeAllRequestsForPlant)
     func addRequestsForPlant(plant: Plant) {
         print("addRequestsForPlant")
-        
-        // only add notifications if plant.isEnabled
-        guard plant.isEnabled else {
-            print("exiting out of addRequestsForPlant because plant.isEnabled is \(plant.isEnabled)")
-            return
-        }
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             switch granted {
