@@ -16,6 +16,19 @@ class PlantsTableViewCell: UITableViewCell {
     /// Displays image from plant's image url (or default image if there is none)
     var plantImageView: UIButton!//UIImageView!
     
+    /// Image View that's used if user want plant image to show instead of icons
+    var userPlantImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.image = UIImage.defaultImage
+        imageView.layer.masksToBounds = false
+        imageView.layer.cornerRadius = 22
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleToFill
+        imageView.isUserInteractionEnabled = false
+        return imageView
+    }()
+    
     /// Displays plant's nickname
     var nicknameLabel: UILabel!
     
@@ -40,6 +53,7 @@ class PlantsTableViewCell: UITableViewCell {
         
     /// Sets the cells views when it is passed in a plant
     private func updateView() {
+        
         guard let plant = plant else { return }
         guard let nickname = plant.nickname, let species = plant.species else { return }
         
@@ -51,25 +65,24 @@ class PlantsTableViewCell: UITableViewCell {
         timeLabel.text = "\(DateFormatter.timeOnlyDateFormatter.string(from: plant.water_schedule ?? temp))"
         speciesLabel.text = species
         daysLabel.text = "\(daysString)"
-                
-        // TODO: Setting to use plant color for this?
-//        nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
+        
+        // TODO: Setting to use image of plant instead of icon?
+        userPlantImageView.isHidden = true
         
         if plant.isEnabled {
+            // TODO: Setting to use plant color for this?
+//            nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
             nicknameLabel.textColor = .mixedBlueGreen
         } else {
             nicknameLabel.textColor = .lightGray
         }
         
         if plant.needsWatering {
-//            plantImageView?.image = UIImage(named: "planticonwater")
-//            plantImageView.setImage(UIImage(named: "planticonwater"), for: .normal)
             plantImageView.setImage(UIImage.iconArray[Int(plant.actionIconIndex)], for: .normal)
             plantImageView.tintColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
             plantImageView.isUserInteractionEnabled = false
+                        
         } else {
-//            plantImageView?.image = UIImage(named: "planticonleaf")
-//            plantImageView.setImage(UIImage(named: "planticonleaf"), for: .normal)
             plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
             plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
             plantImageView.isUserInteractionEnabled = false
@@ -152,8 +165,15 @@ class PlantsTableViewCell: UITableViewCell {
         nicknameLabel.numberOfLines = 1
         
     
+        // User Plant Image View
+        containerView.addSubview(userPlantImageView)
+        userPlantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
+        userPlantImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
+        userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor).isActive = true
+        userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
+        
         // Image View
-        let imageView = UIButton(type: .system) //UIImageView()
+        let imageView = UIButton(type: .system) // UIImageView()
         containerView.addSubview(imageView)
         self.plantImageView = imageView
         plantImageView.translatesAutoresizingMaskIntoConstraints = false

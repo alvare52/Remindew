@@ -59,6 +59,7 @@ class ReminderViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.plantNameLabel.isEnabled = true
         view.plantNameLabel.text = NSLocalizedString("Reminder", comment: "Name of reminder type")
+        view.localIconCount = 1
         return view
     }()
     
@@ -80,15 +81,6 @@ class ReminderViewController: UIViewController {
         return view
     }()
     
-    /// Switch to toggle isDisabled for Reminder (currently not displayed/used)
-    let isEnabledSwitch: UISwitch = {
-        let tempSwitch = UISwitch()
-        tempSwitch.translatesAutoresizingMaskIntoConstraints = false
-        tempSwitch.onTintColor = .mixedBlueGreen
-        tempSwitch.isOn = true
-        return tempSwitch
-    }()
-       
     /// Custom View that looks like Notifications banners
     let notificationBubble: NotificationView = {
         let view = NotificationView()
@@ -143,6 +135,7 @@ class ReminderViewController: UIViewController {
         updateViews()
     }
     
+    /// Bring up keyboard depending on which mode it's in
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -155,7 +148,6 @@ class ReminderViewController: UIViewController {
         
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
-        print("Save button tapped")
             
         // We came from EDIT mode, so we can safely update the plant here (currently can only add/edit reminders to existing plants)
         if let plant = plant {
@@ -163,14 +155,14 @@ class ReminderViewController: UIViewController {
             // make sure reminder has an actionName
             guard let actionName = actionCustomizationView.plantNameLabel.text else {
                 // TODO: Error alert for no name
-                print("no name for action")
+                print("NO NAME FOR ACTION")
                 return
             }
             
             // make sure frequency is a number and greater than 0
             guard let frequencyString = frequencySelectorView.textField.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString), frequency > 0 else {
                 // TODO: Error alert for invalid or missing frequency number
-                print("no text in frequency textfield")
+                print("NO TEXT IN FREQUENCY VIEW")
                 return
             }
             
@@ -186,7 +178,7 @@ class ReminderViewController: UIViewController {
                                               actionTitle: notificationBubble.reminderTitleTextfield.text ?? "",
                                               actionMessage: notificationBubble.reminderMessageTextfield.text ?? "",
                                               notes: notesTextView.text,
-                                              isEnabled: isEnabledSwitch.isOn,
+                                              isEnabled: true,
                                               colorIndex: Int16(actionCustomizationView.localColorsCount),
                                               iconIndex: Int16(actionCustomizationView.localIconCount))
             }
@@ -200,7 +192,7 @@ class ReminderViewController: UIViewController {
                                                        actionTitle: notificationBubble.reminderTitleTextfield.text ?? "",
                                                        actionMessage: notificationBubble.reminderMessageTextfield.text ?? "",
                                                        notes: notesTextView.text,
-                                                       isEnabled: isEnabledSwitch.isOn,
+                                                       isEnabled: true,
                                                        colorIndex: Int16(actionCustomizationView.localColorsCount),
                                                        iconIndex: Int16(actionCustomizationView.localIconCount))
             }
@@ -211,8 +203,9 @@ class ReminderViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Sets up all UI elements
     private func setupSubviews() {
-        
+                
         // Content View
         view.addSubview(contentView)
         contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: standardMargin).isActive = true
@@ -247,25 +240,15 @@ class ReminderViewController: UIViewController {
         datePicker.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor, constant: 4).isActive = true
         datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6).isActive = true
-        datePicker.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         // Frequency Selector View
         contentView.addSubview(frequencySelectorView)
         frequencySelectorView.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor, constant: 4).isActive = true
         frequencySelectorView.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: 3).isActive = true
         frequencySelectorView.trailingAnchor.constraint(equalTo: actionCustomizationView.trailingAnchor).isActive = true
-//        frequencySelectorView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25).isActive = true
         frequencySelectorView.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
         frequencySelectorView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-//        // isDisabled Switch (not used currently)
-//        contentView.addSubview(isEnabledSwitch)
-//        isEnabledSwitch.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor).isActive = true
-//        isEnabledSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        isEnabledSwitch.widthAnchor.constraint(equalToConstant: 50).isActive = true
-//        isEnabledSwitch.heightAnchor.constraint(equalToConstant: 31).isActive = true
-//        isEnabledSwitch.centerYAnchor.constraint(equalTo: datePicker.centerYAnchor).isActive = true
-        
+                
         // Notification Bubble
         contentView.addSubview(notificationBubble)
         notificationBubble.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 8).isActive = true
@@ -283,43 +266,29 @@ class ReminderViewController: UIViewController {
     
     private func updateViews() {
         
-        guard isViewLoaded else { return }
-                
-        // EDIT/DETAIL Mode
-        if let plant = plant {
-            print("reminder in edit mode = \(String(describing: plant.reminders))")
-
+        guard isViewLoaded, plant != nil else { return }
+                        
+        // EDIT REMINDER WE CLICKED ON (from tableView cell)
+        if let reminder = reminder {
+            actionCustomizationView.plantNameLabel.text = reminder.actionName
+            notificationBubble.reminderTitleTextfield.text = reminder.actionTitle
+            notificationBubble.reminderMessageTextfield.text = reminder.actionMessage
+            datePicker.date = reminder.alarmDate!// ?? Date()
+            frequencySelectorView.textField.text = "\(reminder.frequency)"
+            notesTextView.text = reminder.notes
             
-            let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
-            print("remindersArray = \(remindersArray)")
-            
-            // EDIT REMINDER WE CLICKED ON (from tableView cell)
-            if let reminder = reminder {
-                actionCustomizationView.plantNameLabel.text = reminder.actionName
-                notificationBubble.reminderTitleTextfield.text = reminder.actionTitle
-                notificationBubble.reminderMessageTextfield.text = reminder.actionMessage
-                datePicker.date = reminder.alarmDate!// ?? Date()
-                isEnabledSwitch.isOn = reminder.isEnabled
-                frequencySelectorView.textField.text = "\(reminder.frequency)"
-                notesTextView.text = reminder.notes
-                
-                let reminderColor = UIColor.colorsArray[Int(reminder.colorIndex)]
-                actionCustomizationView.localColorsCount = Int(reminder.colorIndex)
-                actionCustomizationView.localIconCount = Int(reminder.iconIndex)
-//                isEnabledSwitch.onTintColor = reminderColor
-                frequencySelectorView.mainColor = reminderColor
-                datePicker.tintColor = reminderColor
+            let reminderColor = UIColor.colorsArray[Int(reminder.colorIndex)]
+            actionCustomizationView.localColorsCount = Int(reminder.colorIndex)
+            actionCustomizationView.localIconCount = Int(reminder.iconIndex)
+            frequencySelectorView.mainColor = reminderColor
+            datePicker.tintColor = reminderColor
 
-                // if reminder has been completed at least once, display lastDate
-                if let lastDate = reminder.lastDate {
-                    lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(DateFormatter.lastWateredDateFormatter.string(from: lastDate))"
-                }
-                
-                // use dateCreated as a fall back if reminder hasn't been completed yet (new reminder)
-                else {
-                    lastDateLabel.text = NSLocalizedString("Made: ", comment: "date created label") +
-                        "\(DateFormatter.lastWateredDateFormatter.string(from: reminder.dateCreated!))"
-                }
+            // if reminder has been completed at least once, display lastDate. Else, display dateCreated
+            if let lastDate = reminder.lastDate {
+                lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(DateFormatter.lastWateredDateFormatter.string(from: lastDate))"
+            } else {
+                lastDateLabel.text = NSLocalizedString("Made: ", comment: "date created label") +
+                    "\(DateFormatter.lastWateredDateFormatter.string(from: reminder.dateCreated!))"
             }
         }
     }
