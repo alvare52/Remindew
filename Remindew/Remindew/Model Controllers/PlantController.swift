@@ -279,10 +279,8 @@ class PlantController {
         // delete reminder notification either way just in case
         deleteReminderNotificationForPlant(reminder: reminder, plant: plant)
         
-        // only create notifications if isEnabled is being set back to true
-        if reminder.isEnabled {
-            createNotificationForReminder(plant: plant, reminder: reminder)
-        }
+        // this method only creates title, message and sound if isEnabled but badges stay regardless
+        createNotificationForReminder(plant: plant, reminder: reminder)
         
         savePlant()
     }
@@ -307,132 +305,9 @@ class PlantController {
     
     // MARK: - Helpers
     
-    /// Uses selected days (mandatory) to set the plant's NEXT date for watering
-    func returnWateringSchedule(plantDate: Date, days: [Int16]) -> Date {
-        print("returnWateringSchedule")
-        let val = calculateNextWateringValue(days)
-        if let result = calendar.date(byAdding: .day, value: val, to: Date()) {
-            return result
-        }
-        
-        print("Error making next watering schedule in setWateringSchedule")
-        return Date()
-    }
-    
-    /// Returns first date a plant reminder will go off. Made of a Weekday,  Hour and Minutes
-    /// - Parameter days: Array of selected days when the reminders should go off
-    /// - Parameter time: The "Date" that we will grab only the hours and minutes from
-    func createDateFromTimeAndDay(days: [Int16], time: Date) -> Date {
-        print("createDateFromTimeAndDay")
-        var result = Date()
-        
-        let plantTimeComps = calendar.dateComponents([.hour, .minute, .weekday], from: time)
-        
-        let cur = currentDayComps.weekday!
-        
-        // If today IS in the array of days
-    
-        if days.firstIndex(of: Int16(cur)) != nil {
-            
-            // if today is also a selected day, check if the time has past
-            
-            // if selected time is GREATER than current time (later today, so if == go else)
-            if plantTimeComps.hour! >= currentDayComps.hour! && plantTimeComps.minute! > currentDayComps.minute! {
-                print("first watering is later today")
-                var comps = currentDayComps
-                comps.hour = plantTimeComps.hour!
-                comps.minute = plantTimeComps.minute!
-                guard let unwrappedDate = calendar.date(from: comps) else {
-                    NSLog("Error in createDateFromTimeAndDay, returnind Date 5 from now")
-                    return Date(timeIntervalSinceNow: 5)
-                }
-                return unwrappedDate
-            }
-        }
-            
-        // Today is NOT in array of selected days
-        // OR selected time is LESS than current time (next week)
-        // date and time should be set using returnNextWateringSchedule
-        
-        // get next day alarm will go off (calcNext doesn't work in this case)
-        result = returnWateringSchedule(plantDate: time, days: days)
-        
-        var newComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday],
-                                               from: result)
-        newComps.hour = plantTimeComps.hour!
-        newComps.minute = plantTimeComps.minute!
-        // add plantcomsp hour and minutes to this ^
-        guard let unwrappedDate = calendar.date(from: newComps) else {
-            NSLog("Error in createDateFromTimeAndDay, returnind Date 5 from now")
-            return Date(timeIntervalSinceNow: 5)
-        }
-        
-        return unwrappedDate
-    }
-    
-    /// Takes in array of weekday Int16s and returns the amount of days until next watering
-    /// - Parameter daysSelected: Array of Int16, where each one corresponds to a day of the week
-    func calculateNextWateringValue(_ daysSelected: [Int16]) -> Int {
-        
-        let cur = Int16(currentDayComps.weekday!) // 4 Wednesday
-        let dayz = daysSelected //plant.frequency! // []
-        var nextDay = Int16(0)
-        var val = Int16(0)
-        
-        // returns nil if there's no number in that array
-        // [3,5] but we're on wed 4
-        // go through [1,3,5] etc and return index of todays int (return nil if not in array)
-        // cur IS in dayz
-        if let currIndex = dayz.firstIndex(of: cur) {
-            
-            // if last or only element in array, go back
-            if (currIndex + 1) == dayz.count {
-                nextDay = dayz[0]
-            }
-            else {
-                nextDay = dayz[currIndex + 1]
-            }
-            
-            // 5 > 3
-            if nextDay > cur {
-                val = nextDay - cur
-            }
-            // 2 < 3
-            else if nextDay < cur {
-                let temp = cur - nextDay
-                val = 7 - temp
-                
-            }
-            // 3 == 3
-            else {
-                val = 7
-            }
-        }
-        
-        // cur is NOT in dayz
-        else {
-            print("currIndex NOT in daysSelected -> \(dayz), cur day int is \(cur)")
-            if cur > dayz.max()! {
-                nextDay = cur - dayz.min()!
-                val = Int16(7) - nextDay
-            } else {
-                for day in dayz {
-                    if day > cur {
-                        val = day - cur
-                        break
-                    }
-                }
-            }
-        }
-        
-        // current day = 3, next is plant.getNextDay()
-        print("cur = \(cur) nextDay = \(nextDay) val = \(val)")
-        return Int(val)
-    }
-    
     /// When getting back temp token, set lastDateTokenGrabbed
     /// Checks Date() and lastDayTokenSet (Date), returns true if time between the two
-    /// is greatere than 24 hours?
+    /// is greater than 24 hours
     func newTempTokenIsNeeded() -> Bool {
         
         // only return false if it hasn't been 24 hours (or more) since last token was grabbed
@@ -582,12 +457,6 @@ class PlantController {
     /// Checks if notifications are allowed then creates notification for given Reminder
     func createNotificationForReminder(plant: Plant, reminder: Reminder) {
         
-        // only create notifications is reminder.isEnabled is true
-        guard reminder.isEnabled else {
-            print("exiting out of createNotificationsForReminder because reminder.isEnabled is \(reminder.isEnabled)")
-            return
-        }
-        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             switch granted {
             case true:
@@ -610,23 +479,27 @@ class PlantController {
         
         // content
         let content = UNMutableNotificationContent()
-        content.sound = .default
         
-        // title
-        var title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
-        // only use custom title if it's not nil and its not an empty string
-        if reminder.actionTitle != nil && reminder.actionTitle != "" {
-            title = reminder.actionTitle!
+        // only make sound, title and message if reminder.isEnabled but we still keep badges
+        if reminder.isEnabled {
+            content.sound = .default
+            
+            // title
+            var title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
+            // only use custom title if it's not nil and its not an empty string
+            if reminder.actionTitle != nil && reminder.actionTitle != "" {
+                title = reminder.actionTitle!
+            }
+            content.title = "\(title)"
+            
+            // message
+            var message = "\(plant.nickname!) " + NSLocalizedString("needs water.", comment: "plant.nickname needs water.")
+            // only use custom message if it's not nil and its not an empty string
+            if reminder.actionMessage != nil && reminder.actionMessage != "" {
+                message = reminder.actionMessage!
+            }
+            content.body = message
         }
-        content.title = "\(title)"
-        
-        // message
-        var message = "\(plant.nickname!) " + NSLocalizedString("needs water.", comment: "plant.nickname needs water.")
-        // only use custom message if it's not nil and its not an empty string
-        if reminder.actionMessage != nil && reminder.actionMessage != "" {
-            message = reminder.actionMessage!
-        }
-        content.body = message
         
         // badge
         content.badge = 1
