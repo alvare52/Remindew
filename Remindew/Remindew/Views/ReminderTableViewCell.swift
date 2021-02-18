@@ -170,7 +170,6 @@ class ReminderTableViewCell: UITableViewCell {
     /// Sets up all custom views
     private func setUpSubviews() {
         
-        
         // Container View
         addSubview(containerView)
         containerView.topAnchor.constraint(equalTo: topAnchor).isActive = true

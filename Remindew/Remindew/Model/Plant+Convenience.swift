@@ -51,6 +51,20 @@ extension Plant {
         self.actionColorIndex = actionColorIndex
         self.isEnabled = isEnabled
     }
+    
+    /// Checks to see if a plant's reminders need attention and returns first one if true
+    func checkPlantsReminders() -> Reminder? {
+        
+        let remindersArray = self.reminders?.allObjects as! Array<Reminder>
+        
+        for reminder in remindersArray {
+            if reminder.alarmDate! <= Date() {
+                print("PLANT: \(self.nickname!) NEEDS ATTENTION: \(reminder.actionName!)")
+                return reminder
+            }
+        }
+        return nil
+    }
 }
 
 // Need to make warning go away but needs implementation
