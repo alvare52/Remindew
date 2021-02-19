@@ -34,9 +34,6 @@ class PlantsTableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
-//        button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-//        button.tintColor = .systemBlue
-//        button.isHidden = true
         return button
     }()
     
@@ -76,9 +73,17 @@ class PlantsTableViewCell: UITableViewCell {
         daysLabel.text = "\(returnDaysString(plant: plant))"
         
         // Plant Icon or Image (TODO: Setting to use userPlantImageView instead of icon)
-        plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
-        plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
-        userPlantImageView.isHidden = true
+        if true {
+            // Image
+            userPlantImageView.isHidden = false
+            // TODO: should check userPlantImageCache (not made yet) to skip this step
+            userPlantImageView.image = UIImage.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)")
+        } else {
+            // Icon
+            plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
+            plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
+            userPlantImageView.isHidden = true
+        }
         
         // Reminder Button
         updateReminderButton(plant: plant)
@@ -186,7 +191,6 @@ class PlantsTableViewCell: UITableViewCell {
         nicknameLabel.font = .boldSystemFont(ofSize: 25)
         nicknameLabel.numberOfLines = 1
         
-    
         // User Plant Image View
         containerView.addSubview(userPlantImageView)
         userPlantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
@@ -200,8 +204,6 @@ class PlantsTableViewCell: UITableViewCell {
         self.plantImageView = imageView
         plantImageView.translatesAutoresizingMaskIntoConstraints = false
         plantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: CGFloat(0.0)).isActive = true
-//        plantImageView.leadingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
-//        plantImageView.trailingAnchor.constraint(equalTo: timeLabel.trailingAnchor).isActive = true
         plantImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: CGFloat(-16.0)).isActive = true
         plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
         plantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
