@@ -30,6 +30,8 @@ extension Plant {
                                         actionIconIndex: Int16 = 0,
                                         actionColorIndex: Int16 = 1,
                                         isEnabled: Bool = true,
+                                        wasWateredToday: Bool = false,
+                                        lastDatesWatered: [Date] = [],
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.nickname = nickname
@@ -50,6 +52,8 @@ extension Plant {
         self.actionIconIndex = actionIconIndex
         self.actionColorIndex = actionColorIndex
         self.isEnabled = isEnabled
+        self.wasWateredToday = wasWateredToday
+        self.lastDatesWatered = lastDatesWatered
     }
     
     /// Checks to see if a plant's reminders need attention and returns first one if true

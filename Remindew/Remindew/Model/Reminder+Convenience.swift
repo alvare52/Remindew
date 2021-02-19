@@ -23,6 +23,7 @@ extension Reminder {
                                         notes: String = "",
                                         dateCreated: Date = Date(),
                                         needsCompletion: Bool = false,
+                                        lastDatesCompleted: [Date] = [],
                                         context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.actionName = actionName
@@ -38,5 +39,6 @@ extension Reminder {
         self.notes = notes
         self.dateCreated = dateCreated
         self.needsCompletion = needsCompletion
+        self.lastDatesCompleted = lastDatesCompleted
     }
 }
