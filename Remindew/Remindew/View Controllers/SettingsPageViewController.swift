@@ -98,6 +98,12 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // Appearance
+        if section == 0 {
+            return 2
+        }
+        
         return 1
     }
     
@@ -112,10 +118,22 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // APPEARANCE
         if indexPath.section == 0 {
-            settingCell.settingLabel.text = "Dark Theme"
-            settingCell.optionSwitch.isHidden = false
-            settingCell.customSetting = .darkThemeOn
-            settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .darkThemeOn)
+            
+            // Dark Theme
+            if indexPath.row == 0 {
+                settingCell.settingLabel.text = "Dark Theme"
+                settingCell.optionSwitch.isHidden = false
+                settingCell.customSetting = .darkThemeOn
+                settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .darkThemeOn)
+            }
+            
+            // Plant Images
+            if indexPath.row == 1 {
+                settingCell.settingLabel.text = "Plant Images instead of icons"
+                settingCell.optionSwitch.isHidden = false
+                settingCell.customSetting = .usePlantImages
+                settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantImages)
+            }
         }
         
         // SORTING

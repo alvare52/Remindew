@@ -73,13 +73,14 @@ class PlantsTableViewCell: UITableViewCell {
         daysLabel.text = "\(returnDaysString(plant: plant))"
         
         // Plant Icon or Image (TODO: Setting to use userPlantImageView instead of icon)
-        if true {
+        if UserDefaults.standard.bool(forKey: .usePlantImages) {
             // Image
             userPlantImageView.isHidden = false
-            // TODO: should check userPlantImageCache (not made yet) to skip this step
+            plantImageView.isHidden = true
             userPlantImageView.image = UIImage.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)")
         } else {
             // Icon
+            plantImageView.isHidden = false
             plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
             plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
             userPlantImageView.isHidden = true

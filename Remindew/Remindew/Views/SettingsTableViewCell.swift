@@ -46,6 +46,10 @@ class SettingsTableViewCell: UITableViewCell {
         case .darkThemeOn:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .darkThemeOn)
             UIColor().updateToDarkOrLightTheme()
+        case .usePlantImages:
+            UserDefaults.standard.set(optionSwitch.isOn, forKey: .usePlantImages)
+            // Let main table view know to update table view
+            NotificationCenter.default.post(name: .checkWateringStatus, object: self)
         default:
             print("none")
         }

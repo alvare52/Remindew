@@ -20,7 +20,7 @@ extension NSNotification.Name {
     static let updateSortDescriptors = NSNotification.Name("updateSortDescriptors")
     
     /// Posts a notification that tells the 3 main view controllers to update their appearance
-    static let updateAllViewControllerAppearance = NSNotification.Name("updateAllViewControllerAppearance")
+//    static let updateAllViewControllerAppearance = NSNotification.Name("updateAllViewControllerAppearance")
 }
 
 // MARK: - String
@@ -41,6 +41,9 @@ extension String {
     
     /// Get/Set value of setting for using dark mode in this app only
     static let darkThemeOn = "darkThemeOn"
+    
+    /// Get/Set value of setting for using plant images instead of icons
+    static let usePlantImages = "usePlantImages"
     
     static let sunday = NSLocalizedString("Sun", comment: "Sunday abbreviated")
     static let monday = NSLocalizedString("Mon", comment: "Monday abbreviated")
