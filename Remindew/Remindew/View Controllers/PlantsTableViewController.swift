@@ -74,6 +74,7 @@ class PlantsTableViewController: UITableViewController {
     private var observer: NSObjectProtocol?
     let refreshWheel = UIRefreshControl()
     
+    /// Number of plants that need water or reminder completion. didSet updates title and badge count
     var plantsThatNeedWaterCount = 0 {
         didSet {
             // update title after all plant watering statuses have been checked
@@ -95,25 +96,27 @@ class PlantsTableViewController: UITableViewController {
         refreshWheel.tintColor = .mixedBlueGreen
         refreshWheel.addTarget(self, action: #selector(checkIfPlantsNeedWatering), for: .valueChanged)
         
-        // Step 2 (Step 3 is the thing in selector)
+        // Listen for when to check watering status of plants (posted when notification comes in while app is running)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(checkIfPlantsNeedWatering),
                                                name: .checkWateringStatus,
                                                object: nil)
         
-        // Listen to see if we need to update the sorting
+        // Listen to see if we need to update the sorting (posted when sorting setting is changed)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSorting),
                                                name: .updateSortDescriptors,
                                                object: nil)
         
         // give nav bar its date
-        dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())//dateFormatter2.string(from: Date())
+        dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
+        
         // starts as disabled and this lets it keep its mixedBlueGreen color
         dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
                 
         // Add observer so we can know when the app comes back in the foreground
         observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
+            
             // [unowned self] is so avoid strong reference cycle that prevents VC from being deallocated
             // do this when app is brought back to the foreground
             print("BACK IN THE FOREGROUND")
@@ -139,8 +142,10 @@ class PlantsTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
+    // TODO: Move to AlertController Extension?
     /// Presents an alert asking user if they're sure if they want to delete the plant they swiped on
     private func deletionWarningAlert(plant: Plant) {
+        
         guard let plantNickname = plant.nickname else { return }
         let title = NSLocalizedString("Delete Plant",
                                       comment: "Title Plant Deletion Alert")
@@ -185,11 +190,11 @@ class PlantsTableViewController: UITableViewController {
             try fetchedResultsController.performFetch()
             tableView.reloadData()
         } catch {
-            print("fetch failed in viewWillAppear")
+            print("fetch failed in updateSorting")
         }
     }
     
-    /// Goes through all plants and checks if they need watering today. Also updates title based on how many need water
+    /// Goes through all plants and checks if they need watering today. Also updates title based on how many need water or reminder completion
     @objc private func checkIfPlantsNeedWatering() {
         print("checkIfPlantNeedsWatering")
         
@@ -199,6 +204,8 @@ class PlantsTableViewController: UITableViewController {
         // each plant if it's next water date has passed
         for plant in fetchedResultsController.fetchedObjects! {
             
+            // TODO: make method that does this in Plant or PlantController?
+            // TODO: move outside of loop?
             // get current weekday from calendar first
             let currentDayComps = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: Date())
             let currentWeekday = Int16(currentDayComps.weekday!)
@@ -241,6 +248,10 @@ class PlantsTableViewController: UITableViewController {
 
             // count all plants that need watering for title display
             if plant.needsWatering { count += 1 }
+            
+            if plantController.plantRemindersNeedAttention(plant: plant) {
+                count += 1
+            }
         }
         
         // update counter
@@ -302,6 +313,8 @@ class PlantsTableViewController: UITableViewController {
             print("Completed \(plant.mainAction ?? "water") \(plant.nickname!)")
             if plant.needsWatering {
                 self.plantController.updatePlantWithWatering(plant: plant, needsWatering: false)
+                // so tableView can refresh with new main title
+                self.plantsThatNeedWaterCount -= 1
             }
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
             completion(true)

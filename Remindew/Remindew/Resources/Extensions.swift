@@ -11,7 +11,6 @@ import UIKit
 
 // MARK: - NSNotification
 
-// Step 1
 extension NSNotification.Name {
     
     /// Posts a notification that tells the main table view to check the watering status and update the table

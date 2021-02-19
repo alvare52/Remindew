@@ -57,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler([.banner, .sound, .badge])
 
         // check watering status of all plants by sending notification to observer (PlantTableViewController)
-        // Step 4
         NotificationCenter.default.post(name: .checkWateringStatus, object: self)
     }
     

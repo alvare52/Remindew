@@ -255,19 +255,17 @@ class PlantController {
         savePlant()
     }
     
-    /// Checks to see if a plant's reminders need attention and returns first one if true
-    func checkPlantsReminders(plant: Plant) -> Reminder? {
-        
-        let remindersArray = plant.reminders?.allObjects as! Array<Reminder>
-        
-        for reminder in remindersArray {
+    /// Returns a bool based on if a plant has a reminder that needs need attention
+    func plantRemindersNeedAttention(plant: Plant) -> Bool {
+                
+        for reminder in plant.reminders?.allObjects as! Array<Reminder> {
             if reminder.alarmDate! <= Date() {
                 print("PLANT: \(plant.nickname!) NEEDS ATTENTION: \(reminder.actionName!)")
-                return reminder
+                return true
             }
         }
         
-        return nil
+        return false
     }
 
     /// Updates and saves reminder's isEnabled property. Deletes notifications if set to false or enables notifications if set to true
