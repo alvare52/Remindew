@@ -76,6 +76,8 @@ extension UIImage {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path)
                 print("Removed old image")
+                // remove from savedUserPlantImages
+                savedUserPlantImages.removeValue(forKey: imageName)
             } catch let removeError {
                 print("couldn't remove file at path", removeError)
             }
