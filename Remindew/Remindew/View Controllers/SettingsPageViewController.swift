@@ -34,7 +34,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     
     /// Returns a String that contains total amount of Plants, Pending Notifications, Locations, and current app version
     var stats: String {
-        return "\n\nUser Stats: \(totalPlantCount) Plants, \(totalNotificationsCount) Reminders, \(totalLocationsCount) Locations" + "\nv\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+        return "\n\nUser Stats: \(totalPlantCount) Plants, \(totalNotificationsCount) Notifications, \(totalLocationsCount) Locations" + "\nv\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
     }
     
     // MARK: - View Life Cycle
@@ -44,6 +44,24 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor.customBackgroundColor
+        
+        // Listen for when to check watering status of plants (posted when notification comes in while app is running)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dismissSettingsPage),
+                                               name: .checkWateringStatus,
+                                               object: nil)
+        
+        // Listen to see if we need to update the sorting (posted when sorting setting is changed)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dismissSettingsPage),
+                                               name: .updateSortDescriptors,
+                                               object: nil)
+        
+    }
+    
+    /// Dismiss Settings page when appearance setting is toggled to prevent spamming
+    @objc func dismissSettingsPage() {
+        dismiss(animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,7 +97,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Toggle between Light or Dark Theme"
+            return "Light/Dark Theme are independent of phone preferences"
         case 1:
             return "Sort by nickname or plant type"
         case 2:
@@ -125,6 +143,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .darkThemeOn
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .darkThemeOn)
+                settingCell.settingLabel.textColor = .label
             }
             
             // Plant Images
@@ -133,6 +152,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantImages
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantImages)
+                settingCell.settingLabel.textColor = .label
             }
         }
         
@@ -142,6 +162,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             settingCell.optionSwitch.isHidden = false
             settingCell.customSetting = .sortPlantsBySpecies
             settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .sortPlantsBySpecies)
+            settingCell.settingLabel.textColor = .label
         }
         
         // SEARCHING
@@ -150,6 +171,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             settingCell.optionSwitch.isHidden = false
             settingCell.customSetting = .resultFillsSpeciesTextfield
             settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield)
+            settingCell.settingLabel.textColor = .label
         }
         
         // SEARCHES POWERED BY TREFLE
