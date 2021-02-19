@@ -29,6 +29,18 @@ class PlantsTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    /// Button that shows which reminder needs attention
+    var reminderButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = false
+//        button.backgroundColor = .orange
+        button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+        button.tintColor = .systemBlue
+        button.isHidden = true
+        return button
+    }()
+    
     /// Displays plant's nickname
     var nicknameLabel: UILabel!
     
@@ -86,6 +98,17 @@ class PlantsTableViewCell: UITableViewCell {
             plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
             plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
             plantImageView.isUserInteractionEnabled = false
+        }
+        
+        // update reminderButton if plant has reminder that needs completion
+        if let reminder = plant.checkPlantsReminders() {
+            print("\(plant.nickname!), \(reminder.actionName!) needs attention PTVC")
+            reminderButton.isHidden = false
+            reminderButton.setImage(UIImage.iconArray[Int(reminder.iconIndex)], for: .normal)
+            reminderButton.tintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
+        } else {
+            print("\(plant.nickname!), does NOT need attention, should be hidden now")
+            reminderButton.isHidden = true
         }
     }
     
@@ -184,6 +207,12 @@ class PlantsTableViewCell: UITableViewCell {
         plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
         plantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
         plantImageView.contentMode = .scaleAspectFit
+        
+        containerView.addSubview(reminderButton)
+        reminderButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
+        reminderButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+        reminderButton.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.33).isActive = true
+        reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor).isActive = true
         
         // Species Label
         let species = UILabel()

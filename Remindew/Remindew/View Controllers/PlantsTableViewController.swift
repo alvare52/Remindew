@@ -208,16 +208,12 @@ class PlantsTableViewController: UITableViewController {
             
             // if today is one of the selected days for this plant
             if let _ = plant.frequency!.firstIndex(of: currentWeekday) {
-                print("today = \(currentWeekday) \(currentHour):\(currentMinute)")
+                
                 // now check if plant.water_schedule time is <= currentMinute and
                 let plantComps = calendar.dateComponents([.hour, .minute, .second], from: plant.water_schedule!)
                 let plantHour = plantComps.hour!
                 let plantMinute = plantComps.minute!
-                
-                print("plant time = \(plantHour):\(plantMinute)")
-                print("current time = \(currentHour):\(currentMinute)")
-                print("plant needs watering = \(plant.needsWatering)")
-                
+            
                 var lastDay = 0
                 if let lastWatered = plant.lastDateWatered {
                     // lastWatered was NOT nil, so its a plant that has been watered before
@@ -235,13 +231,14 @@ class PlantsTableViewController: UITableViewController {
                     
                     // needsWatering goes from FALSE to TRUE (don't update last watered)
                     plantController.updatePlantWithWatering(plant: plant, needsWatering: true)
-                    tableView.reloadData()
+                    
+                    // only reload if something needs watering (might change back later)
+//                    tableView.reloadData()
+                    
                 }
                 
-            } else {
-                print("Today is NOT in plant's days array")
             }
-            
+
             // count all plants that need watering for title display
             if plant.needsWatering { count += 1 }
         }
@@ -251,6 +248,9 @@ class PlantsTableViewController: UITableViewController {
         
         // update date label since it needs to be updated at least once a day to display correct date
         dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
+        
+        // so reminderButton can be updated
+        tableView.reloadData()
         
         // stop refresh animation (starts refreshing when its called)
         refreshWheel.endRefreshing()
