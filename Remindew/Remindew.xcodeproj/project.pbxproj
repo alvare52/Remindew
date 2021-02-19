@@ -34,6 +34,7 @@
 		1BAA3FEE25898B9A0076CE91 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA3FED25898B910076CE91 /* Key.swift */; };
 		1BEA10EE25DFF521004EE87F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA10ED25DFF521004EE87F /* UIColor+Extension.swift */; };
 		1BEA10F925E05D3C004EE87F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA10F825E05D3C004EE87F /* UIImage+Extension.swift */; };
+		1BEA10FE25E073F1004EE87F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA10FD25E073F1004EE87F /* String+Extension.swift */; };
 		1BEB0002258AA2CF008701D2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB0004258AA2CF008701D2 /* Localizable.strings */; };
 		1BEB0017258E92AB008701D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB0019258E92AB008701D2 /* InfoPlist.strings */; };
 		1BEB0029258EE4B2008701D2 /* SettingsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEB0028258EE4B2008701D2 /* SettingsPageViewController.swift */; };
@@ -91,6 +92,7 @@
 		1BAA3FED25898B910076CE91 /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		1BEA10ED25DFF521004EE87F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		1BEA10F825E05D3C004EE87F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		1BEA10FD25E073F1004EE87F /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		1BEB0003258AA2CF008701D2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1BEB0005258AA2D5008701D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1BEB0018258E92AB008701D2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				1BEA10ED25DFF521004EE87F /* UIColor+Extension.swift */,
 				1BED79D52568A3E9004241F4 /* Extensions.swift */,
 				1BEA10F825E05D3C004EE87F /* UIImage+Extension.swift */,
+				1BEA10FD25E073F1004EE87F /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				1BAA3FEE25898B9A0076CE91 /* Key.swift in Sources */,
 				1B09883423EA9415000033FA /* CoreDataStack.swift in Sources */,
 				1BED79D8256D8970004241F4 /* DaySelectionView.swift in Sources */,
+				1BEA10FE25E073F1004EE87F /* String+Extension.swift in Sources */,
 				1B09883C23EA9475000033FA /* PlantRepresentation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

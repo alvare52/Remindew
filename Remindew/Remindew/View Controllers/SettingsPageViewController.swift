@@ -40,6 +40,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
@@ -119,7 +120,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // Appearance
         if section == 0 {
-            return 2
+            return 3
         }
         
         return 1
@@ -152,6 +153,15 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantImages
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantImages)
+                settingCell.settingLabel.textColor = .label
+            }
+            
+            // Name label uses plant color
+            if indexPath.row == 2 {
+                settingCell.settingLabel.text = "Name label uses plant color"
+                settingCell.optionSwitch.isHidden = false
+                settingCell.customSetting = .usePlantColorOnLabel
+                settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantColorOnLabel)
                 settingCell.settingLabel.textColor = .label
             }
         }
