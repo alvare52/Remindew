@@ -117,7 +117,7 @@ extension UIButton {
 extension UIImage {
     
     /// Icons used for actions
-    static let iconArray = [UIImage(named: "planticonleaf"), UIImage(systemName: "cross.fill"), UIImage(systemName: "ant.fill"), UIImage(systemName: "scissors"), UIImage(systemName: "aqi.low"), UIImage(systemName: "rotate.right.fill"), UIImage(systemName: "arrow.up.bin.fill"), UIImage(systemName: "circle.fill"), UIImage(systemName: "leaf.fill"), UIImage(systemName: "drop.fill")]
+    static let iconArray = [UIImage(systemName: "drop.fill"), UIImage(systemName: "cross.fill"), UIImage(systemName: "ant.fill"), UIImage(systemName: "scissors"), UIImage(systemName: "aqi.low"), UIImage(systemName: "rotate.right.fill"), UIImage(systemName: "arrow.up.bin.fill"), UIImage(systemName: "circle.fill"), UIImage(systemName: "leaf.fill")]
     
     /// Icons used for plants
     static let plantIconArray = [UIImage(systemName: "leaf.fill"), UIImage(named: "planticonleaf")]

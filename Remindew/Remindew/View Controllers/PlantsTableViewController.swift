@@ -329,11 +329,6 @@ class PlantsTableViewController: UITableViewController {
         completeTask.title = plant.needsWatering ? "\(plant.mainAction ?? "Water")" : lastCompletedString
         completeTask.backgroundColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
         
-        // image gets bigger when swiping for a second time if using "plantleaficon", so replacing with drop.fill
-        if plant.needsWatering && plant.actionIconIndex == 0 {
-            completeTask.image = UIImage(systemName: "drop.fill")
-        }
-
         let config = UISwipeActionsConfiguration(actions: [completeTask])
         config.performsFirstActionWithFullSwipe = plant.needsWatering ? true : false
                 
