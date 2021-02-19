@@ -20,7 +20,7 @@ class PlantsTableViewCell: UITableViewCell {
     var userPlantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.image = UIImage.defaultImage
+        imageView.image = UIImage.defaultImage
         imageView.layer.masksToBounds = false
         imageView.layer.cornerRadius = 22
         imageView.clipsToBounds = true
@@ -34,10 +34,9 @@ class PlantsTableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
-//        button.backgroundColor = .orange
-        button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-        button.tintColor = .systemBlue
-        button.isHidden = true
+//        button.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+//        button.tintColor = .systemBlue
+//        button.isHidden = true
         return button
     }()
     
@@ -73,43 +72,53 @@ class PlantsTableViewCell: UITableViewCell {
 
         let daysString = returnDaysString(plant: plant)
         
+        // Labels (TODO: Setting to use plantColorIndex on name label instead of mixedBlueGreen)
+        nicknameLabel.textColor = .mixedBlueGreen
         nicknameLabel.text = nickname
         timeLabel.text = "\(DateFormatter.timeOnlyDateFormatter.string(from: plant.water_schedule ?? temp))"
         speciesLabel.text = species
         daysLabel.text = "\(daysString)"
         
-        // TODO: Setting to use image of plant instead of icon?
+        // Plant Icon or Image (TODO: Setting to use userPlantImageView instead of icon)
+        plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
+        plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
         userPlantImageView.isHidden = true
         
-        if plant.isEnabled {
-            // TODO: Setting to use plant color for this?
-//            nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
-            nicknameLabel.textColor = .mixedBlueGreen
-        } else {
-            nicknameLabel.textColor = .lightGray
-        }
+        // Reminder Button
+        updateReminderButton(plant: plant)
+    }
+    
+    /// Sets reminderButton icon to Water, Reminder, Silenced, or None
+    private func updateReminderButton(plant: Plant) {
         
+        reminderButton.isHidden = false
+        
+        // Watering
         if plant.needsWatering {
-            plantImageView.setImage(UIImage.iconArray[Int(plant.actionIconIndex)], for: .normal)
-            plantImageView.tintColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
-            plantImageView.isUserInteractionEnabled = false
-                        
-        } else {
-            plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
-            plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
-            plantImageView.isUserInteractionEnabled = false
+            // Watering Icon
+            reminderButton.setImage(UIImage.iconArray[Int(plant.actionIconIndex)], for: .normal)
+            reminderButton.tintColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+            return
         }
         
-        // update reminderButton if plant has reminder that needs completion
+        // Reminder
         if let reminder = plant.checkPlantsReminders() {
-            print("\(plant.nickname!), \(reminder.actionName!) needs attention PTVC")
-            reminderButton.isHidden = false
+            // Reminder Icon
             reminderButton.setImage(UIImage.iconArray[Int(reminder.iconIndex)], for: .normal)
             reminderButton.tintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
-        } else {
-            print("\(plant.nickname!), does NOT need attention, should be hidden now")
-            reminderButton.isHidden = true
+            return
         }
+        
+        // Silenced
+        if !plant.isEnabled {
+            // Silenced Icon
+            reminderButton.setImage(UIImage(systemName: "moon.fill"), for: .normal)
+            reminderButton.tintColor = .systemGray3
+            return
+        }
+        
+        // None (does not need water, reminder, and is not silenced)
+        reminderButton.isHidden = true
     }
     
     /// Returns a string of all days selected separated by a space (to dispaly in table view cell)
@@ -117,6 +126,7 @@ class PlantsTableViewCell: UITableViewCell {
         
         var result = [String]()
         
+        // TODO: replace with .map?
         for day in plant.frequency! {
             // [1,2,3,7]
             result.append("\(String.dayInitials[Int(day - 1)])")
@@ -183,7 +193,6 @@ class PlantsTableViewCell: UITableViewCell {
                                             constant: standardMargin).isActive = true
         nicknameLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
         nicknameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
-        nicknameLabel.textColor = .mixedBlueGreen
         nicknameLabel.font = .boldSystemFont(ofSize: 25)
         nicknameLabel.numberOfLines = 1
         
@@ -207,6 +216,7 @@ class PlantsTableViewCell: UITableViewCell {
         plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
         plantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
         plantImageView.contentMode = .scaleAspectFit
+        plantImageView.isUserInteractionEnabled = false
         
         containerView.addSubview(reminderButton)
         reminderButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
