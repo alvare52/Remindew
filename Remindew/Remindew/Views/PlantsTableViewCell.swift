@@ -67,17 +67,13 @@ class PlantsTableViewCell: UITableViewCell {
         
         guard let plant = plant else { return }
         guard let nickname = plant.nickname, let species = plant.species else { return }
-        
-        let temp = Date(timeIntervalSinceNow: 60)
-
-        let daysString = returnDaysString(plant: plant)
-        
+                
         // Labels (TODO: Setting to use plantColorIndex on name label instead of mixedBlueGreen)
         nicknameLabel.textColor = .mixedBlueGreen
         nicknameLabel.text = nickname
-        timeLabel.text = "\(DateFormatter.timeOnlyDateFormatter.string(from: plant.water_schedule ?? temp))"
+        timeLabel.text = "\(DateFormatter.timeOnlyDateFormatter.string(from: plant.water_schedule!))"
         speciesLabel.text = species
-        daysLabel.text = "\(daysString)"
+        daysLabel.text = "\(returnDaysString(plant: plant))"
         
         // Plant Icon or Image (TODO: Setting to use userPlantImageView instead of icon)
         plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
@@ -121,22 +117,16 @@ class PlantsTableViewCell: UITableViewCell {
         reminderButton.isHidden = true
     }
     
-    /// Returns a string of all days selected separated by a space (to dispaly in table view cell)
+    /// Returns a String of all days selected separated by a space
     func returnDaysString(plant: Plant) -> String {
         
-        var result = [String]()
-        
-        // TODO: replace with .map?
-        for day in plant.frequency! {
-            // [1,2,3,7]
-            result.append("\(String.dayInitials[Int(day - 1)])")
+        let resultMap = plant.frequency!.map { "\(String.dayInitials[Int($0 - 1)])" }
+            
+        if resultMap.count == 7 {
+            return NSLocalizedString("Every day", comment: "Every day as in all 7 days are selected")
         }
         
-        // if everyday basically
-        if result.count == 7 {
-            return NSLocalizedString("Every day", comment: "Every day as in all 7 days are selected")//"Every day"
-        }
-        return result.joined(separator: " ")
+        return resultMap.joined(separator: " ")
     }
     
     required init?(coder: NSCoder) {
