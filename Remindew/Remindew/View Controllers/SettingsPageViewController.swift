@@ -34,7 +34,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     
     /// Returns a String that contains total amount of Plants, Pending Notifications, Locations, and current app version
     var stats: String {
-        return "\n\nUser Stats: \(totalPlantCount) Plants, \(totalNotificationsCount) Notifications, \(totalLocationsCount) Locations" + "\nversion: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+        return "\n\nStats - Plants \(totalPlantCount), Notifications \(totalNotificationsCount), Plant Locations \(totalLocationsCount)" + "\nVersion \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
     }
     
     // MARK: - View Life Cycle
@@ -82,13 +82,13 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 0:
             return "APPEARANCE"
         case 1:
-            return "LABELS"
+            return "MAIN LABEL"
         case 2:
             return "SEARCHING"
         case 3:
             return "SEARCHES POWERED BY TREFLE"
         case 4:
-            return "DEFAULT IMAGE"
+            return "DEFAULT PLANT IMAGE"
         default:
             return ""
         }
@@ -97,15 +97,15 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Light/Dark Theme are independent of phone preferences"
+            return "Light/Dark theme are independent of phone settings. Main screen displays plant icon instead of image by default."
         case 1:
-            return "Sorts by nickname by default"
+            return "Top label displays nickname by default. Label color is dark green instead of selected color by default."
         case 2:
-            return "Clicking on a search result will replace plant type name with common name of selected result"
+            return "Clicking on a search result will replace plant type name with common name of selected result. Search by tapping \"search\" on keyboard when entering plant's type"
         case 3:
-            return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource."
+            return "Trefle aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource."
         case 4:
-            return "Images provided by Richard Alfonzo" + stats
+            return "Default plant photo provided by Richard Alfonzo." + stats
         default:
             return ""
         }
@@ -119,7 +119,12 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // Appearance
         if section == 0 {
-            return 3
+            return 2
+        }
+        
+        // Main Label
+        if section == 1 {
+            return 2
         }
         
         return 1
@@ -148,16 +153,29 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             
             // Plant Images
             if indexPath.row == 1 {
-                settingCell.settingLabel.text = "Images instead of icons"
+                settingCell.settingLabel.text = "Images Instead of Icons"
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantImages
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantImages)
                 settingCell.settingLabel.textColor = .label
             }
+        }
+        
+        // Main Label
+        if indexPath.section == 1 {
             
-            // Name label uses plant color
-            if indexPath.row == 2 {
-                settingCell.settingLabel.text = "Name label uses color"
+            // Nickname / Species Label
+            if indexPath.row == 0 {
+                settingCell.settingLabel.text = "Use Plant Type Instead"
+                settingCell.optionSwitch.isHidden = false
+                settingCell.customSetting = .sortPlantsBySpecies
+                settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .sortPlantsBySpecies)
+                settingCell.settingLabel.textColor = .label
+            }
+            
+            // Label uses plant color
+            if indexPath.row == 1 {
+                settingCell.settingLabel.text = "Label Uses Plant Color"
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantColorOnLabel
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantColorOnLabel)
@@ -165,18 +183,9 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        // SORTING
-        if indexPath.section == 1 {
-            settingCell.settingLabel.text = "Sort by plant type"
-            settingCell.optionSwitch.isHidden = false
-            settingCell.customSetting = .sortPlantsBySpecies
-            settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .sortPlantsBySpecies)
-            settingCell.settingLabel.textColor = .label
-        }
-        
         // SEARCHING
         if indexPath.section == 2 {
-            settingCell.settingLabel.text = "Replace type with search result"
+            settingCell.settingLabel.text = "Replace Type with Search Result"
             settingCell.optionSwitch.isHidden = false
             settingCell.customSetting = .resultFillsSpeciesTextfield
             settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield)
@@ -187,12 +196,14 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         if indexPath.section == 3 {
             settingCell.settingLabel.text = "Trefle API Home Page"
             settingCell.settingLabel.textColor = .link
+            settingCell.optionSwitch.isHidden = true
         }
         
         // IMAGES PROVIDED BY RICHARD ALFONZO
         if indexPath.section == 4 {
             settingCell.settingLabel.text = "Richard Alfonzo Photography"
             settingCell.settingLabel.textColor = .link
+            settingCell.optionSwitch.isHidden = true
         }
         
         return settingCell
