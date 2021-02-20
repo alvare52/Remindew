@@ -34,7 +34,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     
     /// Returns a String that contains total amount of Plants, Pending Notifications, Locations, and current app version
     var stats: String {
-        return "\n\nUser Stats: \(totalPlantCount) Plants, \(totalNotificationsCount) Notifications, \(totalLocationsCount) Locations" + "\nv\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+        return "\n\nUser Stats: \(totalPlantCount) Plants, \(totalNotificationsCount) Notifications, \(totalLocationsCount) Locations" + "\nversion: \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
     }
     
     // MARK: - View Life Cycle
@@ -52,12 +52,11 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                                                name: .checkWateringStatus,
                                                object: nil)
         
-        // Listen to see if we need to update the sorting (posted when sorting setting is changed)
+        // Listen for when we update sorting (posted when changing sort settings)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(dismissSettingsPage),
                                                name: .updateSortDescriptors,
                                                object: nil)
-        
     }
     
     /// Dismiss Settings page when appearance setting is toggled to prevent spamming
@@ -100,13 +99,13 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 0:
             return "Light/Dark Theme are independent of phone preferences"
         case 1:
-            return "Sort by nickname or plant type"
+            return "Sorts by nickname by default"
         case 2:
             return "Clicking on a search result will replace plant type name with common name of selected result"
         case 3:
             return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource."
         case 4:
-            return "Images provided by Richard Alfonzo" + stats
+            return "Images provided by Richard Alfonzo" + stats + "\n sortbySpecies = \(UserDefaults.standard.bool(forKey: .sortPlantsBySpecies))"
         default:
             return ""
         }
@@ -127,7 +126,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 42
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,7 +148,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             
             // Plant Images
             if indexPath.row == 1 {
-                settingCell.settingLabel.text = "Plant Images instead of icons"
+                settingCell.settingLabel.text = "Images instead of icons"
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantImages
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantImages)
@@ -158,7 +157,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             
             // Name label uses plant color
             if indexPath.row == 2 {
-                settingCell.settingLabel.text = "Name label uses plant color"
+                settingCell.settingLabel.text = "Name label uses color"
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantColorOnLabel
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantColorOnLabel)

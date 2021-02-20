@@ -37,25 +37,31 @@ class SettingsTableViewCell: UITableViewCell {
         // make sure it actually has a setting set (link cell doesn't)
         guard let setting = customSetting else { return }
         switch setting {
-        case .sortPlantsBySpecies:
-            UserDefaults.standard.set(optionSwitch.isOn, forKey: .sortPlantsBySpecies)
-            // Let main table view know we changed the sort setting
-            NotificationCenter.default.post(name: .updateSortDescriptors, object: self)
+        
         case .resultFillsSpeciesTextfield:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .resultFillsSpeciesTextfield)
+            
         case .darkThemeOn:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .darkThemeOn)
             UIColor().updateToDarkOrLightTheme()
+            
         case .usePlantImages:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .usePlantImages)
             // Let main table view know to update table view
             NotificationCenter.default.post(name: .checkWateringStatus, object: self)
+            
         case .usePlantColorOnLabel:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .usePlantColorOnLabel)
             // Let main table view know to update table view
             NotificationCenter.default.post(name: .checkWateringStatus, object: self)
+            
+        case .sortPlantsBySpecies:
+            UserDefaults.standard.set(optionSwitch.isOn, forKey: .sortPlantsBySpecies)
+            // Let main table view know we changed the labels setting
+            NotificationCenter.default.post(name: .updateSortDescriptors, object: self)
+            
         default:
-            print("none")
+            break
         }
     }
     
@@ -71,9 +77,10 @@ class SettingsTableViewCell: UITableViewCell {
         settingLabel.translatesAutoresizingMaskIntoConstraints = false
         settingLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         settingLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                            constant: standardMargin).isActive = true
+                                            constant: standardMargin - 5).isActive = true
         settingLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CGFloat(0.7)).isActive = true
-        
+        settingLabel.font = .systemFont(ofSize: 16)
+
         // Switch
         let option = UISwitch()
         contentView.addSubview(option)

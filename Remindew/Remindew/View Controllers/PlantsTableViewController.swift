@@ -44,18 +44,21 @@ class PlantsTableViewController: UITableViewController {
         let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
         
         print("FetchedResultsController fetching now")
+        
         // default is to sort by nickname
         var sortKey = "nickname"
+        var secondaryKey = "species"
         
         // if we DO sort by species instead of nickname, do the following
         if UserDefaults.standard.bool(forKey: .sortPlantsBySpecies) {
             print("Sorting by species instead")
             sortKey = "species"
+            secondaryKey = "nickname"
         }
         
-        // TODO: change sorting setting to just disable/allow sections? (updateSorting needs to be changed as well)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "location", ascending: true),
-                                        NSSortDescriptor(key: sortKey, ascending: true)]
+                                        NSSortDescriptor(key: sortKey, ascending: true),
+                                        NSSortDescriptor(key: secondaryKey, ascending: true)]
 
 
         let context = CoreDataStack.shared.mainContext
@@ -174,16 +177,19 @@ class PlantsTableViewController: UITableViewController {
         
         // sort by nickname, unless sort by species is turned on
         var sortKey = "nickname"
+        var secondaryKey = "species"
         
         // if we DO sort by species instead of nickname, do the following
         if UserDefaults.standard.bool(forKey: .sortPlantsBySpecies) {
             print("Sorting by species instead")
             sortKey = "species"
+            secondaryKey = "nickname"
         }
         
         // set sort descriptors
         fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "location", ascending: true),
-                                                                 NSSortDescriptor(key: sortKey, ascending: true)]
+                                                                 NSSortDescriptor(key: sortKey, ascending: true),
+                                                                 NSSortDescriptor(key: secondaryKey, ascending: true)]
         
         // try to perform fetch
         do {

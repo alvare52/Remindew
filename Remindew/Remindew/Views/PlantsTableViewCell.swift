@@ -65,17 +65,23 @@ class PlantsTableViewCell: UITableViewCell {
         guard let plant = plant else { return }
         guard let nickname = plant.nickname, let species = plant.species else { return }
                 
-        // Labels
+        // Main Label Color
         if UserDefaults.standard.bool(forKey: .usePlantColorOnLabel) {
             nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
         } else {
             nicknameLabel.textColor = .mixedBlueGreen
         }
-                
-        // TODO: Setting to swap nickname label with plant type?
-        nicknameLabel.text = nickname
+                        
+        // Nickname / Species Labels
+        if UserDefaults.standard.bool(forKey: .sortPlantsBySpecies) {
+            nicknameLabel.text = species
+            speciesLabel.text = nickname
+        } else {
+            nicknameLabel.text = nickname
+            speciesLabel.text = species
+        }
+        
         timeLabel.text = "\(DateFormatter.timeOnlyDateFormatter.string(from: plant.water_schedule!))"
-        speciesLabel.text = species
         daysLabel.text = "\(returnDaysString(plant: plant))"
         
         // Plant Icon or Image
