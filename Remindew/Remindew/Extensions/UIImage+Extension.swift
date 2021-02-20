@@ -11,6 +11,17 @@ import UIKit
 
 extension UIImage {
     
+    /// Memory cache to store already saved user plant images, clears itself after it has more than 100(?) images
+    static var savedUserPlantImages = [String: UIImage]() {
+        didSet {
+            print("savedUserPlantImages cache count = \(savedUserPlantImages.count)")
+            // clear cache after 100 images are stored
+            if savedUserPlantImages.count > 100 {
+                savedUserPlantImages.removeAll()
+            }
+        }
+    }
+    
     /// Icons used for actions
     static let iconArray = [UIImage(systemName: "drop.fill"), UIImage(systemName: "cross.fill"), UIImage(systemName: "ant.fill"), UIImage(systemName: "scissors"), UIImage(systemName: "aqi.low"), UIImage(systemName: "rotate.right.fill"), UIImage(systemName: "arrow.up.bin.fill"), UIImage(systemName: "circle.fill"), UIImage(systemName: "leaf.fill")]
     
@@ -48,17 +59,7 @@ extension UIImage {
         gradient.opacity = opacity
         imageView.layer.addSublayer(gradient)
     }
-    
-    /// Memory cache to store already saved user plant images, clears itself after it has more than 100(?) images
-    static var savedUserPlantImages = [String: UIImage]() {
-        didSet {
-            // clear cache after 100 images are stored
-            if savedUserPlantImages.count > 100 {
-                savedUserPlantImages.removeAll()
-            }
-        }
-    }
-    
+        
     /// Save image to documents directory, and remove old one if it exists and save new one
     /// - Parameter imageName: the name of an image that has been saved
     /// - Parameter image: the UIImage you want to save
@@ -100,7 +101,6 @@ extension UIImage {
         
         // First check savedUserPlantImages cache and return early
         if let imageFromCache = savedUserPlantImages[fileName] {
-            print("loadImageFromDiskWith(fileName: \(fileName) FOUND in savedUserPlantImages")
             return imageFromCache
         }
                 
@@ -112,7 +112,6 @@ extension UIImage {
         if let dirPath = paths.first {
             let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
             let image = UIImage(contentsOfFile: imageUrl.path)
-            print("Success loading image")
             // put in cache so we can skip this next time
             savedUserPlantImages[fileName] = image
             return image
