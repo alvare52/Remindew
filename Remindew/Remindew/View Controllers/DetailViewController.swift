@@ -304,13 +304,15 @@ class DetailViewController: UIViewController {
     
     /// Creates or Edits a plant
     private func addOrEditPlant() {
+        
         // before EDIT or ADD, first check for:
         
-        // 1. nickname has text AND not empty, else display alert for this
-        guard let nickname = nicknameTextField.text, !nickname.isEmpty else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            makeNicknameAlert()
-            return
+        // 1. If nickname is not entered, give random one
+        var nickname = ""
+        if let possibleNickname = nicknameTextField.text, !possibleNickname.isEmpty {
+            nickname = possibleNickname
+        } else {
+            nickname = String.returnRandomNickname()
         }
         
         // 2. species has text AND not empty, else display alert for this
@@ -594,31 +596,6 @@ class DetailViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    /// Presents an alert for missing text in nickname textfield. Inserts random nickname or clicks in nickname textfield for user to enter their own
-    private func makeNicknameAlert() {
-        
-        let title = NSLocalizedString("Missing Nickname",
-                                      comment: "Title for no nickname in textfield")
-        let message = NSLocalizedString("Please enter a custom nickname for your plant or select a random nickname",
-                                        comment: "Message for when nickname is missing in textfield")
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        //alertController.view.tintColor = .lightLeafGreen
-        
-        let alertAction = UIAlertAction(title: NSLocalizedString("Custom", comment: "User generated name"), style: .default) { _ in
-            self.nicknameTextField.becomeFirstResponder()
-        }
-        
-        let randomAction = UIAlertAction(title: NSLocalizedString("Random", comment: "Randomly generated name"), style: .default) { _ in
-            String.chooseRandomNickname(textField: self.nicknameTextField)
-            self.nicknameTextField.becomeFirstResponder()
-        }
-        
-        alertController.addAction(alertAction)
-        alertController.addAction(randomAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
     /// Presents an alert for missing text in species textfield. Clicks in species textfield when user clicks OK
     private func makeSpeciesAlert() {
         let title = NSLocalizedString("Missing Species Name",
@@ -768,68 +745,22 @@ extension DetailViewController: UITextFieldDelegate {
         }
     }
 
+    /// Go to SearchViewController if tapping Search or select speciesTextfield if tapping return in nicknameTextfield
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         // Clicked "Search" in species textfield
         if textField == speciesTextField {
-            print("Return inside speciesTextfield")
-
-            // dismiss keyboard
+            
             textField.resignFirstResponder()
             
-            // NEW
+            // Go to SearchViewController
             presentSearchViewController()
             return true
-            // TODO: Remove everything after this
-            
-            // if there's still a search going on, exit out
-            if spinner.isAnimating {
-                print("still spinning")
-                return true
-            }
-            
-            guard let unwrappedTerm = speciesTextField.text, !unwrappedTerm.isEmpty else { return true }
-            
-            // get rid of any spaces in search term
-            let term = unwrappedTerm.replacingOccurrences(of: " ", with: "")
-            
-            // show tableview
-            resultsTableView.isHidden = false
-
-            // start animating spinner
-            spinner.startAnimating()
-
-            // check if we need a new token first
-            if plantController?.newTempTokenIsNeeded() == true {
-                print("new token needed, fetching one first")
-                plantController?.signToken(completion: { (result) in
-                    do {
-                        let message = try result.get()
-                        DispatchQueue.main.async {
-                            print("success in signToken: \(message)")
-                            self.performPlantSearch(term)
-                        }
-                    } catch {
-                        if let error = error as? NetworkError {
-                            print("error in detailVC when signing token")
-                            DispatchQueue.main.async {
-                                self.spinner.stopAnimating()
-                                self.handleNetworkErrors(error)
-                            }
-                        }
-                    }
-                })
-            }
-
-            // No new token needed
-            else {
-                print("No token needed, searching")
-                performPlantSearch(term)
-            }
         }
 
         // Clicked "Return" in nickname textfield
         if textField == nicknameTextField {
+            
             // go to next textfield (species)
             speciesTextField.becomeFirstResponder()
         }

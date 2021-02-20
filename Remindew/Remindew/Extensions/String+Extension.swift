@@ -47,10 +47,11 @@ extension String {
     static let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
                                             "Lily", "Leshy", "Greenman", "Bud Dwyer", "Treebeard",
                                             "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
-    
-    /// Enters a random nickname into given textfield so user doesn't have to make up their own
-    static func chooseRandomNickname(textField: UITextField) {
+        
+    /// Returns a random nickname String
+    static func returnRandomNickname() -> String {
+        
         let randomInt = Int.random(in: 0..<String.randomNicknames.count)
-        textField.text = String.randomNicknames[randomInt]
+        return String.randomNicknames[randomInt]
     }
 }
