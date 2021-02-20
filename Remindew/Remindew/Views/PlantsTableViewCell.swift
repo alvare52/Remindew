@@ -20,7 +20,7 @@ class PlantsTableViewCell: UITableViewCell {
     }()
     
     /// Displays image from plant's image url (or default image if there is none)
-    var plantImageView: UIButton = {
+    var plantIconButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
@@ -130,13 +130,13 @@ class PlantsTableViewCell: UITableViewCell {
         if UserDefaults.standard.bool(forKey: .usePlantImages) {
             // Image
             userPlantImageView.isHidden = false
-            plantImageView.isHidden = true
+            plantIconButton.isHidden = true
             userPlantImageView.image = UIImage.loadImageFromDiskWith(fileName: "userPlant\(plant.identifier!)")
         } else {
             // Icon
-            plantImageView.isHidden = false
-            plantImageView.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
-            plantImageView.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
+            plantIconButton.isHidden = false
+            plantIconButton.setImage(UIImage.iconArray[Int(plant.plantIconIndex)], for: .normal)
+            plantIconButton.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
             userPlantImageView.isHidden = true
         }
         
@@ -230,17 +230,17 @@ class PlantsTableViewCell: UITableViewCell {
         nicknameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
         
         // Plant Icon
-        containerView.addSubview(plantImageView)
-        plantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
-        plantImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
-        plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
-        plantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
+        containerView.addSubview(plantIconButton)
+        plantIconButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
+        plantIconButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
+        plantIconButton.widthAnchor.constraint(equalTo: plantIconButton.heightAnchor).isActive = true
+        plantIconButton.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
         
         // Reminder Button
         containerView.addSubview(reminderButton)
-        reminderButton.leadingAnchor.constraint(equalTo: plantImageView.trailingAnchor, constant: 8).isActive = true
-        reminderButton.centerYAnchor.constraint(equalTo: plantImageView.centerYAnchor).isActive = true
-        reminderButton.widthAnchor.constraint(equalTo: plantImageView.widthAnchor, multiplier: 0.33).isActive = true
+        reminderButton.leadingAnchor.constraint(equalTo: plantIconButton.trailingAnchor, constant: 8).isActive = true
+        reminderButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
+        reminderButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
         reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor).isActive = true
         
         // Species Label
@@ -248,11 +248,11 @@ class PlantsTableViewCell: UITableViewCell {
         speciesLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor).isActive = true
         speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
         speciesLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
-        speciesLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
+        speciesLabel.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.5).isActive = true
         
         // User Plant Image View (round plant image)
         containerView.addSubview(userPlantImageView)
-        userPlantImageView.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.9).isActive = true
+        userPlantImageView.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.9).isActive = true
         userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor).isActive = true
         userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
         userPlantImageView.centerYAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
@@ -262,7 +262,7 @@ class PlantsTableViewCell: UITableViewCell {
         daysLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
         daysLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
         daysLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
-        daysLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
+        daysLabel.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.5).isActive = true
         
     }
 }
