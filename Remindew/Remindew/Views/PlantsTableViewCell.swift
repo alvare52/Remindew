@@ -22,7 +22,7 @@ class PlantsTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage.defaultImage
         imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = 22
+        imageView.layer.cornerRadius = 20
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.isUserInteractionEnabled = false
@@ -204,29 +204,22 @@ class PlantsTableViewCell: UITableViewCell {
         nicknameLabel.font = .boldSystemFont(ofSize: 25)
         nicknameLabel.numberOfLines = 1
         
-        // User Plant Image View
-        containerView.addSubview(userPlantImageView)
-        userPlantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
-        userPlantImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
-        userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor).isActive = true
-        userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
-        
-        // Image View
-        let imageView = UIButton(type: .system) // UIImageView()
+        // Plant Icon
+        let imageView = UIButton(type: .system)
         containerView.addSubview(imageView)
         self.plantImageView = imageView
         plantImageView.translatesAutoresizingMaskIntoConstraints = false
-        plantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: CGFloat(0.0)).isActive = true
-        plantImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: CGFloat(-16.0)).isActive = true
+        plantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
+        plantImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
         plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
         plantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
         plantImageView.contentMode = .scaleAspectFit
         plantImageView.isUserInteractionEnabled = false
         
         containerView.addSubview(reminderButton)
-        reminderButton.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8).isActive = true
-        reminderButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
-        reminderButton.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.33).isActive = true
+        reminderButton.leadingAnchor.constraint(equalTo: plantImageView.trailingAnchor, constant: 8).isActive = true
+        reminderButton.centerYAnchor.constraint(equalTo: plantImageView.centerYAnchor).isActive = true
+        reminderButton.widthAnchor.constraint(equalTo: plantImageView.widthAnchor, multiplier: 0.33).isActive = true
         reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor).isActive = true
         
         // Species Label
@@ -241,6 +234,13 @@ class PlantsTableViewCell: UITableViewCell {
         speciesLabel.font = .systemFont(ofSize: 17.0)
         speciesLabel.textColor = .customTimeLabelColor
         speciesLabel.numberOfLines = 1
+        
+        // User  Plant Image View (round plant image)
+        containerView.addSubview(userPlantImageView)
+        userPlantImageView.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.9).isActive = true
+        userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor).isActive = true
+        userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
+        userPlantImageView.centerYAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
         
         // Days Label
         let days = UILabel()
