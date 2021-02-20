@@ -10,6 +10,8 @@ import UIKit
 
 class PlantsTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+    
     /// Container view that holds all other view elements
     var containerView: UIView = {
         let view = UIView()
@@ -17,6 +19,17 @@ class PlantsTableViewCell: UITableViewCell {
         view.backgroundColor = .customCellColor
         view.layer.cornerRadius = 15
         return view
+    }()
+    
+    /// Displays time that reminder will go off each day
+    var timeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 23)
+        label.textColor = .customTimeLabelColor
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        return label
     }()
     
     /// Displays image from plant's image url (or default image if there is none)
@@ -79,22 +92,10 @@ class PlantsTableViewCell: UITableViewCell {
     
     /// Displays days that reminder will go off
     var daysLabel: UILabel = {
-        print("making daysLabel")
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .italicSystemFont(ofSize: 17)
         label.textColor = .systemGray2
-        label.numberOfLines = 1
-        return label
-    }()
-    
-    /// Displays time that reminder will go off each day
-    var timeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 25)
-        label.textColor = .customTimeLabelColor
-        label.textAlignment = .center
         label.numberOfLines = 1
         return label
     }()
@@ -105,12 +106,97 @@ class PlantsTableViewCell: UITableViewCell {
     /// Plant that's passed in from PlantsTableViewController
     var plant: Plant? {
         didSet {
-            updateView()
+            updateViews()
         }
     }
+    
+    // MARK: - View Life Cycle
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpSubviews()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setUpSubviews()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    /// Sets up all custom views
+    private func setUpSubviews() {
         
+        contentView.backgroundColor = .customBackgroundColor
+        
+        // Container View
+        addSubview(containerView)
+        containerView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(8.0)).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(20.0)).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(-20.0)).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-8.0)).isActive = true
+        
+        // Time Label
+        containerView.addSubview(timeLabel)
+        timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: standardMargin).isActive = true
+        timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.37).isActive = true
+        timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
+        timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: CGFloat(-8.0)).isActive = true
+        
+        // Nickname Label
+        containerView.addSubview(nicknameLabel)
+        nicknameLabel.topAnchor.constraint(equalTo: timeLabel.topAnchor).isActive = true
+        nicknameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: standardMargin).isActive = true
+        nicknameLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
+        nicknameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
+        
+        // Plant Icon
+        containerView.addSubview(plantIconButton)
+        plantIconButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
+        plantIconButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
+        plantIconButton.widthAnchor.constraint(equalTo: plantIconButton.heightAnchor).isActive = true
+        plantIconButton.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
+        
+        // Reminder Button
+        containerView.addSubview(reminderButton)
+        reminderButton.leadingAnchor.constraint(equalTo: plantIconButton.trailingAnchor, constant: 8).isActive = true
+        reminderButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
+        reminderButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
+        reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor).isActive = true
+        
+        // Silenced Button
+        containerView.addSubview(silencedButton)
+        silencedButton.trailingAnchor.constraint(equalTo: plantIconButton.leadingAnchor, constant: -8).isActive = true
+        silencedButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
+        silencedButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
+        silencedButton.heightAnchor.constraint(equalTo: silencedButton.widthAnchor).isActive = true
+        
+        // Species Label
+        containerView.addSubview(speciesLabel)
+        speciesLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor).isActive = true
+        speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
+        speciesLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
+        speciesLabel.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.5).isActive = true
+        
+        // User Plant Image View (round plant image)
+        containerView.addSubview(userPlantImageView)
+        userPlantImageView.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.9).isActive = true
+        userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor).isActive = true
+        userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
+        userPlantImageView.centerYAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
+        
+        // Days Label
+        containerView.addSubview(daysLabel)
+        daysLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
+        daysLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
+        daysLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
+        daysLabel.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.5).isActive = true
+    }
+    
     /// Sets the cells views when it is passed in a plant
-    private func updateView() {
+    private func updateViews() {
         
         guard let plant = plant else { return }
         guard let nickname = plant.nickname, let species = plant.species else { return }
@@ -203,89 +289,5 @@ class PlantsTableViewCell: UITableViewCell {
         }
         
         return resultMap.joined(separator: " ")
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setUpSubviews()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setUpSubviews()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-    /// Sets up all custom views
-    private func setUpSubviews() {
-        
-        contentView.backgroundColor = .customBackgroundColor
-        
-        // Container View
-        addSubview(containerView)
-        containerView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(8.0)).isActive = true
-        containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(20.0)).isActive = true
-        containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(-20.0)).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-8.0)).isActive = true
-        
-        // Time Label
-        containerView.addSubview(timeLabel)
-        timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: standardMargin).isActive = true
-        timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.37).isActive = true
-        timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
-        timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: CGFloat(-8.0)).isActive = true
-        
-        // Nickname Label
-        containerView.addSubview(nicknameLabel)
-        nicknameLabel.topAnchor.constraint(equalTo: timeLabel.topAnchor).isActive = true
-        nicknameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: standardMargin).isActive = true
-        nicknameLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
-        nicknameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
-        
-        // Plant Icon
-        containerView.addSubview(plantIconButton)
-        plantIconButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
-        plantIconButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
-        plantIconButton.widthAnchor.constraint(equalTo: plantIconButton.heightAnchor).isActive = true
-        plantIconButton.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
-        
-        // Reminder Button
-        containerView.addSubview(reminderButton)
-        reminderButton.leadingAnchor.constraint(equalTo: plantIconButton.trailingAnchor, constant: 8).isActive = true
-        reminderButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
-        reminderButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
-        reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor).isActive = true
-        
-        // Silenced Button
-        containerView.addSubview(silencedButton)
-        silencedButton.trailingAnchor.constraint(equalTo: plantIconButton.leadingAnchor, constant: -8).isActive = true
-        silencedButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
-        silencedButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
-        silencedButton.heightAnchor.constraint(equalTo: silencedButton.widthAnchor).isActive = true
-        
-        // Species Label
-        containerView.addSubview(speciesLabel)
-        speciesLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor).isActive = true
-        speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
-        speciesLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
-        speciesLabel.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.5).isActive = true
-        
-        // User Plant Image View (round plant image)
-        containerView.addSubview(userPlantImageView)
-        userPlantImageView.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.9).isActive = true
-        userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor).isActive = true
-        userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
-        userPlantImageView.centerYAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
-        
-        // Days Label
-        containerView.addSubview(daysLabel)
-        daysLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
-        daysLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
-        daysLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
-        daysLabel.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.5).isActive = true
-        
     }
 }
