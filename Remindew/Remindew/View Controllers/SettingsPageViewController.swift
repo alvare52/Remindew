@@ -82,7 +82,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 0:
             return "APPEARANCE"
         case 1:
-            return "SORTING"
+            return "LABELS"
         case 2:
             return "SEARCHING"
         case 3:
@@ -105,7 +105,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 3:
             return "The Trefle API aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource."
         case 4:
-            return "Images provided by Richard Alfonzo" + stats + "\n sortbySpecies = \(UserDefaults.standard.bool(forKey: .sortPlantsBySpecies))"
+            return "Images provided by Richard Alfonzo" + stats
         default:
             return ""
         }
@@ -202,6 +202,9 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                 
         let selectedCell = tableView.cellForRow(at: indexPath) as? SettingsTableViewCell
         print("Selected Cell = \(selectedCell?.settingLabel.text ?? "title")")
+        
+        // Prevents visual bug when selecting setting body instead of switch button
+        tableView.deselectRow(at: indexPath, animated: true)
         
         // if Trefle API cell is selected, go to Trefle API home page
         if indexPath.section == 3 {
