@@ -9,12 +9,23 @@
 import UIKit
 
 class PlantsTableViewCell: UITableViewCell {
-
+    
     /// Container view that holds all other view elements
-    var containerView: UIView!
+    var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .customCellColor
+        view.layer.cornerRadius = 15
+        return view
+    }()
     
     /// Displays image from plant's image url (or default image if there is none)
-    var plantImageView: UIButton!//UIImageView!
+    var plantImageView: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = false
+        return button
+    }()
     
     /// Image View that's used if user want plant image to show instead of icons
     var userPlantImageView: UIImageView = {
@@ -37,19 +48,50 @@ class PlantsTableViewCell: UITableViewCell {
         return button
     }()
     
+    // TODO: add button on other side of icon/image for silenced mode only?
+       
     /// Displays plant's nickname
-    var nicknameLabel: UILabel!
-    
+    var nicknameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 25)
+        label.numberOfLines = 1
+        return label
+    }()
+        
     /// Displays plant's scienfific name (if any) in italics
-    var speciesLabel: UILabel!
+    var speciesLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .customTimeLabelColor
+        label.font = .systemFont(ofSize: 17.0)
+        label.numberOfLines = 1
+        return label
+    }()
     
     /// Displays days that reminder will go off
-    var daysLabel: UILabel!
+    var daysLabel: UILabel = {
+        print("making daysLabel")
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .italicSystemFont(ofSize: 17)
+        label.textColor = .systemGray2
+        label.numberOfLines = 1
+        return label
+    }()
     
     /// Displays time that reminder will go off each day
-    var timeLabel: UILabel!
+    var timeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 25)
+        label.textColor = .customTimeLabelColor
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        return label
+    }()
     
-    /// 8 pt padding
+    /// 16 pt padding
     var standardMargin: CGFloat = CGFloat(16.0)
     
     /// Plant that's passed in from PlantsTableViewController
@@ -166,56 +208,35 @@ class PlantsTableViewCell: UITableViewCell {
         
         contentView.backgroundColor = .customBackgroundColor
         
-        let content = UIView()
-        addSubview(content)
-        self.containerView = content
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+        // Container View
+        addSubview(containerView)
         containerView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(8.0)).isActive = true
         containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(20.0)).isActive = true
         containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(-20.0)).isActive = true
         containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-8.0)).isActive = true
-        containerView.backgroundColor = .customCellColor
-        containerView.layer.cornerRadius = 15
         
         // Time Label
-        let time = UILabel()
-        containerView.addSubview(time)
-        self.timeLabel = time
-        timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: CGFloat(16.0)).isActive = true
+        containerView.addSubview(timeLabel)
+        timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: standardMargin).isActive = true
         timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.37).isActive = true
         timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
         timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: CGFloat(-8.0)).isActive = true
-        timeLabel.font = .boldSystemFont(ofSize: 25)
-        timeLabel.textColor = .customTimeLabelColor
-        timeLabel.textAlignment = .center
-        timeLabel.numberOfLines = 1
         
         // Nickname Label
-        let label = UILabel()
-        containerView.addSubview(label)
-        self.nicknameLabel = label
-        nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(nicknameLabel)
         nicknameLabel.topAnchor.constraint(equalTo: timeLabel.topAnchor).isActive = true
-        nicknameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,
-                                            constant: standardMargin).isActive = true
+        nicknameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: standardMargin).isActive = true
         nicknameLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
         nicknameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
-        nicknameLabel.font = .boldSystemFont(ofSize: 25)
-        nicknameLabel.numberOfLines = 1
         
         // Plant Icon
-        let imageView = UIButton(type: .system)
-        containerView.addSubview(imageView)
-        self.plantImageView = imageView
-        plantImageView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(plantImageView)
         plantImageView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
         plantImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
         plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
         plantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
-        plantImageView.contentMode = .scaleAspectFit
-        plantImageView.isUserInteractionEnabled = false
         
+        // Reminder Button
         containerView.addSubview(reminderButton)
         reminderButton.leadingAnchor.constraint(equalTo: plantImageView.trailingAnchor, constant: 8).isActive = true
         reminderButton.centerYAnchor.constraint(equalTo: plantImageView.centerYAnchor).isActive = true
@@ -223,19 +244,13 @@ class PlantsTableViewCell: UITableViewCell {
         reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor).isActive = true
         
         // Species Label
-        let species = UILabel()
-        containerView.addSubview(species)
-        self.speciesLabel = species
-        speciesLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(speciesLabel)
         speciesLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor).isActive = true
         speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
         speciesLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
         speciesLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
-        speciesLabel.font = .systemFont(ofSize: 17.0)
-        speciesLabel.textColor = .customTimeLabelColor
-        speciesLabel.numberOfLines = 1
         
-        // User  Plant Image View (round plant image)
+        // User Plant Image View (round plant image)
         containerView.addSubview(userPlantImageView)
         userPlantImageView.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.9).isActive = true
         userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor).isActive = true
@@ -243,16 +258,11 @@ class PlantsTableViewCell: UITableViewCell {
         userPlantImageView.centerYAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
         
         // Days Label
-        let days = UILabel()
-        containerView.addSubview(days)
-        self.daysLabel = days
-        daysLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(daysLabel)
         daysLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
         daysLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
         daysLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
         daysLabel.heightAnchor.constraint(equalTo: plantImageView.heightAnchor, multiplier: 0.5).isActive = true
-        daysLabel.font = .italicSystemFont(ofSize: 17)
-        daysLabel.textColor = .systemGray2
-        daysLabel.numberOfLines = 1
+        
     }
 }
