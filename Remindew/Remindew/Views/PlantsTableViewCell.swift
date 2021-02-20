@@ -48,8 +48,16 @@ class PlantsTableViewCell: UITableViewCell {
         return button
     }()
     
-    // TODO: add button on other side of icon/image for silenced mode only?
-       
+    /// Button that shows if a plant is silenced or not
+    var silencedButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = false
+        button.setImage(UIImage(systemName: "moon.fill"), for: .normal)
+        button.tintColor = .systemGray3
+        return button
+    }()
+    
     /// Displays plant's nickname
     var nicknameLabel: UILabel = {
         let label = UILabel()
@@ -107,6 +115,19 @@ class PlantsTableViewCell: UITableViewCell {
         guard let plant = plant else { return }
         guard let nickname = plant.nickname, let species = plant.species else { return }
                 
+        // Nickname, Species, Days, and Time Labels
+        updateLabels(plant: plant, nickname: nickname, species: species)
+        
+        // Plant Icon or Image
+        updatePlantImageOrIcon(plant: plant)
+        
+        // Silenced and Reminder Buttons
+        updateStatusButtons(plant: plant)
+    }
+    
+    /// Sets Nickname, Species, Days, and Time labels based on settings
+    private func updateLabels(plant: Plant, nickname: String, species: String) {
+        
         // Main Label Color
         if UserDefaults.standard.bool(forKey: .usePlantColorOnLabel) {
             nicknameLabel.textColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
@@ -125,6 +146,10 @@ class PlantsTableViewCell: UITableViewCell {
         
         timeLabel.text = "\(DateFormatter.timeOnlyDateFormatter.string(from: plant.water_schedule!))"
         daysLabel.text = "\(returnDaysString(plant: plant))"
+    }
+    
+    /// Sets main plant icon/image based on settings
+    private func updatePlantImageOrIcon(plant: Plant) {
         
         // Plant Icon or Image
         if UserDefaults.standard.bool(forKey: .usePlantImages) {
@@ -139,19 +164,19 @@ class PlantsTableViewCell: UITableViewCell {
             plantIconButton.tintColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
             userPlantImageView.isHidden = true
         }
-        
-        // Reminder Button
-        updateReminderButton(plant: plant)
     }
     
     /// Sets reminderButton icon to Water, Reminder, Silenced, or None
-    private func updateReminderButton(plant: Plant) {
+    private func updateStatusButtons(plant: Plant) {
         
+        // Silenced Button
+        silencedButton.isHidden = plant.isEnabled ? true : false
+        
+        // Reminder Button
         reminderButton.isHidden = false
         
         // Watering
         if plant.needsWatering {
-            // Watering Icon
             reminderButton.setImage(UIImage.iconArray[Int(plant.actionIconIndex)], for: .normal)
             reminderButton.tintColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
             return
@@ -159,21 +184,12 @@ class PlantsTableViewCell: UITableViewCell {
         
         // Reminder
         if let reminder = plant.checkPlantsReminders() {
-            // Reminder Icon
             reminderButton.setImage(UIImage.iconArray[Int(reminder.iconIndex)], for: .normal)
             reminderButton.tintColor = UIColor.colorsArray[Int(reminder.colorIndex)]
             return
         }
         
-        // Silenced
-        if !plant.isEnabled {
-            // Silenced Icon
-            reminderButton.setImage(UIImage(systemName: "moon.fill"), for: .normal)
-            reminderButton.tintColor = .systemGray3
-            return
-        }
-        
-        // None (does not need water, reminder, and is not silenced)
+        // None (does not need water or reminder)
         reminderButton.isHidden = true
     }
     
@@ -242,6 +258,13 @@ class PlantsTableViewCell: UITableViewCell {
         reminderButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
         reminderButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
         reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor).isActive = true
+        
+        // Silenced Button
+        containerView.addSubview(silencedButton)
+        silencedButton.trailingAnchor.constraint(equalTo: plantIconButton.leadingAnchor, constant: -8).isActive = true
+        silencedButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
+        silencedButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
+        silencedButton.heightAnchor.constraint(equalTo: silencedButton.widthAnchor).isActive = true
         
         // Species Label
         containerView.addSubview(speciesLabel)

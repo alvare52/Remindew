@@ -50,7 +50,6 @@ class NotificationView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .lightGray
         label.font = .systemFont(ofSize: 12, weight: .light)
-//        label.backgroundColor = .orange
         label.text = "16m ago"
         label.textAlignment = .right
         return label

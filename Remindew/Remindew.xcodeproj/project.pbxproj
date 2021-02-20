@@ -174,14 +174,14 @@
 			children = (
 				1B0987F723EA61DF000033FA /* Main.storyboard */,
 				1B0987FC23EA61E5000033FA /* LaunchScreen.storyboard */,
-				1BED79D7256D8970004241F4 /* DaySelectionView.swift */,
-				1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */,
-				1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */,
-				1BEB002D258EEE34008701D2 /* SettingsTableViewCell.swift */,
 				1B2A55C9259A96B1004C98D9 /* CustomizationView.swift */,
-				1B2A55DD25A37BBA004C98D9 /* NotificationView.swift */,
-				1B2A55E225A3F60E004C98D9 /* ReminderTableViewCell.swift */,
+				1BED79D7256D8970004241F4 /* DaySelectionView.swift */,
 				1B81DB7825DD46E800624FEB /* FrequencySelectionView.swift */,
+				1B2A55DD25A37BBA004C98D9 /* NotificationView.swift */,
+				1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */,
+				1B2A55E225A3F60E004C98D9 /* ReminderTableViewCell.swift */,
+				1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */,
+				1BEB002D258EEE34008701D2 /* SettingsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
