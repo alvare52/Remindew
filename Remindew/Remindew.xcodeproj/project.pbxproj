@@ -42,6 +42,7 @@
 		1BEA112C25E2096B004EE87F /* DetailViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA112B25E2096B004EE87F /* DetailViewController+Extension.swift */; };
 		1BEA113925E2193D004EE87F /* bell_chime_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1BEA113825E2193D004EE87F /* bell_chime_3.mp3 */; };
 		1BEA113F25E2EF90004EE87F /* bell_chime_small.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1BEA113E25E2EF8F004EE87F /* bell_chime_small.mp3 */; };
+		1BEA114725E31419004EE87F /* PlantDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA114625E31419004EE87F /* PlantDetailsView.swift */; };
 		1BEB0002258AA2CF008701D2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB0004258AA2CF008701D2 /* Localizable.strings */; };
 		1BEB0017258E92AB008701D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB0019258E92AB008701D2 /* InfoPlist.strings */; };
 		1BEB0029258EE4B2008701D2 /* SettingsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEB0028258EE4B2008701D2 /* SettingsPageViewController.swift */; };
@@ -107,6 +108,7 @@
 		1BEA112B25E2096B004EE87F /* DetailViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewController+Extension.swift"; sourceTree = "<group>"; };
 		1BEA113825E2193D004EE87F /* bell_chime_3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bell_chime_3.mp3; sourceTree = "<group>"; };
 		1BEA113E25E2EF8F004EE87F /* bell_chime_small.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bell_chime_small.mp3; sourceTree = "<group>"; };
+		1BEA114625E31419004EE87F /* PlantDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailsView.swift; sourceTree = "<group>"; };
 		1BEB0003258AA2CF008701D2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1BEB0005258AA2D5008701D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1BEB0018258E92AB008701D2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				1BED79D7256D8970004241F4 /* DaySelectionView.swift */,
 				1B81DB7825DD46E800624FEB /* FrequencySelectionView.swift */,
 				1B2A55DD25A37BBA004C98D9 /* NotificationView.swift */,
+				1BEA114625E31419004EE87F /* PlantDetailsView.swift */,
 				1BAA3FE225808FF70076CE91 /* PlantsTableViewCell.swift */,
 				1B2A55E225A3F60E004C98D9 /* ReminderTableViewCell.swift */,
 				1BAA3FD825798BC90076CE91 /* SearchResultTableViewCell.swift */,
@@ -441,6 +444,7 @@
 				1B09883823EA9451000033FA /* Plant+Convenience.swift in Sources */,
 				1B2A55DE25A37BBB004C98D9 /* NotificationView.swift in Sources */,
 				1BEA10F925E05D3C004EE87F /* UIImage+Extension.swift in Sources */,
+				1BEA114725E31419004EE87F /* PlantDetailsView.swift in Sources */,
 				1BEA111925E1EDA4004EE87F /* UIView+Extension.swift in Sources */,
 				1BED79D62568A3E9004241F4 /* UNUserNotificationCenter+Extension.swift in Sources */,
 				1B0987F423EA61DF000033FA /* SceneDelegate.swift in Sources */,

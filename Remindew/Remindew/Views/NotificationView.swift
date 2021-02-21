@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// UIView that looks like a Nofification banner. Contains 2 textfields to take in custom Title and Message
 class NotificationView: UIView {
     
     // MARK: - Properties
