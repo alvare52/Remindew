@@ -77,10 +77,9 @@ class DaySelectionView: UIStackView {
     
     /// Sets buttons to be selected if they are in the plants days  (should NOT select buttons that are already selected)
     func selectDays(_ daysToSelect: [Int16]) {
-        print("selectDays called")
+        
         for day in daysToSelect {
             let index = Int(day) - 1
-            print("day = \(day) index = \(index)")
             // NOT Selected, so select it
             if buttonArray[index].tintColor == .secondaryLabel {
                 buttonArray[index].tintColor = UIColor.customSelectedDayColor//.darkGray
@@ -91,29 +90,22 @@ class DaySelectionView: UIStackView {
  
     /// Resets all days so they're unselected
     private func resetDays() {
-        print("resetDays")
         for button in buttonArray {
             button.tintColor = .secondaryLabel
             button.titleLabel?.font = unselectedFont
         }
-        
     }
     
     /// Return an array of Int16s that are currently selected (Sunday = 1, etc)
     func returnDaysSelected() -> [Int16] {
+        
         var result = [Int16]()
         for button in buttonArray {
             // if "selected"
             if button.tintColor == UIColor.customSelectedDayColor {
-                print("Selected: \(button.titleLabel?.text ?? "-")")
                 result.append(Int16(button.tag))
             }
         }
-        // array of selected day buttons
-//        let tempResult = buttonArray.filter { $0.backgroundColor == UIColor.waterBlue }
-        
-        print("days selected: \(result)")
-        // return first thing in this array (will crash right now if none are selected)
-        return result //Int16(result[0].tag)
+        return result
     }
 }
