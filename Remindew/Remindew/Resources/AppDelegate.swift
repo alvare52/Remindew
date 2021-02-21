@@ -55,7 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //completionHandler([.alert, .sound, .badge])
         // .list is to show in lock screen, .banner is to show like normal banners.
         completionHandler([.banner, .sound, .badge])
-
+        
+        // ignore if we get a chime notification
+        if notification.request.identifier == "chime" { return }
+        
         // check watering status of all plants by sending notification to observer (PlantTableViewController)
         NotificationCenter.default.post(name: .checkWateringStatus, object: self)
     }

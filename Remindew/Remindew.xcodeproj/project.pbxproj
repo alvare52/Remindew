@@ -40,8 +40,8 @@
 		1BEA111925E1EDA4004EE87F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA111825E1EDA4004EE87F /* UIView+Extension.swift */; };
 		1BEA112125E1EEB8004EE87F /* NSNotification.Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA112025E1EEB8004EE87F /* NSNotification.Name+Extension.swift */; };
 		1BEA112C25E2096B004EE87F /* DetailViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA112B25E2096B004EE87F /* DetailViewController+Extension.swift */; };
-		1BEA113425E21871004EE87F /* bell_chime_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1BEA113325E21871004EE87F /* bell_chime_1.mp3 */; };
 		1BEA113925E2193D004EE87F /* bell_chime_3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1BEA113825E2193D004EE87F /* bell_chime_3.mp3 */; };
+		1BEA113F25E2EF90004EE87F /* bell_chime_small.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1BEA113E25E2EF8F004EE87F /* bell_chime_small.mp3 */; };
 		1BEB0002258AA2CF008701D2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB0004258AA2CF008701D2 /* Localizable.strings */; };
 		1BEB0017258E92AB008701D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB0019258E92AB008701D2 /* InfoPlist.strings */; };
 		1BEB0029258EE4B2008701D2 /* SettingsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEB0028258EE4B2008701D2 /* SettingsPageViewController.swift */; };
@@ -105,8 +105,8 @@
 		1BEA111825E1EDA4004EE87F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		1BEA112025E1EEB8004EE87F /* NSNotification.Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+Extension.swift"; sourceTree = "<group>"; };
 		1BEA112B25E2096B004EE87F /* DetailViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailViewController+Extension.swift"; sourceTree = "<group>"; };
-		1BEA113325E21871004EE87F /* bell_chime_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bell_chime_1.mp3; sourceTree = "<group>"; };
 		1BEA113825E2193D004EE87F /* bell_chime_3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bell_chime_3.mp3; sourceTree = "<group>"; };
+		1BEA113E25E2EF8F004EE87F /* bell_chime_small.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bell_chime_small.mp3; sourceTree = "<group>"; };
 		1BEB0003258AA2CF008701D2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1BEB0005258AA2D5008701D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1BEB0018258E92AB008701D2 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 		1BAA3FF225898DBD0076CE91 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1BEA113325E21871004EE87F /* bell_chime_1.mp3 */,
+				1BEA113E25E2EF8F004EE87F /* bell_chime_small.mp3 */,
 				1BEA113825E2193D004EE87F /* bell_chime_3.mp3 */,
 				1B0987F123EA61DF000033FA /* AppDelegate.swift */,
 				1B0987F323EA61DF000033FA /* SceneDelegate.swift */,
@@ -390,12 +390,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BEA113425E21871004EE87F /* bell_chime_1.mp3 in Resources */,
 				1B0987FE23EA61E5000033FA /* LaunchScreen.storyboard in Resources */,
 				1BEB0002258AA2CF008701D2 /* Localizable.strings in Resources */,
 				1B0987FB23EA61E5000033FA /* Assets.xcassets in Resources */,
 				1B0987F923EA61DF000033FA /* Main.storyboard in Resources */,
 				1BEB0017258E92AB008701D2 /* InfoPlist.strings in Resources */,
+				1BEA113F25E2EF90004EE87F /* bell_chime_small.mp3 in Resources */,
 				1BEA113925E2193D004EE87F /* bell_chime_3.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

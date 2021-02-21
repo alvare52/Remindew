@@ -171,15 +171,23 @@
                             </barButtonItem>
                             <barButtonItem enabled="NO" title="Date" id="tHs-1W-LYp"/>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kmi-s3-Tfa">
-                            <connections>
-                                <action selector="addPlantButtonTapped:" destination="h6g-pM-PCw" id="cHC-ZV-ga3"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="kmi-s3-Tfa">
+                                <connections>
+                                    <action selector="addPlantButtonTapped:" destination="h6g-pM-PCw" id="cHC-ZV-ga3"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="bell.fill" catalog="system" id="kef-f7-z5d">
+                                <connections>
+                                    <action selector="chimeButtonTapped:" destination="h6g-pM-PCw" id="iFE-5r-sRd"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addPlantIcon" destination="kmi-s3-Tfa" id="S3J-CK-81G"/>
+                        <outlet property="chimeButtonLable" destination="kef-f7-z5d" id="81F-eB-4kj"/>
                         <outlet property="dateLabel" destination="tHs-1W-LYp" id="0pP-DK-Zhd"/>
                         <outlet property="settingsBarButtonLabel" destination="9ch-Ko-LFh" id="wB1-lR-hqz"/>
                         <segue destination="egV-2b-yvb" kind="show" identifier="AddPlantSegue" id="K1t-dj-wNi"/>
@@ -322,7 +330,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Plant" id="LEP-xb-JEw">
-                        <barButtonItem key="backBarButtonItem" id="XUW-mL-cLo"/>
                         <rightBarButtonItems>
                             <barButtonItem title="Notes" image="note.text" catalog="system" id="mPY-9k-kkA">
                                 <connections>
@@ -331,7 +338,7 @@
                             </barButtonItem>
                             <barButtonItem image="photo" catalog="system" id="aUm-Vv-L4D"/>
                             <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
-                            <barButtonItem image="bell.circle" catalog="system" id="nTd-PE-hrc">
+                            <barButtonItem image="bell.fill" catalog="system" id="nTd-PE-hrc">
                                 <connections>
                                     <action selector="reminderButtonTapped:" destination="egV-2b-yvb" id="SX3-Ob-uk8"/>
                                 </connections>
@@ -420,7 +427,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="RemindewDefaultImage" width="1000" height="667"/>
-        <image name="bell.circle" catalog="system" width="128" height="121"/>
+        <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="photo" catalog="system" width="128" height="93"/>
