@@ -21,8 +21,7 @@ class PlantsTableViewController: UITableViewController {
     
     @IBOutlet var dateLabel: UIBarButtonItem!
     
-    @IBOutlet var chimeButtonLable: UIBarButtonItem!
-    
+    @IBOutlet var chimeButtonLabel: UIBarButtonItem!
     // MARK: - Actions
     
     @IBAction func settingsBarButtonTapped(_ sender: UIBarButtonItem) {

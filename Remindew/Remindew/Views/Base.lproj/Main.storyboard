@@ -187,7 +187,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addPlantIcon" destination="kmi-s3-Tfa" id="S3J-CK-81G"/>
-                        <outlet property="chimeButtonLable" destination="kef-f7-z5d" id="81F-eB-4kj"/>
+                        <outlet property="chimeButtonLabel" destination="kef-f7-z5d" id="f8y-o4-bW3"/>
                         <outlet property="dateLabel" destination="tHs-1W-LYp" id="0pP-DK-Zhd"/>
                         <outlet property="settingsBarButtonLabel" destination="9ch-Ko-LFh" id="wB1-lR-hqz"/>
                         <segue destination="egV-2b-yvb" kind="show" identifier="AddPlantSegue" id="K1t-dj-wNi"/>
