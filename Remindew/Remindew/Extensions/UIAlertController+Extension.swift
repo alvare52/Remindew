@@ -18,4 +18,22 @@ extension UIAlertController {
         alertController.addAction(alertAction)
         vc.present(alertController, animated: true, completion: nil)
     }
+    
+    /// Presents an alert for missing text in species textfield. Clicks in species textfield when user clicks OK
+    static func makeSpeciesAlert(textField: UITextField, vc: UIViewController) {
+        
+        let title = NSLocalizedString("Missing Plant Type",
+                                      comment: "Title for when species name is missing in textfield")
+        let message = NSLocalizedString("Please enter the type of plant you have.\nExample: \"Peace Lily\"",
+                                        comment: "Message for when plant type name is missing in textfield")
+
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+            textField.becomeFirstResponder()
+        }
+        
+        alertController.addAction(alertAction)
+        vc.present(alertController, animated: true, completion: nil)
+    }
 }

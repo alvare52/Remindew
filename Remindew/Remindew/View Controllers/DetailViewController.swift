@@ -317,8 +317,8 @@ class DetailViewController: UIViewController {
         
         // 2. species has text AND not empty, else display alert for this
         guard let species = speciesTextField.text, !species.isEmpty else {
-            makeSpeciesAlert()
             UINotificationFeedbackGenerator().notificationOccurred(.error)
+            UIAlertController.makeSpeciesAlert(textField: speciesTextField, vc: self)
             return
         }
         
@@ -593,23 +593,6 @@ class DetailViewController: UIViewController {
         }
         alertController.addAction(alertAction)
         alertController.addAction(settingsAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Presents an alert for missing text in species textfield. Clicks in species textfield when user clicks OK
-    private func makeSpeciesAlert() {
-        let title = NSLocalizedString("Missing Species Name",
-                                      comment: "Title for when species name is missing in textfield")
-        let message = NSLocalizedString("Please enter a species for your plant.\nExample: \"Peace Lily\"",
-                                        comment: "Message for when species name is missing in textfield")
-
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        // handler could select the textfield it needs or change textview text??
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            self.speciesTextField.becomeFirstResponder()
-        }
-        alertController.addAction(alertAction)
         self.present(alertController, animated: true, completion: nil)
     }
     
