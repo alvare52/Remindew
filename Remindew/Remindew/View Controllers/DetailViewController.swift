@@ -131,7 +131,7 @@ class DetailViewController: UIViewController {
                 // local alert saying it needs permission
                 print("Notification permissions NOT granted")
                 DispatchQueue.main.async {
-                    self.makeNotificationsPermissionAlert()
+                    UIAlertController.makeNotificationsPermissionAlert(vc: self)
                 }
             }
         }
@@ -327,7 +327,7 @@ class DetailViewController: UIViewController {
         
         // 3. daysAreSelected is true, else display alert for this
         if !daysAreSelected {
-            makeDaysAlert()
+            UIAlertController.makeDaysAlert(progressView: dayProgressView, vc: self)
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
         }
@@ -525,7 +525,7 @@ class DetailViewController: UIViewController {
         
         switch cameraAuthorizationStatus {
         case .notDetermined, .denied, .restricted:
-            makeCameraUsagePermissionAlert()
+            UIAlertController.makeCameraUsagePermissionAlert(vc: self)
             return
         case .authorized:
             print("Authorized camera in takePhoto")
@@ -536,7 +536,7 @@ class DetailViewController: UIViewController {
         // check if we have access to Camera (if not, present an alert with option to go to Settings). Just in case
         guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
             print("Error: camera is unavailable")
-            makeCameraUsagePermissionAlert()
+            UIAlertController.makeCameraUsagePermissionAlert(vc: self)
             return
         }
         
@@ -546,107 +546,6 @@ class DetailViewController: UIViewController {
         viewController.allowsEditing = true
         viewController.delegate = self
         present(viewController, animated: true)
-    }
-    
-    // MARK: - Alerts
-    
-    /// Presents an alert for when a user did not usage of their camera and lets them go to Settings to change it (will restart app though)
-    private func makeCameraUsagePermissionAlert() {
-    
-        // add two options
-        let title = NSLocalizedString("Camera Access Denied",
-                                      comment: "Title for camera usage not allowed")
-        let message = NSLocalizedString("Please allow camera usage by going to Settings and turning Camera access on", comment: "Error message for when camera access is not allowed")
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // handler could select the textfield it needs or change textview text??
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            print("selected OK option")
-        }
-        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
-        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
-            // take user to Settings app
-            print("selected Settings option")
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-        }
-        alertController.addAction(alertAction)
-        alertController.addAction(settingsAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Presents an alert for when a user did not allow notifications at launch and lets them go to Settings to change before they make/edit a plant
-    private func makeNotificationsPermissionAlert() {
-    
-        // add two options
-        let title = NSLocalizedString("Notifications Disabled",
-                                      comment: "Title for notification permissions not allowed")//"Notifications Disabled"
-        let message = NSLocalizedString("Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges.", comment: "Error message for when notifications are not allowed")//"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // handler could select the textfield it needs or change textview text??
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            print("selected OK option")
-        }
-        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
-        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
-            // take user to Settings app
-            print("selected Settings option")
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-        }
-        alertController.addAction(alertAction)
-        alertController.addAction(settingsAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Presents an alert for missing days and changes text view to give a hint
-    private func makeDaysAlert() {
-        let title = NSLocalizedString("Missing Watering Days",
-                                      comment: "Title for when watering days are missing")
-        let message = NSLocalizedString("Please select which days you would like to receive reminders",
-                                        comment: "Message for when watering days are missing")
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // handler could select the textfield it needs or change textview text??
-        self.dayProgressView.progress = 0.0
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-
-            UIView.animate(withDuration: 0.275) {
-                self.dayProgressView.setProgress(1.0, animated: true)
-            }
-        }
-        alertController.addAction(alertAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Makes custom alerts with given title and message for network errors
-    private func makeAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(alertAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    /// Presents an alert asking user if they're sure if they want to delete the plant they swiped on
-    private func deletionWarningAlert(reminder: Reminder, plant: Plant, indexPath: IndexPath) {
-        
-        guard let reminderName = reminder.actionName else { return }
-        let title = NSLocalizedString("Delete Reminder",
-                                      comment: "Title Reminder Deletion Alert")
-        let message = NSLocalizedString("Would you like to delete ",
-                                        comment: "Message for when nickname is missing in textfield") + "\(reminderName)?" + "\n" + NSLocalizedString("This can not be undone.", comment: "Deletion can't be undone")
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                
-        // Cancel
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel Plant Deletion Option"), style: .default)
-        
-        // Delete
-        let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete Plant Option"), style: .destructive) { _ in
-            self.plantController?.deleteReminderFromPlant(reminder: reminder, plant: plant)
-            self.resultsTableView.deleteRows(at: [indexPath], with: .fade)
-            self.resultsTableView.reloadData()
-        }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(deleteAction)
-        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Networking
@@ -659,8 +558,9 @@ class DetailViewController: UIViewController {
         case .noToken:
             print("no token in searchPlants")
         case .invalidURL:
-            makeAlert(title: NSLocalizedString("Invalid Species", comment: ".invalidURL"),
-                      message: NSLocalizedString("Please enter a valid species name", comment: "invalid URL"))
+            UIAlertController.makeAlert(title: NSLocalizedString("Invalid Species", comment: ".invalidURL"),
+                      message: NSLocalizedString("Please enter a valid species name", comment: "invalid URL"),
+                      vc: self)
             return
         case .otherError:
             print("other error in searchPlants")
@@ -671,15 +571,18 @@ class DetailViewController: UIViewController {
         case .invalidToken:
             print("personal token invalid when sending to get temp token url")
         case .serverDown:
-            makeAlert(title: NSLocalizedString("Server Maintenance", comment: "Title for Servers down temporarily"),
-                      message: NSLocalizedString("Servers down for maintenance. Please try again later.", comment: "Servers down"))
+            UIAlertController.makeAlert(title: NSLocalizedString("Server Maintenance", comment: "Title for Servers down temporarily"),
+                      message: NSLocalizedString("Servers down for maintenance. Please try again later.", comment: "Servers down"),
+                      vc: self)
             return
         default:
             print("default error in searchPlants")
         }
+        
         // Error for all cases that don't have custom ones
-        makeAlert(title: NSLocalizedString("Network Error", comment: "any network error"),
-                  message: NSLocalizedString("Search feature temporarily unavailable", comment: "any network error"))
+        UIAlertController.makeAlert(title: NSLocalizedString("Network Error", comment: "any network error"),
+                  message: NSLocalizedString("Search feature temporarily unavailable", comment: "any network error"),
+                  vc: self)
     }
     
     /// Performs a search for plants species (called inside textfield Return)
@@ -692,10 +595,11 @@ class DetailViewController: UIViewController {
                     self.plantSearchResults = plantResults
                     self.spinner.stopAnimating()
                     if plantResults.count == 0 {
-                        self.makeAlert(title: NSLocalizedString("No Results Found",
+                        UIAlertController.makeAlert(title: NSLocalizedString("No Results Found",
                                                                 comment: "no search resutls"),
                                        message: NSLocalizedString("Please search for another species",
-                                                                  comment: "try another species"))
+                                                                  comment: "try another species"),
+                                       vc: self)
                     }
                     print("set array to plants we got back")
                 }
@@ -846,7 +750,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         let delete = UIContextualAction(style: .destructive, title: "") { (action, view, completion) in
             print("Deleted \(reminder.actionName!)")
             if let plant = self.plant {
-                self.deletionWarningAlert(reminder: reminder, plant: plant, indexPath: indexPath)
+                UIAlertController.makeReminderDeletionWarningAlert(reminder: reminder, plant: plant, indexPath: indexPath, vc: self)
             }
             completion(true)
         }
