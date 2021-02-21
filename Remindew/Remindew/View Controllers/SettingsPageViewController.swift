@@ -66,6 +66,8 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Update stats
         UNUserNotificationCenter.checkPendingNotes { result in
             DispatchQueue.main.async {
                 self.totalNotificationsCount = result
@@ -79,6 +81,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         switch section {
+        
         case 0:
             return "APPEARANCE"
         case 1:
@@ -119,7 +122,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // Appearance
         if section == 0 {
-            return 2
+            return 3
         }
         
         // Main Label
@@ -157,6 +160,15 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantImages
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantImages)
+                settingCell.settingLabel.textColor = .label
+            }
+            
+            // Plant Images
+            if indexPath.row == 2 {
+                settingCell.settingLabel.text = "Hide Silenced Icon"
+                settingCell.optionSwitch.isHidden = false
+                settingCell.customSetting = .hideSilencedIcon
+                settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .hideSilencedIcon)
                 settingCell.settingLabel.textColor = .label
             }
         }

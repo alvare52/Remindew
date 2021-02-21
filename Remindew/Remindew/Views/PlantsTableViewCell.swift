@@ -256,7 +256,11 @@ class PlantsTableViewCell: UITableViewCell {
     private func updateStatusButtons(plant: Plant) {
         
         // Silenced Button
-        silencedButton.isHidden = plant.isEnabled ? true : false
+        if UserDefaults.standard.bool(forKey: .hideSilencedIcon) {
+            silencedButton.isHidden = true
+        } else {
+            silencedButton.isHidden = plant.isEnabled ? true : false
+        }
         
         // Reminder Button
         reminderButton.isHidden = false

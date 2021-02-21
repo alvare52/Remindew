@@ -32,6 +32,9 @@ extension String {
     /// Get/Set value of setting for using plant color on the plant's name label
     static let usePlantColorOnLabel = "usePlantColorOnLabel"
     
+    /// Get/Set value of setting for hiding silenced plant icon
+    static let hideSilencedIcon = "hideSilencedIcon"
+    
     static let sunday = NSLocalizedString("Sun", comment: "Sunday abbreviated")
     static let monday = NSLocalizedString("Mon", comment: "Monday abbreviated")
     static let tuesday = NSLocalizedString("Tue", comment: "Tuesday abbreviated")

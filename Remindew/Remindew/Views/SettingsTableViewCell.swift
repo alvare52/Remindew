@@ -54,6 +54,11 @@ class SettingsTableViewCell: UITableViewCell {
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .usePlantColorOnLabel)
             // Let main table view know to update table view
             NotificationCenter.default.post(name: .checkWateringStatus, object: self)
+                        
+        case .hideSilencedIcon:
+            UserDefaults.standard.set(optionSwitch.isOn, forKey: .hideSilencedIcon)
+            // Let main table view know to update table view
+            NotificationCenter.default.post(name: .checkWateringStatus, object: self)
             
         case .sortPlantsBySpecies:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .sortPlantsBySpecies)
