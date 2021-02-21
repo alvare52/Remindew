@@ -107,6 +107,9 @@ class ReminderTableViewCell: UITableViewCell {
     /// Takes in a Reminder and updates the progressView based on the Reminder's lastDate or dateCreated
     func updateProgressView(reminder: Reminder) {
         
+        // just in case
+        completeButton.isHidden = true
+        
         // assume that this is a new reminder
         var totalProgress = reminder.alarmDate!.timeIntervalSince(reminder.dateCreated!) / 86400.0
         let daysLeft = reminder.alarmDate!.timeIntervalSinceNow / 86400.0
@@ -155,13 +158,14 @@ class ReminderTableViewCell: UITableViewCell {
     /// Sets new alarmDate for Reminder, sets new lastDate value, and hides completeButton
     @objc private func completeButtonTapped() {
         print("complete tapped")
-        // set lastDate
+        
         guard let reminder = reminder else { return }
+        
+        completeButton.isHidden = true
         
         // update lastDate with time action was completed and set new alarmDate
         plantController?.updateReminderDates(reminder: reminder)
-        // hide complete button
-        completeButton.isHidden = true
+        
         // update views
         updateViews()
         reminderDelegate?.didAddOrUpdateReminder()

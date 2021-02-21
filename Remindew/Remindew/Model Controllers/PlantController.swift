@@ -481,8 +481,8 @@ class PlantController {
         
         // only make sound, title and message if reminder.isEnabled but we still keep badges
         if reminder.isEnabled {
-//            content.sound = .default
-            content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "bell_chime_1.mp3"))
+            
+            content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "bell_chime_3.mp3"))
 
             // title
             var title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
