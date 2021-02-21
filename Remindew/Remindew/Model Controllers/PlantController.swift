@@ -382,7 +382,8 @@ class PlantController {
                 
                 // 1. Sound
                 // TODO: use custom sound later?
-                content.sound = .default
+//                content.sound = .default
+                content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "bell_chime_3.mp3"))
                 
                 // 2. Title
                 var title = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
