@@ -20,7 +20,7 @@ class SettingsTableViewCell: UITableViewCell {
     /// Displays setting's name
     var settingLabel: UILabel!
     
-    /// 8 pt padding
+    /// 20 pt padding
     var standardMargin: CGFloat = CGFloat(20.0)
     
     /// Holds the key for this cell's setting
@@ -77,10 +77,10 @@ class SettingsTableViewCell: UITableViewCell {
         settingLabel.translatesAutoresizingMaskIntoConstraints = false
         settingLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         settingLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                            constant: standardMargin - 5).isActive = true
+                                            constant: 20).isActive = true
         settingLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: CGFloat(0.7)).isActive = true
         settingLabel.font = .systemFont(ofSize: 16)
-
+        
         // Switch
         let option = UISwitch()
         contentView.addSubview(option)
