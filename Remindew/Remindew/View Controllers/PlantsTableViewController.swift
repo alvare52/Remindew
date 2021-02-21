@@ -32,6 +32,14 @@ class PlantsTableViewController: UITableViewController {
     
     @IBAction func addPlantButtonTapped(_ sender: UIBarButtonItem) {
         print("addPlantButtonTapped")
+        
+        if fetchedResultsController.fetchedObjects?.count ?? 0 > 151 {
+            UIAlertController.makeAlert(title: "Reached Plant Limit",
+                                        message: "Sorry, you've reached the limit of how many plants you can make.",
+                                        vc: self)
+            return
+        }
+        
         AudioServicesPlaySystemSound(SystemSoundID(1104))
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         performSegue(withIdentifier: "AddPlantSegue", sender: self)

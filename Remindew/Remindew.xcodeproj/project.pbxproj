@@ -226,13 +226,13 @@
 		1BAA3FFA25898E990076CE91 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1B09882823EA640E000033FA /* PlantsTableViewController.swift */,
-				1B09882A23EA643E000033FA /* DetailViewController.swift */,
-				1BEB0028258EE4B2008701D2 /* SettingsPageViewController.swift */,
-				1B2A55AD25979F6A004C98D9 /* NotepadViewController.swift */,
 				1B2A55B22599665A004C98D9 /* AppearanceViewController.swift */,
+				1B09882A23EA643E000033FA /* DetailViewController.swift */,
+				1B2A55AD25979F6A004C98D9 /* NotepadViewController.swift */,
+				1B09882823EA640E000033FA /* PlantsTableViewController.swift */,
 				1B2A55D325A0F7D9004C98D9 /* ReminderViewController.swift */,
 				1B2A55D825A0F814004C98D9 /* SearchViewController.swift */,
+				1BEB0028258EE4B2008701D2 /* SettingsPageViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
