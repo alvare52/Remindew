@@ -48,7 +48,7 @@ extension String {
     
     /// Array of random plant nicknames for when a user doesn't want to create their own
     static let randomNicknames: [String] = ["Twiggy", "Leaf Erikson", "Alvina", "Thornhill", "Plant 43",
-                                            "Lily", "Leshy", "Greenman", "Bud Dwyer", "Treebeard",
+                                            "Leshy", "Greenman", "Bud Dwyer", "Treebeard",
                                             "Cilan", "Milo", "Erika", "Gardenia", "Ramos"]
         
     /// Returns a random nickname String
