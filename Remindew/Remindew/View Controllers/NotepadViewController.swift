@@ -8,7 +8,7 @@
 
 import UIKit
 
-// Delegate 1
+/// Delegate protocol that lets DetailViewController when a Notepad has been made with or without a Plant
 protocol NotepadDelegate {
     func didMakeNotepad(notepad: NotePad)
     func didMakeNotepadWithPlant(notepad: NotePad, plant: Plant)
@@ -18,7 +18,7 @@ class NotepadViewController: UIViewController {
 
     // MARK: - Properties
     
-    // Delegate 2
+    /// Delegate coming from DetailViewController
     var notepadDelegate: NotepadDelegate?
     
     /// Holds all other views,
@@ -56,46 +56,6 @@ class NotepadViewController: UIViewController {
         return tempButton
     }()
     
-//    let scientificNameTextfield: UITextField = {
-//        let scienceTextfield = UITextField()
-//        scienceTextfield.translatesAutoresizingMaskIntoConstraints = false
-//        scienceTextfield.font = .italicSystemFont(ofSize: 17)
-//        scienceTextfield.placeholder = NSLocalizedString("Scientific Name", comment: "scientific name / species of plant")
-//        scienceTextfield.backgroundColor = .clear
-//        scienceTextfield.autocorrectionType = .no
-//        scienceTextfield.contentVerticalAlignment = .bottom
-//        scienceTextfield.tintColor = .mixedBlueGreen
-//        return scienceTextfield
-//    }()
-    
-//    /// Location textfield
-//    let locationTextfield: UITextField = {
-//        let textfield = UITextField()
-//        textfield.translatesAutoresizingMaskIntoConstraints = false
-//        textfield.placeholder = NSLocalizedString("Location", comment: "where is the plant located")
-//        textfield.contentVerticalAlignment = .bottom
-//        textfield.tintColor = .mixedBlueGreen
-//        return textfield
-//    }()
-    
-//    /// Thin gray line thats under locationTextfield
-//    let locationLine: UIView = {
-//        let lineBreak = UIView()
-//        lineBreak.translatesAutoresizingMaskIntoConstraints = false
-//        return lineBreak
-//    }()
-    
-//    /// Action  textfield
-//    let actionTextfield: UITextField = {
-//        let textfield = UITextField()
-//        textfield.translatesAutoresizingMaskIntoConstraints = false
-//        textfield.placeholder = NSLocalizedString("Action", comment: "main action for plant")
-//        textfield.text = NSLocalizedString("Water", comment: "water, default main action")
-//        textfield.contentVerticalAlignment = .bottom
-//        textfield.textColor = .waterBlue
-//        return textfield
-//    }()
-    
     /// Custom view that holds action, location, and scientificName textfield
     let plantDetailsView: PlantDetailsView = {
         let view = PlantDetailsView()
@@ -109,14 +69,7 @@ class NotepadViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-//    /// Thin gray line thats under scientificNameTextfield
-//    let scientificLine: UIView = {
-//        let lineBreak = UIView()
-//        lineBreak.translatesAutoresizingMaskIntoConstraints = false
-//        return lineBreak
-//    }()
-        
+    
     /// Textview for any notes
     let notesTextView: UITextView = {
         let textView = UITextView()
@@ -129,6 +82,7 @@ class NotepadViewController: UIViewController {
         return textView
     }()
     
+    /// PlantController we received from DetailViewController
     var plantController: PlantController?
     
     /// Holds plant that will be passed in and displayed
@@ -138,7 +92,7 @@ class NotepadViewController: UIViewController {
         }
     }
     
-    /// Standard padding for left and right sides
+    /// Standard padding for left and right sides (20pts)
     let standardMargin: CGFloat = 20.0
     
     /// Updates all views when plant is passed in
@@ -157,7 +111,7 @@ class NotepadViewController: UIViewController {
             if let lastDate = plant.lastDateWatered {
                 lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(DateFormatter.lastWateredDateFormatter.string(from: lastDate))"
             } else {
-                lastDateLabel.text = "Brand New Plant"
+                lastDateLabel.text = NSLocalizedString("Brand New Plant", comment: "plant that hasn't been watered yet")
             }
         }
         
@@ -169,13 +123,14 @@ class NotepadViewController: UIViewController {
     
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
-        print("Save button tapped")
+        
+        let locationString = plantDetailsView.locationTextfield.text?.capitalized.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
         let notepad = NotePad(notes: notesTextView.text,
                               mainTitle: notificationView.reminderTitleTextfield.text ?? "",
                               mainMessage: notificationView.reminderMessageTextfield.text ?? "",
                               mainAction: plantDetailsView.actionTextfield.text ?? NSLocalizedString("Water", comment: "water, default main action"),
-                              location: plantDetailsView.locationTextfield.text?.capitalized ?? "",
+                              location: locationString,
                               scientificName: plantDetailsView.scientificNameTextfield.text ?? "")
         
        
@@ -250,44 +205,7 @@ class NotepadViewController: UIViewController {
         plantDetailsView.heightAnchor.constraint(equalToConstant: 76).isActive = true
         plantDetailsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         plantDetailsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        
-        // Action Name ("Water")
-//        contentView.addSubview(actionTextfield)
-//        actionTextfield.topAnchor.constraint(equalTo: plantDetailsView.bottomAnchor).isActive = true // lastDateLabel.bottom
-//        actionTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        actionTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
-//        actionTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-        // Location Textfield
-//        contentView.addSubview(locationTextfield)
-//        locationTextfield.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor).isActive = true
-//        locationTextfield.leadingAnchor.constraint(equalTo: actionTextfield.trailingAnchor).isActive = true
-//        locationTextfield.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
-//        locationTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-        // Location Line
-//        contentView.addSubview(locationLine)
-//        locationLine.topAnchor.constraint(equalTo: locationTextfield.bottomAnchor, constant: 4).isActive = true
-//        locationLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        locationLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        locationLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
-//        locationLine.backgroundColor = .lightGray
-        
-//        // Scientific Name Textfield
-//        contentView.addSubview(scientificNameTextfield)
-//        scientificNameTextfield.topAnchor.constraint(equalTo: locationLine.bottomAnchor).isActive = true
-//        scientificNameTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        scientificNameTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        scientificNameTextfield.heightAnchor.constraint(equalTo: saveButton.heightAnchor).isActive = true
-        
-//        // Scientific Line
-//        contentView.addSubview(scientificLine)
-//        scientificLine.topAnchor.constraint(equalTo: scientificNameTextfield.bottomAnchor, constant: 4).isActive = true
-//        scientificLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        scientificLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        scientificLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
-//        scientificLine.backgroundColor = .lightGray
-                
+                        
         // Notification View
         contentView.addSubview(notificationView)
         notificationView.topAnchor.constraint(equalTo: plantDetailsView.bottomAnchor, constant: 4).isActive = true
@@ -302,16 +220,9 @@ class NotepadViewController: UIViewController {
         notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
 }
 
+/// Struct that holds all information given in NotepadViewController
 struct NotePad {
     var notes: String = ""
     var mainTitle: String = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
