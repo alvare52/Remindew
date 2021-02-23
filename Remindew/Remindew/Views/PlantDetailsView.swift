@@ -32,8 +32,6 @@ class PlantDetailsView: UIView {
         textfield.textAlignment = .center
         textfield.font = .systemFont(ofSize: 14, weight: .semibold)
         textfield.contentVerticalAlignment = .center
-//        textfield.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 31))
-//        textfield.leftViewMode = .always
         return textfield
     }()
     
@@ -48,15 +46,12 @@ class PlantDetailsView: UIView {
         textfield.contentVerticalAlignment = .center
         textfield.tintColor = .mixedBlueGreen
         textfield.textAlignment = .center
-//        textfield.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 31))
-//        textfield.leftViewMode = .always
         return textfield
     }()
     
     let scientificNameTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.text = "Scientific Name"
         textfield.backgroundColor = .customComponentColor
         textfield.contentVerticalAlignment = .top
         textfield.font = .italicSystemFont(ofSize: 17)

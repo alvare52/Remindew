@@ -11,21 +11,28 @@ import XCTest
 
 class RemindewTests: XCTestCase {
 
+    var sut: PlantController!
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        sut = PlantController()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
+        super.tearDown()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-//        let plantController = PlantController()
-//        let daysSelected = [Int16(3), Int16(6), Int16(7)]
-//        let result = plantController.calculateNextWateringValue(daysSelected)
-//        XCTAssertEqual(6, result, "result does not equal 6")
+    /// Tests if location strings are properly stripped of whitespaces
+    func testTrimmingLocation() throws {
+        
+        let location = " Kitchen  ".trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        let result = "Kitchen"
+        
+        XCTAssertEqual(location, result, "Location still contains whitespaces")
     }
 
     func testPerformanceExample() throws {
