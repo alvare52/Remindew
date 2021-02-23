@@ -63,7 +63,6 @@ extension Plant {
         
         for reminder in remindersArray {
             if reminder.alarmDate! <= Date() {
-                print("PLANT: \(self.nickname!) NEEDS ATTENTION: \(reminder.actionName!)")
                 return reminder
             }
         }

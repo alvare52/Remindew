@@ -14,7 +14,6 @@ extension UIImage {
     /// Memory cache to store already saved user plant images, clears itself after it has more than 100(?) images
     static var savedUserPlantImages = [String: UIImage]() {
         didSet {
-            print("savedUserPlantImages cache count = \(savedUserPlantImages.count)")
             // clear cache after 100 images are stored
             if savedUserPlantImages.count > 100 {
                 savedUserPlantImages.removeAll()

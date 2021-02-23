@@ -34,18 +34,18 @@ class PlantsTableViewController: UITableViewController {
     @IBAction func chimeButtonTapped(_ sender: UIBarButtonItem) {
                 
 //        let identifier = "chime"
-//        
+//
 //        // content
 //        let content = UNMutableNotificationContent()
 //
 //        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "bell_chime_small.mp3"))
-//        
+//
 //        // trigger (make this based on every 15,30,60 mins and )
 //        let dateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date(timeIntervalSinceNow: 3))
 //        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComps, repeats: false)
 //
 //        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-//        
+//
 //        UNUserNotificationCenter.current().add(request) { (error) in
 //            if let error = error {
 //                NSLog("Error adding reminder notification: \(error)")
@@ -172,7 +172,6 @@ class PlantsTableViewController: UITableViewController {
     /// this over viewDidAppear so title would update before it's visible. Change back if there's issues
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
         // just in case notifications are turned off
         checkIfPlantsNeedWatering()
     }
@@ -241,55 +240,54 @@ class PlantsTableViewController: UITableViewController {
         // for tallying up all plants that need watering
         var count = 0
         
-        // each plant if it's next water date has passed
+        // get current weekday from calendar first
+        let currentDayComps = calendar.dateComponents([.day, .weekday], from: Date())
+        let currentDay = currentDayComps.day!
+        let currentWeekday = Int16(currentDayComps.weekday!)
+        
         for plant in fetchedResultsController.fetchedObjects! {
             
-            // TODO: make method that does this in Plant or PlantController?
-            // TODO: move outside of loop?
-            // get current weekday from calendar first
-            let currentDayComps = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: Date())
-            let currentWeekday = Int16(currentDayComps.weekday!)
-            let currentHour = currentDayComps.hour!
-            let currentMinute = currentDayComps.minute!
-            let currentDay = currentDayComps.day!
-            
-            // if today is one of the selected days for this plant
-            if let _ = plant.frequency!.firstIndex(of: currentWeekday) {
-                
-                // now check if plant.water_schedule time is <= currentMinute and
-                let plantComps = calendar.dateComponents([.hour, .minute, .second], from: plant.water_schedule!)
-                let plantHour = plantComps.hour!
-                let plantMinute = plantComps.minute!
-            
-                var lastDay = 0
-                if let lastWatered = plant.lastDateWatered {
-                    // lastWatered was NOT nil, so its a plant that has been watered before
-                    // lastDay is now the weekday int of last day that plant was watered
-                    lastDay = calendar.dateComponents([.day, .hour, .minute, .second, .weekday], from: lastWatered).day!
-                } else {
-                    // lastWatered is nil (Brand new plant)
-                    lastDay = 100
-                }
-                
-                // as it's still the same day. check if last date watered day and hour against today
-                if plantHour <= currentHour && plantMinute <= currentMinute && !plant.needsWatering && lastDay != currentDay {
-                    // first time this goes off, set plant needsWatering to true
-                    // then check if needsWatering is false so this only triggers once
-                    
-                    // needsWatering goes from FALSE to TRUE (don't update last watered)
-                    plantController.updatePlantWithWatering(plant: plant, needsWatering: true)
-                    
-                    // only reload if something needs watering (might change back later)
-//                    tableView.reloadData()
-                    
-                }
-                
+            // count all plants that need watering or reminder attention for title display
+            if plantController.plantRemindersNeedAttention(plant: plant) || plant.needsWatering {
+                count += 1
             }
-
-            // count all plants that need watering for title display
-            if plant.needsWatering { count += 1 }
             
-            if plantController.plantRemindersNeedAttention(plant: plant) {
+            // 1. Ignore plants that already need watering
+            guard !plant.needsWatering else {
+                continue
+            }
+            
+            // 2. Ignore plants that don't need watering on this weekday
+            guard plant.frequency!.firstIndex(of: currentWeekday) != nil else {
+                continue
+            }
+            
+            var lastDay = 0
+            if let lastWatered = plant.lastDateWatered {
+                // lastWatered was NOT nil, so its a plant that has been watered before
+                lastDay = calendar.dateComponents([.day], from: lastWatered).day!
+            } else {
+                // lastWatered is nil (Brand new plant) so give number that will never match 1-31
+                lastDay = 100
+            }
+            
+            // 3. Ignore plants that were already watered today (use wasWateredToday eventually?)
+            guard lastDay != currentDay else {
+                continue
+            }
+                        
+            // Used to make a Date out of the plant's given hour and minute with currentWeekday since it's in plant.frequency
+            let plantComps = calendar.dateComponents([.hour, .minute], from: plant.water_schedule!)
+            let plantHour = plantComps.hour!
+            let plantMinute = plantComps.minute!
+            
+            // Make Date using plantHour and plantMinute
+            let dateThatNeedsWatering = DateFormatter.returnDateFromHourAndMinute(hour: plantHour, minute: plantMinute)
+                        
+            // 4. Lastly, check if plant's watering time has passed
+            if dateThatNeedsWatering <= Date() {
+                // needsWatering goes from FALSE to TRUE (don't update lastDateWatered)
+                plantController.updatePlantWithWatering(plant: plant, needsWatering: true)
                 count += 1
             }
         }

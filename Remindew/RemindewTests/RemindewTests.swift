@@ -34,6 +34,19 @@ class RemindewTests: XCTestCase {
         
         XCTAssertEqual(location, result, "Location still contains whitespaces")
     }
+    
+    /// Test that makes sure returnDateFromHourAndMinute properly returns a valid date from plant compnonents
+    func testDateFromHourAndMinute() {
+        
+        let currentDayComps = Calendar.current.dateComponents([.calendar, .timeZone, .era, .year, .month, .day,
+                                                               .hour, .minute, .second, .nanosecond, .weekday, .weekdayOrdinal,
+                                                               .quarter, .weekOfMonth, .weekOfYear, .yearForWeekOfYear], from: Date())
+                
+        let testDate = DateFormatter.returnDateFromHourAndMinute(hour: currentDayComps.hour!, minute: currentDayComps.minute!)
+        let difference = Date().timeIntervalSince(testDate)
+        
+        XCTAssertTrue(difference < 1, "seconds between testDate and now are greater than 1")
+    }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

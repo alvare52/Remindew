@@ -255,12 +255,11 @@ class PlantController {
         savePlant()
     }
     
-    /// Returns a bool based on if a plant has a reminder that needs need attention
+    /// Returns a bool based on if a plant has a reminder that needs need attention. Used to update count of plants the need attention
     func plantRemindersNeedAttention(plant: Plant) -> Bool {
                 
         for reminder in plant.reminders?.allObjects as! Array<Reminder> {
             if reminder.alarmDate! <= Date() {
-                print("PLANT: \(plant.nickname!) NEEDS ATTENTION: \(reminder.actionName!)")
                 return true
             }
         }

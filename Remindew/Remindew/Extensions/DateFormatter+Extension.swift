@@ -55,4 +55,31 @@ extension DateFormatter {
         formatter.timeStyle = .short
         return formatter
     }()
+    
+    /// Returns a Date that's made up of the current date replaced with the passed in parameters
+    static func returnDateFromHourAndMinute(hour: Int, minute: Int) -> Date {
+        
+        let currentDayComps = Calendar.current.dateComponents([.calendar, .timeZone, .era, .year, .month, .day,
+                                                               .hour, .minute, .second, .nanosecond, .weekday, .weekdayOrdinal,
+                                                               .quarter, .weekOfMonth, .weekOfYear, .yearForWeekOfYear], from: Date())
+        
+        let newDateComps = DateComponents(calendar: currentDayComps.calendar,
+                                          timeZone: currentDayComps.timeZone,
+                                          era: currentDayComps.era,
+                                          year: currentDayComps.year,
+                                          month: currentDayComps.month,
+                                          day: currentDayComps.day,
+                                          hour: hour,
+                                          minute: minute,
+                                          second: currentDayComps.second,
+                                          nanosecond: currentDayComps.nanosecond,
+                                          weekday: currentDayComps.weekday,
+                                          weekdayOrdinal: currentDayComps.weekdayOrdinal,
+                                          quarter: currentDayComps.quarter,
+                                          weekOfMonth: currentDayComps.weekOfMonth,
+                                          weekOfYear: currentDayComps.weekOfYear,
+                                          yearForWeekOfYear: currentDayComps.yearForWeekOfYear)
+        
+        return Calendar.current.date(from: newDateComps)!
+    }
 }
