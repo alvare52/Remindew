@@ -5,4 +5,9 @@
   Created by Jorge Alvarez on 12/19/20.
   Copyright © 2020 Jorge Alvarez. All rights reserved.
 */
-"$(PRODUCT_NAME) allows you to take a photo using your camera to add a plant image" = "$(PRODUCT_NAME) le deja tomar photos con su cámara";
+
+NSPhotoLibraryUsageDescription = "Remindew le deja escojer fotos de sus Fotos";
+
+NSCameraUsageDescription = "Remindew le deja tomar fotos con su cámara"
+
+NSPhotoLibraryAddUsageDescription = "Remindew le deja agregar imagenes a sus Fotos";

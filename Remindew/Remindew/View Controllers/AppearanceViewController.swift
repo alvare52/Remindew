@@ -265,7 +265,24 @@ class AppearanceViewController: UIViewController {
   
     @objc private func savePhotoTapped() {
         print("save photo")
-        dismiss(animated: true, completion: nil)
+        
+        guard let image = imageView.image else { return }
+        
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    /// Method called when attempting to save image that's inside imageView
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error! (or we don't permission wasn't given) also needs to ask permission again
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Photo Saved", message: "", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
     /// Lays out all views needed
