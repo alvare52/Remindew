@@ -248,7 +248,7 @@ class AppearanceViewController: UIViewController {
                                       comment: "Title for camera usage not allowed")
         let message = NSLocalizedString("Please allow camera usage by going to Settings and turning Camera access on", comment: "Error message for when camera access is not allowed")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // handler could select the textfield it needs or change textview text??
+        
         let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
             print("selected OK option")
         }
@@ -263,8 +263,32 @@ class AppearanceViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
   
+    /// Presents alert that lets user go to Settings to enable access to Photos to add photos
+    private func makeLibraryAddUsagePermissionAlert() {
+        
+        let title = NSLocalizedString("Photos Access Denied",
+                                      comment: "Title for library add usage not allowed")
+        
+        let message = NSLocalizedString("Please allow access to Photos by going to Settings -> Photos -> Add Photos Only", comment: "Error message for when Photos add access is not allowed")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        // OK
+        let alertAction = UIAlertAction(title: "OK", style: .default)
+        
+        // Settings
+        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
+        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        }
+        
+        alertController.addAction(alertAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Button used to save photo to photo library
     @objc private func savePhotoTapped() {
-        print("save photo")
         
         guard let image = imageView.image else { return }
         
@@ -273,12 +297,11 @@ class AppearanceViewController: UIViewController {
     
     /// Method called when attempting to save image that's inside imageView
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
-            // we got back an error! (or we don't permission wasn't given) also needs to ask permission again
-            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+        if let _ = error {
+            // we don't have permission to save to library. Also needs to ask permission again
+            makeLibraryAddUsagePermissionAlert()
         } else {
+            // TODO: needs localized string
             let ac = UIAlertController(title: "Photo Saved", message: "", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)

@@ -8,6 +8,6 @@
 
 NSPhotoLibraryUsageDescription = "Remindew le deja escojer fotos de sus Fotos";
 
-NSCameraUsageDescription = "Remindew le deja tomar fotos con su cámara"
+NSCameraUsageDescription = "Remindew le deja tomar fotos con su cámara";
 
 NSPhotoLibraryAddUsageDescription = "Remindew le deja agregar imagenes a sus Fotos";
