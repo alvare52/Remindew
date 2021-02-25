@@ -351,8 +351,11 @@ class PlantsTableViewController: UITableViewController {
             print("Completed \(plant.mainAction ?? "water") \(plant.nickname!)")
             if plant.needsWatering {
                 self.plantController.updatePlantWithWatering(plant: plant, needsWatering: false)
-                // so tableView can refresh with new main title
-                self.plantsThatNeedWaterCount -= 1
+                
+                // update count only if plant doesn't have other reminders
+                if !self.plantController.plantRemindersNeedAttention(plant: plant) {
+                    self.plantsThatNeedWaterCount -= 1
+                }
             }
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
             completion(true)
