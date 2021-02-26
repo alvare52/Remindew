@@ -125,7 +125,7 @@ class PlantController {
         plant.mainAction = notepad.mainAction
         plant.location = notepad.location
         
-        // check here if Title and Message are different?
+        // only remake notifications if they've changed
         if remakeNotifications {
             // remove pending notifications for this plant first (if it needs to change title or message)
             removeAllRequestsForPlant(plant: plant)

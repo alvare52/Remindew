@@ -266,7 +266,7 @@ class ReminderViewController: UIViewController {
     
     private func updateViews() {
         
-        guard isViewLoaded, plant != nil else { return }
+        guard isViewLoaded, let plant = plant else { return }
                         
         // EDIT REMINDER WE CLICKED ON (from tableView cell)
         if let reminder = reminder {
@@ -290,6 +290,12 @@ class ReminderViewController: UIViewController {
                 lastDateLabel.text = NSLocalizedString("Made: ", comment: "date created label") +
                     "\(DateFormatter.lastWateredDateFormatter.string(from: reminder.dateCreated!))"
             }
+        }
+        
+        // ADD Mode
+        else {
+            notificationBubble.reminderMessageTextfield.text = .defaultMessageString(name: plant.nickname!,
+                                                                                     action: NSLocalizedString("Reminder", comment: ""))
         }
     }
 }

@@ -59,12 +59,10 @@ class NotificationView: UIView {
     let reminderTitleTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.text = "Reminder Title"
+        textfield.text = .defaultTitleString()
         textfield.backgroundColor = .clear
-//        textfield.textColor = .white
         textfield.font = .systemFont(ofSize: 14, weight: .semibold)
         textfield.contentVerticalAlignment = .bottom
-//        textfield.tintColor = .white
         return textfield
     }()
     
@@ -73,9 +71,7 @@ class NotificationView: UIView {
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.text = "Reminder Message"
         textfield.font = .systemFont(ofSize: 14)
-//        textfield.textColor = .white
         textfield.backgroundColor = .clear
-//        textfield.tintColor = .white
         textfield.contentVerticalAlignment = .top
         return textfield
     }()

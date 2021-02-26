@@ -97,7 +97,7 @@ class NotepadViewController: UIViewController {
     
     /// Updates all views when plant is passed in
     private func updateViews() {
-        print("updateViews")
+        
         guard isViewLoaded else { return }
         
         // EDIT/DETAIL Mode
@@ -118,6 +118,7 @@ class NotepadViewController: UIViewController {
         // ADD Mode
         else {
             plantDetailsView.actionTextfield.text = NSLocalizedString("Water", comment: "water, default main action")
+            // TODO: use passed in notepad here?
         }
     }
     
@@ -126,14 +127,17 @@ class NotepadViewController: UIViewController {
         
         let locationString = plantDetailsView.locationTextfield.text?.capitalized.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
+        var action = plantDetailsView.actionTextfield.text ?? .waterLocalizedString
+        action = action == "" ? .waterLocalizedString : action
+        
+        let name = plant == nil ? .defaultPlantNameLocalizedString : plant!.nickname!
+        
         let notepad = NotePad(notes: notesTextView.text,
-                              mainTitle: notificationView.reminderTitleTextfield.text ?? "",
-                              mainMessage: notificationView.reminderMessageTextfield.text ?? "",
-                              mainAction: plantDetailsView.actionTextfield.text ?? NSLocalizedString("Water", comment: "water, default main action"),
+                              mainTitle: notificationView.reminderTitleTextfield.text ?? .defaultTitleString(),
+                              mainMessage: notificationView.reminderMessageTextfield.text ?? .defaultMessageString(name: name, action: action),
+                              mainAction: action,
                               location: locationString,
                               scientificName: plantDetailsView.scientificNameTextfield.text ?? "")
-        
-       
         
         // We came from EDIT mode, so we can safely update the plant here
         if let plant = plant {
@@ -151,7 +155,6 @@ class NotepadViewController: UIViewController {
             dismiss(animated: true, completion: nil)
             return
         }
-        
     }
     
     // MARK: - View Life Cycle
@@ -225,9 +228,37 @@ class NotepadViewController: UIViewController {
 /// Struct that holds all information given in NotepadViewController
 struct NotePad {
     var notes: String = ""
-    var mainTitle: String = NSLocalizedString("Time to water your plant!", comment: "Title for notification")
-    var mainMessage: String = NSLocalizedString("One of your plants needs water", comment: "Message for notification")
+    var mainTitle: String = ""
+    var mainMessage: String = ""
     var mainAction: String = NSLocalizedString("Water", comment: "water, default main action")
     var location: String = ""
     var scientificName: String = ""
+}
+
+extension String {
+    
+    /// Localized String for Water/Agua. Main action default
+    static let waterLocalizedString = NSLocalizedString("Water", comment: "water, default main action")
+    
+    /// Localized String for Plant/Planta
+    static let plantLocalizedString = NSLocalizedString("Plant", comment: "plant")
+    
+    /// Localized String for plant "name" if no name is given yet. Ex: One of your plants/ Una de sus plantas
+    static let defaultPlantNameLocalizedString = NSLocalizedString("One of your plants", comment: "default plant name when none is given")
+    
+    /// Default Title for Plant's main action notification. Ex: "One of your plants needs attention." Localized
+    static func defaultTitleString() -> String {
+        return NSLocalizedString("One of your plants needs attention.", comment: "Message for notification")
+    }
+    
+    /// Default Message for Plant's main action notification. Ex: "\(Name) needs \(action)." Localized
+    static func defaultMessageString(name: String, action: String) -> String {
+        return "\(name.capitalized)" + NSLocalizedString(" needs ", comment: "") + "\(action.lowercased())."
+    }
+    
+    /// Default Title for Plant Reminder notification. Localized
+    static let defaultTitleForReminderString = NSLocalizedString("", comment: "default title for plant reminder notification")
+    
+    /// Default Message for Plant Reminder notification. Localized
+    static let defaultMessageForReminderString = NSLocalizedString("", comment: "default message for plant reminder notification")
 }
