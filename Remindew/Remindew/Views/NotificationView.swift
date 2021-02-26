@@ -69,7 +69,7 @@ class NotificationView: UIView {
     let reminderMessageTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.text = "Reminder Message"
+        textfield.text = ""
         textfield.font = .systemFont(ofSize: 14)
         textfield.backgroundColor = .clear
         textfield.contentVerticalAlignment = .top

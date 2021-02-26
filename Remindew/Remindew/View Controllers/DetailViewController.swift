@@ -250,15 +250,19 @@ class DetailViewController: UIViewController {
         
             plantButton.setTitle(NSLocalizedString("Save", comment: "Done button"), for: .normal)
             
-            // Title says how many times a week plant needs water
-            if plant.frequency!.count == 7 {
-                title = NSLocalizedString("Every day", comment: "7 times a week")
-            }
-            else if plant.frequency!.count == 1 {
-                title = NSLocalizedString("Once a week", comment: "1 time a week")
-            }
-            else {
-                title = "\(plant.frequency!.count)" + NSLocalizedString(" times a week", comment: "Water (X) times a week")
+            // Title displays location or how many times a week plant needs water
+            if plant.location != "" {
+                title = plant.location!
+            } else {
+                if plant.frequency!.count == 7 {
+                    title = NSLocalizedString("Every day", comment: "7 times a week")
+                }
+                else if plant.frequency!.count == 1 {
+                    title = NSLocalizedString("Once a week", comment: "1 time a week")
+                }
+                else {
+                    title = "\(plant.frequency!.count)" + NSLocalizedString(" times a week", comment: "Water (X) times a week")
+                }
             }
             
             nicknameTextField.text = plant.nickname

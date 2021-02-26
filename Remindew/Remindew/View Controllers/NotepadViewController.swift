@@ -255,10 +255,4 @@ extension String {
     static func defaultMessageString(name: String, action: String) -> String {
         return "\(name.capitalized)" + NSLocalizedString(" needs ", comment: "") + "\(action.lowercased())."
     }
-    
-    /// Default Title for Plant Reminder notification. Localized
-    static let defaultTitleForReminderString = NSLocalizedString("", comment: "default title for plant reminder notification")
-    
-    /// Default Message for Plant Reminder notification. Localized
-    static let defaultMessageForReminderString = NSLocalizedString("", comment: "default message for plant reminder notification")
 }
