@@ -124,6 +124,9 @@ class AppearanceViewController: UIViewController {
     
     var plantController: PlantController?
     
+    /// Initialize here to prevent lag when presenting for first time
+    var imagePicker: UIImagePickerController!
+    
     /// Holds plant that will be passed in and displayed
     var plant: Plant? {
         didSet {
@@ -148,12 +151,14 @@ class AppearanceViewController: UIViewController {
     
     /// Height for photo buttons
     let buttonHeight: CGFloat = 36.0
+    
+    // MARK: - View Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker = UIImagePickerController()
         setupSubViews()
         updateViews()
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -203,6 +208,8 @@ class AppearanceViewController: UIViewController {
         }
     }
     
+    // MARK: - Helpers
+    
     /// Brings up camera (if permitted) to let user take a photo of their plant
     @objc private func takePhotoTapped() {
         
@@ -226,13 +233,10 @@ class AppearanceViewController: UIViewController {
             makeCameraUsagePermissionAlert()
             return
         }
-        
-        let viewController = UIImagePickerController()
-        
-        viewController.sourceType = .camera
-//        viewController.allowsEditing = true
-        viewController.delegate = self
-        present(viewController, animated: true)
+                
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
     }
     
     /// Lets user choose an image from their photo library (no permission required)
@@ -245,9 +249,7 @@ class AppearanceViewController: UIViewController {
             return
         }
         
-        let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
-//        imagePicker.allowsEditing = true
         imagePicker.delegate = self
         present(imagePicker, animated: true)
     }
@@ -414,6 +416,7 @@ class AppearanceViewController: UIViewController {
 
 /// For accessing the photo library
 extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print("Picked Image")
@@ -425,12 +428,12 @@ extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigatio
             blurredImageView.image = image
             appearanceDelegate?.didSelectAppearanceObjects(image: image)
         }
-        picker.dismiss(animated: true)
+        imagePicker.dismiss(animated: true)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("Cancel")
-        picker.dismiss(animated: true, completion: nil)
+        imagePicker.dismiss(animated: true, completion: nil)
     }
 }
 
