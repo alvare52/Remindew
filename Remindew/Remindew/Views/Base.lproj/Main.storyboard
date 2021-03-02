@@ -171,23 +171,15 @@
                             </barButtonItem>
                             <barButtonItem enabled="NO" title="Date" id="tHs-1W-LYp"/>
                         </leftBarButtonItems>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="kmi-s3-Tfa">
-                                <connections>
-                                    <action selector="addPlantButtonTapped:" destination="h6g-pM-PCw" id="cHC-ZV-ga3"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="bell.fill" catalog="system" id="kef-f7-z5d">
-                                <connections>
-                                    <action selector="chimeButtonTapped:" destination="h6g-pM-PCw" id="iFE-5r-sRd"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="kmi-s3-Tfa">
+                            <connections>
+                                <action selector="addPlantButtonTapped:" destination="h6g-pM-PCw" id="cHC-ZV-ga3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addPlantIcon" destination="kmi-s3-Tfa" id="S3J-CK-81G"/>
-                        <outlet property="chimeButtonLabel" destination="kef-f7-z5d" id="f8y-o4-bW3"/>
                         <outlet property="dateLabel" destination="tHs-1W-LYp" id="0pP-DK-Zhd"/>
                         <outlet property="settingsBarButtonLabel" destination="9ch-Ko-LFh" id="wB1-lR-hqz"/>
                         <segue destination="egV-2b-yvb" kind="show" identifier="AddPlantSegue" id="K1t-dj-wNi"/>

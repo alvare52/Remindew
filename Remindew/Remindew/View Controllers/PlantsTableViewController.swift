@@ -21,7 +21,6 @@ class PlantsTableViewController: UITableViewController {
     
     @IBOutlet var dateLabel: UIBarButtonItem!
     
-    @IBOutlet var chimeButtonLabel: UIBarButtonItem!
     // MARK: - Actions
     
     @IBAction func settingsBarButtonTapped(_ sender: UIBarButtonItem) {
@@ -29,29 +28,6 @@ class PlantsTableViewController: UITableViewController {
         print("settingsBarButtonTapped")
         plantController.printLastTokenAndDate()
         performSegue(withIdentifier: "ShowSettingsSegue", sender: self)
-    }
-    
-    @IBAction func chimeButtonTapped(_ sender: UIBarButtonItem) {
-                
-//        let identifier = "chime"
-//
-//        // content
-//        let content = UNMutableNotificationContent()
-//
-//        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "bell_chime_small.mp3"))
-//
-//        // trigger (make this based on every 15,30,60 mins and )
-//        let dateComps = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date(timeIntervalSinceNow: 3))
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComps, repeats: false)
-//
-//        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-//
-//        UNUserNotificationCenter.current().add(request) { (error) in
-//            if let error = error {
-//                NSLog("Error adding reminder notification: \(error)")
-//            }
-//        }
-        
     }
     
     @IBAction func addPlantButtonTapped(_ sender: UIBarButtonItem) {
@@ -123,8 +99,6 @@ class PlantsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        chimeButtonLabel.tintColor = .clear
         
         UIColor().updateToDarkOrLightTheme()
         
