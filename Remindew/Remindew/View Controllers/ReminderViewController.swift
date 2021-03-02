@@ -23,6 +23,7 @@ class ReminderViewController: UIViewController {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.layer.cornerRadius = 15
+        contentView.backgroundColor = .customDetailBackgroundColor
         return contentView
     }()
     
@@ -32,7 +33,7 @@ class ReminderViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("Add New Reminder", comment: "title for add reminder screen")
         label.textColor = .mixedBlueGreen
-        label.backgroundColor = .customCellColor
+        label.backgroundColor = .customDetailBackgroundColor
         label.textAlignment = .left
         label.numberOfLines = 1
         label.contentMode = .bottom
@@ -69,6 +70,7 @@ class ReminderViewController: UIViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = .mixedBlueGreen
+        picker.backgroundColor = .clear
 //        picker.minimumDate = Date()
         // TODO: minimumTime? (shouldn't be able to pick a time earlier in the day)
         return picker
@@ -206,6 +208,8 @@ class ReminderViewController: UIViewController {
     /// Sets up all UI elements
     private func setupSubviews() {
                 
+        view.backgroundColor = .customDetailBackgroundColor
+        
         // Content View
         view.addSubview(contentView)
         contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: standardMargin).isActive = true

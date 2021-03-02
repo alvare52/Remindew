@@ -76,6 +76,9 @@ extension UIColor {
     /// White/Cool Dark Gray for DetailVC background color
     static let customDetailBackgroundColor = UIColor.init(named: "customDetailBackgroundColor")
     
+    /// Light/Dark Gray color used for CustomizationView in AppearanceViewController
+    static let customAppearanceComponentColor = UIColor.init(named: "customAppearanceComponentColor")
+    
     /// check the value of the "darkThemeOn" UserDefault to then update the app window
     func updateToDarkOrLightTheme() {
         // Dark Theme

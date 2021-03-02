@@ -110,7 +110,7 @@ class CustomizationView: UIView {
     /// Layouts all UI elements
     private func setupSubviews() {
         
-        backgroundColor = .customCellColor
+        backgroundColor = .customDetailBackgroundColor
         
         // Container View
         addSubview(containerView)

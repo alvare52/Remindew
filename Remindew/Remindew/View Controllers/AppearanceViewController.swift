@@ -66,6 +66,8 @@ class AppearanceViewController: UIViewController {
     let plantCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .customCellColor
+        view.containerView.backgroundColor = .customAppearanceComponentColor
         return view
     }()
     
@@ -73,6 +75,8 @@ class AppearanceViewController: UIViewController {
     let actionCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .customCellColor
+        view.containerView.backgroundColor = .customAppearanceComponentColor
         return view
     }()
     

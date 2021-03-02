@@ -26,6 +26,7 @@ class NotepadViewController: UIViewController {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.layer.cornerRadius = 15
+        contentView.backgroundColor = .customDetailBackgroundColor
         return contentView
     }()
     
@@ -178,6 +179,8 @@ class NotepadViewController: UIViewController {
     
     /// Lays out all views needed
     private func setupSubViews() {
+        
+        view.backgroundColor = .customDetailBackgroundColor
         
         // Content View
         view.addSubview(contentView)
