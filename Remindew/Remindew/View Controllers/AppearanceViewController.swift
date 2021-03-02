@@ -26,11 +26,29 @@ class AppearanceViewController: UIViewController {
     let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .customBackgroundColor
+        contentView.backgroundColor = .customCellColor
         contentView.layer.cornerRadius = 15
         return contentView
     }()
     
+    /// Notch to indicate that view can be dismissed by swiping down
+    let notchView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .tertiaryLabel
+        view.layer.cornerRadius = 2
+        return view
+    }()
+    
+    /// The top UIImageView that is just a big blurry version of the plant image passed in
+    let blurredImageView: UIImageView = {
+        let backgroundView = UIImageView()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.image = .defaultImage
+        backgroundView.contentMode = .scaleToFill
+        return backgroundView
+    }()
+ 
     /// View bahind option buttons/views
     let optionsBackgroundView: UIView = {
         let view = UIView()
@@ -137,6 +155,9 @@ class AppearanceViewController: UIViewController {
     /// Standard padding for left and right sides
     let standardMargin: CGFloat = 20.0
     
+    /// Height for optionsView that holds image/plant options
+    let optionsViewHeight: CGFloat = 278
+    
     /// Height for photo buttons
     let buttonHeight: CGFloat = 36.0
 
@@ -165,6 +186,7 @@ class AppearanceViewController: UIViewController {
         guard isViewLoaded else { return }
         
         imageView.image = mainImage
+        blurredImageView.image = mainImage
         
         // EDIT/DETAIL Mode
         if let plant = plant {
@@ -315,34 +337,50 @@ class AppearanceViewController: UIViewController {
     /// Lays out all views needed
     private func setupSubViews() {
                 
-        view.backgroundColor = .customBackgroundColor
+        view.backgroundColor = .customCellColor
         view.layer.cornerRadius = 15
         
         // Content View
         view.addSubview(contentView)
-        contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         contentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-//        contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        contentView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+                
+        // Blurred Image View
+        contentView.addSubview(blurredImageView)
+        blurredImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        blurredImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        blurredImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        blurredImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -optionsViewHeight + standardMargin).isActive = true
         
+        // blur effect over Content View
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+        blurView.frame = blurredImageView.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurredImageView.addSubview(blurView)
+        
+        // Notch View
+        contentView.addSubview(notchView)
+        notchView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: standardMargin).isActive = true
+        notchView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        notchView.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        notchView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         // Image View
         contentView.addSubview(imageView)
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: standardMargin).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: blurredImageView.centerYAnchor, constant: -10).isActive = true
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: standardMargin).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -standardMargin).isActive = true
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         
         // Options View
         contentView.addSubview(optionsBackgroundView)
-        optionsBackgroundView.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
         optionsBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         optionsBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        optionsBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        optionsBackgroundView.heightAnchor.constraint(equalToConstant: 278).isActive = true
-        
+        optionsBackgroundView.heightAnchor.constraint(equalToConstant: optionsViewHeight).isActive = true
+        optionsBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+
         // Plant Customization View
         contentView.addSubview(plantCustomizationView)
         plantCustomizationView.topAnchor.constraint(equalTo: optionsBackgroundView.topAnchor, constant: 18).isActive = true
@@ -373,7 +411,6 @@ class AppearanceViewController: UIViewController {
         choosePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         choosePhotoButton.addTarget(self, action: #selector(choosePhotoTapped), for: .touchUpInside)
 
-
         // Save Photo Button
         contentView.addSubview(savePhotoButton)
         savePhotoButton.topAnchor.constraint(equalTo: choosePhotoButton.bottomAnchor, constant: 8).isActive = true
@@ -396,6 +433,8 @@ extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigatio
         // .editedImage instead? (used to say .originalImage)
         if let image = info[.originalImage] as? UIImage {
             imageView.image = image
+            // TODO: set to smaller resolution?
+            blurredImageView.image = image
             appearanceDelegate?.didSelectAppearanceObjects(image: image)
         }
         picker.dismiss(animated: true)
