@@ -14,7 +14,7 @@ class ReminderTableViewCell: UITableViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .customDetailBackgroundColor//.customCellColor
+        view.backgroundColor = .customDetailBackgroundColor
         return view
     }()
     
@@ -22,7 +22,6 @@ class ReminderTableViewCell: UITableViewCell {
     let reminderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .orange
         label.font = .boldSystemFont(ofSize: 25)
         label.textColor = .systemPurple
         return label
@@ -41,7 +40,6 @@ class ReminderTableViewCell: UITableViewCell {
     let alarmDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .green
         label.font = .boldSystemFont(ofSize: 17)
         label.textColor = .lightGray
         return label
@@ -51,8 +49,6 @@ class ReminderTableViewCell: UITableViewCell {
     let timeLeftLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .blue
-        label.text = "18 days left"
         label.font = .systemFont(ofSize: 14)
         label.textColor = .lightGray
         return label
@@ -61,10 +57,8 @@ class ReminderTableViewCell: UITableViewCell {
     /// Button to complete reminder action to set new reminder
     let completeButton: UIButton = {
         let button = UIButton(type: .system)
-//        button.backgroundColor = .brown
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage.iconArray[0], for: .normal)
-        button.tintColor = .systemPurple
         return button
     }()
     
@@ -114,10 +108,9 @@ class ReminderTableViewCell: UITableViewCell {
         var totalProgress = reminder.alarmDate!.timeIntervalSince(reminder.dateCreated!) / 86400.0
         let daysLeft = reminder.alarmDate!.timeIntervalSinceNow / 86400.0
         
-        // TODO: needs localization
-        timeLeftLabel.text = "\(Int(daysLeft))" + " days left"
+        timeLeftLabel.text = "\(Int(daysLeft))" + NSLocalizedString(" days left", comment: "x days are left")
         if Int(daysLeft) == 1 {
-            timeLeftLabel.text = "\(Int(daysLeft))" + " day left"
+            timeLeftLabel.text = "\(Int(daysLeft))" + NSLocalizedString(" day left", comment: "1 day left")
         }
         
         // if it is NOT a new reminder, use the lastDate instead of dateCreated for total time
@@ -141,12 +134,12 @@ class ReminderTableViewCell: UITableViewCell {
             let tomorrowString = NSLocalizedString("Tomorrow", comment: "tomorrow")
             
             alarmDateLabel.text = currentDay == alarmDateDay ? todayString : tomorrowString
-            timeLeftLabel.text = "at \(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
+            timeLeftLabel.text = NSLocalizedString("at ", comment: "at ") + "\(DateFormatter.timeOnlyDateFormatter.string(from: reminder.alarmDate!))"
             
             // has already passed
             if daysLeft <= 0 {
-                alarmDateLabel.text = "Tap button"
-                timeLeftLabel.text = "to complete"
+                alarmDateLabel.text = NSLocalizedString("Tap button", comment: "tap on complete button")
+                timeLeftLabel.text = NSLocalizedString("to complete", comment: "to complete")
                 progressView.progress = 1.0
                 completeButton.isHidden = false
             } else {
@@ -157,7 +150,6 @@ class ReminderTableViewCell: UITableViewCell {
     
     /// Sets new alarmDate for Reminder, sets new lastDate value, and hides completeButton
     @objc private func completeButtonTapped() {
-        print("complete tapped")
         
         guard let reminder = reminder else { return }
         
@@ -195,7 +187,6 @@ class ReminderTableViewCell: UITableViewCell {
         reminderLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
         reminderLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8).isActive = true
         reminderLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.45).isActive = true
-//        reminderLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.8).isActive = true
         
         // Progress View
         containerView.addSubview(progressView)
@@ -208,18 +199,13 @@ class ReminderTableViewCell: UITableViewCell {
         alarmDateLabel.topAnchor.constraint(equalTo: reminderLabel.topAnchor).isActive = true
         alarmDateLabel.bottomAnchor.constraint(equalTo: reminderLabel.bottomAnchor).isActive = true
         alarmDateLabel.leadingAnchor.constraint(equalTo: reminderLabel.trailingAnchor, constant: 16).isActive = true
-//        alarmDateLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.35).isActive = true
         alarmDateLabel.trailingAnchor.constraint(equalTo: completeButton.leadingAnchor).isActive = true
-//        alarmDateLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
         // Time Left Label
         containerView.addSubview(timeLeftLabel)
-//        timeLeftLabel.topAnchor.constraint(equalTo: alarmDateLabel.bottomAnchor).isActive = true
-//        timeLeftLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor).isActive = true
         timeLeftLabel.bottomAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 4).isActive = true
         timeLeftLabel.leadingAnchor.constraint(equalTo: alarmDateLabel.leadingAnchor).isActive = true
         timeLeftLabel.widthAnchor.constraint(equalTo: alarmDateLabel.widthAnchor).isActive = true
-        
     }
     
     override func awakeFromNib() {

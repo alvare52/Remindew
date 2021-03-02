@@ -13,6 +13,7 @@
 "Add New Reminder" = "Añadir Recordatorio";
 "Add Plant" = "Añadir Planta";
 "Add Plant Image" = "Añadir Imagen de Planta";
+"at " = "a las ";
 // MARK: - B
 "Back" = "Atráz";
 "Brand New Plant" = "Planta Nueva";
@@ -23,6 +24,8 @@
 "Cancel" = "Cancelar";
 // MARK: - D
 "days" = "días";
+" days left" = " días faltan";
+" day left" = " día falta";
 "Delete" = "Borrar";
 "Delete Plant" = "Borrar Planta";
 "Delete Reminder" = "Borrar Recordatorio";
@@ -100,10 +103,12 @@
 // MARK: - T
 "Take a Photo" = "Toma una foto";
 "Tap any field to edit" = "Seleccione cualquier cosa para cambiar";
+"Tap button" = "Pulsa botón";
 "This can not be undone." = "Esto no se puede deshacer.";
 "Thu" = "Jue";
 "Time to water your plant!" = "Es hora de regar su planta!";
 " times a week" = " veces a la semana";
+"to complete" = "para completar";
 "Today" = "Hoy";
 "Tomorrow" = "Mañana";
 "Tue" = "Mar";
