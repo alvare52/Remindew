@@ -19,7 +19,7 @@ class NotificationView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 15
-        view.backgroundColor = .customComponentColor//.secondarySystemBackground
+        view.backgroundColor = .customComponentColor
         return view
     }()
     
@@ -51,7 +51,7 @@ class NotificationView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .lightGray
         label.font = .systemFont(ofSize: 12, weight: .light)
-        label.text = "16m ago"
+        label.text = NSLocalizedString("now", comment: "now text for banner")
         label.textAlignment = .right
         return label
     }()

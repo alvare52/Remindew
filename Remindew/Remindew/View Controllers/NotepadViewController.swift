@@ -33,7 +33,7 @@ class NotepadViewController: UIViewController {
     let lastDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Brand New Plant"
+        label.text = NSLocalizedString("Brand New Plant", comment: "plant that hasn't been watered yet")
         label.textColor = .waterBlue
         label.backgroundColor = .clear
         label.textAlignment = .left
@@ -45,14 +45,13 @@ class NotepadViewController: UIViewController {
     
     /// Save button to save changes and dismiss view controller
     let saveButton: UIButton = {
-        let tempButton = UIButton(type: .system) // .system
+        let tempButton = UIButton(type: .system)
         tempButton.translatesAutoresizingMaskIntoConstraints = false
         tempButton.backgroundColor = .clear
         tempButton.tintColor = .mixedBlueGreen
         tempButton.setTitle(NSLocalizedString("Save", comment: "Done button"), for: .normal)
         tempButton.titleLabel?.font = .systemFont(ofSize: 18)
         tempButton.contentHorizontalAlignment = .right
-        tempButton.layer.cornerRadius = 0
         return tempButton
     }()
     
@@ -74,7 +73,7 @@ class NotepadViewController: UIViewController {
     let notesTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Notes"
+        textView.text = NSLocalizedString("Notes", comment: "placeholder for notesTextView")
         textView.font = .systemFont(ofSize: 14)
         textView.layer.cornerRadius = 15
         textView.backgroundColor = .customComponentColor
@@ -233,26 +232,4 @@ struct NotePad {
     var mainAction: String = NSLocalizedString("Water", comment: "water, default main action")
     var location: String = ""
     var scientificName: String = ""
-}
-
-extension String {
-    
-    /// Localized String for Water/Agua. Main action default
-    static let waterLocalizedString = NSLocalizedString("Water", comment: "water, default main action")
-    
-    /// Localized String for Plant/Planta
-    static let plantLocalizedString = NSLocalizedString("Plant", comment: "plant")
-    
-    /// Localized String for plant "name" if no name is given yet. Ex: One of your plants/ Una de sus plantas
-    static let defaultPlantNameLocalizedString = NSLocalizedString("One of your plants", comment: "default plant name when none is given")
-    
-    /// Default Title for Plant's main action notification. Ex: "One of your plants needs attention." Localized
-    static func defaultTitleString() -> String {
-        return NSLocalizedString("One of your plants needs attention.", comment: "Message for notification")
-    }
-    
-    /// Default Message for Plant's main action notification. Ex: "\(Name) needs \(action)." Localized
-    static func defaultMessageString(name: String, action: String) -> String {
-        return "\(name.capitalized)" + NSLocalizedString(" needs ", comment: "") + "\(action.lowercased())."
-    }
 }

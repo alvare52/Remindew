@@ -25,7 +25,7 @@ class PlantDetailsView: UIView {
     let actionTextfield: UITextField = {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.text = "Action Name"
+        textfield.text = NSLocalizedString("Water", comment: "water")
         textfield.backgroundColor = .customComponentColor
         textfield.layer.cornerRadius = 15
         textfield.borderStyle = .none
@@ -60,7 +60,7 @@ class PlantDetailsView: UIView {
         textfield.layer.cornerRadius = 15
         textfield.contentVerticalAlignment = .center
         textfield.tintColor = .mixedBlueGreen
-        textfield.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 31))
+        textfield.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 31))
         textfield.leftViewMode = .always
         return textfield
     }()
@@ -85,7 +85,6 @@ class PlantDetailsView: UIView {
         // Notification View
         addSubview(notificationView)
         notificationView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-//        notificationView.heightAnchor.constraint(equalToConstant: 74).isActive = true
         notificationView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         notificationView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         notificationView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -95,7 +94,6 @@ class PlantDetailsView: UIView {
         actionTextfield.topAnchor.constraint(equalTo: notificationView.topAnchor).isActive = true
         actionTextfield.leadingAnchor.constraint(equalTo: notificationView.leadingAnchor).isActive = true
         actionTextfield.trailingAnchor.constraint(equalTo: notificationView.centerXAnchor, constant: -2).isActive = true
-//        actionTextfield.widthAnchor.constraint(equalTo: notificationView.widthAnchor, multiplier: 0.5).isActive = true
         actionTextfield.heightAnchor.constraint(equalToConstant: 36).isActive = true
     
         // Location Textfield
@@ -103,7 +101,6 @@ class PlantDetailsView: UIView {
         locationTextfield.topAnchor.constraint(equalTo: notificationView.topAnchor).isActive = true
         locationTextfield.leadingAnchor.constraint(equalTo: notificationView.centerXAnchor, constant: 2).isActive = true
         locationTextfield.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor).isActive = true
-//        locationTextfield.widthAnchor.constraint(equalTo: notificationView.widthAnchor, multiplier: 0.5).isActive = true
         locationTextfield.heightAnchor.constraint(equalToConstant: 36).isActive = true
         
         // Scientific Name Textfield
@@ -112,7 +109,5 @@ class PlantDetailsView: UIView {
         scientificNameTextfield.leadingAnchor.constraint(equalTo: actionTextfield.leadingAnchor).isActive = true
         scientificNameTextfield.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor).isActive = true
         scientificNameTextfield.heightAnchor.constraint(equalToConstant: 36).isActive = true
-
     }
-    
 }

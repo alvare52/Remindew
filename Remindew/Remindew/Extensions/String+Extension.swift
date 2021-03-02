@@ -57,4 +57,23 @@ extension String {
         let randomInt = Int.random(in: 0..<String.randomNicknames.count)
         return String.randomNicknames[randomInt]
     }
+    
+    /// Localized String for Water/Agua. Main action default
+    static let waterLocalizedString = NSLocalizedString("Water", comment: "water, default main action")
+    
+    /// Localized String for Plant/Planta
+    static let plantLocalizedString = NSLocalizedString("Plant", comment: "plant")
+    
+    /// Localized String for plant "name" if no name is given yet. Ex: One of your plants/ Una de sus plantas
+    static let defaultPlantNameLocalizedString = NSLocalizedString("One of your plants", comment: "default plant name when none is given")
+    
+    /// Default Title for Plant's main action notification. Ex: "One of your plants needs attention." Localized
+    static func defaultTitleString() -> String {
+        return NSLocalizedString("One of your plants needs attention.", comment: "Message for notification")
+    }
+    
+    /// Default Message for Plant's main action notification. Ex: "\(Name) needs \(action)." Localized
+    static func defaultMessageString(name: String, action: String) -> String {
+        return "\(name.capitalized)" + NSLocalizedString(" needs ", comment: "") + "\(action.lowercased())."
+    }
 }

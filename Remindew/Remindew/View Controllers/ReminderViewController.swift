@@ -92,7 +92,7 @@ class ReminderViewController: UIViewController {
     let notesTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Notes"
+        textView.text = NSLocalizedString("Notes", comment: "placeholder for notesTextView")
         textView.font = .systemFont(ofSize: 14)
         textView.layer.cornerRadius = 15
         textView.backgroundColor = .customComponentColor
