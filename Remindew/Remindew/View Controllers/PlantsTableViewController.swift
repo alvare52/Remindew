@@ -152,7 +152,6 @@ class PlantsTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
-    // TODO: Move to AlertController Extension?
     /// Presents an alert asking user if they're sure if they want to delete the plant they swiped on
     private func deletionWarningAlert(plant: Plant) {
         
@@ -322,7 +321,6 @@ class PlantsTableViewController: UITableViewController {
         
         // Complete task
         let completeTask = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
-            print("Completed \(plant.mainAction ?? "water") \(plant.nickname!)")
             if plant.needsWatering {
                 self.plantController.updatePlantWithWatering(plant: plant, needsWatering: false)
                 

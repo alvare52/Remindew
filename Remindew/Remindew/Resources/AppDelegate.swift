@@ -51,8 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // .alert deprecated in ios14
-        //completionHandler([.alert, .sound, .badge])
+        
         // .list is to show in lock screen, .banner is to show like normal banners.
         completionHandler([.banner, .sound, .badge])
         
@@ -62,51 +61,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // check watering status of all plants by sending notification to observer (PlantTableViewController)
         NotificationCenter.default.post(name: .checkWateringStatus, object: self)
     }
-    
-//    /// Called when you tap on notification banner
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-//        print("userNotificationCenter didReceive response called")
-//        let content = response.notification.request.content
-//        let badge = content.badge as! Int
-//        print("badge = \(badge)")
-//        UIApplication.shared.applicationIconBadgeNumber = 69
-//    }
-    
-//    /// Checks if app is in the foreground and if it's foreground then show Local PushNotification
-//    func application(_ application: UIApplication,didReceiveRemoteNotification userInfo: [AnyHashable: Any],fetchCompletionHandler completionHandler:@escaping (UIBackgroundFetchResult) -> Void) {
-//
-//        let state : UIApplication.State = application.applicationState
-//        if (state == .inactive || state == .background) {
-//            // go to screen relevant to Notification content
-//            print("background")
-//        } else {
-//            // App is in UIApplicationStateActive (running in foreground)
-//            print("foreground")
-////            showLocalNotification()
-//        }
-//    }
-    
-//    fileprivate func showLocalNotification() {
-//
-//        //creating the notification content
-//        let content = UNMutableNotificationContent()
-//
-//        //adding title, subtitle, body and badge
-//        content.title = "App Update"
-//        //content.subtitle = "local notification"
-//        content.body = "New version of app update is available."
-//        //content.badge = 1
-//        content.sound = UNNotificationSound.default
-//
-//        //getting the notification trigger
-//        //it will be called after 5 seconds
-//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-//
-//        //getting the notification request
-//        let request = UNNotificationRequest(identifier: "SimplifiedIOSNotification", content: content, trigger: trigger)
-//
-//        //adding the notification to notification center
-//        notificationCenter.add(request, withCompletionHandler: nil)
-//    }
 }
 

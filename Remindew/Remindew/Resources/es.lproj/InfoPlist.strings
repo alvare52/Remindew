@@ -6,8 +6,11 @@
   Copyright © 2020 Jorge Alvarez. All rights reserved.
 */
 
+// When choosing photo from library (doesn't really need it but just in case)
 NSPhotoLibraryUsageDescription = "Remindew le deja escojer fotos de sus Fotos";
 
+// When using camera to take picture
 NSCameraUsageDescription = "Remindew le deja tomar fotos con su cámara";
 
+// When saving photo to library
 NSPhotoLibraryAddUsageDescription = "Remindew le deja agregar imagenes a sus Fotos";
