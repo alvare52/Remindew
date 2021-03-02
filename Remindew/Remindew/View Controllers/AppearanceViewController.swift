@@ -57,19 +57,7 @@ class AppearanceViewController: UIViewController {
         view.backgroundColor = .customCellColor
         return view
     }()
-    
-    /// Save button to save changes and dismiss view controller
-    let saveButton: UIButton = {
-        let tempButton = UIButton(type: .system) // .system
-        tempButton.translatesAutoresizingMaskIntoConstraints = false
-        tempButton.backgroundColor = .clear
-        tempButton.tintColor = .mixedBlueGreen
-        tempButton.setTitle("Save", for: .normal)
-        tempButton.titleLabel?.font = .systemFont(ofSize: 18)
-        tempButton.layer.cornerRadius = 0
-        return tempButton
-    }()
-    
+        
     /// ImageView that holds main plant picture (in original size)
     let imageView: UIImageView = {
         let tempImageView = UIImageView()
@@ -215,15 +203,10 @@ class AppearanceViewController: UIViewController {
         }
     }
     
-    /// Saves contents and dismisses view controller
-    @objc func saveButtonTapped() {
-        print("Save button tapped")
-        dismiss(animated: true, completion: nil)
-    }
-    
     /// Brings up camera (if permitted) to let user take a photo of their plant
     @objc private func takePhotoTapped() {
-        print("take photo")
+        
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
         
@@ -254,6 +237,9 @@ class AppearanceViewController: UIViewController {
     
     /// Lets user choose an image from their photo library (no permission required)
     @objc private func choosePhotoTapped() {
+        
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
             print("Error: the photo library is unavailable")
             return
@@ -315,6 +301,8 @@ class AppearanceViewController: UIViewController {
     
     /// Button used to save photo to photo library
     @objc private func savePhotoTapped() {
+        
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
         guard let image = imageView.image else { return }
         
@@ -381,23 +369,9 @@ class AppearanceViewController: UIViewController {
         optionsBackgroundView.heightAnchor.constraint(equalToConstant: optionsViewHeight).isActive = true
         optionsBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 
-        // Plant Customization View
-        contentView.addSubview(plantCustomizationView)
-        plantCustomizationView.topAnchor.constraint(equalTo: optionsBackgroundView.topAnchor, constant: 18).isActive = true
-        plantCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        plantCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        plantCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        // Main Action Customization View
-        contentView.addSubview(actionCustomizationView)
-        actionCustomizationView.topAnchor.constraint(equalTo: plantCustomizationView.bottomAnchor).isActive = true
-        actionCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        actionCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        actionCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
         // Take Photo Button
         contentView.addSubview(takePhotoButton)
-        takePhotoButton.topAnchor.constraint(equalTo: actionCustomizationView.bottomAnchor, constant: 8).isActive = true
+        takePhotoButton.topAnchor.constraint(equalTo: optionsBackgroundView.topAnchor, constant: 8).isActive = true
         takePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         takePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         takePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
@@ -418,6 +392,20 @@ class AppearanceViewController: UIViewController {
         savePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         savePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         savePhotoButton.addTarget(self, action: #selector(savePhotoTapped), for: .touchUpInside)
+        
+        // Plant Customization View
+        contentView.addSubview(plantCustomizationView)
+        plantCustomizationView.topAnchor.constraint(equalTo: savePhotoButton.bottomAnchor, constant: 8).isActive = true
+        plantCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        plantCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        plantCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        // Main Action Customization View
+        contentView.addSubview(actionCustomizationView)
+        actionCustomizationView.topAnchor.constraint(equalTo: plantCustomizationView.bottomAnchor).isActive = true
+        actionCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+        actionCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        actionCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
     }
 }
