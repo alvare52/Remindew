@@ -33,6 +33,8 @@ class PlantDetailsView: UIView {
         textfield.textAlignment = .center
         textfield.font = .systemFont(ofSize: 14, weight: .semibold)
         textfield.contentVerticalAlignment = .center
+        textfield.tintColor = .waterBlue
+        textfield.textColor = .waterBlue
         return textfield
     }()
     
@@ -106,7 +108,7 @@ class PlantDetailsView: UIView {
         
         // Scientific Name Textfield
         notificationView.addSubview(scientificNameTextfield)
-        scientificNameTextfield.topAnchor.constraint(equalTo: actionTextfield.bottomAnchor, constant: 4).isActive = true
+        scientificNameTextfield.topAnchor.constraint(equalTo: actionTextfield.bottomAnchor, constant: 8).isActive = true
         scientificNameTextfield.leadingAnchor.constraint(equalTo: actionTextfield.leadingAnchor).isActive = true
         scientificNameTextfield.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor).isActive = true
         scientificNameTextfield.heightAnchor.constraint(equalToConstant: 36).isActive = true

@@ -63,6 +63,7 @@ class NotificationView: UIView {
         textfield.backgroundColor = .clear
         textfield.font = .systemFont(ofSize: 14, weight: .semibold)
         textfield.contentVerticalAlignment = .bottom
+        textfield.tintColor = .mixedBlueGreen
         return textfield
     }()
     
@@ -73,6 +74,7 @@ class NotificationView: UIView {
         textfield.font = .systemFont(ofSize: 14)
         textfield.backgroundColor = .clear
         textfield.contentVerticalAlignment = .top
+        textfield.tintColor = .mixedBlueGreen
         return textfield
     }()
     

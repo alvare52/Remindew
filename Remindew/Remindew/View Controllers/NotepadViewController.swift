@@ -77,6 +77,7 @@ class NotepadViewController: UIViewController {
         textView.text = NSLocalizedString("Notes", comment: "placeholder for notesTextView")
         textView.font = .systemFont(ofSize: 14)
         textView.layer.cornerRadius = 15
+        textView.tintColor = .mixedBlueGreen
         textView.backgroundColor = .customComponentColor
         textView.contentMode = .left
         return textView
@@ -107,6 +108,9 @@ class NotepadViewController: UIViewController {
             notificationView.reminderMessageTextfield.text = plant.mainMessage
             plantDetailsView.actionTextfield.text = plant.mainAction
             plantDetailsView.locationTextfield.text = plant.location
+            lastDateLabel.textColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+            plantDetailsView.actionTextfield.tintColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+            plantDetailsView.actionTextfield.textColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
             notesTextView.text = plant.notes
             if let lastDate = plant.lastDateWatered {
                 lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(DateFormatter.lastWateredDateFormatter.string(from: lastDate))"
@@ -206,21 +210,21 @@ class NotepadViewController: UIViewController {
         
         // Plant Details View
         contentView.addSubview(plantDetailsView)
-        plantDetailsView.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor, constant: 4).isActive = true
+        plantDetailsView.topAnchor.constraint(equalTo: lastDateLabel.bottomAnchor, constant: 8).isActive = true
         plantDetailsView.heightAnchor.constraint(equalToConstant: 76).isActive = true
         plantDetailsView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         plantDetailsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
                         
         // Notification View
         contentView.addSubview(notificationView)
-        notificationView.topAnchor.constraint(equalTo: plantDetailsView.bottomAnchor, constant: 4).isActive = true
+        notificationView.topAnchor.constraint(equalTo: plantDetailsView.bottomAnchor, constant: 12).isActive = true
         notificationView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         notificationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notificationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         
         // Notes Textview
         contentView.addSubview(notesTextView)
-        notesTextView.topAnchor.constraint(equalTo: notificationView.bottomAnchor, constant: 4).isActive = true
+        notesTextView.topAnchor.constraint(equalTo: notificationView.bottomAnchor, constant: 8).isActive = true
         notesTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true

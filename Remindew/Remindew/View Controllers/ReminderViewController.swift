@@ -97,6 +97,7 @@ class ReminderViewController: UIViewController {
         textView.text = NSLocalizedString("Notes", comment: "placeholder for notesTextView")
         textView.font = .systemFont(ofSize: 14)
         textView.layer.cornerRadius = 15
+        textView.tintColor = .mixedBlueGreen
         textView.backgroundColor = .customComponentColor
         textView.contentMode = .left
         return textView
