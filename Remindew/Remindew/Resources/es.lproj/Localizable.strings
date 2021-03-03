@@ -13,6 +13,7 @@
 "Add New Reminder" = "Añadir Recordatorio";
 "Add Plant" = "Añadir Planta";
 "Add Plant Image" = "Añadir Imagen de Planta";
+"APPEARANCE" = "APARIENCIA";
 "at " = "a las ";
 // MARK: - B
 "Back" = "Atráz";
@@ -27,6 +28,7 @@
 "days" = "días";
 " days left" = " días faltan";
 " day left" = " día falta";
+"DEFAULT PLANT IMAGE" = "IMÁGENES";
 "Delete" = "Borrar";
 "Delete Plant" = "Borrar Planta";
 "Delete Reminder" = "Borrar Recordatorio";
@@ -54,6 +56,7 @@
 "Location" = "Ubicación";
 // MARK: - M
 "Made: " = "Hecho: ";
+"MAIN LABEL" = "ETIQUETA PRINCIPAL";
 "Missing Nickname" = "No Sobrenombre";
 "Missing Plant Type" = "No Tipo de Planta";
 "Missing Watering Days" = "No Días de Riego";
@@ -93,6 +96,7 @@
 // MARK: - R
 "Random" = "Azar";
 "Reminder" = "Recordatorio";
+"Richard Alfonzo Photography" = "Richard Alfonzo Fotografía";
 // MARK: - S
 "Sat" = "Sáb";
 "Save" = "Guardar";

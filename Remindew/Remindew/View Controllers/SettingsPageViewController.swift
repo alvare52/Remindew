@@ -83,15 +83,15 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         switch section {
         
         case 0:
-            return "APPEARANCE"
+            return NSLocalizedString("APPEARANCE", comment: "appearance section title")
         case 1:
-            return "MAIN LABEL"
+            return NSLocalizedString("MAIN LABEL", comment: "main label section title")
         case 2:
             return "SEARCHING"
         case 3:
             return "SEARCHES POWERED BY TREFLE"
         case 4:
-            return "DEFAULT PLANT IMAGE"
+            return NSLocalizedString("DEFAULT PLANT IMAGE", comment: "default plant image section title")
         default:
             return ""
         }
@@ -213,7 +213,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // IMAGES PROVIDED BY RICHARD ALFONZO
         if indexPath.section == 4 {
-            settingCell.settingLabel.text = "Richard Alfonzo Photography"
+            settingCell.settingLabel.text = NSLocalizedString("Richard Alfonzo Photography", comment: "default image source link")
             settingCell.settingLabel.textColor = .link
             settingCell.optionSwitch.isHidden = true
         }
