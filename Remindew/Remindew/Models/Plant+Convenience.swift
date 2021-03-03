@@ -69,9 +69,3 @@ extension Plant {
         return nil
     }
 }
-
-// Need to make warning go away but needs implementation
-//@objc(FrequencyTransformer)
-//class FrequencyTransformer : ValueTransformer {
-// 
-//}

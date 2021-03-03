@@ -174,13 +174,6 @@ class NotepadViewController: UIViewController {
         notesTextView.becomeFirstResponder()
     }
     
-    // TODO: alert if user tries to leave without saving?
-    /// Present alert if user tries to leave without saving?
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear")
-    }
-    
     /// Lays out all views needed
     private func setupSubViews() {
         
@@ -229,14 +222,4 @@ class NotepadViewController: UIViewController {
         notesTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         notesTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
-}
-
-/// Struct that holds all information given in NotepadViewController
-struct NotePad {
-    var notes: String = ""
-    var mainTitle: String = ""
-    var mainMessage: String = ""
-    var mainAction: String = NSLocalizedString("Water", comment: "water, default main action")
-    var location: String = ""
-    var scientificName: String = ""
 }
