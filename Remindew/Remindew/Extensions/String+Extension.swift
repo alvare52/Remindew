@@ -60,6 +60,15 @@ extension String {
     
     // MARK: - Localized Strings
     
+    /// Localized String for Take Photo
+    static let takePhotoLocalizedString = NSLocalizedString("  Take Photo", comment: "take photo button title")
+    
+    /// Localized String for Choose Photo
+    static let choosePhotoLocalizedString = NSLocalizedString("  Choose Photo", comment: "choose photo button title")
+    
+    /// Localized String for Save Photo
+    static let savePhotoLocalizedString = NSLocalizedString("  Save Photo", comment: "save photo button title")
+    
     /// Localized String for Nickname
     static let nicknameLocalizedString = NSLocalizedString("Nickname", comment: "plant nickname")
     

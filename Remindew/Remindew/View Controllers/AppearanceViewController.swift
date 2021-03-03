@@ -90,7 +90,7 @@ class AppearanceViewController: UIViewController {
     let takePhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("  Take Photo", for: .normal)
+        button.setTitle(.takePhotoLocalizedString, for: .normal)
         button.setImage(UIImage(systemName: "camera"), for: .normal)
         button.contentHorizontalAlignment = .leading
         button.tintColor = .lightGray
@@ -102,7 +102,7 @@ class AppearanceViewController: UIViewController {
     let choosePhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("  Choose Photo", for: .normal)
+        button.setTitle(.choosePhotoLocalizedString, for: .normal)
         button.setImage(UIImage(systemName: "photo"), for: .normal)
         button.contentHorizontalAlignment = .leading
         button.tintColor = .lightGray
@@ -114,7 +114,7 @@ class AppearanceViewController: UIViewController {
     let savePhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("  Save Photo", for: .normal)
+        button.setTitle(.savePhotoLocalizedString, for: .normal)
         button.setImage(UIImage(systemName: "photo.on.rectangle"), for: .normal)
         button.contentHorizontalAlignment = .leading
         button.tintColor = .lightGray

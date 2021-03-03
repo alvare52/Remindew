@@ -20,6 +20,7 @@
 // MARK: - C
 "Camera Access Denied" = "No Acceso de Cámara";
 "Choose from Library" = "Escoje de Fotos";
+"  Choose Photo" = "  Escoje Foto";
 "Custom" = "Personal";
 "Cancel" = "Cancelar";
 // MARK: - D
@@ -74,9 +75,9 @@
 "One of your plants needs water" = "Una de sus plantas necesita agua";
 "Once a week" = "Una vez a la semana";
 // MARK: - P
-"Photos Access Denied" = "";
+"Photos Access Denied" = "No Acceso a Fotos";
 "Plant" = "Planta";
-"Please allow access to Photos by going to Settings -> Photos -> Add Photos Only" = "";
+"Please allow access to Photos by going to Settings -> Photos -> Add Photos Only" = "Por favor dé acceso a Fotos llendo a Configuración -> Fotos -> Agregar fotos solamente";
 "Please allow camera usage by going to Settings and turning Camera access on" = "Por favor dé acceso a la cámara llendo a Configuración";
 "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos";
 "Please enter a custom nickname for your plant or select a random nickname" = "Por favor escriba un sobrenombre para su planta o seleccione uno al azar";
@@ -96,6 +97,7 @@
 "Sat" = "Sáb";
 "Save" = "Guardar";
 "Save Changes" = "Guardar Cambios";
+"  Save Photo" = "  Guardar Foto";
 "Scientific Name" = "Nombre Científico";
 "Search by plant name, species, etc" = "Busca planta, especie, etc";
 "Select at least one of the days below" = "Seleccione por lo menos un día de los de abajo";
@@ -107,6 +109,7 @@
 
 // MARK: - T
 "Take a Photo" = "Toma una foto";
+"  Take Photo" = "  Toma Foto";
 "Tap any field to edit" = "Seleccione cualquier cosa para cambiar";
 "Tap button" = "Pulsa botón";
 "This can not be undone." = "Esto no se puede deshacer.";
