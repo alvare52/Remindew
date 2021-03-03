@@ -54,7 +54,7 @@
 // MARK: - M
 "Made: " = "Hecho: ";
 "Missing Nickname" = "No Sobrenombre";
-"Missing Species Name" = "No Especie";
+"Missing Plant Type" = "No Tipo de Planta";
 "Missing Watering Days" = "No Días de Riego";
 "Mon" = "Lun";
 
@@ -63,6 +63,7 @@
 "needs water." = "necesita aqua.";
 "Network Error" = "Error de Red";
 "New Reminder" = "Recordatorio Neuvo";
+"Nickname" = "Sobrenombre";
 "No Results Found" = "No se Encontró Resultados";
 "Notes" = "Notas";
 "Notifications Disabled" = "Notificaciones Desactivados";
@@ -80,8 +81,10 @@
 "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos";
 "Please enter a custom nickname for your plant or select a random nickname" = "Por favor escriba un sobrenombre para su planta o seleccione uno al azar";
 "Please enter a nickname for your plant" = "Por favor escriba un sobrenombre para su planta";
+
 "Please enter a species for your plant.\nExample: \"Peace Lily\"" = "Por favor escriba la especie de su planta.\nEjemplo: \"Rosa\"";
 "Please enter a valid species name" = "Por favor escriba una especie válida";
+"Please enter the type of plant you have." = "Por favor escriba el tipo de su planta";
 "Please search for another species" = "Por favor trate de buscar otra especie";
 "Please select which days you would like to receive reminders" = "Por favor seleccione los días que le gustaría recibir el recordatorio";
 // MARK: - Q
@@ -114,7 +117,7 @@
 "Today" = "Hoy";
 "Tomorrow" = "Mañana";
 "Tue" = "Mar";
-
+"Type of plant" = "Tipo de planta";
 // MARK: - U
 
 // MARK: - V

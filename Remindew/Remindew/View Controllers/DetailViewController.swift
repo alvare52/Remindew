@@ -197,13 +197,13 @@ class DetailViewController: UIViewController {
         nicknameTextField.autocorrectionType = .no
         nicknameTextField.borderStyle = .none
         nicknameTextField.delegate = self
-        nicknameTextField.attributedPlaceholder = NSAttributedString(string: "Nickname",
+        nicknameTextField.attributedPlaceholder = NSAttributedString(string: .nicknameLocalizedString,
                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         speciesTextField.autocorrectionType = .no
         speciesTextField.borderStyle = .none
         speciesTextField.delegate = self
         speciesTextField.returnKeyType = .search
-        speciesTextField.attributedPlaceholder = NSAttributedString(string: "Type of plant",
+        speciesTextField.attributedPlaceholder = NSAttributedString(string: .typeOfPlantLocalizedString,
                                                                     attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         plantButton.backgroundColor = UIColor.colorsArray[0]
         plantButton.layer.cornerRadius = plantButton.frame.height / 2

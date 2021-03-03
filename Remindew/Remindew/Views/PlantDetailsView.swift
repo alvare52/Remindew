@@ -26,6 +26,7 @@ class PlantDetailsView: UIView {
         let textfield = UITextField()
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.text = NSLocalizedString("Water", comment: "water")
+        textfield.placeholder = NSLocalizedString("Action", comment: "main action for plant")
         textfield.backgroundColor = .customComponentColor
         textfield.layer.cornerRadius = 15
         textfield.borderStyle = .none

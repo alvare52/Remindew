@@ -58,6 +58,14 @@ extension String {
         return String.randomNicknames[randomInt]
     }
     
+    // MARK: - Localized Strings
+    
+    /// Localized String for Nickname
+    static let nicknameLocalizedString = NSLocalizedString("Nickname", comment: "plant nickname")
+    
+    /// Localized String for Type of plant
+    static let typeOfPlantLocalizedString = NSLocalizedString("Type of plant", comment: "plant's type")
+    
     /// Localized String for Water/Agua. Main action default
     static let waterLocalizedString = NSLocalizedString("Water", comment: "water, default main action")
     

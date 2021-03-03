@@ -119,7 +119,7 @@ extension UIAlertController {
         
         let title = NSLocalizedString("Missing Plant Type",
                                       comment: "Title for when species name is missing in textfield")
-        let message = NSLocalizedString("Please enter the type of plant you have.\nExample: \"Peace Lily\"",
+        let message = NSLocalizedString("Please enter the type of plant you have.",
                                         comment: "Message for when plant type name is missing in textfield")
 
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
