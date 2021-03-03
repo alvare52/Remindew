@@ -171,11 +171,11 @@
 		1B0987F023EA61DF000033FA /* Remindew */ = {
 			isa = PBXGroup;
 			children = (
-				1BEA10EC25DFF509004EE87F /* Extensions */,
 				1B09882423EA6259000033FA /* Models */,
 				1BAA3FF925898E790076CE91 /* Model Controllers */,
-				1BAA3FFA25898E990076CE91 /* View Controllers */,
 				1B09882223EA624B000033FA /* Views */,
+				1BAA3FFA25898E990076CE91 /* View Controllers */,
+				1BEA10EC25DFF509004EE87F /* Extensions */,
 				1BAA3FF225898DBD0076CE91 /* Resources */,
 			);
 			path = Remindew;
