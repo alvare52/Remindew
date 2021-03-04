@@ -25,10 +25,12 @@
 "Custom" = "Personal";
 "Cancel" = "Cancelar";
 // MARK: - D
+"Dark Theme" = "Modo Oscuro";
 "days" = "días";
 " days left" = " días faltan";
 " day left" = " día falta";
 "DEFAULT PLANT IMAGE" = "IMÁGENES";
+"Default plant photo provided by Richard Alfonzo." = "Imágen de planta proporcionado por Richard Alfonzo.";
 "Delete" = "Borrar";
 "Delete Plant" = "Borrar Planta";
 "Delete Reminder" = "Borrar Recordatorio";
@@ -42,17 +44,19 @@
 // MARK: - G
 
 // MARK: - H
-
+"Hide Silenced Icon" = "Esconde icono de silencio";
 // MARK: - I
+"Images Instead of Icons" = "Imágenes en vez de icono";
 "Invalid Species" = "Especie Inválida";
-
 // MARK: - J
 
 // MARK: - K
 
 // MARK: - L
+"Label Uses Plant Color" = "Etiqueta usa color de planta";
 "Last Watered:\n" = "Última Regada:\n";
 "Last: " = "Última: ";
+"Light/Dark theme are independent of phone settings. Main screen displays plant icon instead of image by default." = "";
 "Location" = "Ubicación";
 // MARK: - M
 "Made: " = "Hecho: ";
@@ -123,10 +127,11 @@
 "to complete" = "para completar";
 "Today" = "Hoy";
 "Tomorrow" = "Mañana";
+"Top label displays nickname by default. Label color is dark green instead of selected color by default." = "";
 "Tue" = "Mar";
 "Type of plant" = "Tipo de planta";
 // MARK: - U
-
+"Use Plant Type Instead" = "Usar Tipo de Planta";
 // MARK: - V
 
 // MARK: - W

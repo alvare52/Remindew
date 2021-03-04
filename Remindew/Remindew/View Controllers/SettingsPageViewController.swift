@@ -100,15 +100,15 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "Light/Dark theme are independent of phone settings. Main screen displays plant icon instead of image by default."
+            return .appearanceSectionLocalizedDescription
         case 1:
-            return "Top label displays nickname by default. Label color is dark green instead of selected color by default."
+            return .mainLabelSectionLocalizedDescription
         case 2:
             return "Clicking on a search result will replace plant type name with common name of selected result. Search by tapping \"search\" on keyboard when entering plant's type"
         case 3:
             return "Trefle aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource."
         case 4:
-            return "Default plant photo provided by Richard Alfonzo." + stats
+            return .defaultImageSectionLocalizedDescription
         default:
             return ""
         }
@@ -147,7 +147,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             
             // Dark Theme
             if indexPath.row == 0 {
-                settingCell.settingLabel.text = "Dark Theme"
+                settingCell.settingLabel.text = NSLocalizedString("Dark Theme", comment: "dark mode setting")
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .darkThemeOn
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .darkThemeOn)
@@ -156,7 +156,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             
             // Plant Images
             if indexPath.row == 1 {
-                settingCell.settingLabel.text = "Images Instead of Icons"
+                settingCell.settingLabel.text = NSLocalizedString("Images Instead of Icons", comment: "images instead of icons setting")
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantImages
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantImages)
@@ -165,7 +165,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             
             // Plant Images
             if indexPath.row == 2 {
-                settingCell.settingLabel.text = "Hide Silenced Icon"
+                settingCell.settingLabel.text = NSLocalizedString("Hide Silenced Icon", comment: "hide silenced icon")
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .hideSilencedIcon
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .hideSilencedIcon)
@@ -178,7 +178,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             
             // Nickname / Species Label
             if indexPath.row == 0 {
-                settingCell.settingLabel.text = "Use Plant Type Instead"
+                settingCell.settingLabel.text = NSLocalizedString("Use Plant Type Instead", comment: "use plant type instead")
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .sortPlantsBySpecies
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .sortPlantsBySpecies)
@@ -187,7 +187,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             
             // Label uses plant color
             if indexPath.row == 1 {
-                settingCell.settingLabel.text = "Label Uses Plant Color"
+                settingCell.settingLabel.text = NSLocalizedString("Label Uses Plant Color", comment: "label uses plant color")
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .usePlantColorOnLabel
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantColorOnLabel)

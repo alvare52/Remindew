@@ -60,6 +60,15 @@ extension String {
     
     // MARK: - Localized Strings
     
+    /// Localized String for Appearance section description
+    static let appearanceSectionLocalizedDescription = NSLocalizedString("Light/Dark theme are independent of phone settings. Main screen displays plant icon instead of image by default.", comment: "description for appearance section")
+    
+    /// Localized String for Main Label section description
+    static let mainLabelSectionLocalizedDescription = NSLocalizedString("Top label displays nickname by default. Label color is dark green instead of selected color by default.", comment: "description for main label section")
+    
+    /// Localized String for Default Plant Image section description
+    static let defaultImageSectionLocalizedDescription = NSLocalizedString(NSLocalizedString("Default plant photo provided by Richard Alfonzo.", comment: "photo source description"), comment: "description for default image section")
+    
     /// Localized String for Take Photo
     static let takePhotoLocalizedString = NSLocalizedString("  Take Photo", comment: "take photo button title")
     
