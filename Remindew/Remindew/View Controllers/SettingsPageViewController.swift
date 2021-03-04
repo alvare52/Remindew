@@ -9,11 +9,7 @@
 import UIKit
 
 class SettingsPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    // TODO: add setting to disable sections in Sorting settings section?
-    // TODO: add setting to display plant type as primary name instead of nickname? Remove sort by species/name setting?
-    // TODO: add setting to use plant image instead of icons?
-    
+        
     // MARK: - Actions
     
     /// Clear button that sits over progressView (notch) and dismiss view controller when tapped
@@ -29,12 +25,11 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     
     /// String that shows how many total plants there are and how many pending notifications there are
     var totalPlantCount = 0
-    var totalNotificationsCount = 0
     var totalLocationsCount = 0
     
-    /// Returns a String that contains total amount of Plants, Pending Notifications, Locations, and current app version
+    /// Returns a String that contains current app version, total amount of plants and locations. Version 1.0 - Plants: 7, Locations: 3
     var stats: String {
-        return "\n\nStats - Plants \(totalPlantCount) Locations \(totalLocationsCount)" + "\nVersion \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+        return "\n\n" + NSLocalizedString("Version ", comment: "version") + "\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")" + " - " + NSLocalizedString("Plants", comment: "plants") + ": \(totalPlantCount), " + NSLocalizedString("Locations", comment: "locations") + ": \(totalLocationsCount)"
     }
     
     // MARK: - View Life Cycle
@@ -88,7 +83,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 1:
             return .mainLabelSectionLocalizedDescription
         case 2:
-            return .defaultImageSectionLocalizedDescription
+            return .defaultImageSectionLocalizedDescription + stats
         default:
             return ""
         }

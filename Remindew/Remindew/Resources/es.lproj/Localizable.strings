@@ -58,6 +58,7 @@
 "Last: " = "Última: ";
 "Light/Dark theme are independent of phone settings. Main screen displays plant icon instead of image by default." = "";
 "Location" = "Ubicación";
+"Locations" = "Ubicaciónes";
 // MARK: - M
 "Made: " = "Hecho: ";
 "MAIN LABEL" = "ETIQUETA PRINCIPAL";
@@ -84,6 +85,7 @@
 // MARK: - P
 "Photos Access Denied" = "No Acceso a Fotos";
 "Plant" = "Planta";
+"Plants" = "Plantas";
 "Please allow access to Photos by going to Settings -> Photos -> Add Photos Only" = "Por favor dé acceso a Fotos llendo a Configuración -> Fotos -> Agregar fotos solamente";
 "Please allow camera usage by going to Settings and turning Camera access on" = "Por favor dé acceso a la cámara llendo a Configuración";
 "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos";
@@ -136,7 +138,7 @@
 // MARK: - U
 "Use Plant Type Instead" = "Usar Tipo de Planta";
 // MARK: - V
-
+"Version " = "Versión ";
 // MARK: - W
 "Water" = "Regar";
 "Water Plant" = "Riega Planta";
