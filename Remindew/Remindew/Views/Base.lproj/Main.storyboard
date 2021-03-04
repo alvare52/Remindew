@@ -330,7 +330,7 @@
                             </barButtonItem>
                             <barButtonItem image="photo" catalog="system" id="aUm-Vv-L4D"/>
                             <barButtonItem enabled="NO" title="Date" id="AGU-sd-0YG"/>
-                            <barButtonItem image="bell.fill" catalog="system" id="nTd-PE-hrc">
+                            <barButtonItem image="bell.circle" catalog="system" id="nTd-PE-hrc">
                                 <connections>
                                     <action selector="reminderButtonTapped:" destination="egV-2b-yvb" id="SX3-Ob-uk8"/>
                                 </connections>
@@ -419,7 +419,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="RemindewDefaultImage" width="1000" height="667"/>
-        <image name="bell.fill" catalog="system" width="128" height="124"/>
+        <image name="bell.circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="photo" catalog="system" width="128" height="93"/>
