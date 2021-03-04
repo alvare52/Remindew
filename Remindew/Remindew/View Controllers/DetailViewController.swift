@@ -104,8 +104,8 @@ class DetailViewController: UIViewController {
     @IBAction func reminderButtonTapped(_ sender: UIBarButtonItem) {
         
         if reminders.count >= 7 {
-            UIAlertController.makeAlert(title: "Reached Reminders Limit",
-                                        message: "You've reached your limit of Reminders",
+            UIAlertController.makeAlert(title: .reminderLimitTitleLocalizedString,
+                                        message: .reminderLimitMessageLocalizedString,
                                         vc: self)
         }
         

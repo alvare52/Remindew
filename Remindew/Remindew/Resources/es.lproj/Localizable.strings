@@ -99,6 +99,8 @@
 
 // MARK: - R
 "Random" = "Azar";
+"Reached Plant Limit" = "Alcanzo el Límite de Plantas";
+"Reached Reminders Limit" = "Alcanzo el Límite de Recordatorios";
 "Reminder" = "Recordatorio";
 "Richard Alfonzo Photography" = "Richard Alfonzo Fotografía";
 // MARK: - S
@@ -112,6 +114,7 @@
 "Server Maintenance" = "Mantenimiento del Servidor";
 "Servers down for maintenance. Please try again later." = "Servidores en mantenimiento. Por favor trate más tarde";
 "Settings" = "Configuración";
+"Sorry, you've reached the limit of how many plants you can make." = "A alcanzado el límite de plantas que se pueden crear.";
 "Species example: \"Rose\"\nPress \"search\" to search" = "Ejemplo de especie: \"Rosa\"\nPressione \"buscar\" para buscar";
 "Sun" = "Dom";
 
@@ -143,5 +146,5 @@
 // MARK: - X
 
 // MARK: - Y
-
+"You've reached your limit of reminders for this plant" = "A alcanzado el límite de recordatorios que se pueden crear para esta planta";
 // MARK: - Z

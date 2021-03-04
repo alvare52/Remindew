@@ -60,6 +60,18 @@ extension String {
     
     // MARK: - Localized Strings
     
+    /// Localized String for Reminder Limit Alert Title
+    static let reminderLimitTitleLocalizedString = NSLocalizedString("Reached Reminders Limit", comment: "reached reminder limit title")
+    
+    /// Localized String for Reminder Limit Alert Message
+    static let reminderLimitMessageLocalizedString = NSLocalizedString("You've reached your limit of reminders for this plant", comment: "reached reminder limit message")
+    
+    /// Localized String for Plant Limit Alert Title
+    static let plantLimitTitleLocalizedString = NSLocalizedString("Reached Plant Limit", comment: "reached plant limit title")
+    
+    /// Localized String for Plant Limit Alert Message
+    static let plantLimitMessageLocalizedString = NSLocalizedString("Sorry, you've reached the limit of how many plants you can make.", comment: "reached plant limit message")
+    
     /// Localized String for Appearance section description
     static let appearanceSectionLocalizedDescription = NSLocalizedString("Light/Dark theme are independent of phone settings. Main screen displays plant icon instead of image by default.", comment: "description for appearance section")
     

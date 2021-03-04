@@ -34,7 +34,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     
     /// Returns a String that contains total amount of Plants, Pending Notifications, Locations, and current app version
     var stats: String {
-        return "\n\nStats - Plants \(totalPlantCount), Notifications \(totalNotificationsCount), Plant Locations \(totalLocationsCount)" + "\nVersion \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
+        return "\n\nStats - Plants \(totalPlantCount) Locations \(totalLocationsCount)" + "\nVersion \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "")"
     }
     
     // MARK: - View Life Cycle
