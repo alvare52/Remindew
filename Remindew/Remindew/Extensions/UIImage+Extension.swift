@@ -43,6 +43,7 @@ extension UIImage {
     /// - Parameter imageView: the UIImageView we want to give a bottom half gradient (imageView needs a frame)
     /// - Parameter opacity: the amount of transparency we want for the applied gradient
     static func applyLowerPortionGradient(imageView: UIImageView, opacity: Float = 0.5) {
+        
         let gradient = CAGradientLayer()
         // frame should be just bottom half of imageView
         let chunk = imageView.bounds.height / CGFloat(2.0)
@@ -63,10 +64,9 @@ extension UIImage {
     /// - Parameter imageName: the name of an image that has been saved
     /// - Parameter image: the UIImage you want to save
     static func saveImage(imageName: String, image: UIImage) {
-        print("saveImage")
+        
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
 
-        print("\(image.size) IMAGE SIZE")
         let fileName = imageName
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         guard let data = image.jpegData(compressionQuality: 1) else { return }
@@ -121,7 +121,7 @@ extension UIImage {
     
     /// Deletes image in directory with given name in file path
     static func deleteImage(_ imageName: String) {
-        print("deleteImage")
+        
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
 
         let fileName = imageName
@@ -142,7 +142,7 @@ extension UIImage {
     
     /// Resize image to given dimensions
      static func resizeImage(image: UIImage) -> UIImage {
-        print("\(image.size) IMAGE STARTS AS THIS")
+        
         let newWidth: CGFloat = 1024.0 // ? check if image is too big first, then scale down if need be
         let scale = newWidth / image.size.width
         let newHeight = image.size.height * scale
@@ -150,7 +150,6 @@ extension UIImage {
         image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        print("\(newImage!.size) IMAGE SIZE RESCALED TO THIS")
         return newImage!
     }
 }

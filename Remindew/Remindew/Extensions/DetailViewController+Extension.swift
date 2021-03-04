@@ -55,7 +55,6 @@ extension DetailViewController: UITextFieldDelegate {
 extension DetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("Picked Image")
         
         // .editedImage instead? (used to say .originalImage)
         if let image = info[.editedImage] as? UIImage {
@@ -65,7 +64,6 @@ extension DetailViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("Cancel")
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -141,7 +139,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         
         // Delete
         let delete = UIContextualAction(style: .destructive, title: "") { (action, view, completion) in
-            print("Deleted \(reminder.actionName!)")
             if let plant = self.plant {
                 UIAlertController.makeReminderDeletionWarningAlert(reminder: reminder, plant: plant, indexPath: indexPath, vc: self)
             }
@@ -151,7 +148,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
             
         // Silence
         let silence = UIContextualAction(style: .normal, title: "\(reminder.actionName!)") { (action, view, completion) in
-            print("Silenced \(reminder.actionName!)")
             if let plant = self.plant {
                 self.plantController?.toggleReminderNotification(plant: plant, reminder: reminder)
                 self.resultsTableView.reloadRows(at: [indexPath], with: .right)

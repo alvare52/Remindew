@@ -605,7 +605,6 @@ class PlantController {
             return
         }
         
-        print("requestURL = \(requestUrl)")
         var request = URLRequest(url: requestUrl)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
