@@ -21,18 +21,15 @@ class DaySelectionView: UIStackView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("init with frame")
         setupSubviews()
     }
 
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        print("init with coder")
         setupSubviews()
     }
     
     @objc private func selectDay(_ button: UIButton) {
-        print("tapped button \(button.tag)")
         
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
@@ -46,7 +43,6 @@ class DaySelectionView: UIStackView {
             button.tintColor = .secondaryLabel
             button.titleLabel?.font = unselectedFont
         }
-        print("\(button.tag) isSelected = \(button.isSelected)")
     }
     
     private func setupSubviews() {
@@ -60,10 +56,6 @@ class DaySelectionView: UIStackView {
             buttonArray.append(day)
             day.tag = integer + 1
             day.contentMode = .scaleToFill
-//            day.frame = CGRect(x: 0,
-//                                y: 0,
-//                                width: 20.0,
-//                                height: 50.0)
             day.setTitle("\(String.dayInitials[integer])", for: .normal)
             day.backgroundColor = .clear
             
@@ -100,6 +92,7 @@ class DaySelectionView: UIStackView {
     func returnDaysSelected() -> [Int16] {
         
         var result = [Int16]()
+        
         for button in buttonArray {
             // if "selected"
             if button.tintColor == UIColor.customSelectedDayColor {

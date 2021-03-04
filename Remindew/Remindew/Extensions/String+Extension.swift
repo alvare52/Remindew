@@ -78,6 +78,12 @@ extension String {
     /// Localized String for Main Label section description
     static let mainLabelSectionLocalizedDescription = NSLocalizedString("Top label displays nickname by default. Label color is dark green instead of selected color by default.", comment: "description for main label section")
     
+    /// Localized String for Searches section description
+    static let searchesSectionLocalizedDescription = NSLocalizedString("Clicking on a search result will replace plant type name with common name of selected result. Search by tapping \"search\" on keyboard when entering plant's type", comment: "description for searches section")
+    
+    /// Localized String for Trefle section description
+    static let trefleSectionLocalizedDescription = NSLocalizedString("Trefle aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource.", comment: "description for trefle section")
+    
     /// Localized String for Default Plant Image section description
     static let defaultImageSectionLocalizedDescription = NSLocalizedString(NSLocalizedString("Default plant photo provided by Richard Alfonzo.", comment: "photo source description"), comment: "description for default image section")
     

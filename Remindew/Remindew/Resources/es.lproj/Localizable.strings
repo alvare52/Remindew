@@ -22,6 +22,7 @@
 "Camera Access Denied" = "No Acceso de Cámara";
 "Choose from Library" = "Escoje de Fotos";
 "  Choose Photo" = "  Escoje Foto";
+"Clicking on a search result will replace plant type name with common name of selected result. Search by tapping \"search\" on keyboard when entering plant's type" = "";
 "Custom" = "Personal";
 "Cancel" = "Cancelar";
 // MARK: - D
@@ -104,6 +105,7 @@
 "Reached Plant Limit" = "Alcanzo el Límite de Plantas";
 "Reached Reminders Limit" = "Alcanzo el Límite de Recordatorios";
 "Reminder" = "Recordatorio";
+"Replace Type with Search Result" = "Reemplazar tipo con resultado";
 "Richard Alfonzo Photography" = "Richard Alfonzo Fotografía";
 // MARK: - S
 "Sat" = "Sáb";
@@ -111,6 +113,8 @@
 "Save Changes" = "Guardar Cambios";
 "  Save Photo" = "  Guardar Foto";
 "Scientific Name" = "Nombre Científico";
+"SEARCHES POWERED BY TREFLE" = "BÚSQUEDAS PROPORCIONADAS POR TREFLE";
+"SEARCHING" = "BÚSQUEDA";
 "Search by plant name, species, etc" = "Busca planta, especie, etc";
 "Select at least one of the days below" = "Seleccione por lo menos un día de los de abajo";
 "Server Maintenance" = "Mantenimiento del Servidor";
@@ -133,6 +137,8 @@
 "Today" = "Hoy";
 "Tomorrow" = "Mañana";
 "Top label displays nickname by default. Label color is dark green instead of selected color by default." = "";
+"Trefle aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource." = "";
+"Trefle API Home Page" = "Trefle Página Principal";
 "Tue" = "Mar";
 "Type of plant" = "Tipo de planta";
 // MARK: - U

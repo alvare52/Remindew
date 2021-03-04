@@ -73,13 +73,11 @@ class PlantDetailsView: UIView {
     // uses this one
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("init with frame")
         setupSubviews()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        print("init with coder")
         setupSubviews()
     }
     

@@ -66,7 +66,7 @@ class SearchResultTableViewCell: UITableViewCell {
         plantImageView.widthAnchor.constraint(equalTo: plantImageView.heightAnchor).isActive = true
 
         plantImageView.layer.masksToBounds = false
-        plantImageView.layer.cornerRadius = 15//26.0 // half of its size (cellHeight - 8 padding) / 2
+        plantImageView.layer.cornerRadius = 15
         plantImageView.clipsToBounds = true
         plantImageView.contentMode = .scaleToFill
         
