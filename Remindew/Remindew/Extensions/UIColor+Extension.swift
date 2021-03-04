@@ -94,5 +94,5 @@ extension UIColor {
     }
     
     /// Colors used with colorIndex to set custom color
-    static let colorsArray = [.mixedBlueGreen, .waterBlue, UIColor.systemRed, .creamPink, UIColor.systemPink, UIColor.systemOrange, UIColor.systemYellow, .butterYellow, UIColor.systemGreen, .leafGreen, .mintGreen, UIColor.systemBlue, UIColor.systemTeal, UIColor.systemIndigo, UIColor.systemPurple, UIColor.darkGray, UIColor.brown, .eggshellWhite]
+    static let colorsArray = [.mixedBlueGreen, .waterBlue, UIColor.systemRed, UIColor.systemOrange, UIColor.systemYellow, UIColor.systemGreen, UIColor.systemBlue, UIColor.systemIndigo, UIColor.systemPurple, UIColor.systemPink, UIColor.systemTeal, UIColor.darkGray, UIColor.brown, .creamPink, .butterYellow, .mintGreen, .eggshellWhite, .leafGreen]
 }
