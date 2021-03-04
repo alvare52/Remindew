@@ -26,9 +26,7 @@ class PlantController {
         didSet {
             // clear cache after 100 images are stored
             if loadedImages.count > 100 {
-                print("loadedImages count > 100, clearing cache")
                 loadedImages.removeAll()
-                print("loadedImages cleared, now = \(loadedImages)")
             }
         }
     }
@@ -311,8 +309,6 @@ class PlantController {
         if let lastDate = UserDefaults.standard.object(forKey: .lastDateTokenGrabbed) as? Date {
             // if timeinterval is < 85000, then return false (86400 secs in 24 hours, 85000 just in case)
             if Date().timeIntervalSince(lastDate) < 85000 {
-                print("Time interval since Date() = \(Date().timeIntervalSince(lastDate)) is less then 85000")
-                print("no new temp token needed, quitting early and returning false")
                 return false
             }
         }
@@ -340,20 +336,17 @@ class PlantController {
     
     /// Returns array of Strings that are the plant's notification identifiers (weekday + UUID)
     func returnPlantNotificationIdentifiers(plant: Plant) -> [String] {
-        print("returnPlantNotificationIdentifiers")
         var result = [String]()
         
         for i in 1...7 {
             result.append("\(i)\(plant.identifier!)")
         }
         
-        print("all notes for plant to remove = \(result)")
         return result
     }
         
     /// Returns a [Date] made up of selected weekdays and plant watering schedule (time)
     func makeDateCompsForSchedule(weekday: Int16, time: Date) -> DateComponents {
-        print("makeDateCompFromSchdule")
         let day = Int(weekday)
         let timeComps = calendar.dateComponents([.hour, .minute], from: time)
         var dateComps = DateComponents()
@@ -366,7 +359,6 @@ class PlantController {
     
     /// Adds notification requests for all days the plant needs to be watered (called inside of addRequestsForPlant)
     func makeAllRequestsForPlant(plant: Plant) {
-        print("makeAllRequestsForPlant")
         
         for day in plant.frequency! {
 
@@ -419,7 +411,6 @@ class PlantController {
     
     /// Checks to see if notifications are allowed first, then adds all requests (by calling makeAllRequestsForPlant)
     func addRequestsForPlant(plant: Plant) {
-        print("addRequestsForPlant")
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             switch granted {
@@ -442,12 +433,6 @@ class PlantController {
         let notesToRemove = returnPlantNotificationIdentifiers(plant: plant)
         
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: notesToRemove)
-        
-        UNUserNotificationCenter.checkPendingNotes { result in
-            DispatchQueue.main.async {
-                print("Pending Notifications = \(result)")
-            }
-        }
     }
     
     /// Checks if notifications are allowed then creates notification for given Reminder
@@ -552,20 +537,16 @@ class PlantController {
     /// Sign Secret Token to get a temporary one for the user and set it to self.tempToken or returns a NetworkError
     /// Only do this ONCE a day
     func signToken(completion: @escaping (Result<String,NetworkError>) -> Void) {
-        print("signToken called")
         
         let baseUrl = "https://trefle.io/api/auth/claim?token="
         let websiteUrl = "https://github.com/alvare52/Remindew"
 
         // URL
         guard let signUrl = URL(string: "\(baseUrl)\(secretToken)&origin=\(websiteUrl)") else {
-            print("invalid token")
             completion(.failure(.invalidToken))
             return
         }
-        
-        print("signUrl = \(signUrl)")
-        
+                
         var request = URLRequest(url: signUrl)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -609,8 +590,6 @@ class PlantController {
     
     /// Takes in a search term. Returns either an array of PlantSearchResult or a NetworkError
     func searchPlantSpecies(_ searchTerm: String, completion: @escaping (Result<[PlantSearchResult],NetworkError>) -> Void = { _ in }) {
-
-        print("searchPlantSpecies called")
         
         // No token (non-temp one)
         guard let token = UserDefaults.standard.string(forKey: .lastTempToken) else {
@@ -658,8 +637,15 @@ class PlantController {
 
             do {
                 let plantSearchResultsDataArray = try jsonDecoder.decode(PlantData.self, from: data)
+                
+                // Omit results that have a nil url or a url that has floristic.org as host
+                let filteredResults = plantSearchResultsDataArray.data.filter {
+                    // bs.floristic.org's security certificate expired around 2-22-21
+                    $0.imageUrl != nil && $0.imageUrl?.host != "bs.floristic.org"
+                }
+                
                 DispatchQueue.main.async {
-                    completion(.success(plantSearchResultsDataArray.data))
+                    completion(.success(filteredResults))
                 }
             } catch {
                 print("Error decoding or storing searched plants \(error)")
@@ -677,7 +663,6 @@ class PlantController {
         let defaultImage = UIImage.logoImage
 
         guard let url = url else {
-            print("can not make url from passed in string")
             completion(.success(defaultImage))
             return nil
         }
