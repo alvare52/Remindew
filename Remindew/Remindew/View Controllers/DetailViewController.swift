@@ -75,7 +75,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func notesButtonTapped(_ sender: UIBarButtonItem) {
-        print("notesButtonTapped")
+        
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let notepadVC = storyboard.instantiateViewController(identifier: "NotepadViewControllerID") as? NotepadViewController {
             notepadVC.modalPresentationStyle = .automatic
@@ -87,7 +87,6 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func waterPlantButtonTapped(_ sender: UIButton) {
-        print("waterPlantButtonTapped")
         
         // If there IS a plant, update (EDIT)
         if let existingPlant = plant {
@@ -145,7 +144,6 @@ class DetailViewController: UIViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         if let appearanceVC = storyboard.instantiateViewController(identifier: "AppearanceViewControllerID") as? AppearanceViewController {
             appearanceVC.modalPresentationStyle = .automatic
-//            appearanceVC.modalTransitionStyle = .crossDissolve
             appearanceVC.mainImage = imageView.image
             appearanceVC.appearanceDelegate = self
             appearanceVC.plant = plant
@@ -215,9 +213,9 @@ class DetailViewController: UIViewController {
         
     // doing this in viewDIDAppear is a little too slow, but viewWillAppear causes lag on iphone8 sim somehow
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
-        print("View will Appeara")
-        // if the view appears and there's no text, auto "click" into first textfield
+        
         if nicknameTextField.text == "" {
             nicknameTextField.becomeFirstResponder()
         }
@@ -342,7 +340,6 @@ class DetailViewController: UIViewController {
         // If imageView.image is NOT the default one, save it. Else, don't save
         // Check default image manually here because it won't work with .logoImage for some reason
         if imageView.image.hashValue != UIImage(named: "plantslogoclear1024x1024").hashValue {
-            print("Image in imageView is NOT default one")
             imageToSave = imageView.image ?? .logoImage
         }
                 
@@ -421,10 +418,7 @@ class DetailViewController: UIViewController {
         
     /// Refreshes all Plant reminders when a notification goes off while on the Detail screen
     @objc func refreshReminders() {
-        print("refreshReminders called, reloading tableview")
         resultsTableView.reloadData()
-        // TODO: also check if the plant shown needs to be watered by checking its watering status
-        // checkWateringStatus(plant: Plant)
     }
     
     /// Adds up swipe and down swipe gesture recognizers to dismiss keyboard and tap gesture on imageView to present AppearanceViewController
@@ -531,7 +525,6 @@ class DetailViewController: UIViewController {
                                                                   comment: "try another species"),
                                        vc: self)
                     }
-                    print("set array to plants we got back")
                 }
             } catch {
                 if let error = error as? NetworkError {

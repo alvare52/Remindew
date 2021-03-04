@@ -162,6 +162,7 @@ class AppearanceViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
         super.viewWillDisappear(animated)
         
         // pass back selected appearance options to DetailViewController when view is going to disappear
@@ -175,7 +176,7 @@ class AppearanceViewController: UIViewController {
     
     /// Updates all views when plant is passed in
     private func updateViews() {
-        print("updateViews")
+        
         guard isViewLoaded else { return }
         
         imageView.image = mainImage
@@ -183,8 +184,6 @@ class AppearanceViewController: UIViewController {
         
         // EDIT/DETAIL Mode
         if let plant = plant {
-            print("edit mode AVC")
-            
             plantCustomizationView.plantNameLabel.text = plant.nickname
             actionCustomizationView.plantNameLabel.text = plant.mainAction
             
@@ -196,11 +195,8 @@ class AppearanceViewController: UIViewController {
 
         // ADD Mode
         else {
-            print("add mode AVC")
-            
             plantCustomizationView.plantNameLabel.text = NSLocalizedString("Nickname", comment: "nickname")
             actionCustomizationView.plantNameLabel.text = NSLocalizedString("Water", comment: "water")
-            
             plantCustomizationView.localIconCount = 8
             plantCustomizationView.localColorsCount = 0
             actionCustomizationView.localIconCount = 0
@@ -419,9 +415,7 @@ extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigatio
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("Picked Image")
         
-        // .editedImage instead? (used to say .originalImage)
         if let image = info[.originalImage] as? UIImage {
             imageView.image = image
             // TODO: set to smaller resolution?
@@ -432,7 +426,6 @@ extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigatio
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("Cancel")
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }

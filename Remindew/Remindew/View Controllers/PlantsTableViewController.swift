@@ -46,9 +46,7 @@ class PlantsTableViewController: UITableViewController {
     /// Fetches Plant objects from storage
     lazy var fetchedResultsController: NSFetchedResultsController<Plant> = {
         let fetchRequest: NSFetchRequest<Plant> = Plant.fetchRequest()
-        
-        print("FetchedResultsController fetching now")
-        
+                
         // default is to sort by nickname
         var sortKey = "nickname"
         var secondaryKey = "species"
@@ -126,7 +124,6 @@ class PlantsTableViewController: UITableViewController {
             
             // [unowned self] is so avoid strong reference cycle that prevents VC from being deallocated
             // do this when app is brought back to the foreground
-            print("BACK IN THE FOREGROUND")
             self.checkIfPlantsNeedWatering()
         }
     }
@@ -175,7 +172,6 @@ class PlantsTableViewController: UITableViewController {
     
     /// When sort setting is set, run this to update the table view's sort descriptor
     @objc func updateSorting() {
-        print("upateSorting")
         
         // sort by nickname, unless sort by species is turned on
         var sortKey = "nickname"
@@ -204,7 +200,6 @@ class PlantsTableViewController: UITableViewController {
     
     /// Goes through all plants and checks if they need watering today. Also updates title based on how many need water or reminder completion
     @objc private func checkIfPlantsNeedWatering() {
-        print("checkIfPlantNeedsWatering")
         
         // for tallying up all plants that need watering
         var count = 0
@@ -288,7 +283,6 @@ class PlantsTableViewController: UITableViewController {
         guard let sectionInfo = fetchedResultsController.sections?[section] else {
             return nil
         }
-        // TODO: should check for sortKey here?
         return sectionInfo.name.capitalized
     }
     
@@ -379,7 +373,6 @@ class PlantsTableViewController: UITableViewController {
     
         // DetailViewController (to ADD plant)
         if segue.identifier == "AddPlantSegue" {
-            print("AddPlantSegue")
             if let detailVC = segue.destination as? DetailViewController {
                     detailVC.plantController = self.plantController
                 }
@@ -387,7 +380,6 @@ class PlantsTableViewController: UITableViewController {
         
         // DetailViewController (to EDIT plant)
         if segue.identifier == "DetailPlantSegue" {
-            print("DetailPlantSegue")
             if let detailVC = segue.destination as? DetailViewController, let indexPath = tableView.indexPathForSelectedRow {
                 detailVC.plantController = self.plantController
                 detailVC.plant = fetchedResultsController.object(at: indexPath)
@@ -396,7 +388,6 @@ class PlantsTableViewController: UITableViewController {
         
         // SettingsPageViewController
         if segue.identifier == "ShowSettingsSegue" {
-            print("ShowSettingsSegue")
             if let settingsVC = segue.destination as? SettingsPageViewController {
                 settingsVC.totalPlantCount = fetchedResultsController.fetchedObjects?.count ?? 0
                 settingsVC.totalLocationsCount = fetchedResultsController.sectionIndexTitles.count

@@ -71,8 +71,6 @@ class ReminderViewController: UIViewController {
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = .mixedBlueGreen
         picker.backgroundColor = .clear
-//        picker.minimumDate = Date()
-        // TODO: minimumTime? (shouldn't be able to pick a time earlier in the day)
         return picker
     }()
     
@@ -157,15 +155,11 @@ class ReminderViewController: UIViewController {
             
             // make sure reminder has an actionName
             guard let actionName = actionCustomizationView.plantNameLabel.text else {
-                // TODO: Error alert for no name
-                print("NO NAME FOR ACTION")
                 return
             }
             
             // make sure frequency is a number and greater than 0
             guard let frequencyString = frequencySelectorView.textField.text, !frequencyString.isEmpty, let frequency = Int16(frequencyString), frequency > 0 else {
-                // TODO: Error alert for invalid or missing frequency number
-                print("NO TEXT IN FREQUENCY VIEW")
                 return
             }
             

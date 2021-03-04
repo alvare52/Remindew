@@ -78,7 +78,6 @@ class SearchViewController: UIViewController {
         
         // if there's still a search going on, exit out
         if spinner.isAnimating {
-            print("still spinning")
             return
         }
         
@@ -95,7 +94,7 @@ class SearchViewController: UIViewController {
 
         // check if we need a new token first
         if plantController?.newTempTokenIsNeeded() == true {
-            print("new token needed, fetching one first")
+            
             plantController?.signToken(completion: { (result) in
                 do {
                     let message = try result.get()
@@ -117,7 +116,6 @@ class SearchViewController: UIViewController {
 
         // No new token needed
         else {
-            print("No token needed, searching")
             performPlantSearch(term)
         }
     }
@@ -175,7 +173,6 @@ class SearchViewController: UIViewController {
                                                                   comment: "try another species"),
                                                     vc: self)
                     }
-                    print("set array to plants we got back")
                 }
                 
             } catch {
@@ -223,10 +220,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let plantResult = plantSearchResults[indexPath.row]//plantController?.plantSearchResults[indexPath.row]
 
         // common name
-        resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? "No common name"
+        resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? ""
 
         // scientific name
-        resultCell.scientificNameLabel.text = plantResult.scientificName ?? "No scientific name"
+        resultCell.scientificNameLabel.text = plantResult.scientificName ?? ""
 
         resultCell.spinner.startAnimating()
         // image
@@ -271,10 +268,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
         let plantResult = plantSearchResults[indexPath.row]
         resultDelegate?.didSelectResult(searchResult: plantResult, image: plantResultCell?.plantImageView.image)
-        // if we DO want it to put common name selected into species field
-        if UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield) && plantResultCell?.commonNameLabel.text != "No common name"{
-            //speciesTextField.text = plantResultCell?.commonNameLabel.text
-        }
     }
 }
 

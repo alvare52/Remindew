@@ -181,10 +181,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-                
-        let selectedCell = tableView.cellForRow(at: indexPath) as? SettingsTableViewCell
-        print("Selected Cell = \(selectedCell?.settingLabel.text ?? "title")")
-        
+                        
         // Prevents visual bug when selecting setting body instead of switch button
         tableView.deselectRow(at: indexPath, animated: true)
                 
