@@ -63,19 +63,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     @objc func dismissSettingsPage() {
         dismiss(animated: true, completion: nil)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Update stats
-        UNUserNotificationCenter.checkPendingNotes { result in
-            DispatchQueue.main.async {
-                self.totalNotificationsCount = result
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
+
     // MARK: - Table View
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -87,10 +75,6 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 1:
             return NSLocalizedString("MAIN LABEL", comment: "main label section title")
         case 2:
-            return "SEARCHING"
-        case 3:
-            return "SEARCHES POWERED BY TREFLE"
-        case 4:
             return NSLocalizedString("DEFAULT PLANT IMAGE", comment: "default plant image section title")
         default:
             return ""
@@ -104,10 +88,6 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 1:
             return .mainLabelSectionLocalizedDescription
         case 2:
-            return "Clicking on a search result will replace plant type name with common name of selected result. Search by tapping \"search\" on keyboard when entering plant's type"
-        case 3:
-            return "Trefle aims to increase awareness and understanding of living plants by gathering, generating and sharing knowledge in an open, freely accessible and trusted digital resource."
-        case 4:
             return .defaultImageSectionLocalizedDescription
         default:
             return ""
@@ -115,7 +95,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -195,24 +175,8 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        // SEARCHING
-        if indexPath.section == 2 {
-            settingCell.settingLabel.text = "Replace Type with Search Result"
-            settingCell.optionSwitch.isHidden = false
-            settingCell.customSetting = .resultFillsSpeciesTextfield
-            settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield)
-            settingCell.settingLabel.textColor = .label
-        }
-        
-        // SEARCHES POWERED BY TREFLE
-        if indexPath.section == 3 {
-            settingCell.settingLabel.text = "Trefle API Home Page"
-            settingCell.settingLabel.textColor = .link
-            settingCell.optionSwitch.isHidden = true
-        }
-        
         // IMAGES PROVIDED BY RICHARD ALFONZO
-        if indexPath.section == 4 {
+        if indexPath.section == 2 {
             settingCell.settingLabel.text = NSLocalizedString("Richard Alfonzo Photography", comment: "default image source link")
             settingCell.settingLabel.textColor = .link
             settingCell.optionSwitch.isHidden = true
@@ -228,15 +192,9 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // Prevents visual bug when selecting setting body instead of switch button
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        // if Trefle API cell is selected, go to Trefle API home page
-        if indexPath.section == 3 {
-            guard let url = URL(string: "https://trefle.io/") else { return }
-            UIApplication.shared.open(url)
-        }
-        
+                
         // if Richard Alfonzo Photography cell is selected, go to Richard Alfonzo Photography home page
-        if indexPath.section == 4 {
+        if indexPath.section == 2 {
             guard let url = URL(string: "https://rnalfonzo.smugmug.com") else { return }
             UIApplication.shared.open(url)
         }
