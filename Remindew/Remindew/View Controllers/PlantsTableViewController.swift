@@ -24,9 +24,6 @@ class PlantsTableViewController: UITableViewController {
     // MARK: - Actions
     
     @IBAction func settingsBarButtonTapped(_ sender: UIBarButtonItem) {
-        // Bring up settings tab??? disconnect this maybe?
-        print("settingsBarButtonTapped")
-        plantController.printLastTokenAndDate()
         performSegue(withIdentifier: "ShowSettingsSegue", sender: self)
     }
     
