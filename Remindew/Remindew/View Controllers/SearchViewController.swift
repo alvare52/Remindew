@@ -205,7 +205,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return plantSearchResults.count//(plantController?.plantSearchResults.count)!
+        return plantSearchResults.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -220,10 +220,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let plantResult = plantSearchResults[indexPath.row]//plantController?.plantSearchResults[indexPath.row]
 
         // common name
-        resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? ""
+        resultCell.commonNameLabel.text = plantResult.commonName?.capitalized ?? "-"
 
         // scientific name
-        resultCell.scientificNameLabel.text = plantResult.scientificName ?? ""
+        resultCell.scientificNameLabel.text = plantResult.scientificName ?? "-"
 
         resultCell.spinner.startAnimating()
         // image
