@@ -239,9 +239,9 @@ class PlantsTableViewCell: UITableViewCell {
     
         // Time Label
         timeLabelTop = timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: standardMargin)
-        timeLabelWidth = timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.37)
+        timeLabelWidth = timeLabel.widthAnchor.constraint(equalToConstant: 116)
         timeLabelHeight = timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3)
-        timeLabelTrail = timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8)
+        timeLabelTrail = timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
         timeLabel.font = .boldSystemFont(ofSize: 23)
         timeLabel.textColor = .customTimeLabelColor
         
