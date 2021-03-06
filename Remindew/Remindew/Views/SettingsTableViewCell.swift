@@ -49,8 +49,6 @@ class SettingsTableViewCell: UITableViewCell {
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .usePlantImages)
             // Let main table view know to update table view
             NotificationCenter.default.post(name: .checkWateringStatus, object: self)
-            // NEW (change to its own setting later)
-            NotificationCenter.default.post(name: .updateImageSizes, object: self)
             
         case .usePlantColorOnLabel:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .usePlantColorOnLabel)
@@ -66,6 +64,11 @@ class SettingsTableViewCell: UITableViewCell {
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .sortPlantsBySpecies)
             // Let main table view know we changed the labels setting
             NotificationCenter.default.post(name: .updateSortDescriptors, object: self)
+            
+        case .useBiggerImages:
+            // Let PlantTableViewCells know to setup their subviews again
+            UserDefaults.standard.set(optionSwitch.isOn, forKey: .useBiggerImages)
+            NotificationCenter.default.post(name: .updateImageSizes, object: self)
             
         default:
             break

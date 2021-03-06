@@ -174,7 +174,7 @@ class PlantsTableViewCell: UITableViewCell {
     @objc func updateSubviews() {
         
         // Right View Elements
-        if UserDefaults.standard.bool(forKey: .usePlantImages) {
+        if UserDefaults.standard.bool(forKey: .useBiggerImages) {
             setupSubviewsBigImage()
         } else {
             setupSubviewsSmallImage()

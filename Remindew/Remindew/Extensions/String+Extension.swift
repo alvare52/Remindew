@@ -17,6 +17,8 @@ extension String {
     /// Get/Set value of last Date temporary token was set
     static let lastDateTokenGrabbed = "lastDateTokenGrabbed"
     
+    // MARK: - Settings Strings
+    
     /// Get/Set value of plant sorting by species
     static let sortPlantsBySpecies = "sortPlantsBySpecies"
     
@@ -34,6 +36,11 @@ extension String {
     
     /// Get/Set value of setting for hiding silenced plant icon
     static let hideSilencedIcon = "hideSilencedIcon"
+    
+    /// Get/Set value of setting for using bigger images in table view cell
+    static let useBiggerImages = "useBiggerImages"
+    
+    // MARK: - Helpers
     
     static let sunday = NSLocalizedString("Sun", comment: "Sunday abbreviated")
     static let monday = NSLocalizedString("Mon", comment: "Monday abbreviated")

@@ -52,6 +52,12 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                                                selector: #selector(dismissSettingsPage),
                                                name: .updateSortDescriptors,
                                                object: nil)
+        
+        // Listen for when we update the subviews of main table view cells to dismiss settings page
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dismissSettingsPage),
+                                               name: .updateImageSizes,
+                                               object: nil)
     }
     
     /// Dismiss Settings page when appearance setting is toggled to prevent spamming
@@ -105,7 +111,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         
         // Appearance
         if section == 0 {
-            return 3
+            return 4
         }
         
         // Main Label
@@ -152,6 +158,15 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                 settingCell.optionSwitch.isHidden = false
                 settingCell.customSetting = .hideSilencedIcon
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .hideSilencedIcon)
+                settingCell.settingLabel.textColor = .label
+            }
+            
+            // Plant Images
+            if indexPath.row == 3 {
+                settingCell.settingLabel.text = NSLocalizedString("Larger Images", comment: "bigger images setting")
+                settingCell.optionSwitch.isHidden = false
+                settingCell.customSetting = .useBiggerImages
+                settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .useBiggerImages)
                 settingCell.settingLabel.textColor = .label
             }
         }
