@@ -106,7 +106,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // BUG: swiping on cell that was just completed uses correct index path but needs to reload tableview first
     // Right swipe actions (last completed date)
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         

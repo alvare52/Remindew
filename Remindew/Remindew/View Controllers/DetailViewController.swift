@@ -67,8 +67,8 @@ class DetailViewController: UIViewController {
         return []
     }
     
-    /// Holds scientificName grabbed from plant species search
-    var fetchedScientificName = ""
+    /// Bool used to make sure we only apply gradient to imageView once
+    private var gradientAlreadyAppliedToImageView = false
     
     /// Loading indicator displayed while searching for a plant
     let spinner = UIActivityIndicatorView(style: .large)
@@ -153,6 +153,16 @@ class DetailViewController: UIViewController {
         
     // MARK: - View Life Cycle
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // only apply gradient once
+        if !gradientAlreadyAppliedToImageView {
+            UIImage.applyLowerPortionGradient(imageView: imageView)
+            gradientAlreadyAppliedToImageView = true
+        }
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -184,7 +194,7 @@ class DetailViewController: UIViewController {
         imageView.layer.masksToBounds = false
         imageView.layer.cornerRadius = 15
         imageView.clipsToBounds = true
-        UIImage.applyLowerPortionGradient(imageView: imageView)
+//        UIImage.applyLowerPortionGradient(imageView: imageView)
         
         dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
         // Lets button be disabled with a custom color
