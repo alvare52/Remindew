@@ -196,7 +196,7 @@ class PlantsTableViewCell: UITableViewCell {
         timeLabelHeight = timeLabel.heightAnchor.constraint(equalToConstant: 22.15)
         timeLabelTrail = timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
         timeLabel.font = .systemFont(ofSize: 17)
-        timeLabel.textColor = .systemGray2
+        timeLabel.textColor = .customTimeLabelColor
         
         // Plant Icon Button
         plantIconBottom = plantIconButton.bottomAnchor.constraint(equalTo: timeLabel.topAnchor)
