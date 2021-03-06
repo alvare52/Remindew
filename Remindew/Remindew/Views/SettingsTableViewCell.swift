@@ -49,6 +49,8 @@ class SettingsTableViewCell: UITableViewCell {
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .usePlantImages)
             // Let main table view know to update table view
             NotificationCenter.default.post(name: .checkWateringStatus, object: self)
+            // NEW (change to its own setting later)
+            NotificationCenter.default.post(name: .updateImageSizes, object: self)
             
         case .usePlantColorOnLabel:
             UserDefaults.standard.set(optionSwitch.isOn, forKey: .usePlantColorOnLabel)

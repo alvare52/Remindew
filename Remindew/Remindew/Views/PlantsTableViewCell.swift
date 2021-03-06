@@ -18,6 +18,7 @@ class PlantsTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .customCellColor
         view.layer.cornerRadius = 15
+//        view.backgroundColor = .orange
         return view
     }()
     
@@ -29,6 +30,7 @@ class PlantsTableViewCell: UITableViewCell {
         label.textColor = .customTimeLabelColor
         label.textAlignment = .center
         label.numberOfLines = 1
+//        label.backgroundColor = .blue
         return label
     }()
     
@@ -37,6 +39,7 @@ class PlantsTableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
+//        button.backgroundColor = .systemGray3
         return button
     }()
     
@@ -50,6 +53,7 @@ class PlantsTableViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.isUserInteractionEnabled = false
+//        imageView.backgroundColor = .red
         return imageView
     }()
     
@@ -58,6 +62,7 @@ class PlantsTableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
+//        button.backgroundColor = .orange
         return button
     }()
     
@@ -68,6 +73,7 @@ class PlantsTableViewCell: UITableViewCell {
         button.isUserInteractionEnabled = false
         button.setImage(UIImage(systemName: "moon.fill"), for: .normal)
         button.tintColor = .systemGray3
+//        button.backgroundColor = .purple
         return button
     }()
     
@@ -77,6 +83,7 @@ class PlantsTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .boldSystemFont(ofSize: 25)
         label.numberOfLines = 1
+//        label.backgroundColor = .green
         return label
     }()
         
@@ -87,6 +94,7 @@ class PlantsTableViewCell: UITableViewCell {
         label.textColor = .customTimeLabelColor
         label.font = .systemFont(ofSize: 17.0)
         label.numberOfLines = 1
+//        label.backgroundColor = .systemPink
         return label
     }()
     
@@ -97,6 +105,7 @@ class PlantsTableViewCell: UITableViewCell {
         label.font = .italicSystemFont(ofSize: 17)
         label.textColor = .systemGray2
         label.numberOfLines = 1
+//        label.backgroundColor = .systemIndigo
         return label
     }()
     
@@ -110,15 +119,50 @@ class PlantsTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: Constraints
+    
+    var timeLabelTop: NSLayoutConstraint?
+    var timeLabelWidth: NSLayoutConstraint?
+    var timeLabelHeight: NSLayoutConstraint?
+    var timeLabelTrail: NSLayoutConstraint?
+    var timeLabelBottom: NSLayoutConstraint?
+
+    var plantIconTop: NSLayoutConstraint?
+    var plantIconBottom: NSLayoutConstraint?
+    var plantIconWidth: NSLayoutConstraint?
+    var plantIconCenterX: NSLayoutConstraint?
+
+    var reminderLead: NSLayoutConstraint?
+    var reminderCenterY: NSLayoutConstraint?
+    var reminderWidth: NSLayoutConstraint?
+    var reminderHeight: NSLayoutConstraint?
+    var reminderTop: NSLayoutConstraint?
+    
+    var silencedTrail: NSLayoutConstraint?
+    var silencedCenterY: NSLayoutConstraint?
+    var silencedWidth: NSLayoutConstraint?
+    var silencedHeight: NSLayoutConstraint?
+    
+    var plantImageHeight: NSLayoutConstraint?
+    var plantImageWidth: NSLayoutConstraint?
+    var plantImageCenterX: NSLayoutConstraint?
+    var plantImageCenterY: NSLayoutConstraint?
+
     // MARK: - View Life Cycle
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setUpSubviews()
-    }
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        print("init coder PTVC")
+//        setUpSubviews()
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        print("init Nib")
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateSubviews),
+                                               name: .updateImageSizes,
+                                               object: nil)
         setUpSubviews()
     }
     
@@ -126,8 +170,134 @@ class PlantsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    /// Sets up all custom views
+    /// Called when receiving notification that bigger/smaller image setting toggled
+    @objc func updateSubviews() {
+        
+        // Right View Elements
+        if UserDefaults.standard.bool(forKey: .usePlantImages) {
+            setupSubviewsBigImage()
+        } else {
+            setupSubviewsSmallImage()
+        }
+    }
+    
+    /// Deactivates constraints for timeLabel, userPlantImageView, plantIconButton, reminderButton, and silencedButton
+    func deactivateRightViewContraints() {
+                        
+        // exit out if this is called for the first time
+        guard timeLabelWidth != nil else { return }
+        
+        NSLayoutConstraint.deactivate([timeLabelWidth!, timeLabelHeight!, timeLabelTrail!,
+                                     plantIconTop!, plantIconBottom!, plantIconWidth!, plantIconCenterX!,
+                                     reminderLead!, reminderWidth!, reminderHeight!,
+                                     silencedTrail!, silencedCenterY!, silencedWidth!, silencedHeight!,
+                                     plantImageHeight!, plantImageWidth!, plantImageCenterX!, plantImageCenterY!])
+        
+        // These are the only ones that might be nil since they're not shared
+        timeLabelTop?.isActive = false
+        timeLabelBottom?.isActive = false
+        reminderTop?.isActive = false
+        reminderCenterY?.isActive = false
+    }
+    
+    /// Sets up cell to display a bigger image and smaller time label
+    func setupSubviewsBigImage() {
+        print("setupSubviewsBigImage")
+        // Deactivate ALL relevant constraints first
+        deactivateRightViewContraints()
+        
+        // Time Label
+        timeLabelBottom = timeLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -standardMargin)
+        timeLabelWidth = timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.33)
+        timeLabelHeight = timeLabel.heightAnchor.constraint(equalToConstant: 22.15)
+        timeLabelTrail = timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        timeLabel.font = .systemFont(ofSize: 14)
+        
+        // Plant Icon Button
+        plantIconBottom = plantIconButton.bottomAnchor.constraint(equalTo: timeLabel.topAnchor)
+        plantIconTop = plantIconButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: standardMargin)
+        plantIconWidth = plantIconButton.widthAnchor.constraint(equalTo: plantIconButton.heightAnchor)
+        plantIconCenterX = plantIconButton.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor)
+        
+        // Plant Image View
+        plantImageHeight = userPlantImageView.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.9)
+        plantImageWidth = userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor)
+        plantImageCenterX = userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor)
+        plantImageCenterY = userPlantImageView.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor)
+        userPlantImageView.layer.cornerRadius = 24.6825
+        
+        // Reminder Button
+        reminderLead = reminderButton.leadingAnchor.constraint(equalTo: plantIconButton.trailingAnchor, constant: -6)
+        reminderTop = reminderButton.topAnchor.constraint(equalTo: plantIconButton.topAnchor, constant: 2)
+        reminderWidth = reminderButton.widthAnchor.constraint(equalToConstant: 14.619)
+        reminderHeight = reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor)
+        
+        // Silenced Button
+        silencedTrail = silencedButton.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor, constant: 16)
+        silencedCenterY = silencedButton.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor)
+        silencedWidth = silencedButton.widthAnchor.constraint(equalToConstant: 11.075)
+        silencedHeight = silencedButton.heightAnchor.constraint(equalTo: silencedButton.widthAnchor)
+            
+        // Activate Constraints
+        NSLayoutConstraint.activate([timeLabelBottom!, timeLabelWidth!, timeLabelHeight!, timeLabelTrail!,
+                                     plantIconBottom!, plantIconTop!, plantIconWidth!, plantIconCenterX!,
+                                     plantImageHeight!, plantImageWidth!, plantImageCenterX!, plantImageCenterY!,
+                                     reminderLead!, reminderTop!, reminderWidth!, reminderHeight!,
+                                     silencedTrail!, silencedCenterY!, silencedWidth!, silencedHeight!])
+    }
+    
+    /// Sets up cell to display a bigger time label and smaller image
+    func setupSubviewsSmallImage() {
+        print("setupSubviewsSmallImage")
+        
+        // Deactivate ALL relevant constraints first
+        deactivateRightViewContraints()
+    
+        // Time Label
+        timeLabelTop = timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: standardMargin)
+        timeLabelWidth = timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.37)
+        timeLabelHeight = timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3)
+        timeLabelTrail = timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8)
+        timeLabel.font = .boldSystemFont(ofSize: 23)
+        
+        // Plant Icon
+        plantIconTop = plantIconButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor)
+        plantIconBottom = plantIconButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16)
+        plantIconWidth = plantIconButton.widthAnchor.constraint(equalTo: plantIconButton.heightAnchor)
+        plantIconCenterX = plantIconButton.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor)
+        
+        // Reminder Button
+        reminderLead = reminderButton.leadingAnchor.constraint(equalTo: plantIconButton.trailingAnchor, constant: 8)
+        reminderCenterY = reminderButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor)
+        reminderWidth = reminderButton.widthAnchor.constraint(equalToConstant: 14.619)
+        reminderHeight = reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor)
+        
+        // Silenced Button
+        silencedTrail = silencedButton.trailingAnchor.constraint(equalTo: plantIconButton.leadingAnchor, constant: -8)
+        silencedCenterY = silencedButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor)
+        silencedWidth = silencedButton.widthAnchor.constraint(equalToConstant: 14.619)
+        silencedHeight = silencedButton.heightAnchor.constraint(equalTo: silencedButton.widthAnchor)
+                
+        // User Plant Image View (round plant image)
+        plantImageHeight = userPlantImageView.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.9)
+        plantImageWidth = userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor)
+        plantImageCenterX = userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor)
+        plantImageCenterY = userPlantImageView.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor)
+        userPlantImageView.layer.cornerRadius = 20
+        
+        // Activate Constraints
+        NSLayoutConstraint.activate([timeLabelTop!, timeLabelWidth!, timeLabelHeight!, timeLabelTrail!,
+                                     plantIconTop!, plantIconBottom!, plantIconWidth!, plantIconCenterX!,
+                                     reminderLead!, reminderCenterY!, reminderWidth!, reminderHeight!,
+                                     silencedTrail!, silencedCenterY!, silencedWidth!, silencedHeight!,
+                                     plantImageHeight!, plantImageWidth!, plantImageCenterX!, plantImageCenterY!])
+
+    }
+    
+    /// Sets up all custom views (big time label version)
     private func setUpSubviews() {
+        
+        print("setUpSubviews in PlantsTableViewCell")
         
         contentView.backgroundColor = .customBackgroundColor
         
@@ -138,61 +308,36 @@ class PlantsTableViewCell: UITableViewCell {
         containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: CGFloat(-20.0)).isActive = true
         containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: CGFloat(-8.0)).isActive = true
         
-        // Time Label
-        containerView.addSubview(timeLabel)
-        timeLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: standardMargin).isActive = true
-        timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.37).isActive = true
-        timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
-        timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: CGFloat(-8.0)).isActive = true
-        
         // Nickname Label
         containerView.addSubview(nicknameLabel)
-        nicknameLabel.topAnchor.constraint(equalTo: timeLabel.topAnchor).isActive = true
+        nicknameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: standardMargin).isActive = true
         nicknameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: standardMargin).isActive = true
-        nicknameLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor).isActive = true
+        nicknameLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
         nicknameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3).isActive = true
-        
-        // Plant Icon
-        containerView.addSubview(plantIconButton)
-        plantIconButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor).isActive = true
-        plantIconButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16).isActive = true
-        plantIconButton.widthAnchor.constraint(equalTo: plantIconButton.heightAnchor).isActive = true
-        plantIconButton.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
-        
-        // Reminder Button
-        containerView.addSubview(reminderButton)
-        reminderButton.leadingAnchor.constraint(equalTo: plantIconButton.trailingAnchor, constant: 8).isActive = true
-        reminderButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
-        reminderButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
-        reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor).isActive = true
-        
-        // Silenced Button
-        containerView.addSubview(silencedButton)
-        silencedButton.trailingAnchor.constraint(equalTo: plantIconButton.leadingAnchor, constant: -8).isActive = true
-        silencedButton.centerYAnchor.constraint(equalTo: plantIconButton.centerYAnchor).isActive = true
-        silencedButton.widthAnchor.constraint(equalTo: plantIconButton.widthAnchor, multiplier: 0.33).isActive = true
-        silencedButton.heightAnchor.constraint(equalTo: silencedButton.widthAnchor).isActive = true
         
         // Species Label
         containerView.addSubview(speciesLabel)
         speciesLabel.topAnchor.constraint(equalTo: nicknameLabel.bottomAnchor).isActive = true
         speciesLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
         speciesLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
-        speciesLabel.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.5).isActive = true
-        
-        // User Plant Image View (round plant image)
-        containerView.addSubview(userPlantImageView)
-        userPlantImageView.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.9).isActive = true
-        userPlantImageView.widthAnchor.constraint(equalTo: userPlantImageView.heightAnchor).isActive = true
-        userPlantImageView.centerXAnchor.constraint(equalTo: timeLabel.centerXAnchor).isActive = true
-        userPlantImageView.centerYAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
+        speciesLabel.heightAnchor.constraint(equalToConstant: 22.15).isActive = true
         
         // Days Label
         containerView.addSubview(daysLabel)
         daysLabel.topAnchor.constraint(equalTo: speciesLabel.bottomAnchor).isActive = true
         daysLabel.leadingAnchor.constraint(equalTo: nicknameLabel.leadingAnchor).isActive = true
         daysLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6).isActive = true
-        daysLabel.heightAnchor.constraint(equalTo: plantIconButton.heightAnchor, multiplier: 0.5).isActive = true
+        daysLabel.heightAnchor.constraint(equalToConstant: 22.15).isActive = true
+                
+        // Add subviews with variable constraints only once
+        containerView.addSubview(timeLabel)
+        containerView.addSubview(plantIconButton)
+        containerView.addSubview(reminderButton)
+        containerView.addSubview(silencedButton)
+        containerView.addSubview(userPlantImageView)
+        
+        // Right View elements
+        updateSubviews()
     }
     
     /// Sets the cells views when it is passed in a plant
