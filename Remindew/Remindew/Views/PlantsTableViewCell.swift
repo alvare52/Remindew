@@ -18,7 +18,6 @@ class PlantsTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .customCellColor
         view.layer.cornerRadius = 15
-//        view.backgroundColor = .orange
         return view
     }()
     
@@ -30,7 +29,6 @@ class PlantsTableViewCell: UITableViewCell {
         label.textColor = .customTimeLabelColor
         label.textAlignment = .center
         label.numberOfLines = 1
-//        label.backgroundColor = .blue
         return label
     }()
     
@@ -39,7 +37,6 @@ class PlantsTableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
-//        button.backgroundColor = .systemGray3
         return button
     }()
     
@@ -53,7 +50,6 @@ class PlantsTableViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.isUserInteractionEnabled = false
-//        imageView.backgroundColor = .red
         return imageView
     }()
     
@@ -62,7 +58,6 @@ class PlantsTableViewCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
-//        button.backgroundColor = .orange
         return button
     }()
     
@@ -73,7 +68,6 @@ class PlantsTableViewCell: UITableViewCell {
         button.isUserInteractionEnabled = false
         button.setImage(UIImage(systemName: "moon.fill"), for: .normal)
         button.tintColor = .systemGray3
-//        button.backgroundColor = .purple
         return button
     }()
     
@@ -83,7 +77,6 @@ class PlantsTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .boldSystemFont(ofSize: 25)
         label.numberOfLines = 1
-//        label.backgroundColor = .green
         return label
     }()
         
@@ -94,7 +87,6 @@ class PlantsTableViewCell: UITableViewCell {
         label.textColor = .customTimeLabelColor
         label.font = .systemFont(ofSize: 17.0)
         label.numberOfLines = 1
-//        label.backgroundColor = .systemPink
         return label
     }()
     
@@ -105,7 +97,6 @@ class PlantsTableViewCell: UITableViewCell {
         label.font = .italicSystemFont(ofSize: 17)
         label.textColor = .systemGray2
         label.numberOfLines = 1
-//        label.backgroundColor = .systemIndigo
         return label
     }()
     
@@ -150,15 +141,8 @@ class PlantsTableViewCell: UITableViewCell {
 
     // MARK: - View Life Cycle
     
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        print("init coder PTVC")
-//        setUpSubviews()
-//    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("init Nib")
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSubviews),
                                                name: .updateImageSizes,
@@ -202,16 +186,17 @@ class PlantsTableViewCell: UITableViewCell {
     
     /// Sets up cell to display a bigger image and smaller time label
     func setupSubviewsBigImage() {
-        print("setupSubviewsBigImage")
+        
         // Deactivate ALL relevant constraints first
         deactivateRightViewContraints()
         
         // Time Label
         timeLabelBottom = timeLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -standardMargin)
-        timeLabelWidth = timeLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.33)
+        timeLabelWidth = timeLabel.widthAnchor.constraint(equalToConstant: 90)
         timeLabelHeight = timeLabel.heightAnchor.constraint(equalToConstant: 22.15)
-        timeLabelTrail = timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
-        timeLabel.font = .systemFont(ofSize: 14)
+        timeLabelTrail = timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+        timeLabel.font = .systemFont(ofSize: 17)
+        timeLabel.textColor = .systemGray2
         
         // Plant Icon Button
         plantIconBottom = plantIconButton.bottomAnchor.constraint(equalTo: timeLabel.topAnchor)
@@ -233,7 +218,7 @@ class PlantsTableViewCell: UITableViewCell {
         reminderHeight = reminderButton.heightAnchor.constraint(equalTo: reminderButton.widthAnchor)
         
         // Silenced Button
-        silencedTrail = silencedButton.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor, constant: 16)
+        silencedTrail = silencedButton.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor)
         silencedCenterY = silencedButton.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor)
         silencedWidth = silencedButton.widthAnchor.constraint(equalToConstant: 11.075)
         silencedHeight = silencedButton.heightAnchor.constraint(equalTo: silencedButton.widthAnchor)
@@ -248,7 +233,6 @@ class PlantsTableViewCell: UITableViewCell {
     
     /// Sets up cell to display a bigger time label and smaller image
     func setupSubviewsSmallImage() {
-        print("setupSubviewsSmallImage")
         
         // Deactivate ALL relevant constraints first
         deactivateRightViewContraints()
@@ -259,6 +243,7 @@ class PlantsTableViewCell: UITableViewCell {
         timeLabelHeight = timeLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.3)
         timeLabelTrail = timeLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8)
         timeLabel.font = .boldSystemFont(ofSize: 23)
+        timeLabel.textColor = .customTimeLabelColor
         
         // Plant Icon
         plantIconTop = plantIconButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor)
@@ -296,9 +281,7 @@ class PlantsTableViewCell: UITableViewCell {
     
     /// Sets up all custom views (big time label version)
     private func setUpSubviews() {
-        
-        print("setUpSubviews in PlantsTableViewCell")
-        
+                
         contentView.backgroundColor = .customBackgroundColor
         
         // Container View
