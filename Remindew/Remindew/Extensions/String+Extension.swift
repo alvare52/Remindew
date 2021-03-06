@@ -11,13 +11,13 @@ import UIKit
 
 extension String {
     
+    // MARK: - User Default Keys
+    
     /// Get/Set value of last temporary token for API
     static let lastTempToken = "lastTempToken"
     
     /// Get/Set value of last Date temporary token was set
     static let lastDateTokenGrabbed = "lastDateTokenGrabbed"
-    
-    // MARK: - Settings Strings
     
     /// Get/Set value of plant sorting by species
     static let sortPlantsBySpecies = "sortPlantsBySpecies"
@@ -126,5 +126,15 @@ extension String {
     /// Default Message for Plant's main action notification. Ex: "\(Name) needs \(action)." Localized
     static func defaultMessageString(name: String, action: String) -> String {
         return "\(name.capitalized)" + NSLocalizedString(" needs ", comment: "") + "\(action.lowercased())."
+    }
+    
+    /// Returns Localized String for title of Water All Plants alert including the number of plants that need water
+    static func returnWaterAllPlantsLocalizedString(count: Int) -> String {
+        
+        let water = NSLocalizedString("Water", comment: "water")
+        let plants = NSLocalizedString("Plants", comment: "plants")
+        let plant = NSLocalizedString("Plant", comment: "plant")
+        
+        return count == 1 ? water + " \(count) " + plant : water + " \(count) " + plants
     }
 }

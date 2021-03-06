@@ -21,10 +21,20 @@ class PlantsTableViewController: UITableViewController {
     
     @IBOutlet var dateLabel: UIBarButtonItem!
     
+    @IBOutlet var completeAllLabel: UIBarButtonItem!
+    
     // MARK: - Actions
     
     @IBAction func settingsBarButtonTapped(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "ShowSettingsSegue", sender: self)
+    }
+    
+    /// Tapped on Checkmark icon to water all plants that currently need water
+    @IBAction func completeAllTapped(_ sender: UIBarButtonItem) {
+        
+        if plantsThatCurrentlyNeedWater > 0 {
+            waterAllAlert()
+        }
     }
     
     @IBAction func addPlantButtonTapped(_ sender: UIBarButtonItem) {
@@ -75,17 +85,27 @@ class PlantsTableViewController: UITableViewController {
     }()
     
     let plantController = PlantController()
+    
     let calendar = Calendar.current
+    
     private var observer: NSObjectProtocol?
+    
     let refreshWheel = UIRefreshControl()
     
+    /// Number of plants that need water only. didSet updates completeAllLabel by toggling its tint color
+    var plantsThatCurrentlyNeedWater = 0 {
+        didSet {
+            completeAllLabel.tintColor = plantsThatCurrentlyNeedWater > 0 ? .mixedBlueGreen : .clear
+        }
+    }
+    
     /// Number of plants that need water or reminder completion. didSet updates title and badge count
-    var plantsThatNeedWaterCount = 0 {
+    var plantsThatNeedAttentionCount = 0 {
         didSet {
             // update title after all plant watering statuses have been checked
-            title = plantsThatNeedWaterCount > 0 ? "Remindew - (\(plantsThatNeedWaterCount))" : "Remindew"
+            title = plantsThatNeedAttentionCount > 0 ? "Remindew - \(plantsThatNeedAttentionCount)" : "Remindew"
             // update badge here?
-            UIApplication.shared.applicationIconBadgeNumber = plantsThatNeedWaterCount
+            UIApplication.shared.applicationIconBadgeNumber = plantsThatNeedAttentionCount
         }
     }
     
@@ -201,8 +221,9 @@ class PlantsTableViewController: UITableViewController {
     /// Goes through all plants and checks if they need watering today. Also updates title based on how many need water or reminder completion
     @objc private func checkIfPlantsNeedWatering() {
         
-        // for tallying up all plants that need watering
-        var count = 0
+        // for tallying up all plants that need watering or attention
+        var attentionCount = 0
+        var waterOnlyCount = 0
         
         // get current weekday from calendar first
         let currentDayComps = calendar.dateComponents([.day, .weekday], from: Date())
@@ -213,18 +234,17 @@ class PlantsTableViewController: UITableViewController {
             
             // count all plants that need watering or reminder attention for title display
             if plantController.plantRemindersNeedAttention(plant: plant) || plant.needsWatering {
-                count += 1
+                attentionCount += 1
+                if plant.needsWatering {
+                    waterOnlyCount += 1
+                }
             }
             
             // 1. Ignore plants that already need watering
-            guard !plant.needsWatering else {
-                continue
-            }
+            guard !plant.needsWatering else { continue }
             
             // 2. Ignore plants that don't need watering on this weekday
-            guard plant.frequency!.firstIndex(of: currentWeekday) != nil else {
-                continue
-            }
+            guard plant.frequency!.firstIndex(of: currentWeekday) != nil else { continue }
             
             var lastDay = 0
             if let lastWatered = plant.lastDateWatered {
@@ -236,9 +256,7 @@ class PlantsTableViewController: UITableViewController {
             }
             
             // 3. Ignore plants that were already watered today (use wasWateredToday eventually?)
-            guard lastDay != currentDay else {
-                continue
-            }
+            guard lastDay != currentDay else { continue }
                         
             // Used to make a Date out of the plant's given hour and minute with currentWeekday since it's in plant.frequency
             let plantComps = calendar.dateComponents([.hour, .minute], from: plant.water_schedule!)
@@ -252,12 +270,14 @@ class PlantsTableViewController: UITableViewController {
             if dateThatNeedsWatering <= Date() {
                 // needsWatering goes from FALSE to TRUE (don't update lastDateWatered)
                 plantController.updatePlantWithWatering(plant: plant, needsWatering: true)
-                count += 1
+                attentionCount += 1
+                waterOnlyCount += 1
             }
         }
         
-        // update counter
-        plantsThatNeedWaterCount = count
+        // update counters
+        plantsThatNeedAttentionCount = attentionCount
+        plantsThatCurrentlyNeedWater = waterOnlyCount
         
         // update date label since it needs to be updated at least once a day to display correct date
         dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
@@ -267,6 +287,49 @@ class PlantsTableViewController: UITableViewController {
         
         // stop refresh animation (starts refreshing when its called)
         refreshWheel.endRefreshing()
+    }
+    
+    /// Presents an alert to make sure user want's to water all plants that currently need water
+    private func waterAllAlert() {
+        
+        let title = String.returnWaterAllPlantsLocalizedString(count: plantsThatCurrentlyNeedWater)
+        let message = NSLocalizedString("Would you like to water all plants that currently need water?", comment: "water all message")
+        let alertController = UIAlertController(title: title,
+                                                message: message,
+                                                preferredStyle: .alert)
+                
+        // Cancel
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel Alert"), style: .default)
+        
+        // Water
+        let waterAction = UIAlertAction(title: NSLocalizedString("Water", comment: "Ok water all plants"), style: .default) { _ in
+            self.waterAllPlants()
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(waterAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Waters all plants that currently need water, then "disables" completeAllLabel
+    func waterAllPlants() {
+        
+        // water all plants logic
+        for plant in fetchedResultsController.fetchedObjects! {
+            if plant.needsWatering {
+                
+                // Water plant
+                plantController.updatePlantWithWatering(plant: plant, needsWatering: false)
+                
+                // update count only if plant doesn't have other reminders
+                if !plantController.plantRemindersNeedAttention(plant: plant) {
+                    plantsThatNeedAttentionCount -= 1
+                }
+            }
+        }
+        
+        // Update count and completeAllLabel
+        plantsThatCurrentlyNeedWater = 0
     }
     
     // MARK: - Table view data source
@@ -313,10 +376,10 @@ class PlantsTableViewController: UITableViewController {
         let completeTask = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
             if plant.needsWatering {
                 self.plantController.updatePlantWithWatering(plant: plant, needsWatering: false)
-                
+                self.plantsThatCurrentlyNeedWater -= 1
                 // update count only if plant doesn't have other reminders
                 if !self.plantController.plantRemindersNeedAttention(plant: plant) {
-                    self.plantsThatNeedWaterCount -= 1
+                    self.plantsThatNeedAttentionCount -= 1
                 }
             }
             UIImpactFeedbackGenerator(style: .light).impactOccurred()

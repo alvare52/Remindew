@@ -38,10 +38,8 @@
 // MARK: - E
 "Every" = "Cada";
 "Every day" = "Cada día";
-
 // MARK: - F
 "Fri" = "Vie";
-
 // MARK: - G
 
 // MARK: - H
@@ -68,7 +66,6 @@
 "Missing Plant Type" = "No Tipo de Planta";
 "Missing Watering Days" = "No Días de Riego";
 "Mon" = "Lun";
-
 // MARK: - N
 " needs " = " necesita ";
 "needs water." = "necesita aqua.";
@@ -94,7 +91,6 @@
 "Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges." = "Por favor permita notificaciones llendo a Configuración y permitiendo Notificaciones, Tiras, Sonidos, y Globos";
 "Please enter a custom nickname for your plant or select a random nickname" = "Por favor escriba un sobrenombre para su planta o seleccione uno al azar";
 "Please enter a nickname for your plant" = "Por favor escriba un sobrenombre para su planta";
-
 "Please enter a species for your plant.\nExample: \"Peace Lily\"" = "Por favor escriba la especie de su planta.\nEjemplo: \"Rosa\"";
 "Please enter a valid species name" = "Por favor escriba una especie válida";
 "Please enter the type of plant you have." = "Por favor escriba el tipo de su planta";
@@ -125,7 +121,6 @@
 "Sorry, you've reached the limit of how many plants you can make." = "A alcanzado el límite de plantas que se pueden crear.";
 "Species example: \"Rose\"\nPress \"search\" to search" = "Ejemplo de especie: \"Rosa\"\nPressione \"buscar\" para buscar";
 "Sun" = "Dom";
-
 // MARK: - T
 "Take a Photo" = "Toma una foto";
 "  Take Photo" = "  Toma Foto";
@@ -152,7 +147,7 @@
 "Water Plant" = "Riega Planta";
 "Wed" = "Mié";
 "Would you like to delete " = "Esta seguro de borrar ";
-
+"Would you like to water all plants that currently need water?" = "Le gustaría regar todas sus plantas que necesitan agua?";
 // MARK: - X
 
 // MARK: - Y
