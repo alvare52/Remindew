@@ -313,8 +313,7 @@ class AppearanceViewController: UIViewController {
             // we don't have permission to save to library. Also needs to ask permission again
             makeLibraryAddUsagePermissionAlert()
         } else {
-            // TODO: needs localized string
-            let ac = UIAlertController(title: "Photo Saved", message: "", preferredStyle: .alert)
+            let ac = UIAlertController(title: NSLocalizedString("Photo Saved", comment: "image saved"), message: "", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         }
