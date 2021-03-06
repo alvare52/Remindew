@@ -33,6 +33,7 @@ class PlantsTableViewController: UITableViewController {
     @IBAction func completeAllTapped(_ sender: UIBarButtonItem) {
         
         if plantsThatCurrentlyNeedWater > 0 {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
             waterAllAlert()
         }
     }
@@ -80,7 +81,7 @@ class PlantsTableViewController: UITableViewController {
                                              sectionNameKeyPath: "location",
                                              cacheName: nil)
         frc.delegate = self
-        try! frc.performFetch() // do it and crash if you have to
+        try! frc.performFetch()
         return frc
     }()
     
@@ -104,7 +105,7 @@ class PlantsTableViewController: UITableViewController {
         didSet {
             // update title after all plant watering statuses have been checked
             title = plantsThatNeedAttentionCount > 0 ? "Remindew - \(plantsThatNeedAttentionCount)" : "Remindew"
-            // update badge here?
+            // update badge here
             UIApplication.shared.applicationIconBadgeNumber = plantsThatNeedAttentionCount
         }
     }
@@ -303,6 +304,7 @@ class PlantsTableViewController: UITableViewController {
         
         // Water
         let waterAction = UIAlertAction(title: NSLocalizedString("Water", comment: "Ok water all plants"), style: .default) { _ in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
             self.waterAllPlants()
         }
         
