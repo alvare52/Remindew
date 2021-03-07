@@ -124,7 +124,7 @@ class AppearanceViewController: UIViewController {
     
     var plantController: PlantController?
     
-    /// Initialize here to prevent lag when presenting for first time
+    /// Initialize here to prevent lag when presenting it for first time
     var imagePicker: UIImagePickerController!
     
     /// Holds plant that will be passed in and displayed
@@ -134,6 +134,7 @@ class AppearanceViewController: UIViewController {
         }
     }
     
+    /// Holds plant image that's passed in from DetailViewController
     var mainImage: UIImage? {
         didSet {
             updateViews()
@@ -156,9 +157,9 @@ class AppearanceViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePicker = UIImagePickerController()
         setupSubViews()
         updateViews()
+        imagePicker = UIImagePickerController()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
