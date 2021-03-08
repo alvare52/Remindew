@@ -75,7 +75,6 @@ extension UIImage {
         if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed old image")
                 // remove from savedUserPlantImages
                 savedUserPlantImages.removeValue(forKey: imageName)
             } catch let removeError {
@@ -86,7 +85,6 @@ extension UIImage {
 
         do {
             try data.write(to: fileURL)
-            print("Success saving image")
             // add to cache of user's saved images for fast loading in main tableview
             savedUserPlantImages[imageName] = image
         } catch let error {
@@ -131,7 +129,6 @@ extension UIImage {
         if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed old image")
                 // remove from savedUserPlantImages
                 savedUserPlantImages.removeValue(forKey: imageName)
             } catch let removeError {

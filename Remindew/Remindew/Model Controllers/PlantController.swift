@@ -415,9 +415,7 @@ class PlantController {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             switch granted {
             case true:
-                print("PERMISSION GRANTED")
                 DispatchQueue.main.async {
-                    print("ASYNC: Attempting to add all requests")
                     self.makeAllRequestsForPlant(plant: plant)
                 }
             case false:
@@ -441,9 +439,7 @@ class PlantController {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             switch granted {
             case true:
-                print("PERMISSION GRANTED")
                 DispatchQueue.main.async {
-                    print("ASYNC: Attempting to add all requests")
                     self.makeReminderNotificationForPlant(reminder: reminder, plant: plant)
                 }
             case false:
