@@ -112,6 +112,9 @@ extension String {
     /// Localized String for Water/Agua. Main action default
     static let waterLocalizedString = NSLocalizedString("Water", comment: "water, default main action")
     
+    /// Localized String for water/agua (noun).
+    static let waterNounLocalizedString = NSLocalizedString("water", comment: "water, as a noun")
+    
     /// Localized String for Plant/Planta
     static let plantLocalizedString = NSLocalizedString("Plant", comment: "plant")
     

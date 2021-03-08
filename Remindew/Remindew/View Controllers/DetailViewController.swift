@@ -82,6 +82,7 @@ class DetailViewController: UIViewController {
             notepadVC.plantController = plantController
             notepadVC.plant = plant
             notepadVC.notepadDelegate = self
+            notepadVC.passedInNickname = nicknameTextField.text
             present(notepadVC, animated: true, completion: nil)
         }
     }
@@ -357,6 +358,8 @@ class DetailViewController: UIViewController {
         if let existingPlant = plant {
                 
             var emptyNotepad = NotePad()
+            emptyNotepad.mainTitle = String.defaultTitleString()
+            emptyNotepad.mainMessage = String.defaultMessageString(name: nickname.capitalized, action: .waterNounLocalizedString)
             if let fullNotepad = notePad {
                 emptyNotepad = fullNotepad
             }
@@ -392,6 +395,8 @@ class DetailViewController: UIViewController {
         else {
             
             var emptyNotepad = NotePad(scientificName: plantSearchResult?.scientificName ?? "")
+            emptyNotepad.mainTitle = String.defaultTitleString()
+            emptyNotepad.mainMessage = String.defaultMessageString(name: nickname.capitalized, action: .waterNounLocalizedString)
             if let fullNotepad = notePad {
                 emptyNotepad = fullNotepad
             }

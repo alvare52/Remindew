@@ -93,52 +93,49 @@ class NotepadViewController: UIViewController {
         }
     }
     
+    /// Holds in nicknameTextfield.text, if it contains something
+    var passedInNickname: String?
+    
     /// Standard padding for left and right sides (20pts)
     let standardMargin: CGFloat = 20.0
     
-    /// Updates all views when plant is passed in
-    private func updateViews() {
-        
-        guard isViewLoaded else { return }
-        
-        // EDIT/DETAIL Mode
-        if let plant = plant {
-            plantDetailsView.scientificNameTextfield.text = plant.scientificName
-            notificationView.reminderTitleTextfield.text = plant.mainTitle
-            notificationView.reminderMessageTextfield.text = plant.mainMessage
-            plantDetailsView.actionTextfield.text = plant.mainAction
-            plantDetailsView.locationTextfield.text = plant.location
-            lastDateLabel.textColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
-            plantDetailsView.actionTextfield.tintColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
-            plantDetailsView.actionTextfield.textColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
-            notesTextView.text = plant.notes
-            if let lastDate = plant.lastDateWatered {
-                lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(DateFormatter.lastWateredDateFormatter.string(from: lastDate))"
-            } else {
-                lastDateLabel.text = NSLocalizedString("Brand New Plant", comment: "plant that hasn't been watered yet")
-            }
-        }
-        
-        // ADD Mode
-        else {
-            plantDetailsView.actionTextfield.text = NSLocalizedString("Water", comment: "water, default main action")
-            // TODO: use passed in notepad here?
-        }
-    }
+    // MARK: - Actions
     
     /// Saves contents and dismisses view controller
     @objc func saveButtonTapped() {
         
         let locationString = plantDetailsView.locationTextfield.text?.capitalized.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
+        var title = String.defaultTitleString()
+        if let customTitle = notificationView.reminderTitleTextfield.text, notificationView.reminderTitleTextfield.text != "" {
+            print("customTitle = \(customTitle)")
+            title = customTitle
+        }
+    
         var action = plantDetailsView.actionTextfield.text ?? .waterLocalizedString
         action = action == "" ? .waterLocalizedString : action
         
-        let name = plant == nil ? .defaultPlantNameLocalizedString : plant!.nickname!
+        var name = String.defaultPlantNameLocalizedString
+        if let customPassedInNickname = passedInNickname, !customPassedInNickname.isEmpty {
+            print("customPassedInNickname = \(customPassedInNickname)")
+            name = customPassedInNickname
+        }
+        if let customNickname = plant?.nickname {
+            print("customNickname = \(customNickname)")
+            name = customNickname
+        }
+        
+//        let name = plant == nil ? .defaultPlantNameLocalizedString : plant!.nickname!
+        
+        var message = String.defaultMessageString(name: name, action: action)
+        if let customMessage = notificationView.reminderMessageTextfield.text, notificationView.reminderMessageTextfield.text != "" {
+            print("customMessage = \(customMessage)")
+            message = customMessage
+        }
         
         let notepad = NotePad(notes: notesTextView.text,
-                              mainTitle: notificationView.reminderTitleTextfield.text ?? .defaultTitleString(),
-                              mainMessage: notificationView.reminderMessageTextfield.text ?? .defaultMessageString(name: name, action: action),
+                              mainTitle: title,
+                              mainMessage: message,
                               mainAction: action,
                               location: locationString,
                               scientificName: plantDetailsView.scientificNameTextfield.text ?? "")
@@ -172,6 +169,36 @@ class NotepadViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         notesTextView.becomeFirstResponder()
+    }
+    
+    /// Updates all views when plant is passed in
+    private func updateViews() {
+        
+        guard isViewLoaded else { return }
+        
+        // EDIT/DETAIL Mode
+        if let plant = plant {
+            plantDetailsView.scientificNameTextfield.text = plant.scientificName
+            notificationView.reminderTitleTextfield.text = plant.mainTitle
+            notificationView.reminderMessageTextfield.text = plant.mainMessage
+            plantDetailsView.actionTextfield.text = plant.mainAction
+            plantDetailsView.locationTextfield.text = plant.location
+            lastDateLabel.textColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+            plantDetailsView.actionTextfield.tintColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+            plantDetailsView.actionTextfield.textColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
+            notesTextView.text = plant.notes
+            if let lastDate = plant.lastDateWatered {
+                lastDateLabel.text = NSLocalizedString("Last: ", comment: "last time watered") + "\(DateFormatter.lastWateredDateFormatter.string(from: lastDate))"
+            } else {
+                lastDateLabel.text = NSLocalizedString("Brand New Plant", comment: "plant that hasn't been watered yet")
+            }
+        }
+        
+        // ADD Mode
+        else {
+            plantDetailsView.actionTextfield.text = NSLocalizedString("Water", comment: "water, default main action")
+            // TODO: use passed in notepad here?
+        }
     }
     
     /// Lays out all views needed
