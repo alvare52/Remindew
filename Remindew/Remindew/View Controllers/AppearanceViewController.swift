@@ -160,6 +160,7 @@ class AppearanceViewController: UIViewController {
         setupSubViews()
         updateViews()
         imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -232,7 +233,7 @@ class AppearanceViewController: UIViewController {
         }
                 
         imagePicker.sourceType = .camera
-        imagePicker.delegate = self
+//        imagePicker.delegate = self
         present(imagePicker, animated: true)
     }
     
@@ -247,7 +248,7 @@ class AppearanceViewController: UIViewController {
         }
         
         imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
+//        imagePicker.delegate = self
         present(imagePicker, animated: true)
     }
     
