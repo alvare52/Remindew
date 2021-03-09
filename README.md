@@ -22,3 +22,6 @@ Currently awaiting App Review approval.
 ## Frameworks
 - Core Data
 - UIKit
+
+### Contact Us: Remindew@protonmail.com
+### [Privacy Policy](https://github.com/alvare52/Remindew/blob/master/Privacy-Policy.md)
