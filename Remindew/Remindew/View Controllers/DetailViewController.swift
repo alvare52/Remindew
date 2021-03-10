@@ -126,14 +126,21 @@ class DetailViewController: UIViewController {
                     self.addOrEditPlant()
                 }
             }
-            // if notifications are NOT enabled, let user know and take them to Settings app
+            // Push Notifications need to be optional
             else {
-                // local alert saying it needs permission
-                print("Notification permissions NOT granted")
+                print("Push Notifications disabled")
                 DispatchQueue.main.async {
-                    UIAlertController.makeNotificationsPermissionAlert(vc: self)
+                    self.addOrEditPlant()
                 }
             }
+            // if notifications are NOT enabled, let user know and take them to Settings app
+//            else {
+//                // local alert saying it needs permission
+//                print("Notification permissions NOT granted")
+//                DispatchQueue.main.async {
+//                    UIAlertController.makeNotificationsPermissionAlert(vc: self)
+//                }
+//            }
         }
     }
     

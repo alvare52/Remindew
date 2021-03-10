@@ -63,30 +63,30 @@ extension UIAlertController {
         vc.present(alertController, animated: true, completion: nil)
     }
     
-    /// Presents an alert for when a user did not allow notifications at launch and lets them go to Settings to change before they make/edit a plant
-    static func makeNotificationsPermissionAlert(vc: UIViewController) {
-    
-        // add two options
-        let title = NSLocalizedString("Notifications Disabled",
-                                      comment: "Title for notification permissions not allowed")//"Notifications Disabled"
-        let message = NSLocalizedString("Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges.", comment: "Error message for when notifications are not allowed")//"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-            print("selected OK option")
-        }
-        
-        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
-        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
-            // take user to Settings app
-            print("selected Settings option")
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-        }
-        
-        alertController.addAction(alertAction)
-        alertController.addAction(settingsAction)
-        vc.present(alertController, animated: true, completion: nil)
-    }
+//    /// Presents an alert for when a user did not allow notifications at launch and lets them go to Settings to change before they make/edit a plant
+//    static func makeNotificationsPermissionAlert(vc: UIViewController) {
+//    
+//        // add two options
+//        let title = NSLocalizedString("Notifications Disabled",
+//                                      comment: "Title for notification permissions not allowed")//"Notifications Disabled"
+//        let message = NSLocalizedString("Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges.", comment: "Error message for when notifications are not allowed")//"Please allow notifications by going to Settings and allowing Notifications, Banners, Sounds, and Badges."
+//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        
+//        let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
+//            print("selected OK option")
+//        }
+//        
+//        let settingsString = NSLocalizedString("Settings", comment: "String for Settings option")
+//        let settingsAction = UIAlertAction(title: settingsString, style: .default) { _ in
+//            // take user to Settings app
+//            print("selected Settings option")
+//            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+//        }
+//        
+//        alertController.addAction(alertAction)
+//        alertController.addAction(settingsAction)
+//        vc.present(alertController, animated: true, completion: nil)
+//    }
     
     /// Presents an alert asking user if they're sure if they want to delete the plant they swiped on
     static func makeReminderDeletionWarningAlert(reminder: Reminder, plant: Plant, indexPath: IndexPath, vc: DetailViewController) {
