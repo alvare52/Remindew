@@ -213,16 +213,26 @@ class AppearanceViewController: UIViewController {
         
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         
-        let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        // Very first time app is run, it asks for camera usage access, and this runs regardless
+        if UserDefaults.standard.bool(forKey: .alreadyAskedForCameraUsage) == false {
+            UserDefaults.standard.set(true, forKey: .alreadyAskedForCameraUsage)
+        }
         
-        switch cameraAuthorizationStatus {
-        case .notDetermined, .denied, .restricted:
-            makeCameraUsagePermissionAlert()
-            return
-        case .authorized:
-            print("Authorized camera in takePhoto")
-        default:
-            print("Default in takePhoto")
+        // From then on, it can run this to check if permission is allowed
+        else {
+            
+            let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+
+            switch cameraAuthorizationStatus {
+            case .notDetermined, .denied, .restricted:
+                print("notDetermined, denied, restricted")
+                makeCameraUsagePermissionAlert()
+                return
+            case .authorized:
+                print("Authorized camera in takePhoto")
+            default:
+                print("Default in takePhoto")
+            }
         }
         
         // check if we have access to Camera (if not, present an alert with option to go to Settings). Just in case
@@ -233,7 +243,6 @@ class AppearanceViewController: UIViewController {
         }
                 
         imagePicker.sourceType = .camera
-//        imagePicker.delegate = self
         present(imagePicker, animated: true)
     }
     
@@ -248,7 +257,6 @@ class AppearanceViewController: UIViewController {
         }
         
         imagePicker.sourceType = .photoLibrary
-//        imagePicker.delegate = self
         present(imagePicker, animated: true)
     }
     

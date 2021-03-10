@@ -50,6 +50,7 @@ class PlantsTableViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleToFill
         imageView.isUserInteractionEnabled = false
+        imageView.backgroundColor = .black
         return imageView
     }()
     

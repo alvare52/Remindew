@@ -40,6 +40,9 @@ extension String {
     /// Get/Set value of setting for using bigger images in table view cell
     static let useBiggerImages = "useBiggerImages"
     
+    /// Get/Set value of bool that checks if user has already been asked to allow Camera Usage. Should only be set to true and thats it
+    static let alreadyAskedForCameraUsage = "alreadyAskedForCameraUsage"
+    
     // MARK: - Helpers
     
     static let sunday = NSLocalizedString("Sun", comment: "Sunday abbreviated")
