@@ -1,6 +1,6 @@
 # Remindew
 Remindew is a free app that allows users to create custom plant care reminders.
-[*Available on the App Store*](https://apps.apple.com/us/app/remindew/id1546126954#?platform=iphone)
+[<img src="ScreenShots/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917 copy.svg" height="50" width="100"/>](https://apps.apple.com/us/app/remindew/id1546126954#?platform=iphone)
 
 ![Swift Version](https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat-square&logo=Swift&logoColor=white) ![Platform Type](https://img.shields.io/badge/Platform-iOS-blue.svg?style=flat-square&logo=Apple&logoColor=white) ![Design Pattern](https://img.shields.io/badge/Design%20Pattern-MVC-green)
 
@@ -23,6 +23,7 @@ Remindew is a free app that allows users to create custom plant care reminders.
 - Core Data
 - UIKit
 - UserNotifications
+- URLSession
 
 ### Contact Us
 Remindew@protonmail.com
