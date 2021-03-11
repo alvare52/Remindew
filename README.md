@@ -1,5 +1,4 @@
 # Remindew
-
 Remindew is a free app that allows users to create custom plant care reminders.
 [*Available on the App Store*](https://apps.apple.com/us/app/remindew/id1546126954#?platform=iphone)
 
@@ -28,4 +27,4 @@ Remindew is a free app that allows users to create custom plant care reminders.
 ### Contact Us
 Remindew@protonmail.com
 
-### [Privacy Policy](https://github.com/alvare52/Remindew/blob/master/Privacy-Policy.md)
+[Privacy Policy](https://github.com/alvare52/Remindew/blob/master/Privacy-Policy.md)
