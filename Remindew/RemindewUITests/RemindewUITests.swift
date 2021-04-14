@@ -24,9 +24,17 @@ class RemindewUITests: XCTestCase {
     }
 
     func testExample() throws {
-        // UI tests must launch the application that they test.
+        
         let app = XCUIApplication()
         app.launch()
+        
+        app.navigationBars.buttons["Add Plant"].tap()
+        
+        let typeOfPlantTextField = app.textFields["Type of plant"]
+        typeOfPlantTextField.tap()
+        typeOfPlantTextField.tap()
+        app/*@START_MENU_TOKEN@*/.staticTexts["Wed"]/*[[".buttons[\"Wed\"].staticTexts[\"Wed\"]",".staticTexts[\"Wed\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.buttons["Add Plant"].tap()
     }
 
     func testLaunchPerformance() throws {

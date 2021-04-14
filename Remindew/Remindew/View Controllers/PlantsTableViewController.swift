@@ -115,6 +115,8 @@ class PlantsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addPlantIcon.accessibilityIdentifier = "Add Plant"
+        
         UIColor().updateToDarkOrLightTheme()
         
         // refresh control

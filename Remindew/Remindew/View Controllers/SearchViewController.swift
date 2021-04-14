@@ -268,6 +268,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
         let plantResult = plantSearchResults[indexPath.row]
         resultDelegate?.didSelectResult(searchResult: plantResult, image: plantResultCell?.plantImageView.image)
+        dismiss(animated: true, completion: nil)
     }
 }
 
