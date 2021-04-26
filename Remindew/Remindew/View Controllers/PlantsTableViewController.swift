@@ -100,8 +100,7 @@ class PlantsTableViewController: UITableViewController {
     /// Number of plants that need water only. didSet updates completeAllLabel by toggling its tint color
     var plantsThatCurrentlyNeedWater = 0 {
         didSet {
-            let navBarColor = UIColor.colorsArray[UserDefaults.standard.integer(forKey: .mainNavThemeColor)]
-            completeAllLabel.tintColor = plantsThatCurrentlyNeedWater > 0 ? navBarColor : .clear
+            completeAllLabel.tintColor = plantsThatCurrentlyNeedWater > 0 ? UIColor.mainThemeColor : .clear
         }
     }
     
@@ -300,11 +299,11 @@ class PlantsTableViewController: UITableViewController {
     private func updateNavColors() {
             
         // REMOVE BELOW LATER
-        // Set (will be done in settings page, then )
-//        UserDefaults.standard.set(3, forKey: .mainNavThemeColor)
+        // Set (will be done in settings page)
+        UserDefaults.standard.set(11, forKey: .mainNavThemeColor)
         
         // Get last selected color index (defaults to 0 for .mixedBlueGreen)
-        let navBarColor = UIColor.colorsArray[UserDefaults.standard.integer(forKey: .mainNavThemeColor)]
+        let navBarColor = UIColor.mainThemeColor
         
         // Large Title
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: navBarColor]

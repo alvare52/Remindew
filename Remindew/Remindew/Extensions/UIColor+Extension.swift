@@ -93,6 +93,9 @@ extension UIColor {
         }
     }
     
-    /// Colors used with colorIndex to set custom color
+    /// Selected color for navigation bar and main theme
+    static let mainThemeColor = UIColor.colorsArray[UserDefaults.standard.integer(forKey: .mainNavThemeColor)]
+
+    /// Colors used with colorIndex to set custom color. 18 colors
     static let colorsArray = [.mixedBlueGreen, .waterBlue, UIColor.systemRed, UIColor.systemOrange, UIColor.systemYellow, UIColor.systemGreen, UIColor.systemBlue, UIColor.systemIndigo, UIColor.systemPurple, UIColor.systemPink, UIColor.systemTeal, UIColor.darkGray, UIColor.brown, .creamPink, .butterYellow, .mintGreen, .eggshellWhite, .leafGreen]
 }

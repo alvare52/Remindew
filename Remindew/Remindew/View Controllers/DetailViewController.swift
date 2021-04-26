@@ -249,8 +249,7 @@ class DetailViewController: UIViewController {
         dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
         
         // Lets button be disabled with a custom color
-        let navBarColor = UIColor.colorsArray[UserDefaults.standard.integer(forKey: .mainNavThemeColor)]
-        dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: navBarColor], for: .disabled)
+        dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mainThemeColor], for: .disabled)
         
         // will crash if view isn't loaded yet
         guard isViewLoaded else {return}
