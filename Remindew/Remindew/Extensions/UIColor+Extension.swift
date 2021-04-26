@@ -19,7 +19,7 @@ extension UIColor {
     ///
     static let lightLeafGreen = UIColor(red: 104.0 / 255.0, green: 174.0 / 255.0, blue: 120.0 / 255.0, alpha: 1.0)
     
-    /// Leaf Green. R: 104, G: 154, B: 100
+    /// Leaf Green. R: 104, G: 154, B: 100. Hex 689a64
     static let leafGreen = UIColor(red: 104.0 / 255.0, green: 154.0 / 255.0, blue: 100.0 / 255.0, alpha: 1.0)
     
     ///
@@ -28,7 +28,7 @@ extension UIColor {
     ///
     static let darkWaterBlue = UIColor(red: 101.0 / 255.0, green: 129.0 / 255.0, blue: 144.0 / 255.0, alpha: 1.0)
 
-    /// Water Blue. R: 101, G: 139, B: 154
+    /// Water Blue. R: 101, G: 139, B: 154. Hex 658b9a
     static let waterBlue = UIColor(red: 101.0 / 255.0, green: 139.0 / 255.0, blue: 154.0 / 255.0, alpha: 1.0)
     
     ///
@@ -37,7 +37,7 @@ extension UIColor {
     /// Light Blue Green. R: 39, G: 118, B: 112
     static let lightBlueGreen = UIColor(red: 39.0 / 255.0, green: 118.0 / 255.0, blue: 112.0 / 255.0, alpha: 1.0)
     
-    /// Mixed Blue Green. R: 39, G: 98, B: 92
+    /// Mixed Blue Green. R: 39, G: 98, B: 92. Hex 27625C
     static let mixedBlueGreen = UIColor(red: 39.0 / 255.0, green: 98.0 / 255.0, blue: 92.0 / 255.0, alpha: 1.0)
     
     /// Dark Blue Green. R: 39, G: 78, B: 72

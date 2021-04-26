@@ -175,8 +175,8 @@ class DetailViewController: UIViewController {
         
         super.viewDidLoad()
         
-        view.backgroundColor = .customDetailBackgroundColor//.customCellColor
-        resultsTableView.backgroundColor = .customDetailBackgroundColor//.customCellColor
+        view.backgroundColor = .customDetailBackgroundColor
+        resultsTableView.backgroundColor = .customDetailBackgroundColor
         
         spacerButton.tintColor = .clear
         spacerButton.isEnabled = false
@@ -203,10 +203,6 @@ class DetailViewController: UIViewController {
         imageView.layer.cornerRadius = 15
         imageView.clipsToBounds = true
 //        UIImage.applyLowerPortionGradient(imageView: imageView)
-        
-        dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
-        // Lets button be disabled with a custom color
-        dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
         
         addTouchGestures()
         
@@ -248,8 +244,13 @@ class DetailViewController: UIViewController {
     /// Update all views depending on if in Edit/Add mode
     func updateViews() {
         
+        // Date Label
         // update date label at least once a day so it displays correct date
         dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
+        
+        // Lets button be disabled with a custom color
+        let navBarColor = UIColor.colorsArray[UserDefaults.standard.integer(forKey: .mainNavThemeColor)]
+        dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: navBarColor], for: .disabled)
         
         // will crash if view isn't loaded yet
         guard isViewLoaded else {return}

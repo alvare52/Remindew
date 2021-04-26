@@ -43,6 +43,9 @@ extension String {
     /// Get/Set value of bool that checks if user has already been asked to allow Camera Usage. Should only be set to true and thats it
     static let alreadyAskedForCameraUsage = "alreadyAskedForCameraUsage"
     
+    /// Get/Set value of integer that's used to access color from colorsArray for navigation bar color theme
+    static let mainNavThemeColor = "mainNavThemeColor"
+    
     // MARK: - Helpers
     
     static let sunday = NSLocalizedString("Sun", comment: "Sunday abbreviated")

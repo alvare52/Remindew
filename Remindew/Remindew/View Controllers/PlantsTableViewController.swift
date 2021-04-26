@@ -15,12 +15,16 @@ class PlantsTableViewController: UITableViewController {
     
     // MARK: - Outlets
     
+    /// Button used to go to SettingsPageViewController
     @IBOutlet var settingsBarButtonLabel: UIBarButtonItem!
     
+    /// Button used to go to DetailViewController screen to add a new plant
     @IBOutlet weak var addPlantIcon: UIBarButtonItem!
     
+    /// Label that displays current date
     @IBOutlet var dateLabel: UIBarButtonItem!
     
+    /// Checkmark button used to water plants that need water
     @IBOutlet var completeAllLabel: UIBarButtonItem!
     
     // MARK: - Actions
@@ -96,7 +100,8 @@ class PlantsTableViewController: UITableViewController {
     /// Number of plants that need water only. didSet updates completeAllLabel by toggling its tint color
     var plantsThatCurrentlyNeedWater = 0 {
         didSet {
-            completeAllLabel.tintColor = plantsThatCurrentlyNeedWater > 0 ? .mixedBlueGreen : .clear
+            let navBarColor = UIColor.colorsArray[UserDefaults.standard.integer(forKey: .mainNavThemeColor)]
+            completeAllLabel.tintColor = plantsThatCurrentlyNeedWater > 0 ? navBarColor : .clear
         }
     }
     
@@ -115,13 +120,15 @@ class PlantsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // REMOVE LATER?
+        updateNavColors()
+        
         addPlantIcon.accessibilityIdentifier = "Add Plant"
         
         UIColor().updateToDarkOrLightTheme()
         
         // refresh control
         tableView.refreshControl = refreshWheel
-        refreshWheel.tintColor = .mixedBlueGreen
         refreshWheel.addTarget(self, action: #selector(checkIfPlantsNeedWatering), for: .valueChanged)
         
         // Listen for when to check watering status of plants (posted when notification comes in while app is running)
@@ -139,9 +146,6 @@ class PlantsTableViewController: UITableViewController {
         // give nav bar its date
         dateLabel.title = DateFormatter.navBarDateFormatter.string(from: Date())
         
-        // starts as disabled and this lets it keep its mixedBlueGreen color
-        dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.mixedBlueGreen], for: .disabled)
-                
         // Add observer so we can know when the app comes back in the foreground
         observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
             
@@ -290,6 +294,35 @@ class PlantsTableViewController: UITableViewController {
         
         // stop refresh animation (starts refreshing when its called)
         refreshWheel.endRefreshing()
+    }
+    
+    /// Sets navigation bar title, dateLabel, refreshWheel, and bar button items (settingsBarButtonLabel and addPlantIcon) to prefered color
+    private func updateNavColors() {
+            
+        // REMOVE BELOW LATER
+        // Set (will be done in settings page, then )
+//        UserDefaults.standard.set(3, forKey: .mainNavThemeColor)
+        
+        // Get last selected color index (defaults to 0 for .mixedBlueGreen)
+        let navBarColor = UIColor.colorsArray[UserDefaults.standard.integer(forKey: .mainNavThemeColor)]
+        
+        // Large Title
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: navBarColor]
+        
+        // Title (when scrolling)
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: navBarColor]
+        
+        // Settings button and Add plant button
+        navigationController?.navigationBar.tintColor = navBarColor
+        
+        // Date Label (is always disabled so this is how to give it a color when disabled)
+        dateLabel.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: navBarColor], for: .disabled)
+                
+        // Refresh Wheel
+        refreshWheel.tintColor = navBarColor
+        
+        // Checkmark color is already updates using didSet in plantsThatCurrentlyNeedWater
+        // DetailViewController's dateLabel already updates in its updateViews()
     }
     
     /// Presents an alert to make sure user want's to water all plants that currently need water
