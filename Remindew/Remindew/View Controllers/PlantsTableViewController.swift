@@ -30,6 +30,7 @@ class PlantsTableViewController: UITableViewController {
     // MARK: - Actions
     
     @IBAction func settingsBarButtonTapped(_ sender: UIBarButtonItem) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         performSegue(withIdentifier: "ShowSettingsSegue", sender: self)
     }
     

@@ -26,7 +26,7 @@ class AppearanceViewController: UIViewController {
     let contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .customCellColor
+        contentView.backgroundColor = .systemGroupedBackground
         contentView.layer.cornerRadius = 15
         return contentView
     }()
@@ -54,7 +54,8 @@ class AppearanceViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 15
-        view.backgroundColor = .customCellColor
+        view.backgroundColor = .systemGroupedBackground
+        view.clipsToBounds = true
         return view
     }()
         
@@ -72,8 +73,9 @@ class AppearanceViewController: UIViewController {
     let plantCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .customCellColor
-        view.containerView.backgroundColor = .customAppearanceComponentColor
+        view.backgroundColor = .systemGroupedBackground
+        view.containerView.backgroundColor = .secondarySystemGroupedBackground
+        view.containerView.layer.cornerRadius = 11
         return view
     }()
     
@@ -81,45 +83,10 @@ class AppearanceViewController: UIViewController {
     let actionCustomizationView: CustomizationView = {
         let view = CustomizationView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .customCellColor
-        view.containerView.backgroundColor = .customAppearanceComponentColor
+        view.backgroundColor = .systemGroupedBackground
+        view.containerView.backgroundColor = .secondarySystemGroupedBackground
+        view.containerView.layer.cornerRadius = 11
         return view
-    }()
-    
-    /// Button used to present Camera
-    let takePhotoButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(.takePhotoLocalizedString, for: .normal)
-        button.setImage(UIImage(systemName: "camera"), for: .normal)
-        button.contentHorizontalAlignment = .leading
-        button.tintColor = .lightGray
-        button.setTitleColor(.darkGray, for: .normal)
-        return button
-    }()
-    
-    /// Button used to present Image Picker
-    let choosePhotoButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(.choosePhotoLocalizedString, for: .normal)
-        button.setImage(UIImage(systemName: "photo"), for: .normal)
-        button.contentHorizontalAlignment = .leading
-        button.tintColor = .lightGray
-        button.setTitleColor(.darkGray, for: .normal)
-        return button
-    }()
-    
-    /// Button used to save current photo to library
-    let savePhotoButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(.savePhotoLocalizedString, for: .normal)
-        button.setImage(UIImage(systemName: "photo.on.rectangle"), for: .normal)
-        button.contentHorizontalAlignment = .leading
-        button.tintColor = .lightGray
-        button.setTitleColor(.darkGray, for: .normal)
-        return button
     }()
     
     var plantController: PlantController?
@@ -152,6 +119,14 @@ class AppearanceViewController: UIViewController {
     
     /// Height for photo buttons
     let buttonHeight: CGFloat = 36.0
+    
+    /// TableView that holds image options
+    var tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .insetGrouped)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.isScrollEnabled = false
+        return table
+    }()
     
     // MARK: - View Life Cycle
 
@@ -332,7 +307,7 @@ class AppearanceViewController: UIViewController {
     /// Lays out all views needed
     private func setupSubViews() {
                 
-        view.backgroundColor = .customCellColor
+        view.backgroundColor = .systemGroupedBackground
         view.layer.cornerRadius = 15
         
         // Content View
@@ -376,44 +351,30 @@ class AppearanceViewController: UIViewController {
         optionsBackgroundView.heightAnchor.constraint(equalToConstant: optionsViewHeight).isActive = true
         optionsBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 
-        // Take Photo Button
-        contentView.addSubview(takePhotoButton)
-        takePhotoButton.topAnchor.constraint(equalTo: optionsBackgroundView.topAnchor, constant: 8).isActive = true
-        takePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        takePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        takePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        takePhotoButton.addTarget(self, action: #selector(takePhotoTapped), for: .touchUpInside)
-        
-        // Choose Photo Button
-        contentView.addSubview(choosePhotoButton)
-        choosePhotoButton.topAnchor.constraint(equalTo: takePhotoButton.bottomAnchor, constant: 8).isActive = true
-        choosePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        choosePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        choosePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        choosePhotoButton.addTarget(self, action: #selector(choosePhotoTapped), for: .touchUpInside)
-
-        // Save Photo Button
-        contentView.addSubview(savePhotoButton)
-        savePhotoButton.topAnchor.constraint(equalTo: choosePhotoButton.bottomAnchor, constant: 8).isActive = true
-        savePhotoButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        savePhotoButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
-        savePhotoButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        savePhotoButton.addTarget(self, action: #selector(savePhotoTapped), for: .touchUpInside)
+        // Table View
+        optionsBackgroundView.addSubview(tableView)
+        tableView.topAnchor.constraint(equalTo: optionsBackgroundView.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalToConstant: 148).isActive = true
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "OptionCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.contentInset = UIEdgeInsets(top: -22, left: 0 , bottom: 8, right: 0)
         
         // Plant Customization View
         contentView.addSubview(plantCustomizationView)
-        plantCustomizationView.topAnchor.constraint(equalTo: savePhotoButton.bottomAnchor, constant: 8).isActive = true
+        plantCustomizationView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
         plantCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         plantCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         plantCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
+
         // Main Action Customization View
         contentView.addSubview(actionCustomizationView)
         actionCustomizationView.topAnchor.constraint(equalTo: plantCustomizationView.bottomAnchor).isActive = true
         actionCustomizationView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         actionCustomizationView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         actionCustomizationView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
     }
 }
 
@@ -437,6 +398,52 @@ extension AppearanceViewController: UIImagePickerControllerDelegate, UINavigatio
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         imagePicker.dismiss(animated: true, completion: nil)
     }
+}
+
+extension AppearanceViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell", for: indexPath)
+        
+        cell.tintColor = .label
+        cell.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        
+        switch indexPath.row {
+        case 0:
+            cell.textLabel?.text = .takePhotoLocalizedString
+            cell.accessoryView = UIImageView(image: UIImage(systemName: "camera"))
+        case 1:
+            cell.textLabel?.text = .choosePhotoLocalizedString
+            cell.accessoryView = UIImageView(image: UIImage(systemName: "photo"))
+        default:
+            cell.textLabel?.text = .savePhotoLocalizedString
+            cell.accessoryView = UIImageView(image: UIImage(systemName: "photo.on.rectangle"))
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.row {
+        case 0:
+            takePhotoTapped()
+        case 1:
+            choosePhotoTapped()
+        case 2:
+            savePhotoTapped()
+        default:
+            return
+        }
+    }
+    
 }
 
 /// Holds 4 options for plant appearance (plantIconIndex, plantColorIndex, actionIconIndex, actionColorIndex)
