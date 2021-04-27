@@ -154,7 +154,7 @@ class ReminderViewController: UIViewController {
         if let plant = plant {
             
             // make sure reminder has an actionName
-            guard let actionName = actionCustomizationView.plantNameLabel.text else {
+            guard let actionName = actionCustomizationView.plantNameLabel.text, !actionName.isEmpty else {
                 return
             }
             
