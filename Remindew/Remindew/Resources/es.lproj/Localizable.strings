@@ -23,6 +23,7 @@
 "Choose from Library" = "Escoje de Fotos";
 "  Choose Photo" = "  Escoje Foto";
 "Clicking on a search result will replace plant type name with common name of selected result. Search by tapping \"search\" on keyboard when entering plant's type" = "";
+"Color for navigation bar and main screen title" = "Color de la barra de navegación y título de pantalla principal";
 "Custom" = "Personal";
 "Cancel" = "Cancelar";
 // MARK: - D
@@ -61,12 +62,14 @@
 "Locations" = "Ubicaciónes";
 // MARK: - M
 "Made: " = "Hecho: ";
+"Main Color" = "Color Principal";
 "MAIN LABEL" = "ETIQUETA PRINCIPAL";
 "Missing Nickname" = "No Sobrenombre";
 "Missing Plant Type" = "No Tipo de Planta";
 "Missing Watering Days" = "No Días de Riego";
 "Mon" = "Lun";
 // MARK: - N
+"NAVIGATION BAR" = "BARRA DE NAVEGACIÓN";
 " needs " = " necesita ";
 "needs water." = "necesita aqua.";
 "Network Error" = "Error de Red";

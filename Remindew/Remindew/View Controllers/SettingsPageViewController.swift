@@ -81,6 +81,8 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             return NSLocalizedString("SEARCHES POWERED BY TREFLE", comment: "trefle section title")
         case 4:
             return NSLocalizedString("DEFAULT PLANT IMAGE", comment: "default plant image section title")
+        case 5:
+            return NSLocalizedString("NAVIGATION BAR", comment: "main nav theme section title")
         default:
             return ""
         }
@@ -97,14 +99,16 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 3:
             return .trefleSectionLocalizedDescription
         case 4:
-            return .defaultImageSectionLocalizedDescription + stats
+            return .defaultImageSectionLocalizedDescription
+        case 5:
+            return .navigationBarSettingLocalizedString + stats
         default:
             return ""
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -128,7 +132,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // Cast as a custom tableview cell (after I make one)
+        // Cast as a custom tableview cell
         guard let settingCell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as? SettingsTableViewCell else { return UITableViewCell() }
         
         // APPEARANCE
@@ -138,6 +142,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             if indexPath.row == 0 {
                 settingCell.settingLabel.text = NSLocalizedString("Dark Theme", comment: "dark mode setting")
                 settingCell.optionSwitch.isHidden = false
+                settingCell.colorChangeButton.isHidden = true
                 settingCell.customSetting = .darkThemeOn
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .darkThemeOn)
                 settingCell.settingLabel.textColor = .label
@@ -147,6 +152,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             if indexPath.row == 1 {
                 settingCell.settingLabel.text = NSLocalizedString("Images Instead of Icons", comment: "images instead of icons setting")
                 settingCell.optionSwitch.isHidden = false
+                settingCell.colorChangeButton.isHidden = true
                 settingCell.customSetting = .usePlantImages
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantImages)
                 settingCell.settingLabel.textColor = .label
@@ -156,6 +162,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             if indexPath.row == 2 {
                 settingCell.settingLabel.text = NSLocalizedString("Hide Silenced Icon", comment: "hide silenced icon")
                 settingCell.optionSwitch.isHidden = false
+                settingCell.colorChangeButton.isHidden = true
                 settingCell.customSetting = .hideSilencedIcon
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .hideSilencedIcon)
                 settingCell.settingLabel.textColor = .label
@@ -165,6 +172,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             if indexPath.row == 3 {
                 settingCell.settingLabel.text = NSLocalizedString("Larger Images", comment: "bigger images setting")
                 settingCell.optionSwitch.isHidden = false
+                settingCell.colorChangeButton.isHidden = true
                 settingCell.customSetting = .useBiggerImages
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .useBiggerImages)
                 settingCell.settingLabel.textColor = .label
@@ -178,6 +186,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             if indexPath.row == 0 {
                 settingCell.settingLabel.text = NSLocalizedString("Use Plant Type Instead", comment: "use plant type instead")
                 settingCell.optionSwitch.isHidden = false
+                settingCell.colorChangeButton.isHidden = true
                 settingCell.customSetting = .sortPlantsBySpecies
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .sortPlantsBySpecies)
                 settingCell.settingLabel.textColor = .label
@@ -187,6 +196,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             if indexPath.row == 1 {
                 settingCell.settingLabel.text = NSLocalizedString("Label Uses Plant Color", comment: "label uses plant color")
                 settingCell.optionSwitch.isHidden = false
+                settingCell.colorChangeButton.isHidden = true
                 settingCell.customSetting = .usePlantColorOnLabel
                 settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .usePlantColorOnLabel)
                 settingCell.settingLabel.textColor = .label
@@ -197,6 +207,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         if indexPath.section == 2 {
             settingCell.settingLabel.text = NSLocalizedString("Replace Type with Search Result", comment: "replace type with search")
             settingCell.optionSwitch.isHidden = false
+            settingCell.colorChangeButton.isHidden = true
             settingCell.customSetting = .resultFillsSpeciesTextfield
             settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield)
             settingCell.settingLabel.textColor = .label
@@ -207,6 +218,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             settingCell.settingLabel.text = NSLocalizedString("Trefle API Home Page", comment: "Trefle API home page")
             settingCell.settingLabel.textColor = .link
             settingCell.optionSwitch.isHidden = true
+            settingCell.colorChangeButton.isHidden = true
         }
         
         // IMAGES PROVIDED BY RICHARD ALFONZO
@@ -214,6 +226,15 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             settingCell.settingLabel.text = NSLocalizedString("Richard Alfonzo Photography", comment: "default image source link")
             settingCell.settingLabel.textColor = .link
             settingCell.optionSwitch.isHidden = true
+            settingCell.colorChangeButton.isHidden = true
+        }
+        
+        // MAIN THEME
+        if indexPath.section == 5 {
+            settingCell.settingLabel.text = NSLocalizedString("Main Color", comment: "main color setting label")
+            settingCell.colorIndex = UserDefaults.standard.integer(forKey: .mainNavThemeColor)
+            settingCell.optionSwitch.isHidden = true
+            settingCell.colorChangeButton.isHidden = false
         }
         
         return settingCell

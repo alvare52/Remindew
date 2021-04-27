@@ -106,6 +106,10 @@ extension String {
     /// Localized String for Choose Photo
     static let choosePhotoLocalizedString = NSLocalizedString("  Choose Photo", comment: "choose photo button title")
     
+    /// Localized String for Navigation Bar setting section description
+    static let navigationBarSettingLocalizedString = NSLocalizedString("Color for navigation bar and main screen title",
+                                                                        comment: "section description for nav bar color")
+    
     /// Localized String for Save Photo
     static let savePhotoLocalizedString = NSLocalizedString("  Save Photo", comment: "save photo button title")
     

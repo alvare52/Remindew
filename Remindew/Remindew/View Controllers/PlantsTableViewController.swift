@@ -119,7 +119,6 @@ class PlantsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // REMOVE LATER?
         updateNavColors()
         
         addPlantIcon.accessibilityIdentifier = "Add Plant"
@@ -140,6 +139,12 @@ class PlantsTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSorting),
                                                name: .updateSortDescriptors,
+                                               object: nil)
+        
+        // Listen to see if we need to update the colors of the nav bar and title
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateNavColors),
+                                               name: .updateMainColor,
                                                object: nil)
         
         // give nav bar its date
@@ -296,12 +301,8 @@ class PlantsTableViewController: UITableViewController {
     }
     
     /// Sets navigation bar title, dateLabel, refreshWheel, and bar button items (settingsBarButtonLabel and addPlantIcon) to prefered color
-    private func updateNavColors() {
-            
-        // REMOVE BELOW LATER
-        // Set (will be done in settings page)
-        UserDefaults.standard.set(11, forKey: .mainNavThemeColor)
-        
+    @objc private func updateNavColors() {
+                    
         // Get last selected color index (defaults to 0 for .mixedBlueGreen)
         let navBarColor = UIColor.mainThemeColor
         
@@ -320,7 +321,9 @@ class PlantsTableViewController: UITableViewController {
         // Refresh Wheel
         refreshWheel.tintColor = navBarColor
         
-        // Checkmark color is already updates using didSet in plantsThatCurrentlyNeedWater
+        // Checkmark
+        completeAllLabel.tintColor = plantsThatCurrentlyNeedWater > 0 ? navBarColor : .clear
+
         // DetailViewController's dateLabel already updates in its updateViews()
     }
     

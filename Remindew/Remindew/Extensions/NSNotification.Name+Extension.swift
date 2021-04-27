@@ -13,6 +13,9 @@ extension NSNotification.Name {
     /// Posts a notification that tells the main table view to check the watering status and update the table
     static let checkWateringStatus = NSNotification.Name("checkWateringStatus")
     
+    /// Posts a notification that tells the main table view to update its nav bar and title colors
+    static let updateMainColor = NSNotification.Name("updateMainColor")
+    
     /// Posts a notification that tells main table view to update its sort descriptors
     static let updateSortDescriptors = NSNotification.Name("updateSortDescriptors")
     

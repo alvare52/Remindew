@@ -14,6 +14,32 @@ struct CustomSetting {
 
 class SettingsTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+    
+    /// Button used to cycle between color
+    let colorChangeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+        button.tintColor = UIColor.colorsArray[0]
+        button.setImage(UIImage(systemName: "paintbrush.fill"), for: .normal)
+        return button
+    }()
+    
+    /// Integer that represents index value of last selected theme color
+    var colorIndex: Int = 0 {
+        
+        didSet {
+            if colorIndex >= UIColor.colorsArray.count {
+                colorIndex = 0
+            }
+            updateColors()
+        }
+    }
+    
+    /// Holds the key for this cell's setting
+    var customSetting: String?
+    
     /// Switch used to toggle setting on/off
     var optionSwitch: UISwitch!
     
@@ -22,9 +48,6 @@ class SettingsTableViewCell: UITableViewCell {
     
     /// 20 pt padding
     var standardMargin: CGFloat = CGFloat(20.0)
-    
-    /// Holds the key for this cell's setting
-    var customSetting: String?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -101,6 +124,34 @@ class SettingsTableViewCell: UITableViewCell {
         optionSwitch.addTarget(self, action: #selector(optionChanged), for: .valueChanged)
         // hide here because hiding in cellForRow doesn't work right
         optionSwitch.isHidden = true
+        
+        // Color Change Button
+        contentView.addSubview(colorChangeButton)
+        colorChangeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -standardMargin).isActive = true
+        colorChangeButton.centerYAnchor.constraint(equalTo: settingLabel.centerYAnchor).isActive = true
+        colorChangeButton.addTarget(self, action: #selector(changeColor), for: .touchUpInside)
+        colorChangeButton.isHidden = true
+    }
+    
+    /// Sets new color for main theme
+    @objc private func changeColor() {
+
+        colorIndex += 1
+        // Tell main screen to update its colors
+        NotificationCenter.default.post(name: .updateMainColor, object: self)
+    }
+    
+    /// Updates UI when colorChangeButton is tapped
+    private func updateColors() {
+        
+        // Color Change Button
+        colorChangeButton.tintColor = UIColor.colorsArray[colorIndex]
+        
+        // Setting Label
+        settingLabel.textColor = UIColor.colorsArray[colorIndex]
+        
+        // Change value for mainNavThemeColor
+        UserDefaults.standard.set(colorIndex, forKey: .mainNavThemeColor)
     }
     
     override func awakeFromNib() {
