@@ -7,7 +7,7 @@ Remindew is a free iOS app that allows users to create custom plant care reminde
 
 ---
 
-<img src="ScreenShots/6.5inch-MainScreenshot-iPhone11ProMax- copy.png" height="500" width="230"/> <img src="ScreenShots/6.5inch-DetailScreenShot-iPhone11ProMax copy.png" height="500" width="230"/> <img src="ScreenShots/6.5inch-SearchScreenShot-iPhone11ProMax copy.png" height="500" width="230"/>
+<img src="ScreenShots/6.5RemindewMainScreenPreview copy.png" height="413" width="190"/> <img src="ScreenShots/6.5RemindewDetailScreenPreview copy.png" height="413" width="190"/> <img src="ScreenShots/6.5RemindewSearchScreenPreview copy.png" height="413" width="190"/> <img src="ScreenShots/6.5RemindewDarkScreenPreview copy.png" height="413" width="190"/>
 
 ## Features
 - Create custom reminders with their own color, icon, and notification message
