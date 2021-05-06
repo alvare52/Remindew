@@ -76,12 +76,8 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 1:
             return NSLocalizedString("MAIN LABEL", comment: "main label section title")
         case 2:
-            return NSLocalizedString("SEARCHING", comment: "searching section title")
-        case 3:
-            return NSLocalizedString("SEARCHES POWERED BY TREFLE", comment: "trefle section title")
-        case 4:
             return NSLocalizedString("DEFAULT PLANT IMAGE", comment: "default plant image section title")
-        case 5:
+        case 3:
             return NSLocalizedString("NAVIGATION BAR", comment: "main nav theme section title")
         default:
             return ""
@@ -95,12 +91,8 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         case 1:
             return .mainLabelSectionLocalizedDescription
         case 2:
-            return .searchesSectionLocalizedDescription
-        case 3:
-            return .trefleSectionLocalizedDescription
-        case 4:
             return .defaultImageSectionLocalizedDescription
-        case 5:
+        case 3:
             return .navigationBarSettingLocalizedString + stats
         default:
             return ""
@@ -108,7 +100,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -203,26 +195,8 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        // SEARCHING
-        if indexPath.section == 2 {
-            settingCell.settingLabel.text = NSLocalizedString("Replace Type with Search Result", comment: "replace type with search")
-            settingCell.optionSwitch.isHidden = false
-            settingCell.colorChangeButton.isHidden = true
-            settingCell.customSetting = .resultFillsSpeciesTextfield
-            settingCell.optionSwitch.isOn = UserDefaults.standard.bool(forKey: .resultFillsSpeciesTextfield)
-            settingCell.settingLabel.textColor = .label
-        }
-
-        // SEARCHES POWERED BY TREFLE
-        if indexPath.section == 3 {
-            settingCell.settingLabel.text = NSLocalizedString("Trefle API Home Page", comment: "Trefle API home page")
-            settingCell.settingLabel.textColor = .link
-            settingCell.optionSwitch.isHidden = true
-            settingCell.colorChangeButton.isHidden = true
-        }
-        
         // IMAGES PROVIDED BY RICHARD ALFONZO
-        if indexPath.section == 4 {
+        if indexPath.section == 2 {
             settingCell.settingLabel.text = NSLocalizedString("Richard Alfonzo Photography", comment: "default image source link")
             settingCell.settingLabel.textColor = .link
             settingCell.optionSwitch.isHidden = true
@@ -230,7 +204,7 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         // MAIN THEME
-        if indexPath.section == 5 {
+        if indexPath.section == 3 {
             settingCell.settingLabel.text = NSLocalizedString("Main Color", comment: "main color setting label")
             settingCell.colorIndex = UserDefaults.standard.integer(forKey: .mainNavThemeColor)
             settingCell.optionSwitch.isHidden = true
@@ -244,15 +218,9 @@ class SettingsPageViewController: UIViewController, UITableViewDelegate, UITable
                         
         // Prevents visual bug when selecting setting body instead of switch button
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        // if Trefle API cell is selected, go to Trefle API home page
-        if indexPath.section == 3 {
-            guard let url = URL(string: "https://trefle.io/") else { return }
-            UIApplication.shared.open(url)
-        }
-                
+                        
         // if Richard Alfonzo Photography cell is selected, go to Richard Alfonzo Photography home page
-        if indexPath.section == 4 {
+        if indexPath.section == 2 {
             guard let url = URL(string: "https://rnalfonzo.smugmug.com") else { return }
             UIApplication.shared.open(url)
         }
