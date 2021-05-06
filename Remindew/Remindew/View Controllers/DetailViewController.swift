@@ -288,7 +288,9 @@ class DetailViewController: UIViewController {
             waterPlantButton.isHidden = false
             
             // unhide reminder button
-            reminderButtonLabel.image = UIImage(systemName: "bell.circle")
+//            reminderButtonLabel.image = UIImage(systemName: "bell.circle")
+            // enable reminderButton
+            reminderButtonLabel.isEnabled = true
 
             plantButton.backgroundColor = UIColor.colorsArray[Int(plant.plantColorIndex)]
             waterPlantButton.backgroundColor = UIColor.colorsArray[Int(plant.actionColorIndex)]
@@ -316,7 +318,9 @@ class DetailViewController: UIViewController {
             waterPlantButton.isHidden = true
             
             // change reminderButton to search button
-            reminderButtonLabel.image = UIImage(systemName: "magnifyingglass")
+//            reminderButtonLabel.image = UIImage(systemName: "magnifyingglass")
+            // disable reminderButton
+            reminderButtonLabel.isEnabled = false
             
             plantButton.performFlare()
         }

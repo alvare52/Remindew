@@ -28,16 +28,6 @@ extension DetailViewController: UITextFieldDelegate {
     /// Go to SearchViewController if tapping Search or select speciesTextfield if tapping return in nicknameTextfield
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        // Clicked "Search" in species textfield
-        if textField == speciesTextField {
-            
-            textField.resignFirstResponder()
-            
-            // Go to SearchViewController
-            presentSearchViewController()
-            return true
-        }
-
         // Clicked "Return" in nickname textfield
         if textField == nicknameTextField {
             
